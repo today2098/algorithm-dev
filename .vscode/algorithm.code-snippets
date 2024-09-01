@@ -256,6 +256,26 @@
 		],
 		"description": "Union-Find（素集合データ構造）"
 	},
+	"mod_pow": {
+		"scope": "cpp",
+		"prefix": "mod_pow",
+		"body": [
+			"// 繰り返し二乗法（mod付き）．n^k mod m を求める．O(logK).",
+			"constexpr int mod_pow(long long n, long long k, int m) {",
+			"    assert(k >= 0);",
+			"    assert(m >= 1);",
+			"    long long res = 1;",
+			"    n %= m;",
+			"    while(k > 0) {",
+			"        if(k & 1LL) res = res * n % m;",
+			"        n = n * n % m;",
+			"        k >>= 1;",
+			"    }",
+			"    return res;",
+			"}"
+		],
+		"description": "繰り返し二乗法（mod付き）"
+	},
 	"Declaration of SegmentTree": {
 		"scope": "cpp",
 		"prefix": "segtree",
