@@ -255,5 +255,16 @@
 			"};"
 		],
 		"description": "Union-Find（素集合データ構造）"
+	},
+	"Declaration of SegmentTree": {
+		"scope": "cpp",
+		"prefix": "segtree",
+		"body": [
+			"using S=${1:int};",
+			"const S e=${2:2*INF};",
+			"auto op=[](const S &lhs,const S &rhs)->S{return ${3:min(lhs,rhs)};};",
+			"SegmentTree<S> segtree(op,e,${4:0});"
+		],
+		"description": ""
 	}
 }
