@@ -1,14 +1,16 @@
 ## 概要
 
-要素のグループ分けを効率的に管理するデータ構造．
-1964年，Bernard A. Galler と Michael J. Fischer が考案した．
+「素集合データ構造 (disjoint-set data structure)」とは，要素の集合を素集合に分割して保持するデータ構造．
+言い換えると，要素のグループ分けを管理するデータ構造である．
 
-次のクエリ処理を高速に行う．
+そして，素集合データ構造に対する次の操作のアルゴリズムを「Union-Find」という．
 
-- $\operatorname{unite}(x, y)$ : 要素 $x$ が属するグループと要素 $y$ が属するグループとを併合する．
-- $\operatorname{is\_same}(x, y)$ : 要素 $x, y$ が同じグループに属するか判定する．
+- **Union**：2つの集合を1つに統合する
+- **Find**：特定の要素がどの集合に属しているか求める
 
-実装では「union by size」と「経路圧縮」の工夫を行っている．
+1964年，Bernard A. Galler と Michael J. Fischer が効率的な手法を考案した．
+
+本実装では「素集合森 (disjoint-set forest)」を作成しており，「union by size」と「経路圧縮」の工夫を行っている．
 
 各クエリ処理に要する計算量は，アッカーマン関数の逆関数を $\operatorname{\alpha}(x)$ とすると，$\mathcal{O}(\operatorname{\alpha}(N))$ となる．
 アッカーマン関数の逆関数は $x \leq 10^{80}$ に対し $\operatorname{\alpha}(x) \leq 4$ が成り立つため，実用上 $\mathcal{O}(1)$ とみなすことができる．
