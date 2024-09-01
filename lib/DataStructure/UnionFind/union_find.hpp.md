@@ -39,7 +39,7 @@ data:
     \uFF0E\n    bool is_same(int x, int y) {\n        assert(0 <= x and x < vn());\n\
     \        assert(0 <= y and y < vn());\n        return root(x) == root(y);\n  \
     \  }\n    // \u8981\u7D20x\u304C\u5C5E\u3059\u308B\u30B0\u30EB\u30FC\u30D7\u3068\
-    \u8981\u7D20y\u304C\u5C5E\u3059\u308B\u30B0\u30EB\u30FC\u30D7\u3068\u3092\u4F75\
+    \u8981\u7D20y\u304C\u5C5E\u3059\u308B\u30B0\u30EB\u30FC\u30D7\u3068\u3092\u7D71\
     \u5408\u3059\u308B\uFF0E\n    bool unite(int x, int y) {\n        assert(0 <=\
     \ x and x < vn());\n        assert(0 <= y and y < vn());\n        x = root(x),\
     \ y = root(y);\n        if(x == y) return false;                // Do nothing.\n\
@@ -73,7 +73,7 @@ data:
     \uFF0E\n    bool is_same(int x, int y) {\n        assert(0 <= x and x < vn());\n\
     \        assert(0 <= y and y < vn());\n        return root(x) == root(y);\n  \
     \  }\n    // \u8981\u7D20x\u304C\u5C5E\u3059\u308B\u30B0\u30EB\u30FC\u30D7\u3068\
-    \u8981\u7D20y\u304C\u5C5E\u3059\u308B\u30B0\u30EB\u30FC\u30D7\u3068\u3092\u4F75\
+    \u8981\u7D20y\u304C\u5C5E\u3059\u308B\u30B0\u30EB\u30FC\u30D7\u3068\u3092\u7D71\
     \u5408\u3059\u308B\uFF0E\n    bool unite(int x, int y) {\n        assert(0 <=\
     \ x and x < vn());\n        assert(0 <= y and y < vn());\n        x = root(x),\
     \ y = root(y);\n        if(x == y) return false;                // Do nothing.\n\
@@ -86,7 +86,7 @@ data:
   isVerificationFile: false
   path: lib/DataStructure/UnionFind/union_find.hpp
   requiredBy: []
-  timestamp: '2024-09-01 13:31:31+09:00'
+  timestamp: '2024-09-01 13:44:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj-DSL_1_A-union_find.test.cpp
