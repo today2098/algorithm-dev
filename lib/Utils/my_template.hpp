@@ -1,5 +1,5 @@
-#ifndef ALGORITHM_TEMPLATE_HPP
-#define ALGORITHM_TEMPLATE_HPP 1
+#ifndef ALGORITHM_MY_TEMPLATE_HPP
+#define ALGORITHM_MY_TEMPLATE_HPP 1
 
 /**
  * @brief My Template
