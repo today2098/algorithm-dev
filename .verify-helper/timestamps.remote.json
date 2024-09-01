@@ -1,6 +1,10 @@
 {
+"test/aoj-ALDS1_1_C-is_prime.test.cpp": "2024-09-02 01:55:05 +0900",
 "test/aoj-DSL_1_A-union_find.test.cpp": "2024-09-01 13:44:38 +0900",
 "test/aoj-DSL_2_A-segment_tree.test.cpp": "2024-09-01 16:38:09 +0900",
 "test/aoj-DSL_2_B-segment_tree.test.cpp": "2024-09-01 17:20:51 +0900",
-"test/aoj-GRL_1_A-dijkstra.test.cpp": "2024-09-01 14:33:19 +0900"
+"test/aoj-GRL_1_A-dijkstra.test.cpp": "2024-09-01 14:33:19 +0900",
+"test/aoj-GRL_1_B-bellman_ford.test.cpp": "2024-09-01 20:15:12 +0900",
+"test/aoj-NTL_1_B-mod_pow.test.cpp": "2024-09-01 18:11:36 +0900",
+"test/aoj-NTL_1_C-least_common_multiple.test.cpp": "2024-09-01 22:54:19 +0900"
 }
