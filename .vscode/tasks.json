@@ -28,24 +28,24 @@
             }
         },
         {
+            "label": "C/C++: g++ build active file for debugger",
             "type": "cppbuild",
-            "label": "C/C++: g++ アクティブなファイルのビルド",
             "command": "/usr/bin/g++",
             "args": [
-                "-fdiagnostics-color=always",
+                "-std=gnu++20",
                 "-g",
-                "${file}",
+                "-fdiagnostics-color=always",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${workspaceFolder}/debug.out",
+                "${file}"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": "build",
-            "detail": "デバッガーによって生成されたタスク。"
+            "group": "build"
         }
     ]
 }
