@@ -44,7 +44,7 @@ public:
         assert(0 <= y and y < vn());
         return root(x) == root(y);
     }
-    // 要素xが属するグループと要素yが属するグループとを併合する．
+    // 要素xが属するグループと要素yが属するグループとを統合する．
     bool unite(int x, int y) {
         assert(0 <= x and x < vn());
         assert(0 <= y and y < vn());
