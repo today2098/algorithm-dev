@@ -2,24 +2,30 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "C/C++: g++ build active file",
 			"type": "cppbuild",
-			"label": "C/C++: g++ アクティブなファイルのビルド",
 			"command": "/usr/bin/g++",
 			"args": [
+				"-std=gnu++20",
+				"-D=DEBUG",
+				"-O2",
+				"-Wall",
+				"-Wextra",
 				"-fdiagnostics-color=always",
-				"-g",
-				"${file}",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}"
+				"${workspaceFolder}/debug.out",
+				"${file}"
 			],
 			"options": {
-				"cwd": "${fileDirname}"
+				"cwd": "${workspaceFolder}"
 			},
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": "build",
-			"detail": "コンパイラ: /usr/bin/g++"
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }
