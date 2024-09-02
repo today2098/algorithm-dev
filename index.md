@@ -29,6 +29,9 @@ data:
   - name: lib/Math/NumberTheory
     pages:
     - icon: ':heavy_check_mark:'
+      path: lib/Math/NumberTheory/extgcd.hpp
+      title: "\u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5"
+    - icon: ':heavy_check_mark:'
       path: lib/Math/NumberTheory/greatest_common_divisor.hpp
       title: "Greatest Common Divisor\uFF08\u6700\u5927\u516C\u7D04\u6570\uFF09"
     - icon: ':heavy_check_mark:'
@@ -37,6 +40,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/Math/NumberTheory/least_common_multiple.hpp
       title: "Least Common Multiple\uFF08\u6700\u5C0F\u516C\u500D\u6570\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/Math/NumberTheory/prime_factorize.hpp
+      title: "\u7D20\u56E0\u6570\u5206\u89E3"
   - name: lib/Utils
     pages:
     - icon: ':warning:'
@@ -67,10 +73,16 @@ data:
       path: test/aoj-GRL_1_B-bellman_ford.test.cpp
       title: test/aoj-GRL_1_B-bellman_ford.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj-NTL_1_A-prime_factorize.test.cpp
+      title: test/aoj-NTL_1_A-prime_factorize.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj-NTL_1_B-mod_pow.test.cpp
       title: test/aoj-NTL_1_B-mod_pow.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-NTL_1_C-least_common_multiple.test.cpp
       title: test/aoj-NTL_1_C-least_common_multiple.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-NTL_1_E-extgcd.test.cpp
+      title: test/aoj-NTL_1_E-extgcd.test.cpp
 layout: toppage
 ---
