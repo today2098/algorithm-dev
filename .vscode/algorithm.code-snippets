@@ -355,6 +355,25 @@
 		],
 		"description": "Union-Find（素集合データ構造）"
 	},
+	"extgcd": {
+		"scope": "cpp",
+		"prefix": "extgcd",
+		"body": [
+			"// 拡張ユークリッドの互除法．",
+			"// ax+by=gcd(a,b) を満たす整数の組(x,y)を求め，gcd(a,b)を返す．O(log(min(a,b))).",
+			"template <typename Type>",
+			"Type extgcd(Type a, Type b, Type &x, Type &y) {",
+			"    if(b == 0) {",
+			"        x = 1, y = 0;",
+			"        return a;",
+			"    }",
+			"    Type &&d = extgcd(b, a % b, y, x);",
+			"    y -= a / b * x;",
+			"    return d;",
+			"}"
+		],
+		"description": "拡張ユークリッドの互除法"
+	},
 	"is_prime": {
 		"scope": "cpp",
 		"prefix": "is_prime",
@@ -393,6 +412,25 @@
 			"}"
 		],
 		"description": "繰り返し二乗法（mod付き）"
+	},
+	"prime_factorize": {
+		"scope": "cpp",
+		"prefix": "prime_factorize",
+		"body": [
+			"// 素因数分解．O(√N).",
+			"template <typename Type>",
+			"std::map<Type, int> prime_factorize(Type n) {",
+			"    assert(n >= 0);",
+			"    std::map<Type, int> res;  // res[p]:=(自然数nに含まれる素因数pの個数).",
+			"    while(n % 2 == 0) res[2]++, n /= 2;",
+			"    for(Type p = 3; p * p <= n; p += 2) {",
+			"        while(n % p == 0) res[p]++, n /= p;",
+			"    }",
+			"    if(n > 1) res[n] = 1;",
+			"    return res;",
+			"}"
+		],
+		"description": "素因数分解"
 	},
 	"Declaration of SegmentTree": {
 		"scope": "cpp",
