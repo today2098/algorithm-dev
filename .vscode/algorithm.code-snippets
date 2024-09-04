@@ -355,6 +355,28 @@
 		],
 		"description": "Union-Find（素集合データ構造）"
 	},
+	"divisors": {
+		"scope": "cpp",
+		"prefix": "divisors",
+		"body": [
+			"// 約数列挙．O(√N).",
+			"template <typename Type>",
+			"std::vector<Type> divisors(Type n) {",
+			"    assert(n >= 1);",
+			"    std::vector<Type> res;  // res[]:=(自然数nの約数の集合).",
+			"    for(Type p = 1; p * p <= n; ++p) {",
+			"        if(n % p == 0) {",
+			"            res.push_back(p);",
+			"            Type q = n / p;",
+			"            if(q != p) res.push_back(q);",
+			"        }",
+			"    }",
+			"    std::sort(res.begin(), res.end());",
+			"    return res;",
+			"}"
+		],
+		"description": "約数列挙"
+	},
 	"extgcd": {
 		"scope": "cpp",
 		"prefix": "extgcd",
