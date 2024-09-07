@@ -3,14 +3,14 @@
 1994年に Peter Fenwick により提案された木構造をしたデータ構造．
 別名「Fenwick Tree（フェニック木）」．
 
-長さ $N$ の整数値の配列 $\lbrace a_1, a_1, \ldots, a_N \rbrace$ に対して，次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
+長さ $N$ の整数値の配列 $\lbrace a_1, a_2, \ldots, a_N \rbrace$ に対して，次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
 
 - **一点更新** $\operatorname{add}(i,x)$：要素 $a_i$ に $x$ を加算する．
 - **区間取得** $\operatorname{sum}(r)$：区間 $[1,r]$ の要素の総和を求める．
 
 任意の区間 $[l,r]$ の要素の総和を取得したい場合は，$\operatorname{sum}(r)-\operatorname{sum}(l-1)$ と計算すればよい．
 
-本実装の BIT (Binary Indexed Tree) は，整数値の加算のみをサポートしているが，拡張すればアーベル群（可換群）を成す他の演算もサポートすることができる．
+本実装の Binary Indexed Tree (BIT) は，整数値の加算のみをサポートしているが，拡張すればアーベル群（可換群）を成す他の演算もサポートすることができる．
 
 ここで「アーベル群」とは，集合 $G$ と二項演算 $\ast : S \times S \rightarrow S$ の組 $(G, \ast)$ で，以下の条件を満たす代数構造のことを指す．
 
