@@ -17,7 +17,7 @@ namespace algorithm {
 // Sieve of Eratosthenes（エラトステネスの篩）.
 class Sieve {
     int m_mx;  // m_mx:=(篩にかける最大の自然数).
-    // m_lpf[n]:=(自然数nの最小の素因数). Least prime factor. m_lpf[n]==n のとき，nは素数．
+    // m_lpf[n]:=(自然数nの最小素因数). Least prime factor. m_lpf[n]==n のとき，nは素数．
     std::vector<int> m_lpf;
 
 public:
@@ -40,7 +40,7 @@ public:
         assert(0 <= n and n <= m_mx);
         return m_lpf[n] == n;
     }
-    // 自然数nの最小の素因数を返す．O(1).
+    // 自然数nの最小素因数を返す．O(1).
     int lpf(int n) const {
         assert(0 <= n and n <= m_mx);
         return m_lpf[n];
