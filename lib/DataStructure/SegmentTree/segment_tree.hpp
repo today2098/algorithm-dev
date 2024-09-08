@@ -105,7 +105,7 @@ public:
             S &&tmp = m_op(m_tree[r], val);
             if(!f(tmp)) {
                 while(r < m_n) {
-                    r = (r << 1) | 1;
+                    r = r << 1 | 1;
                     S &&tmp2 = m_op(m_tree[r], val);
                     if(f(tmp2)) val = tmp2, r--;
                 }

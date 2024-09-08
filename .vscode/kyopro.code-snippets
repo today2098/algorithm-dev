@@ -62,6 +62,32 @@
 		],
 		"description": ""
 	},
+	"Timer": {
+		"scope": "cpp",
+		"prefix": "Timer",
+		"body": [
+			"class Timer {",
+			"    std::chrono::system_clock::time_point m_start;",
+			"",
+			"public:",
+			"    Timer() : m_start(std::chrono::system_clock::now()) {}",
+			"",
+			"    // 計測開始時間を保存．",
+			"    void restart() { m_start = std::chrono::system_clock::now(); }",
+			"    // 経過時間を返す．[millisec].",
+			"    auto elapsed() const {",
+			"        auto now = std::chrono::system_clock::now();",
+			"        return std::chrono::duration_cast<std::chrono::milliseconds>(now - m_start).count();",
+			"    }",
+			"    // 経過時間を返す．[microsec].",
+			"    auto elapsed_micro() const {",
+			"        auto now = std::chrono::system_clock::now();",
+			"        return std::chrono::duration_cast<std::chrono::microseconds>(now - m_start).count();",
+			"    }",
+			"};"
+		],
+		"description": "処理時間計測クラス"
+	},
 	"table": {
 		"scope": "cpp",
 		"prefix": "table",
