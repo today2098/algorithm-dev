@@ -61,5 +61,17 @@
 			""
 		],
 		"description": ""
+	},
+	"table": {
+		"scope": "cpp",
+		"prefix": "table",
+		"body": [
+			"template <typename Type>",
+			"std::vector<Type> table(size_t n, const Type &val) { return std::vector<Type>(n, val); }",
+			"",
+			"template <typename... Args>",
+			"auto table(size_t n, const Args &...args) { return std::vector(n, table(args...)); }"
+		],
+		"description": "多次元配列生成"
 	}
 }

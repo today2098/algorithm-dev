@@ -9,7 +9,7 @@
 namespace algorithm {
 
 template <typename Type>
-constexpr Type igcd(Type a, Type b) { return (b == 0) ? a : igcd(b, a % b); }
+constexpr Type igcd(Type a, Type b) { return (b == 0 ? a : igcd(b, a % b)); }
 
 }  // namespace algorithm
 
