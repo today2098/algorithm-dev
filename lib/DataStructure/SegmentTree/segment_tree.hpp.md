@@ -73,7 +73,7 @@ data:
     \ 0;\n        S val = identity();\n        r += m_n;\n        do {\n         \
     \   r--;\n            while(r > 1 and r & 1) r >>= 1;\n            S &&tmp = m_op(m_tree[r],\
     \ val);\n            if(!f(tmp)) {\n                while(r < m_n) {\n       \
-    \             r = (r << 1) | 1;\n                    S &&tmp2 = m_op(m_tree[r],\
+    \             r = r << 1 | 1;\n                    S &&tmp2 = m_op(m_tree[r],\
     \ val);\n                    if(f(tmp2)) val = tmp2, r--;\n                }\n\
     \                return r - m_n + 1;\n            }\n            val = tmp;\n\
     \        } while((r & -r) != r);  // (x&-x)==x \u306E\u3068\u304D\uFF0Cx\u306F\
@@ -142,7 +142,7 @@ data:
     \ 0;\n        S val = identity();\n        r += m_n;\n        do {\n         \
     \   r--;\n            while(r > 1 and r & 1) r >>= 1;\n            S &&tmp = m_op(m_tree[r],\
     \ val);\n            if(!f(tmp)) {\n                while(r < m_n) {\n       \
-    \             r = (r << 1) | 1;\n                    S &&tmp2 = m_op(m_tree[r],\
+    \             r = r << 1 | 1;\n                    S &&tmp2 = m_op(m_tree[r],\
     \ val);\n                    if(f(tmp2)) val = tmp2, r--;\n                }\n\
     \                return r - m_n + 1;\n            }\n            val = tmp;\n\
     \        } while((r & -r) != r);  // (x&-x)==x \u306E\u3068\u304D\uFF0Cx\u306F\
@@ -158,7 +158,7 @@ data:
   isVerificationFile: false
   path: lib/DataStructure/SegmentTree/segment_tree.hpp
   requiredBy: []
-  timestamp: '2024-09-01 16:38:09+09:00'
+  timestamp: '2024-09-08 15:33:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj-DSL_2_A-segment_tree.test.cpp

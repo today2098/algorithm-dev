@@ -1,8 +1,28 @@
 ---
 data:
   libraryCategories:
+  - name: lib/DP
+    pages:
+    - icon: ':warning:'
+      path: lib/DP/longest_common_subsequence.hpp
+      title: "Longest Common Subsequence\uFF08\u6700\u9577\u5171\u901A\u90E8\u5206\
+        \u5217\uFF09"
+    - icon: ':warning:'
+      path: lib/DP/longest_increasing_subsequence.hpp
+      title: "Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\u5206\
+        \u5217\uFF09"
   - name: lib/DataStructure/SegmentTree
     pages:
+    - icon: ':warning:'
+      path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
+      title: Binary Indexed Tree
+    - icon: ':warning:'
+      path: lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp
+      title: Binary Indexed Tree (0-based index)
+    - icon: ':warning:'
+      path: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
+      title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\
+        \u30C8\u6728\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/segment_tree.hpp
       title: Segment Tree
@@ -56,8 +76,14 @@ data:
       path: lib/Math/NumberTheory/least_common_multiple.hpp
       title: "Least Common Multiple\uFF08\u6700\u5C0F\u516C\u500D\u6570\uFF09"
     - icon: ':heavy_check_mark:'
+      path: lib/Math/NumberTheory/linear_sieve.hpp
+      title: "\u7DDA\u5F62\u7BE9"
+    - icon: ':heavy_check_mark:'
       path: lib/Math/NumberTheory/prime_factorize.hpp
       title: "\u7D20\u56E0\u6570\u5206\u89E3"
+    - icon: ':warning:'
+      path: lib/Math/NumberTheory/segment_sieve.hpp
+      title: "\u533A\u9593\u7BE9"
     - icon: ':heavy_check_mark:'
       path: lib/Math/NumberTheory/sieve.hpp
       title: "Sieve of Eratosthenes\uFF08\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\
@@ -73,15 +99,24 @@ data:
     - icon: ':warning:'
       path: lib/Utils/table.hpp
       title: "\u591A\u6B21\u5143\u914D\u5217\u751F\u6210"
+    - icon: ':warning:'
+      path: lib/Utils/timer.hpp
+      title: "\u51E6\u7406\u6642\u9593\u8A08\u6E2C\u30AF\u30E9\u30B9"
   verificationCategories:
   - name: test
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-1276-linear_sieve.test.cpp
+      title: test/aoj-1276-linear_sieve.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-1276-sieve.test.cpp
       title: test/aoj-1276-sieve.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_1_C-is_prime.test.cpp
       title: test/aoj-ALDS1_1_C-is_prime.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-ALDS1_1_C-linear_sieve.test.cpp
+      title: test/aoj-ALDS1_1_C-linear_sieve.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_1_C-sieve.test.cpp
       title: test/aoj-ALDS1_1_C-sieve.test.cpp
