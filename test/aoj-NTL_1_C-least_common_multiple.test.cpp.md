@@ -26,7 +26,7 @@ data:
     \ Greatest Common Divisor\uFF08\u6700\u5927\u516C\u7D04\u6570\uFF09\n * @docs\
     \ docs/Math/NumberTheory/greatest_common_divisor.md\n */\n\nnamespace algorithm\
     \ {\n\ntemplate <typename Type>\nconstexpr Type igcd(Type a, Type b) { return\
-    \ (b == 0) ? a : igcd(b, a % b); }\n\n}  // namespace algorithm\n\n\n#line 10\
+    \ (b == 0 ? a : igcd(b, a % b)); }\n\n}  // namespace algorithm\n\n\n#line 10\
     \ \"lib/Math/NumberTheory/least_common_multiple.hpp\"\n\nnamespace algorithm {\n\
     \ntemplate <typename Type>\nconstexpr Type ilcm(Type a, Type b) { return a / igcd(a,\
     \ b) * b; }\n\n}  // namespace algorithm\n\n\n#line 7 \"test/aoj-NTL_1_C-least_common_multiple.test.cpp\"\
@@ -46,7 +46,7 @@ data:
   isVerificationFile: true
   path: test/aoj-NTL_1_C-least_common_multiple.test.cpp
   requiredBy: []
-  timestamp: '2024-09-01 22:54:19+09:00'
+  timestamp: '2024-09-06 22:47:30+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj-NTL_1_C-least_common_multiple.test.cpp
