@@ -1310,13 +1310,24 @@
 		],
 		"description": "素因数分解"
 	},
-	"Declaration of SegmentTree": {
+	"Declaration of SegmentTree (RMQ)": {
 		"scope": "cpp",
 		"prefix": "segtree",
 		"body": [
 			"using S=${1:int};",
 			"const S e=${2:2*INF};",
 			"auto op=[](const S &lhs,const S &rhs)->S{return ${3:min(lhs,rhs)};};",
+			"SegmentTree<S> segtree(op,e,${4:0});"
+		],
+		"description": ""
+	},
+	"Declaration of SegmentTree (RSQ)": {
+		"scope": "cpp",
+		"prefix": "segtree",
+		"body": [
+			"using S=${1:llong};",
+			"const S e=${2:0};",
+			"auto op=[](const S &lhs,const S &rhs)->S{return ${3:lhs+rhs};};",
 			"SegmentTree<S> segtree(op,e,${4:0});"
 		],
 		"description": ""
@@ -1356,10 +1367,10 @@
 		"prefix": "lazy_segtree",
 		"body": [
 			"using S=struct{",
-			"    long long val;",
+			"    llong val;",
 			"    int size;",
 			"};",
-			"using F=long long;",
+			"using F=llong;",
 			"const S e=(S){0,0};",
 			"const F id=9*LINF+1;",
 			"auto op=[&](const S &lhs,const S &rhs)->S{return (S){lhs.val+rhs.val,lhs.size+rhs.size};};",
@@ -1374,10 +1385,10 @@
 		"prefix": "lazy_segtree",
 		"body": [
 			"using S=struct{",
-			"    long long val;",
+			"    llong val;",
 			"    int size;",
 			"};",
-			"using F=long long;",
+			"using F=llong;",
 			"const S e=(S){0,0};",
 			"const F id=0;",
 			"auto op=[&](const S &lhs,const S &rhs)->S{return (S){lhs.val+rhs.val,lhs.size+rhs.size};};",
@@ -1392,12 +1403,12 @@
 		"prefix": "lazy_segtree",
 		"body": [
 			"using S=struct{",
-			"    long long val;",
+			"    llong val;",
 			"    int size;",
 			"};",
 			"using F=struct{",
-			"    long long a;",
-			"    long long b;",
+			"    llong a;",
+			"    llong b;",
 			"};",
 			"const S e=(S){0,0};",
 			"const F id=(F){1,0};",
