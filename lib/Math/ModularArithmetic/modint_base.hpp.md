@@ -5,13 +5,16 @@ data:
   - icon: ':warning:'
     path: lib/Math/ModularArithmetic/dynamic_modint.hpp
     title: "\u52D5\u7684Modint\u69CB\u9020\u4F53"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/Math/ModularArithmetic/modint.hpp
     title: "Modint\u69CB\u9020\u4F53"
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+    title: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/Math/ModularArithmetic/modint_base.md
     document_title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
@@ -35,8 +38,9 @@ data:
   - lib/Math/ModularArithmetic/modint.hpp
   - lib/Math/ModularArithmetic/dynamic_modint.hpp
   timestamp: '2024-09-06 22:39:16+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
 documentation_of: lib/Math/ModularArithmetic/modint_base.hpp
 layout: document
 redirect_from:

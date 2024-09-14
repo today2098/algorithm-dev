@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+    title: test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/DataStructure/SegmentTree/binary_indexed_tree.md
     document_title: Binary Indexed Tree
@@ -67,8 +70,9 @@ data:
   path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
   requiredBy: []
   timestamp: '2024-09-07 14:48:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
 layout: document
 redirect_from:

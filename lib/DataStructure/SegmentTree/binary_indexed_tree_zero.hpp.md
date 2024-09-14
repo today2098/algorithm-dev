@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
+    title: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/DataStructure/SegmentTree/binary_indexed_tree_zero.md
     document_title: Binary Indexed Tree (0-based index)
@@ -65,8 +68,9 @@ data:
   path: lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp
   requiredBy: []
   timestamp: '2024-09-07 15:00:56+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp
 layout: document
 redirect_from:

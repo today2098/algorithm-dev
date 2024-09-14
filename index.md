@@ -13,24 +13,38 @@ data:
         \u5217\uFF09"
   - name: lib/DataStructure/SegmentTree
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
       title: Binary Indexed Tree
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp
       title: Binary Indexed Tree (0-based index)
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
       title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\
         \u30C8\u6728\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/segment_tree.hpp
       title: Segment Tree
+    - icon: ':heavy_check_mark:'
+      path: lib/DataStructure/SegmentTree/sparse_table.hpp
+      title: Sparse Table
   - name: lib/DataStructure/UnionFind
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/UnionFind/union_find.hpp
       title: "Union-Find\uFF08\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020\uFF09"
+  - name: lib/Graph/Flow
+    pages:
+    - icon: ':warning:'
+      path: lib/Graph/Flow/dinic.hpp
+      title: "Dinic's Algorithm\uFF08\u6700\u5927\u6D41\u554F\u984C\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/Graph/Flow/ford_fulkerson.hpp
+      title: "Ford-Fulkerson Algorithm\uFF08\u6700\u5927\u6D41\u554F\u984C\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/Graph/Flow/primal_dual.hpp
+      title: "\u6700\u5C0F\u8CBB\u7528\u6D41\u554F\u984C"
   - name: lib/Graph/ShortestPath
     pages:
     - icon: ':heavy_check_mark:'
@@ -52,10 +66,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/Math/ModularArithmetic/mod_pow.hpp
       title: "\u7E70\u308A\u8FD4\u3057\u4E8C\u4E57\u6CD5\uFF08mod\u4ED8\u304D\uFF09"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/Math/ModularArithmetic/modint.hpp
       title: "Modint\u69CB\u9020\u4F53"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/Math/ModularArithmetic/modint_base.hpp
       title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
   - name: lib/Math/NumberTheory
@@ -88,6 +102,11 @@ data:
       path: lib/Math/NumberTheory/sieve.hpp
       title: "Sieve of Eratosthenes\uFF08\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\
         \u306E\u7BE9\uFF09"
+  - name: lib/Others
+    pages:
+    - icon: ':warning:'
+      path: lib/Others/compress.hpp
+      title: "\u5EA7\u6A19\u5727\u7E2E"
   - name: lib/Utils
     pages:
     - icon: ':warning:'
@@ -102,6 +121,11 @@ data:
     - icon: ':warning:'
       path: lib/Utils/timer.hpp
       title: "\u51E6\u7406\u6642\u9593\u8A08\u6E2C\u30AF\u30E9\u30B9"
+  - name: test
+    pages:
+    - icon: ':warning:'
+      path: test/aoj-GRL_6_A-dinic.cpp
+      title: test/aoj-GRL_6_A-dinic.cpp
   verificationCategories:
   - name: test
     pages:
@@ -127,14 +151,35 @@ data:
       path: test/aoj-DSL_2_A-segment_tree.test.cpp
       title: test/aoj-DSL_2_A-segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+      title: test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj-DSL_2_B-segment_tree.test.cpp
       title: test/aoj-DSL_2_B-segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_2_F-lazy_segment_tree.test.cpp
+      title: test/aoj-DSL_2_F-lazy_segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_2_G-lazy_segment_tree.test.cpp
+      title: test/aoj-DSL_2_G-lazy_segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_2_H-lazy_segment_tree.test.cpp
+      title: test/aoj-DSL_2_H-lazy_segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_2_I-lazy_segment_tree.test.cpp
+      title: test/aoj-DSL_2_I-lazy_segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-GRL_1_A-dijkstra.test.cpp
       title: test/aoj-GRL_1_A-dijkstra.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-GRL_1_B-bellman_ford.test.cpp
       title: test/aoj-GRL_1_B-bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-GRL_6_A-ford_fulkerson.test.cpp
+      title: test/aoj-GRL_6_A-ford_fulkerson.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-GRL_6_B-primal_dual.test.cpp
+      title: test/aoj-GRL_6_B-primal_dual.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-ITP1_3_D-divisors.test.cpp
       title: test/aoj-ITP1_3_D-divisors.test.cpp
@@ -150,5 +195,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-NTL_1_E-extgcd.test.cpp
       title: test/aoj-NTL_1_E-extgcd.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
+      title: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-point_add_range_sum-segment_tree.test.cpp
+      title: test/yosupo-point_add_range_sum-segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+      title: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-staticrmp-sparse_table.test.cpp
+      title: test/yosupo-staticrmp-sparse_table.test.cpp
 layout: toppage
 ---

@@ -9,6 +9,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj-DSL_2_B-segment_tree.test.cpp
     title: test/aoj-DSL_2_B-segment_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo-point_add_range_sum-segment_tree.test.cpp
+    title: test/yosupo-point_add_range_sum-segment_tree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -162,6 +165,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj-DSL_2_A-segment_tree.test.cpp
+  - test/yosupo-point_add_range_sum-segment_tree.test.cpp
   - test/aoj-DSL_2_B-segment_tree.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/segment_tree.hpp
 layout: document
