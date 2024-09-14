@@ -2,7 +2,7 @@
 #define ALGORITHM_PRIMAL_DUAL_HPP 1
 
 /**
- * @brief 最小費用流
+ * @brief 最小費用流問題
  * @docs docs/Graph/Flow/primal_dual.md
  */
 

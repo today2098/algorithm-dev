@@ -47,6 +47,9 @@ class Dinic {
 public:
     Dinic() : Dinic(0) {}
     explicit Dinic(size_t vn) : m_g(vn) {}
+    explicit Dinic(size_t vn, size_t en) : Dinic(vn) {
+        m_pos.reserve(en);
+    }
 
     static constexpr T infinity() { return std::numeric_limits<T>::max(); }
     // ノード数を返す．

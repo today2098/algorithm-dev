@@ -47,6 +47,9 @@ class FordFulkerson {
 public:
     FordFulkerson() : FordFulkerson(0) {}
     explicit FordFulkerson(size_t vn) : m_g(vn) {}
+    explicit FordFulkerson(size_t vn, size_t en) : FordFulkerson(vn) {
+        m_pos.reserve(en);
+    }
 
     static constexpr T infinity() { return std::numeric_limits<T>::max(); }
     // ノード数を返す．
