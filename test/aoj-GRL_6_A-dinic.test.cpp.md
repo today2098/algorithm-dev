@@ -1,18 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/Graph/Flow/dinic.hpp
     title: "Dinic's Algorithm\uFF08\u6700\u5927\u6D41\u554F\u984C\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A
-  bundledCode: "#line 1 \"test/aoj-GRL_6_A-dinic.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A\"\
+  bundledCode: "#line 1 \"test/aoj-GRL_6_A-dinic.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A\"\
     \n\n#include <iostream>\n\n#line 1 \"lib/Graph/Flow/dinic.hpp\"\n\n\n\n/**\n *\
     \ @brief Dinic's Algorithm\uFF08\u6700\u5927\u6D41\u554F\u984C\uFF09\n * @docs\
     \ docs/Graph/Flow/dinic.md\n */\n\n#include <algorithm>\n#include <cassert>\n\
@@ -81,11 +83,11 @@ data:
     \ res;\n    }\n    void reset() {\n        for(const auto &[from, idx] : m_pos)\
     \ {\n            Edge &e = m_g[from][idx];\n            e.cap = e.cap + m_g[e.to][e.rev].cap;\n\
     \            m_g[e.to][e.rev].cap = 0;\n        }\n    }\n};\n\n}  // namespace\
-    \ algorithm\n\n\n#line 6 \"test/aoj-GRL_6_A-dinic.cpp\"\n\nint main() {\n    int\
-    \ n, m;\n    std::cin >> n >> m;\n\n    algorithm::Dinic<int> dinic(n);\n    for(int\
-    \ i = 0; i < m; ++i) {\n        int u, v;\n        int c;\n        std::cin >>\
-    \ u >> v >> c;\n\n        dinic.add_edge(u, v, c);\n    }\n\n    auto &&ans =\
-    \ dinic.max_flow(0, n - 1);\n    std::cout << ans << std::endl;\n}\n"
+    \ algorithm\n\n\n#line 6 \"test/aoj-GRL_6_A-dinic.test.cpp\"\n\nint main() {\n\
+    \    int n, m;\n    std::cin >> n >> m;\n\n    algorithm::Dinic<int> dinic(n);\n\
+    \    for(int i = 0; i < m; ++i) {\n        int u, v;\n        int c;\n       \
+    \ std::cin >> u >> v >> c;\n\n        dinic.add_edge(u, v, c);\n    }\n\n    auto\
+    \ &&ans = dinic.max_flow(0, n - 1);\n    std::cout << ans << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A\"\
     \n\n#include <iostream>\n\n#include \"../lib/Graph/Flow/dinic.hpp\"\n\nint main()\
     \ {\n    int n, m;\n    std::cin >> n >> m;\n\n    algorithm::Dinic<int> dinic(n);\n\
@@ -94,16 +96,16 @@ data:
     \ &&ans = dinic.max_flow(0, n - 1);\n    std::cout << ans << std::endl;\n}\n"
   dependsOn:
   - lib/Graph/Flow/dinic.hpp
-  isVerificationFile: false
-  path: test/aoj-GRL_6_A-dinic.cpp
+  isVerificationFile: true
+  path: test/aoj-GRL_6_A-dinic.test.cpp
   requiredBy: []
-  timestamp: '2024-09-14 17:47:13+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2024-09-14 19:10:14+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj-GRL_6_A-dinic.cpp
+documentation_of: test/aoj-GRL_6_A-dinic.test.cpp
 layout: document
 redirect_from:
-- /library/test/aoj-GRL_6_A-dinic.cpp
-- /library/test/aoj-GRL_6_A-dinic.cpp.html
-title: test/aoj-GRL_6_A-dinic.cpp
+- /verify/test/aoj-GRL_6_A-dinic.test.cpp
+- /verify/test/aoj-GRL_6_A-dinic.test.cpp.html
+title: test/aoj-GRL_6_A-dinic.test.cpp
 ---
