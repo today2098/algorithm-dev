@@ -58,7 +58,9 @@ public:
     }
     // 組合せ．O(1).
     long long nCk(int n, int k) const {
-        assert(0 <= k and k <= n and n <= m_mx);
+        assert(0 <= n and n <= m_mx);
+        assert(k >= 0);
+        if(k > n) return 0;
         return m_fact[n] * m_finv[n - k] % mod * m_finv[k] % mod;
     }
     // 重複組合せ．O(1).

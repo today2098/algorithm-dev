@@ -6,6 +6,7 @@
  * @docs docs/Math/Combinatorics/naive_combination.md
  */
 
+#include <algorithm>
 #include <cassert>
 
 namespace algorithm {
@@ -18,18 +19,20 @@ constexpr long long nPk(long long n, int k) {
     return res;
 }
 
-// 組合せ．O(K).
+// 組合せ．O(min(K,N-K)).
 constexpr long long nCk(long long n, int k) {
     assert(n >= 0 and k >= 0);
+    if(k > n) return 0;
     long long res = 1;
+    k = std::min<long long>(k, n - k);
     for(int i = 0; i < k; ++i) res = res * (n - i) / (i + 1);
     return res;
 }
 
-// 重複組合せ．O(max(N-1,K)).
+// 重複組合せ．O(min(N-1,K)).
 constexpr long long nHk(long long n, long long k) {
     assert(n >= 1 and k >= 0);
-    return (n - 1 < k ? nCk(k + n - 1, n - 1) : nCk(k + n - 1, k));
+    return nCk(k + n - 1, k);
 }
 
 }  // namespace algorithm
