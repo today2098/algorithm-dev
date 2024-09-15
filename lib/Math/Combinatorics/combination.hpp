@@ -26,9 +26,11 @@ constexpr long long nCk(long long n, int k) {
     return res;
 }
 
-// 重複組合せ．O(N).
-constexpr long long nHk(long long n, int k) { return nCk(k + n - 1, k); }
-constexpr long long nHk(int n, long long k) { return nCk(k + n - 1, n - 1); }
+// 重複組合せ．O(max(N-1,K)).
+constexpr long long nHk(long long n, long long k) {
+    assert(n >= 1 and k >= 0);
+    return (n - 1 < k ? nCk(k + n - 1, n - 1) : nCk(k + n - 1, k));
+}
 
 }  // namespace algorithm
 
