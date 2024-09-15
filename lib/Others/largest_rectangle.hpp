@@ -15,7 +15,7 @@ namespace algorithm {
 
 // 最大長方形問題．
 // 各iにおいて，comp(H[i], H[] within [l,r))==true となるiを含む最大区間[l,r)を求める．O(N).
-template <typename Type, class Compare = std::function<bool(Type, Type)> >
+template <typename Type, class Compare = std::function<bool(const Type &, const Type &)> >
 std::vector<std::pair<int, int> > largest_rectangle(
     const std::vector<Type> &h,
     const Compare &comp = [](const Type &a, const Type &b) -> bool { return a <= b; }) {

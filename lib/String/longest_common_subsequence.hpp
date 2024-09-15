@@ -3,7 +3,7 @@
 
 /**
  * @brief Longest Common Subsequence（最長共通部分列）
- * @docs docs/DP/longest_common_subsequence.md
+ * @docs docs/String/longest_common_subsequence.md
  */
 
 #include <algorithm>
@@ -24,12 +24,12 @@ Sequence lcs(const Sequence &s, const Sequence &t) {
         }
     }
     Sequence sub(dp[n][m], 0);  // sub[]:=(配列s, tのLCS).
-    int i = n - 1, j = m - 1, k = dp[n][m];
-    while(k > 0) {
+    int i = n - 1, j = m - 1, k = dp[n][m] - 1;
+    while(k >= 0) {
         if(s[i] == t[j]) {
-            sub[k - 1] = s[i];
+            sub[k] = s[i];
             i--, j--, k--;
-        } else if(dp[i - 1][j - 1] == dp[i][j - 1]) {
+        } else if(dp[i + 1][j + 1] == dp[i][j + 1]) {
             i--;
         } else {
             j--;

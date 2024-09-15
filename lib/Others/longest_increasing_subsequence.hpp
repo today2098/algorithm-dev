@@ -3,7 +3,7 @@
 
 /**
  * @brief Longest Increasing Subsequence（最長増加部分列）
- * @docs docs/DP/longest_increasing_subsequence.md
+ * @docs docs/Others/longest_increasing_subsequence.md
  */
 
 #include <algorithm>
@@ -13,8 +13,8 @@
 namespace algorithm {
 
 // 最長増加部分列 (LIS: Longest Increasing Subsequence) の長さを求める．O(N*logN).
-template <typename Type, class Func = std::function<bool(const Type &, const Type &)> >
-std::vector<int> lis(const std::vector<Type> &v, Func comp = [](const Type &a, const Type &b) -> bool { return a < b; }) {
+template <typename Type, class Compare = std::function<bool(const Type &, const Type &)> >
+std::vector<int> lis(const std::vector<Type> &v, Compare comp = [](const Type &a, const Type &b) -> bool { return a < b; }) {
     const int n = v.size();
     std::vector<int> res(n, 0);  // res[i]:=(v[i]を最後の要素とする最長増加部分列の長さ).
     std::vector<Type> dp;        // dp[k]:=(長さkの増加部分列のうち，その最後の要素の最小値).
@@ -28,8 +28,8 @@ std::vector<int> lis(const std::vector<Type> &v, Func comp = [](const Type &a, c
 }
 
 // 最長増加部分列 (LIS: Longest Increasing Subsequence) の長さを求める．O(N*logN).
-template <typename Type, class Func = std::function<bool(const Type &, const Type &)> >
-std::vector<int> lis2(const std::vector<Type> &v, Func comp = [](const Type &a, const Type &b) -> bool { return a < b; }) {
+template <typename Type, class Compare = std::function<bool(const Type &, const Type &)> >
+std::vector<int> lis2(const std::vector<Type> &v, Compare comp = [](const Type &a, const Type &b) -> bool { return a < b; }) {
     const int n = v.size();
     std::vector<int> res(n + 1, 0);  // res[i]:=(v[:i]における最長増加部分列の長さ).
     std::vector<Type> dp;            // dp[k]:=(長さkの増加部分列のうち，その最後の要素の最小値).
