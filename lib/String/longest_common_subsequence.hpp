@@ -3,7 +3,7 @@
 
 /**
  * @brief Longest Common Subsequence（最長共通部分列）
- * @docs docs/DP/longest_common_subsequence.md
+ * @docs docs/String/longest_common_subsequence.md
  */
 
 #include <algorithm>

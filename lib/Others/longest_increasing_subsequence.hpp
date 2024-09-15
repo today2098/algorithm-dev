@@ -3,7 +3,7 @@
 
 /**
  * @brief Longest Increasing Subsequence（最長増加部分列）
- * @docs docs/DP/longest_increasing_subsequence.md
+ * @docs docs/Others/longest_increasing_subsequence.md
  */
 
 #include <algorithm>
