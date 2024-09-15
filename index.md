@@ -1,16 +1,6 @@
 ---
 data:
   libraryCategories:
-  - name: lib/DP
-    pages:
-    - icon: ':warning:'
-      path: lib/DP/longest_common_subsequence.hpp
-      title: "Longest Common Subsequence\uFF08\u6700\u9577\u5171\u901A\u90E8\u5206\
-        \u5217\uFF09"
-    - icon: ':warning:'
-      path: lib/DP/longest_increasing_subsequence.hpp
-      title: "Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\u5206\
-        \u5217\uFF09"
   - name: lib/DataStructure/SegmentTree
     pages:
     - icon: ':heavy_check_mark:'
@@ -122,6 +112,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/Others/largest_rectangle.hpp
       title: "\u6700\u5927\u9577\u65B9\u5F62\u554F\u984C"
+    - icon: ':heavy_check_mark:'
+      path: lib/Others/longest_increasing_subsequence.hpp
+      title: "Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\u5206\
+        \u5217\uFF09"
+  - name: lib/String
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: lib/String/edit_distance.hpp
+      title: "Edit Distance\uFF08\u7DE8\u96C6\u8DDD\u96E2\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/String/longest_common_subsequence.hpp
+      title: "Longest Common Subsequence\uFF08\u6700\u9577\u5171\u901A\u90E8\u5206\
+        \u5217\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/String/z_algorithm.hpp
+      title: "Z algorithm\uFF08\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\uFF09"
   - name: lib/Utils
     pages:
     - icon: ':warning:'
@@ -146,6 +152,9 @@ data:
       path: test/aoj-1276-sieve.test.cpp
       title: test/aoj-1276-sieve.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
+      title: test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_1_C-is_prime.test.cpp
       title: test/aoj-ALDS1_1_C-is_prime.test.cpp
     - icon: ':heavy_check_mark:'
@@ -154,6 +163,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_1_C-sieve.test.cpp
       title: test/aoj-ALDS1_1_C-sieve.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
+      title: test/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DPL_1_E-edit_distance.test.cpp
+      title: test/aoj-DPL_1_E-edit_distance.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-DPL_3_B-largest_rectangle.test.cpp
       title: test/aoj-DPL_3_B-largest_rectangle.test.cpp
@@ -215,6 +230,9 @@ data:
       path: test/aoj-NTL_1_E-extgcd.test.cpp
       title: test/aoj-NTL_1_E-extgcd.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
+      title: test/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
       title: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
     - icon: ':heavy_check_mark:'
@@ -226,5 +244,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo-staticrmp-sparse_table.test.cpp
       title: test/yosupo-staticrmp-sparse_table.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-zalgorithm-z_algorithm.test.cpp
+      title: test/yosupo-zalgorithm-z_algorithm.test.cpp
 layout: toppage
 ---

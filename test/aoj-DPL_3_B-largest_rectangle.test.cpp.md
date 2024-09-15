@@ -23,7 +23,7 @@ data:
     \u9577\u65B9\u5F62\u554F\u984C\uFF0E\n// \u5404i\u306B\u304A\u3044\u3066\uFF0C\
     comp(H[i], H[] within [l,r))==true \u3068\u306A\u308Bi\u3092\u542B\u3080\u6700\
     \u5927\u533A\u9593[l,r)\u3092\u6C42\u3081\u308B\uFF0EO(N).\ntemplate <typename\
-    \ Type, class Compare = std::function<bool(Type, Type)> >\nstd::vector<std::pair<int,\
+    \ Type, class Compare = std::function<bool(const Type &, const Type &)> >\nstd::vector<std::pair<int,\
     \ int> > largest_rectangle(\n    const std::vector<Type> &h,\n    const Compare\
     \ &comp = [](const Type &a, const Type &b) -> bool { return a <= b; }) {\n   \
     \ const int n = h.size();\n    std::vector<std::pair<int, int> > res(n, {0, n});\
@@ -62,7 +62,7 @@ data:
   isVerificationFile: true
   path: test/aoj-DPL_3_B-largest_rectangle.test.cpp
   requiredBy: []
-  timestamp: '2024-09-15 13:38:55+09:00'
+  timestamp: '2024-09-16 00:47:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj-DPL_3_B-largest_rectangle.test.cpp
