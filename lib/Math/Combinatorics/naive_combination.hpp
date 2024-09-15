@@ -1,9 +1,9 @@
-#ifndef ALGORITHM_COMBINATION_HPP
-#define ALGORITHM_COMBINATION_HPP 1
+#ifndef ALGORITHM_NAIVE_COMBINATION_HPP
+#define ALGORITHM_NAIVE_COMBINATION_HPP 1
 
 /**
  * @brief 順列，組合せ，重複組合せ
- * @docs docs/Math/Combinatorics/combination.md
+ * @docs docs/Math/Combinatorics/naive_combination.md
  */
 
 #include <cassert>
