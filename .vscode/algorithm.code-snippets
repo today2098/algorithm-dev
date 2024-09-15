@@ -1921,7 +1921,7 @@
 			"template <class Sequence>",
 			"std::vector<int> z_algorithm(const Sequence &s) {",
 			"    const int n = s.size();",
-			"    std::vector<int> z(n + 1, 0);  // z[i]:=(sとs[i:]のLCPの長さ).",
+			"    std::vector<int> z(n);  // z[i]:=(sとs[i:]のLCPの長さ).",
 			"    z[0] = n;",
 			"    int i = 1, j = 0;",
 			"    while(i < n) {",
