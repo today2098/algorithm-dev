@@ -9,23 +9,22 @@
 #include <algorithm>
 #include <cassert>
 #include <queue>
-#include <tuple>
 #include <utility>
 #include <vector>
 
 namespace algorithm {
 
-// 木の直径を求める．返り値は直径とその端点．O(|V|).
-std::tuple<int, int, int> double_sweep(const std::vector<std::vector<int> > &g, int s = 0) {
+// 木の直径を求める．返り値は直径とその経路．O(|V|).
+std::pair<int, std::vector<int> > double_sweep(const std::vector<std::vector<int> > &g, int s = 0) {
     const int vn = g.size();
     assert(0 <= s and s < vn);
     int furthest_node;
     std::vector<int> d(vn);
+    std::vector<int> pre(vn);
     std::queue<int> que;
     auto bfs = [&](int s) -> void {
-        furthest_node = s;
-        std::fill(d.begin(), d.end(), -1);
-        d[s] = 0;
+        std::fill(pre.begin(), pre.end(), -1);
+        d[s] = 0, pre[s] = -2;
         que.push(s);
         while(!que.empty()) {
             int u = que.front();
@@ -33,49 +32,51 @@ std::tuple<int, int, int> double_sweep(const std::vector<std::vector<int> > &g, 
             furthest_node = u;
             for(int v : g[u]) {
                 assert(0 <= v and v < vn);
-                if(d[v] != -1) continue;
-                d[v] = d[u] + 1;
+                if(pre[v] != -1) continue;
+                d[v] = d[u] + 1, pre[v] = u;
                 que.push(v);
             }
         }
     };
     bfs(s);
-    s = furthest_node;
-    bfs(s);
-    return {d[furthest_node], s, furthest_node};  // tuple of (diameter, endpoint1, endpoint2).
+    bfs(furthest_node);
+    std::vector<int> path({furthest_node});
+    path.reserve(d[furthest_node] + 1);
+    for(int v = furthest_node; pre[v] != -2; v = pre[v]) path.push_back(pre[v]);
+    return {d[furthest_node], path};  // pair of (diameter, path).
 }
 
-// 重み付き木の直径を求める．返り値は直径とその端点．O(|V|).
+// 重み付き木の直径を求める．返り値は直径とその経路．O(|V|).
 template <typename Type>
-std::tuple<Type, int, int> double_sweep(const std::vector<std::vector<std::pair<int, Type> > > &g, int s = 0) {
+std::pair<Type, std::vector<int> > double_sweep(const std::vector<std::vector<std::pair<int, Type> > > &g, int s = 0) {
     const int vn = g.size();
     assert(0 <= s and s < vn);
     int furthest_node;
     std::vector<Type> d(vn);
+    std::vector<int> pre(vn);
     std::queue<int> que;
-    std::vector<bool> seen(vn);
     auto bfs = [&](int s) -> void {
         furthest_node = s;
-        d[s] = 0;
+        std::fill(pre.begin(), pre.end(), -1);
+        d[s] = 0, pre[s] = -2;
         que.push(s);
-        std::fill(seen.begin(), seen.end(), false);
         while(!que.empty()) {
             int u = que.front();
             que.pop();
-            seen[u] = true;
             if(d[u] > d[furthest_node]) furthest_node = u;
             for(const auto &[v, cost] : g[u]) {
                 assert(0 <= v and v < vn);
-                if(seen[v]) continue;
-                d[v] = d[u] + cost;
-                que.emplace(v);
+                if(pre[v] != -1) continue;
+                d[v] = d[u] + cost, pre[v] = u;
+                que.push(v);
             }
         }
     };
     bfs(s);
-    s = furthest_node;
-    bfs(s);
-    return {d[furthest_node], s, furthest_node};  // tuple of (diameter, endpoint1, endpoint2).
+    bfs(furthest_node);
+    std::vector<int> path({furthest_node});
+    for(int v = furthest_node; pre[v] != -2; v = pre[v]) path.push_back(pre[v]);
+    return {d[furthest_node], path};  // pair of (diameter, path).
 }
 
 }  // namespace algorithm

@@ -20,6 +20,6 @@ int main() {
         g[t].emplace_back(s, w);
     }
 
-    auto &&[ans, u, v] = algorithm::double_sweep(g);
+    auto &&[ans, path] = algorithm::double_sweep(g);
     std::cout << ans << std::endl;
 }
