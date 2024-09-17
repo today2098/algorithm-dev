@@ -3,7 +3,7 @@
 
 /**
  * @brief 累乗根（ニュートン法）
- * @docs docs/Math/Algebra/square_root.md
+ * @docs docs/Math/Algebra/nth_root.md
  */
 
 #include <cassert>
