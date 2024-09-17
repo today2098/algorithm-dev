@@ -53,6 +53,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/Graph/Tree/lowest_common_ancestor.hpp
       title: "Lowest Common Ancestor\uFF08\u6700\u8FD1\u5171\u901A\u7956\u5148\uFF09"
+  - name: lib/Math/Algebra
+    pages:
+    - icon: ':warning:'
+      path: lib/Math/Algebra/nth_root.hpp
+      title: "\u7D2F\u4E57\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
+    - icon: ':warning:'
+      path: lib/Math/Algebra/power.hpp
+      title: "\u7E70\u308A\u8FD4\u3057\u4E8C\u4E57\u6CD5"
+    - icon: ':warning:'
+      path: lib/Math/Algebra/square_root.hpp
+      title: "\u5E73\u65B9\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
   - name: lib/Math/Combinatorics
     pages:
     - icon: ':warning:'
