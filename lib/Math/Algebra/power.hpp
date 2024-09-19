@@ -14,9 +14,12 @@ namespace algorithm {
 template <typename Type>
 constexpr Type ipow(Type n, long long k) {
     assert(k >= 0);
-    if(k == 0) return 1;
-    Type &&res = ipow(n * n, k >> 1);
-    if(k & 1LL) res *= n;
+    Type res = 1;
+    while(k > 0) {
+        if(k & 1LL) res *= n;
+        n *= n;
+        k >>= 1;
+    }
     return res;
 }
 
