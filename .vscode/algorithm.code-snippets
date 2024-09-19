@@ -2155,6 +2155,25 @@
 		],
 		"description": "順列，組合せ，重複組合せ"
 	},
+	"nth_root": {
+		"scope": "cpp",
+		"prefix": "nth_root",
+		"body": [
+			"// 累乗根（ニュートン法）．xのn乗根を求める．",
+			"constexpr double nth_root(double x, long long n, const double eps = 1e-10) {",
+			"    assert(x >= 0.0);",
+			"    assert(n >= 1);",
+			"    double res = 1.0;",
+			"    while(1) {",
+			"        double tmp = (x / ipow(res, n - 1) + (n - 1) * res) / n;",
+			"        if(std::abs(tmp - res) < eps) break;",
+			"        res = tmp;",
+			"    }",
+			"    return res;",
+			"}"
+		],
+		"description": "累乗根（ニュートン法）"
+	},
 	"prime_factorize": {
 		"scope": "cpp",
 		"prefix": "prime_factorize",
@@ -2173,25 +2192,6 @@
 			"}"
 		],
 		"description": "素因数分解"
-	},
-	"root": {
-		"scope": "cpp",
-		"prefix": "root",
-		"body": [
-			"// 累乗根（ニュートン法）．xのn乗根を求める．",
-			"constexpr double root(double x, long long n, const double eps = 1e-10) {",
-			"    assert(x >= 0.0);",
-			"    assert(n >= 1);",
-			"    double res = 1.0;",
-			"    while(1) {",
-			"        double tmp = (x / ipow(res, n - 1) + (n - 1) * res) / n;",
-			"        if(std::abs(tmp - res) < eps) break;",
-			"        res = tmp;",
-			"    }",
-			"    return res;",
-			"}"
-		],
-		"description": "累乗根（ニュートン法）"
 	},
 	"z_algorithm": {
 		"scope": "cpp",
