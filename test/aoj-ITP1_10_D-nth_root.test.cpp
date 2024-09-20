@@ -1,4 +1,5 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/10/ITP1_10_D"
+#define ERROR 1e-5
 
 #include <algorithm>
 #include <cmath>
