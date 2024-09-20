@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj-ITP1_10_A-isqrt.test.cpp
+    title: test/aoj-ITP1_10_A-isqrt.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/Math/Algebra/square_root.md
     document_title: "\u5E73\u65B9\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
@@ -33,8 +36,9 @@ data:
   path: lib/Math/Algebra/square_root.hpp
   requiredBy: []
   timestamp: '2024-09-17 18:35:24+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj-ITP1_10_A-isqrt.test.cpp
 documentation_of: lib/Math/Algebra/square_root.hpp
 layout: document
 redirect_from:
@@ -44,7 +48,7 @@ title: "\u5E73\u65B9\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
 ---
 ## 概要
 
-非負の実数 $x$ に対して，非負の平方根 $\sqrt x$ を返す．
+非負の実数 $x$ に対して，非負の平方根 $\sqrt x$ を求める．
 
 本実装では「ニュートン法」を用いており，近似解を計算する．
 

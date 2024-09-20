@@ -120,8 +120,8 @@ data:
   timestamp: '2024-09-07 11:53:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ALDS1_1_C-sieve.test.cpp
   - test/aoj-1276-sieve.test.cpp
+  - test/aoj-ALDS1_1_C-sieve.test.cpp
 documentation_of: lib/Math/NumberTheory/sieve.hpp
 layout: document
 redirect_from:

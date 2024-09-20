@@ -55,13 +55,13 @@ data:
       title: "Lowest Common Ancestor\uFF08\u6700\u8FD1\u5171\u901A\u7956\u5148\uFF09"
   - name: lib/Math/Algebra
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/Math/Algebra/nth_root.hpp
       title: "\u7D2F\u4E57\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/Math/Algebra/power.hpp
       title: "\u7E70\u308A\u8FD4\u3057\u4E8C\u4E57\u6CD5"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/Math/Algebra/square_root.hpp
       title: "\u5E73\u65B9\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
   - name: lib/Math/Combinatorics
@@ -135,6 +135,9 @@ data:
       path: lib/Others/longest_increasing_subsequence.hpp
       title: "Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\u5206\
         \u5217\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/Others/popcount.hpp
+      title: Population Count (popcount)
   - name: lib/String
     pages:
     - icon: ':heavy_check_mark:'
@@ -149,7 +152,7 @@ data:
       title: "Z algorithm\uFF08\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\uFF09"
   - name: lib/Utils
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/Utils/debug.hpp
       title: "\u30C7\u30D0\u30C3\u30B0\u7528\u95A2\u6570\u5F62\u5F0F\u30DE\u30AF\u30ED"
     - icon: ':warning:'
@@ -239,6 +242,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-GRL_6_B-primal_dual.test.cpp
       title: test/aoj-GRL_6_B-primal_dual.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-ITP1_10_A-isqrt.test.cpp
+      title: test/aoj-ITP1_10_A-isqrt.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-ITP1_10_D-nth_root.test.cpp
+      title: test/aoj-ITP1_10_D-nth_root.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-ITP1_1_A-popcount.test.cpp
+      title: test/aoj-ITP1_1_A-popcount.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-ITP1_3_D-divisors.test.cpp
       title: test/aoj-ITP1_3_D-divisors.test.cpp
