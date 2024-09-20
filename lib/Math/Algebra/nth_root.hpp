@@ -3,7 +3,7 @@
 
 /**
  * @brief 累乗根（ニュートン法）
- * @docs docs/Math/Algebra/square_root.md
+ * @docs docs/Math/Algebra/nth_root.md
  */
 
 #include <cassert>
@@ -14,7 +14,7 @@
 namespace algorithm {
 
 // 累乗根（ニュートン法）．xのn乗根を求める．
-constexpr double root(double x, long long n, const double eps = 1e-10) {
+constexpr double nth_root(double x, long long n, const double eps = 1e-10) {
     assert(x >= 0.0);
     assert(n >= 1);
     double res = 1.0;

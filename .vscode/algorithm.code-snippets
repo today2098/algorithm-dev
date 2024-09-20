@@ -1936,9 +1936,12 @@
 			"template <typename Type>",
 			"constexpr Type ipow(Type n, long long k) {",
 			"    assert(k >= 0);",
-			"    if(k == 0) return 1;",
-			"    Type &&res = ipow(n * n, k >> 1);",
-			"    if(k & 1LL) res *= n;",
+			"    Type res = 1;",
+			"    while(k > 0) {",
+			"        if(k & 1LL) res *= n;",
+			"        n *= n;",
+			"        k >>= 1;",
+			"    }",
 			"    return res;",
 			"}"
 		],
@@ -2152,6 +2155,50 @@
 		],
 		"description": "順列，組合せ，重複組合せ"
 	},
+	"nth_root": {
+		"scope": "cpp",
+		"prefix": "nth_root",
+		"body": [
+			"// 累乗根（ニュートン法）．xのn乗根を求める．",
+			"constexpr double nth_root(double x, long long n, const double eps = 1e-10) {",
+			"    assert(x >= 0.0);",
+			"    assert(n >= 1);",
+			"    double res = 1.0;",
+			"    while(1) {",
+			"        double tmp = (x / ipow(res, n - 1) + (n - 1) * res) / n;",
+			"        if(std::abs(tmp - res) < eps) break;",
+			"        res = tmp;",
+			"    }",
+			"    return res;",
+			"}"
+		],
+		"description": "累乗根（ニュートン法）"
+	},
+	"popcount": {
+		"scope": "cpp",
+		"prefix": "popcount",
+		"body": [
+			"constexpr int popcount32(uint32_t bit) {",
+			"    bit -= (bit >> 1) & 0x55555555U;",
+			"    bit = (bit & 0x33333333U) + ((bit >> 2) & 0x33333333U);",
+			"    bit = (bit + (bit >> 4)) & 0x0f0f0f0fU;",
+			"    bit += bit >> 8;",
+			"    bit += bit >> 16;",
+			"    return bit & 0x3fU;",
+			"}",
+			"",
+			"constexpr int popcount64(uint64_t bit) {",
+			"    bit -= (bit >> 1) & 0x5555555555555555ULL;",
+			"    bit = (bit & 0x3333333333333333ULL) + ((bit >> 2) & 0x3333333333333333ULL);",
+			"    bit = (bit + (bit >> 4)) & 0x0f0f0f0f0f0f0f0fULL;",
+			"    bit += bit >> 8;",
+			"    bit += bit >> 16;",
+			"    bit += bit >> 32;",
+			"    return bit & 0x7fULL;",
+			"}"
+		],
+		"description": "Population Count (popcount)"
+	},
 	"prime_factorize": {
 		"scope": "cpp",
 		"prefix": "prime_factorize",
@@ -2170,25 +2217,6 @@
 			"}"
 		],
 		"description": "素因数分解"
-	},
-	"root": {
-		"scope": "cpp",
-		"prefix": "root",
-		"body": [
-			"// 累乗根（ニュートン法）．xのn乗根を求める．",
-			"constexpr double root(double x, long long n, const double eps = 1e-10) {",
-			"    assert(x >= 0.0);",
-			"    assert(n >= 1);",
-			"    double res = 1.0;",
-			"    while(1) {",
-			"        double tmp = (x / ipow(res, n - 1) + (n - 1) * res) / n;",
-			"        if(std::abs(tmp - res) < eps) break;",
-			"        res = tmp;",
-			"    }",
-			"    return res;",
-			"}"
-		],
-		"description": "累乗根（ニュートン法）"
 	},
 	"z_algorithm": {
 		"scope": "cpp",
