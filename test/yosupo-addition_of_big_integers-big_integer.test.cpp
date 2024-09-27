@@ -8,8 +8,8 @@ int main() {
     int t;
     std::cin >> t;
 
+    algorithm::BigInteger a, b;
     for(int i = 0; i < t; ++i) {
-        algorithm::BigInteger a, b;
         std::cin >> a >> b;
 
         auto &&ans = a + b;
