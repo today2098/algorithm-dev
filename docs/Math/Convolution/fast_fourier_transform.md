@@ -2,7 +2,7 @@
 
 高速フーリエ変換 (FFT: Fast Fourier Transform) を用いた畳み込みを行う．
 
-具体的には，長さ $N$ の数列 $\lbrace a_0, a_1, \ldots, a_{N-1} \rbrace$ と長さ $M$ の数列 $\lbrace b_0, b_1, \ldots, b_{M-1} \rbrace$ に対して
+具体的には，長さ $N$ の数列 $\lbrace a_0, a_1, \ldots, a_{N-1} \rbrace$ と長さ $M$ の数列 $\lbrace b_0, b_1, \ldots, b_{M-1} \rbrace$ に対して，
 
 $$
 c_i = \sum_{k=0}^{i} a_k b_{i-k}
