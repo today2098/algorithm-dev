@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: lib/Math/Convolution/number_theoretic_transform.hpp
+    title: "Number Theoretic Transform\uFF08\u6570\u8AD6\u5909\u63DB\uFF09"
   - icon: ':warning:'
     path: lib/Math/ModularArithmetic/dynamic_modint.hpp
     title: "\u52D5\u7684Modint\u69CB\u9020\u4F53"
@@ -9,6 +12,12 @@ data:
     path: lib/Math/ModularArithmetic/modint.hpp
     title: "Modint\u69CB\u9020\u4F53"
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+    title: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+    title: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
     title: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
@@ -37,9 +46,12 @@ data:
   requiredBy:
   - lib/Math/ModularArithmetic/modint.hpp
   - lib/Math/ModularArithmetic/dynamic_modint.hpp
+  - lib/Math/Convolution/number_theoretic_transform.hpp
   timestamp: '2024-09-06 22:39:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+  - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   - test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
 documentation_of: lib/Math/ModularArithmetic/modint_base.hpp
 layout: document

@@ -19,14 +19,14 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A
   bundledCode: "#line 1 \"test/aoj-ITP1_1_A-popcount.test.cpp\"\n#define PROBLEM \"\
     https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\"\n\n#include\
-    \ <cassert>\n#include <iostream>\n#include <limits>\n#include <random>\n\n#line\
-    \ 1 \"lib/Others/popcount.hpp\"\n\n\n\n/**\n * @brief Population Count (popcount)\n\
-    \ * @docs docs/Others/popcount.md\n */\n\n#include <cstdint>\n\nnamespace algorithm\
-    \ {\n\nconstexpr int popcount32(uint32_t bit) {\n    bit -= (bit >> 1) & 0x55555555U;\n\
-    \    bit = (bit & 0x33333333U) + ((bit >> 2) & 0x33333333U);\n    bit = (bit +\
-    \ (bit >> 4)) & 0x0f0f0f0fU;\n    bit += bit >> 8;\n    bit += bit >> 16;\n  \
-    \  return bit & 0x3fU;\n}\n\nconstexpr int popcount64(uint64_t bit) {\n    bit\
-    \ -= (bit >> 1) & 0x5555555555555555ULL;\n    bit = (bit & 0x3333333333333333ULL)\
+    \ <bitset>\n#include <cassert>\n#include <iostream>\n#include <limits>\n#include\
+    \ <random>\n\n#line 1 \"lib/Others/popcount.hpp\"\n\n\n\n/**\n * @brief Population\
+    \ Count (popcount)\n * @docs docs/Others/popcount.md\n */\n\n#include <cstdint>\n\
+    \nnamespace algorithm {\n\nconstexpr int popcount32(uint32_t bit) {\n    bit -=\
+    \ (bit >> 1) & 0x55555555U;\n    bit = (bit & 0x33333333U) + ((bit >> 2) & 0x33333333U);\n\
+    \    bit = (bit + (bit >> 4)) & 0x0f0f0f0fU;\n    bit += bit >> 8;\n    bit +=\
+    \ bit >> 16;\n    return bit & 0x3fU;\n}\n\nconstexpr int popcount64(uint64_t\
+    \ bit) {\n    bit -= (bit >> 1) & 0x5555555555555555ULL;\n    bit = (bit & 0x3333333333333333ULL)\
     \ + ((bit >> 2) & 0x3333333333333333ULL);\n    bit = (bit + (bit >> 4)) & 0x0f0f0f0f0f0f0f0fULL;\n\
     \    bit += bit >> 8;\n    bit += bit >> 16;\n    bit += bit >> 32;\n    return\
     \ bit & 0x7fULL;\n}\n\n}  // namespace algorithm\n\n\n#line 1 \"lib/Utils/debug.hpp\"\
@@ -81,51 +81,53 @@ data:
     \ \" << open_bracket;\n    print(std::forward<T>(first));\n    ((os << \", \"\
     , print(std::forward<Args>(args))), ...);\n    os << close_bracket << std::endl;\n\
     }\n\n}  // namespace debug\n\n}  // namespace algorithm\n\n#else\n\n#define debug(...)\
-    \ static_cast<void>(0)\n\n#endif\n\n\n#line 10 \"test/aoj-ITP1_1_A-popcount.test.cpp\"\
+    \ static_cast<void>(0)\n\n#endif\n\n\n#line 11 \"test/aoj-ITP1_1_A-popcount.test.cpp\"\
     \n\nconstexpr int naive_popcount(uint64_t bit) {\n    int res = 0;\n    while(bit)\
     \ {\n        res++;\n        bit &= bit - 1;\n    }\n    return res;\n}\n\nint\
-    \ main() {\n    static_assert(algorithm::popcount32(std::numeric_limits<uint32_t>::max())\
-    \ == 32);\n    static_assert(algorithm::popcount64(std::numeric_limits<uint64_t>::max())\
-    \ == 64);\n\n    constexpr int cnt = 10000;\n    std::random_device seed;\n  \
-    \  std::mt19937_64 rng(seed());\n\n    std::uniform_int_distribution<uint32_t>\
-    \ uniform_type(std::numeric_limits<uint32_t>::min(),\n                       \
-    \                                  std::numeric_limits<uint32_t>::max());\n  \
-    \  for(int i = 0; i < cnt; ++i) {\n        uint32_t &&arg = uniform_type(rng);\n\
-    \        auto &&target = algorithm::popcount32(arg);\n        auto &&want = naive_popcount(arg);\n\
-    \        debug(i, arg, target, want);\n\n        assert(target == want);\n   \
-    \ }\n\n    std::uniform_int_distribution<uint64_t> uniform_type2(std::numeric_limits<uint64_t>::min(),\n\
-    \                                                          std::numeric_limits<uint64_t>::max());\n\
-    \    for(int i = 0; i < cnt; ++i) {\n        uint64_t &&arg = uniform_type2(rng);\n\
-    \        auto &&target = algorithm::popcount64(arg);\n        auto &&want = naive_popcount(arg);\n\
-    \        debug(i, arg, target, want);\n\n        assert(target == want);\n   \
-    \ }\n\n    std::cout << \"Hello World\" << std::endl;\n}\n"
+    \ main() {\n    constexpr int t = 10000;\n    std::random_device seed;\n    std::mt19937_64\
+    \ rng(seed());\n\n    static_assert(algorithm::popcount32(std::numeric_limits<uint32_t>::min())\
+    \ == 0);\n    static_assert(algorithm::popcount32(std::numeric_limits<uint32_t>::max())\
+    \ == 32);\n    static_assert(algorithm::popcount64(std::numeric_limits<uint64_t>::min())\
+    \ == 0);\n    static_assert(algorithm::popcount64(std::numeric_limits<uint64_t>::max())\
+    \ == 64);\n\n    std::uniform_int_distribution<uint32_t> uniform(std::numeric_limits<uint32_t>::min(),\n\
+    \                                                    std::numeric_limits<uint32_t>::max());\n\
+    \    for(int i = 0; i < t; ++i) {\n        uint32_t arg = uniform(rng);\n    \
+    \    auto target = algorithm::popcount32(arg);\n        auto want = naive_popcount(arg);\n\
+    \        debug(i, std::bitset<32>(arg), target, want);\n\n        assert(target\
+    \ == want);\n    }\n\n    std::uniform_int_distribution<uint64_t> uniform2(std::numeric_limits<uint64_t>::min(),\n\
+    \                                                     std::numeric_limits<uint64_t>::max());\n\
+    \    for(int i = 0; i < t; ++i) {\n        uint64_t arg = uniform2(rng);\n   \
+    \     auto target = algorithm::popcount64(arg);\n        auto want = naive_popcount(arg);\n\
+    \        debug(i, std::bitset<64>(arg), arg, target, want);\n\n        assert(target\
+    \ == want);\n    }\n\n    std::cout << \"Hello World\" << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\"\
-    \n\n#include <cassert>\n#include <iostream>\n#include <limits>\n#include <random>\n\
-    \n#include \"../lib/Others/popcount.hpp\"\n#include \"../lib/Utils/debug.hpp\"\
+    \n\n#include <bitset>\n#include <cassert>\n#include <iostream>\n#include <limits>\n\
+    #include <random>\n\n#include \"../lib/Others/popcount.hpp\"\n#include \"../lib/Utils/debug.hpp\"\
     \n\nconstexpr int naive_popcount(uint64_t bit) {\n    int res = 0;\n    while(bit)\
     \ {\n        res++;\n        bit &= bit - 1;\n    }\n    return res;\n}\n\nint\
-    \ main() {\n    static_assert(algorithm::popcount32(std::numeric_limits<uint32_t>::max())\
-    \ == 32);\n    static_assert(algorithm::popcount64(std::numeric_limits<uint64_t>::max())\
-    \ == 64);\n\n    constexpr int cnt = 10000;\n    std::random_device seed;\n  \
-    \  std::mt19937_64 rng(seed());\n\n    std::uniform_int_distribution<uint32_t>\
-    \ uniform_type(std::numeric_limits<uint32_t>::min(),\n                       \
-    \                                  std::numeric_limits<uint32_t>::max());\n  \
-    \  for(int i = 0; i < cnt; ++i) {\n        uint32_t &&arg = uniform_type(rng);\n\
-    \        auto &&target = algorithm::popcount32(arg);\n        auto &&want = naive_popcount(arg);\n\
-    \        debug(i, arg, target, want);\n\n        assert(target == want);\n   \
-    \ }\n\n    std::uniform_int_distribution<uint64_t> uniform_type2(std::numeric_limits<uint64_t>::min(),\n\
-    \                                                          std::numeric_limits<uint64_t>::max());\n\
-    \    for(int i = 0; i < cnt; ++i) {\n        uint64_t &&arg = uniform_type2(rng);\n\
-    \        auto &&target = algorithm::popcount64(arg);\n        auto &&want = naive_popcount(arg);\n\
-    \        debug(i, arg, target, want);\n\n        assert(target == want);\n   \
-    \ }\n\n    std::cout << \"Hello World\" << std::endl;\n}\n"
+    \ main() {\n    constexpr int t = 10000;\n    std::random_device seed;\n    std::mt19937_64\
+    \ rng(seed());\n\n    static_assert(algorithm::popcount32(std::numeric_limits<uint32_t>::min())\
+    \ == 0);\n    static_assert(algorithm::popcount32(std::numeric_limits<uint32_t>::max())\
+    \ == 32);\n    static_assert(algorithm::popcount64(std::numeric_limits<uint64_t>::min())\
+    \ == 0);\n    static_assert(algorithm::popcount64(std::numeric_limits<uint64_t>::max())\
+    \ == 64);\n\n    std::uniform_int_distribution<uint32_t> uniform(std::numeric_limits<uint32_t>::min(),\n\
+    \                                                    std::numeric_limits<uint32_t>::max());\n\
+    \    for(int i = 0; i < t; ++i) {\n        uint32_t arg = uniform(rng);\n    \
+    \    auto target = algorithm::popcount32(arg);\n        auto want = naive_popcount(arg);\n\
+    \        debug(i, std::bitset<32>(arg), target, want);\n\n        assert(target\
+    \ == want);\n    }\n\n    std::uniform_int_distribution<uint64_t> uniform2(std::numeric_limits<uint64_t>::min(),\n\
+    \                                                     std::numeric_limits<uint64_t>::max());\n\
+    \    for(int i = 0; i < t; ++i) {\n        uint64_t arg = uniform2(rng);\n   \
+    \     auto target = algorithm::popcount64(arg);\n        auto want = naive_popcount(arg);\n\
+    \        debug(i, std::bitset<64>(arg), arg, target, want);\n\n        assert(target\
+    \ == want);\n    }\n\n    std::cout << \"Hello World\" << std::endl;\n}\n"
   dependsOn:
   - lib/Others/popcount.hpp
   - lib/Utils/debug.hpp
   isVerificationFile: true
   path: test/aoj-ITP1_1_A-popcount.test.cpp
   requiredBy: []
-  timestamp: '2024-09-20 06:57:48+09:00'
+  timestamp: '2024-09-28 13:46:59+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj-ITP1_1_A-popcount.test.cpp
