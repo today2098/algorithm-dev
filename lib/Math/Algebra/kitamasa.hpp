@@ -49,7 +49,7 @@ private:
             x[0] = 1;
             return x;  // f(0).
         }
-        std::vector<T> &&x = mul(f(n / 2));
+        std::vector<T> &&x = mul(f(n >> 1));
         if(n & 1ULL) x = add(x);
         return x;
     }
