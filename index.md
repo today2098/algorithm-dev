@@ -56,6 +56,9 @@ data:
   - name: lib/Math/Algebra
     pages:
     - icon: ':heavy_check_mark:'
+      path: lib/Math/Algebra/kitamasa.hpp
+      title: "\u304D\u305F\u307E\u3055\u6CD5"
+    - icon: ':heavy_check_mark:'
       path: lib/Math/Algebra/nth_root.hpp
       title: "\u7D2F\u4E57\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
     - icon: ':heavy_check_mark:'
@@ -141,6 +144,9 @@ data:
         \u306E\u7BE9\uFF09"
   - name: lib/Others
     pages:
+    - icon: ':heavy_check_mark:'
+      path: lib/Others/binary_search.hpp
+      title: "\u4E8C\u5206\u63A2\u7D22"
     - icon: ':warning:'
       path: lib/Others/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
@@ -193,6 +199,9 @@ data:
       path: test/aoj-1276-sieve.test.cpp
       title: test/aoj-1276-sieve.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj-ALDS1_10_A-kitamasa.test.cpp
+      title: test/aoj-ALDS1_10_A-kitamasa.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
       title: test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
     - icon: ':heavy_check_mark:'
@@ -204,6 +213,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_1_C-sieve.test.cpp
       title: test/aoj-ALDS1_1_C-sieve.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-ALDS1_4_B-binary_search.test.cpp
+      title: test/aoj-ALDS1_4_B-binary_search.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
       title: test/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
