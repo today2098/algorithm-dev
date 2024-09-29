@@ -1,10 +1,12 @@
 {
 "test/aoj-1276-linear_sieve.test.cpp": "2024-09-07 11:53:51 +0900",
 "test/aoj-1276-sieve.test.cpp": "2024-09-07 11:53:51 +0900",
+"test/aoj-ALDS1_10_A-kitamasa.test.cpp": "2024-09-29 17:15:57 +0900",
 "test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp": "2024-09-16 01:47:08 +0900",
 "test/aoj-ALDS1_1_C-is_prime.test.cpp": "2024-09-02 01:55:05 +0900",
 "test/aoj-ALDS1_1_C-linear_sieve.test.cpp": "2024-09-07 11:53:51 +0900",
 "test/aoj-ALDS1_1_C-sieve.test.cpp": "2024-09-07 11:53:51 +0900",
+"test/aoj-ALDS1_4_B-binary_search.test.cpp": "2024-09-29 17:03:01 +0900",
 "test/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp": "2024-09-16 01:47:08 +0900",
 "test/aoj-DPL_1_E-edit_distance.test.cpp": "2024-09-16 02:05:36 +0900",
 "test/aoj-DPL_3_B-largest_rectangle.test.cpp": "2024-09-16 00:47:58 +0900",
