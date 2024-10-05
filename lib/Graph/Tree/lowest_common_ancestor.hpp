@@ -22,20 +22,34 @@ class LCA {
     int m_vn;                                           // m_vn:=(ノード数).
     int m_lb;                                           // m_lb:=ceiling(log2(vn)).
     std::vector<std::vector<std::pair<int, T> > > m_g;  // m_g[v][]:=(ノードvの隣接リスト). pair of (to, cost). グラフは木であること．
-    std::vector<std::vector<int> > m_par;               // m_par[k][v]:=(ノードvから2^k回辿って到達する親ノード番号). 親がいない場合は-1．
+    std::vector<std::vector<int> > m_par;               // m_par[k][v]:=(ノードvから2^k回辿って到達する親). 親がいない場合は-1．
     std::vector<int> m_depth;                           // m_depth[v]:=(ノードvの深さ). 根に連結していない場合は-1．
     std::vector<T> m_dist;                              // m_dist[v]:=(根からノードvまでの距離).
+    std::vector<std::vector<T> > m_mx_cost;             // m_mx_cost[k][v]:=(ノードvから2^k回遡上するパスの中での最大コスト).
     std::vector<int> m_ord;                             // m_ord[v]:=(DFS木におけるノードvの行きかけ順序).
 
-    bool is_unconnected(int v) const { return m_ord[v] == -1; }
     void dfs(int u, int p, int depth, T distance, int &now) {
         assert(m_ord[u] == -1);  // グラフ上に閉路はないこと．
         m_ord[u] = now++;
-        m_par[0][u] = p, m_depth[u] = depth, m_dist[u] = distance;
+        m_depth[u] = depth, m_dist[u] = distance;
         for(const auto &[v, cost] : m_g[u]) {
             if(v == p) continue;
+            m_par[0][v] = u, m_mx_cost[0][v] = cost;
             dfs(v, u, depth + 1, distance + cost, now);
         }
+    }
+    // ノードvが木と非連結か判定する．O(1).
+    bool is_unconnected(int v) const { return m_ord[v] == -1; }
+    // ノードvからk回遡上するパスの中での最大コストを求める．O(log|V|).
+    T max_cost_internal(int v, int k) const {
+        T res = -infinity();
+        for(int i = 0; i < m_lb; ++i) {
+            if(k >> i & 1) {
+                res = std::max(res, m_mx_cost[i][v]);
+                v = m_par[i][v];
+            }
+        }
+        return res;
     }
 
 public:
@@ -43,6 +57,7 @@ public:
     explicit LCA(size_t vn) : m_vn(vn), m_lb(1), m_g(vn), m_depth(vn, -1), m_dist(vn, infinity()), m_ord(vn, -1) {
         while(1 << m_lb < order()) m_lb++;
         m_par.assign(m_lb, std::vector<int>(order(), -1));
+        m_mx_cost.assign(m_lb, std::vector<T>(order(), -infinity()));
     }
 
     static constexpr T infinity() { return std::numeric_limits<T>::max(); }
@@ -61,12 +76,16 @@ public:
         for(std::vector<int> &v : m_par) std::fill(v.begin(), v.end(), -1);
         std::fill(m_depth.begin(), m_depth.end(), -1);
         std::fill(m_dist.begin(), m_dist.end(), infinity());
+        for(std::vector<T> &v : m_mx_cost) std::fill(v.begin(), v.end(), -infinity());
         std::fill(m_ord.begin(), m_ord.end(), -1);
         int now = 0;
         dfs(rt, -1, 0, 0, now);
         for(int k = 0; k < m_lb - 1; ++k) {
             for(int v = 0; v < order(); ++v) {
-                if(m_par[k][v] != -1) m_par[k + 1][v] = m_par[k][m_par[k][v]];
+                if(m_par[k][v] != -1) {
+                    m_par[k + 1][v] = m_par[k][m_par[k][v]];
+                    m_mx_cost[k + 1][v] = std::max(m_mx_cost[k][v], m_mx_cost[k][m_par[k][v]]);
+                }
             }
         }
     }
@@ -116,6 +135,17 @@ public:
         assert(0 <= v and v < order());
         if(is_unconnected(u) or is_unconnected(v)) return infinity();
         return m_dist[u] + m_dist[v] - 2 * m_dist[lca(u, v)];
+    }
+    // ノードu, v間のパスにおける最大コストを求める．O(log|V|).
+    T max_cost(int u, int v) const {
+        assert(0 <= u and u < order());
+        assert(0 <= v and v < order());
+        if(is_unconnected(u) or is_unconnected(v)) return -infinity();
+        T res = -infinity();
+        int ancestor = lca(u, v);
+        res = std::max(res, max_cost_internal(u, depth(u) - depth(ancestor)));
+        res = std::max(res, max_cost_internal(v, depth(v) - depth(ancestor)));
+        return res;
     }
     // 木の圧縮．
     // 任意の頂点集合とそのLCAからなる，頂点同士の関係性を維持した木を作成する．O(K*log|V|).
