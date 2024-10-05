@@ -152,16 +152,16 @@ public:
     std::pair<int, std::map<int, std::vector<int> > > auxiliary_tree(std::vector<int> &vs) const {
         assert(std::find_if(vs.begin(), vs.end(), [&](int v) -> bool { return !(0 <= v and v < order()); }) == vs.end());
         std::map<int, std::vector<int> > res;  // res[v][]:=(圧縮した木におけるノードvの隣接リスト).
-        vs.erase(std::remove_if(vs.begin(), vs.end(), [&](int v) -> bool { return is_unconnected(v); }), vs.end());
-        auto comp = [&](int u, int v) -> bool { return m_ord[u] < m_ord[v]; };
-        std::sort(vs.begin(), vs.end(), comp);
-        vs.erase(std::unique(vs.begin(), vs.end()), vs.end());
         const int n = vs.size();
         if(n == 0) return {-1, res};
+        vs.erase(std::remove_if(vs.begin(), vs.end(), [&](int v) -> bool { return is_unconnected(v); }), vs.end());
         if(n == 1) {
             res[vs[0]];
             return {vs[0], res};
         }
+        auto comp = [&m_ord](int u, int v) -> bool { return m_ord[u] < m_ord[v]; };
+        std::sort(vs.begin(), vs.end(), comp);
+        vs.erase(std::unique(vs.begin(), vs.end()), vs.end());
         std::stack<int> st;
         st.push(vs[0]);
         for(int i = 1; i < n; ++i) {
