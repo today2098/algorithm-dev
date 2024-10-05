@@ -2,9 +2,15 @@
 
 ある木において，任意の2頂点の最近共通祖先 (LCA: Lowest Common Ancestor) を効率的に求めるアルゴリズム．
 
-本ライブラリでは「ダブリング」を用いて実装している．
+本実装では「ダブリング」を用いている．
 
-計算量は，木のノード数を $\lvert V \rvert$ とすると，前処理に $\mathcal{O}(\lvert V \rvert \log \lvert V \rvert)$ ，クエリ処理に $\mathcal{O}(\log \lvert V \rvert)$ を要する．
+アルゴリズムの計算量は次の通り．
+ただし，木のノード数を $\lvert V \rvert$ とする．
+
+- 前処理：
+    - 時間計算量：$\mathcal{O}(\lvert V \rvert \log \lvert V \rvert)$
+    - 空間計算量：$\mathcal{O}(\lvert V \rvert \log \lvert V \rvert)$
+- クエリ処理：$\mathcal{O}(\log \lvert V \rvert)$
 
 
 ## 参考文献
@@ -17,4 +23,6 @@
 
 ## 問題
 
+- "D - Collision". AtCoder Beginner Contest 209. AtCoder. <https://atcoder.jp/contests/abc209/tasks/abc209_d>.
 - "G - Leaf Color". AtCoder Beginner Contest 340. AtCoder. <https://atcoder.jp/contests/abc340/tasks/abc340_g>.
+- "H - Union Sets". CODE THANKS FESTIVAL 2017(Parallel). AtCoder. <https://atcoder.jp/contests/code-thanks-festival-2017-open/tasks/code_thanks_festival_2017_h>.

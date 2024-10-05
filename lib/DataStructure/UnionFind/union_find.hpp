@@ -16,7 +16,7 @@ namespace algorithm {
 class UnionFind {
     int m_vn;  // m_vn:=(要素数).
     int m_gn;  // m_gn:=(グループ数).
-    // m_par[x]:=(要素xの親番号). 0未満の場合，xは根であり，値の絶対値は属するグループのサイズを表す．
+    // m_par[x]:=(要素xの親). 0未満の場合，xは根であり，値の絶対値は属するグループのサイズを表す．
     std::vector<int> m_par;
 
 public:
@@ -27,7 +27,7 @@ public:
     int vn() const { return m_vn; };
     // グループ数を返す．
     int gn() const { return m_gn; };
-    // 要素xが属するグループ（根付き木）の根番号を返す．O(α(N)).
+    // 要素xが属するグループ（根付き木）の根を返す．O(α(N)).
     int root(int x) {
         assert(0 <= x and x < vn());
         if(m_par[x] < 0) return x;
@@ -44,13 +44,13 @@ public:
         assert(0 <= y and y < vn());
         return root(x) == root(y);
     }
-    // 要素xが属するグループと要素yが属するグループとを統合する．
+    // 要素x, yが属するそれぞれのグループを併合する．
     bool unite(int x, int y) {
         assert(0 <= x and x < vn());
         assert(0 <= y and y < vn());
         x = root(x), y = root(y);
-        if(x == y) return false;                // Do nothing.
-        if(size(x) < size(y)) std::swap(x, y);  // Merge technique (union by size).
+        if(x == y) return false;                    // Do nothing.
+        if(-m_par[x] < -m_par[y]) std::swap(x, y);  // Merge technique (union by size).
         m_par[x] += m_par[y];
         m_par[y] = x;
         m_gn--;
