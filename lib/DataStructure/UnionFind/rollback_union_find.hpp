@@ -21,15 +21,14 @@ class RollbackUnionFind {
     int m_gn;  // m_gn:=(グループ数).
     // m_par[x]:=(要素xの親). 0未満の場合，xは根であり，値の絶対値は属するグループのサイズを表す．
     std::vector<int> m_par;
-    // m_histories[]:=(i番目のヒストリーの状態). tuple of (x, m_par[x], y, m_par[y]).
-    std::stack<std::tuple<int, int, int, int> > m_histories;
+    std::stack<std::tuple<int, int, int, int> > m_history;  // tuple of (x, m_par[x], y, m_par[y]).
 
 public:
     RollbackUnionFind() : RollbackUnionFind(0) {}
     explicit RollbackUnionFind(size_t vn) : m_vn(vn), m_gn(vn), m_par(vn, -1) {}
 
     // 現在のヒストリーのインデックスを返す．O(1).
-    int index() const { return m_histories.size(); }
+    int index() const { return m_history.size(); }
     // 要素の総数を返す．
     int vn() const { return m_vn; };
     // グループ数を返す．
@@ -56,26 +55,25 @@ public:
         assert(0 <= x and x < vn());
         assert(0 <= y and y < vn());
         x = root(x), y = root(y);
-        if(x == y) return false;  // Do nothing.
-        m_histories.emplace(x, m_par[x], y, m_par[y]);
+        m_history.emplace(x, m_par[x], y, m_par[y]);
+        if(x == y) return false;
         if(size(x) < size(y)) std::swap(x, y);  // Merge technique (union by size).
         m_par[x] += m_par[y];
         m_par[y] = x;
         m_gn--;
         return true;
     }
-    // 1つ前の状態に戻す．O(1).
-    int rollback() {
+    // 直前の状態に戻す．O(1).
+    void rollback() {
         assert(index() >= 1);
-        auto [x, value_x, y, value_y] = m_histories.top();
+        auto [x, value_x, y, value_y] = m_history.top();
+        m_history.pop();
         m_par[x] = value_x, m_par[y] = value_y;
-        m_histories.pop();
-        return index();
     }
     void reset() {
         m_gn = vn();
         std::fill(m_par.begin(), m_par.end(), -1);
-        std::stack<std::tuple<int, int, int, int> >().swap(m_histories);
+        std::stack<std::tuple<int, int, int, int> >().swap(m_history);
     }
 };
 
