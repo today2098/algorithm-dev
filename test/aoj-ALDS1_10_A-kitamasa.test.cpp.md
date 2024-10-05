@@ -37,8 +37,8 @@ data:
     \u8FD4\u3059\uFF0EO((K^2)*logN).\n    std::vector<T> f(size_type n) const {\n\
     \        if(n == 0) {\n            std::vector<T> x(m_k, 0);\n            x[0]\
     \ = 1;\n            return x;  // f(0).\n        }\n        std::vector<T> &&x\
-    \ = mul(f(n / 2));\n        if(n & 1ULL) x = add(x);\n        return x;\n    }\n\
-    \npublic:\n    Kitamasa() : Kitamasa({0, 1}, {1, 1}) {}  // \u30D5\u30A3\u30DC\
+    \ = mul(f(n >> 1));\n        if(n & 1ULL) x = add(x);\n        return x;\n   \
+    \ }\n\npublic:\n    Kitamasa() : Kitamasa({0, 1}, {1, 1}) {}  // \u30D5\u30A3\u30DC\
     \u30CA\u30C3\u30C1\u6570\u5217\uFF0E\n    explicit Kitamasa(const std::vector<T>\
     \ &a, const std::vector<T> &d) : m_k(a.size()), m_a(a), m_d(d) {\n        assert(a.size()\
     \ >= 1);\n        assert(a.size() == d.size());\n    }\n\n    T operator[](size_type\
@@ -63,7 +63,7 @@ data:
   isVerificationFile: true
   path: test/aoj-ALDS1_10_A-kitamasa.test.cpp
   requiredBy: []
-  timestamp: '2024-09-29 17:15:57+09:00'
+  timestamp: '2024-09-29 19:29:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj-ALDS1_10_A-kitamasa.test.cpp

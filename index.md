@@ -21,6 +21,15 @@ data:
       title: Sparse Table
   - name: lib/DataStructure/UnionFind
     pages:
+    - icon: ':warning:'
+      path: lib/DataStructure/UnionFind/partially_persistent_union_find.hpp
+      title: "Partially Persistent Union-Find\uFF08\u90E8\u5206\u6C38\u7D9AUnionf-Find\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/DataStructure/UnionFind/potentialized_union_find.hpp
+      title: "\u91CD\u307F\u4ED8\u304DUnion-Find"
+    - icon: ':heavy_check_mark:'
+      path: lib/DataStructure/UnionFind/rollback_union_find.hpp
+      title: "Rollback\u4ED8\u304DUnion-Find"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/UnionFind/union_find.hpp
       title: "Union-Find\uFF08\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020\uFF09"
@@ -158,6 +167,9 @@ data:
       title: "Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\u5206\
         \u5217\uFF09"
     - icon: ':heavy_check_mark:'
+      path: lib/Others/mo_algorithm.hpp
+      title: "Mo's Algorithm\uFF08\u30AF\u30A8\u30EA\u5E73\u65B9\u5206\u5272\uFF09"
+    - icon: ':heavy_check_mark:'
       path: lib/Others/popcount.hpp
       title: Population Count (popcount)
   - name: lib/String
@@ -192,6 +204,9 @@ data:
   verificationCategories:
   - name: test
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-0425-mo_algorithm.test.cpp
+      title: test/aoj-0425-mo_algorithm.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-1276-linear_sieve.test.cpp
       title: test/aoj-1276-linear_sieve.test.cpp
@@ -231,6 +246,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-DSL_1_A-union_find.test.cpp
       title: test/aoj-DSL_1_A-union_find.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_1_B-potentialized_union_find.test.cpp
+      title: test/aoj-DSL_1_B-potentialized_union_find.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-DSL_2_A-segment_tree.test.cpp
       title: test/aoj-DSL_2_A-segment_tree.test.cpp
@@ -321,6 +339,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
       title: test/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-persistent_unionfind-rollback_union_find.test.cpp
+      title: test/yosupo-persistent_unionfind-rollback_union_find.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
       title: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
