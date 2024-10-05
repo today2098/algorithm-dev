@@ -10,6 +10,7 @@
 #include <cassert>
 #include <limits>
 #include <map>
+#include <numeric>
 #include <stack>
 #include <utility>
 #include <vector>
@@ -22,8 +23,8 @@ class LCA {
     int m_vn;                                           // m_vn:=(ノード数).
     int m_lb;                                           // m_lb:=ceiling(log2(vn)).
     std::vector<std::vector<std::pair<int, T> > > m_g;  // m_g[v][]:=(ノードvの隣接リスト). pair of (to, cost). グラフは木であること．
-    std::vector<std::vector<int> > m_par;               // m_par[k][v]:=(ノードvから2^k回辿って到達する親). 親がいない場合は-1．
-    std::vector<int> m_depth;                           // m_depth[v]:=(ノードvの深さ). 根に連結していない場合は-1．
+    std::vector<std::vector<int> > m_par;               // m_par[k][v]:=(ノードvから2^k回遡って到達する親ノード). 親ノードがいない場合は-1．
+    std::vector<int> m_depth;                           // m_depth[v]:=(ノードvの深さ).
     std::vector<T> m_dist;                              // m_dist[v]:=(根からノードvまでの距離).
     std::vector<std::vector<T> > m_mx_cost;             // m_mx_cost[k][v]:=(ノードvから2^k回遡上するパスの中での最大コスト).
     std::vector<int> m_ord;                             // m_ord[v]:=(DFS木におけるノードvの行きかけ順序).
@@ -38,8 +39,6 @@ class LCA {
             dfs(v, u, depth + 1, distance + cost, now);
         }
     }
-    // ノードvが木と非連結か判定する．O(1).
-    bool is_unconnected(int v) const { return m_ord[v] == -1; }
     // ノードvからk回遡上するパスの中での最大コストを求める．O(log|V|).
     T max_cost_internal(int v, int k) const {
         T res = -infinity();
@@ -53,11 +52,13 @@ class LCA {
     }
 
 public:
+    // constructor. O(|V|*log|V|).
     LCA() : LCA(0) {}
-    explicit LCA(size_t vn) : m_vn(vn), m_lb(1), m_g(vn), m_depth(vn, -1), m_dist(vn, infinity()), m_ord(vn, -1) {
+    explicit LCA(size_t vn) : m_vn(vn), m_lb(1), m_g(vn), m_depth(vn, 0), m_dist(vn, 0), m_ord(vn) {
         while(1 << m_lb < order()) m_lb++;
         m_par.assign(m_lb, std::vector<int>(order(), -1));
         m_mx_cost.assign(m_lb, std::vector<T>(order(), -infinity()));
+        std::iota(m_ord.begin(), m_ord.end(), 0);
     }
 
     static constexpr T infinity() { return std::numeric_limits<T>::max(); }
@@ -71,18 +72,24 @@ public:
         m_g[v].emplace_back(u, cost);
     }
     // 祖先木を構築する．O(|V|*log|V|).
-    void build(int rt = 0) {
-        assert(0 <= rt and rt < order());
-        for(std::vector<int> &v : m_par) std::fill(v.begin(), v.end(), -1);
-        std::fill(m_depth.begin(), m_depth.end(), -1);
-        std::fill(m_dist.begin(), m_dist.end(), infinity());
-        for(std::vector<T> &v : m_mx_cost) std::fill(v.begin(), v.end(), -infinity());
+    void build(const std::vector<int> &rts = {}) {
+        assert(std::find_if(rts.cbegin(), rts.cend(), [&](int v) -> bool { return !(0 <= v and v < order()); }) == rts.cend());
+        std::fill(m_par[0].begin(), m_par[0].end(), -1);
+        std::fill(m_mx_cost[0].begin(), m_mx_cost[0].end(), -infinity());
         std::fill(m_ord.begin(), m_ord.end(), -1);
         int now = 0;
-        dfs(rt, -1, 0, 0, now);
+        for(int rt : rts) {
+            if(m_ord[rt] == -1) dfs(rt, -1, 0, 0, now);
+        }
+        for(int v = 0; v < order(); ++v) {
+            if(m_ord[v] == -1) dfs(v, -1, 0, 0, now);
+        }
         for(int k = 0; k < m_lb - 1; ++k) {
             for(int v = 0; v < order(); ++v) {
-                if(m_par[k][v] != -1) {
+                if(m_par[k][v] == -1) {
+                    m_par[k + 1][v] = -1;
+                    m_mx_cost[k + 1][v] = -infinity();
+                } else {
                     m_par[k + 1][v] = m_par[k][m_par[k][v]];
                     m_mx_cost[k + 1][v] = std::max(m_mx_cost[k][v], m_mx_cost[k][m_par[k][v]]);
                 }
@@ -99,11 +106,10 @@ public:
         }
         return v;
     }
-    // 木上のノードuとvの最も近い共通の祖先を求める．O(log|V|).
+    // 木上のノードuとvの最近共通祖先を求める．2つのノードが非連結の場合，-1を返す．O(log|V|).
     int lca(int u, int v) const {
         assert(0 <= u and u < order());
         assert(0 <= v and v < order());
-        if(is_unconnected(u) or is_unconnected(v)) return -1;
         if(m_depth[u] > m_depth[v]) std::swap(u, v);
         v = trace_back(v, m_depth[v] - m_depth[u]);  // 同じ深さに合わせる．
         if(u == v) return u;
@@ -121,8 +127,9 @@ public:
     int length(int u, int v) const {
         assert(0 <= u and u < order());
         assert(0 <= v and v < order());
-        if(is_unconnected(u) or is_unconnected(v)) return -1;
-        return m_depth[u] + m_depth[v] - 2 * m_depth[lca(u, v)];
+        int w = lca(u, v);
+        if(w == -1) return -1;
+        return m_depth[u] + m_depth[v] - 2 * m_depth[w];
     }
     // 根とノードv間の距離を返す．O(1).
     T distance(int v) const {
@@ -133,40 +140,45 @@ public:
     T distance(int u, int v) const {
         assert(0 <= u and u < order());
         assert(0 <= v and v < order());
-        if(is_unconnected(u) or is_unconnected(v)) return infinity();
-        return m_dist[u] + m_dist[v] - 2 * m_dist[lca(u, v)];
+        int w = lca(u, v);
+        if(w == -1) return infinity();
+        return m_dist[u] + m_dist[v] - 2 * m_dist[w];
     }
     // ノードu, v間のパスにおける最大コストを求める．O(log|V|).
     T max_cost(int u, int v) const {
         assert(0 <= u and u < order());
         assert(0 <= v and v < order());
-        if(is_unconnected(u) or is_unconnected(v)) return -infinity();
+        int w = lca(u, v);
+        if(w == -1) return -infinity();
         T res = -infinity();
-        int ancestor = lca(u, v);
-        res = std::max(res, max_cost_internal(u, depth(u) - depth(ancestor)));
-        res = std::max(res, max_cost_internal(v, depth(v) - depth(ancestor)));
+        res = std::max(res, max_cost_internal(u, depth(u) - depth(w)));
+        res = std::max(res, max_cost_internal(v, depth(v) - depth(w)));
         return res;
     }
     // 木の圧縮．
     // 任意の頂点集合とそのLCAからなる，頂点同士の関係性を維持した木を作成する．O(K*log|V|).
-    std::pair<int, std::map<int, std::vector<int> > > auxiliary_tree(std::vector<int> &vs) const {
-        assert(std::find_if(vs.begin(), vs.end(), [&](int v) -> bool { return !(0 <= v and v < order()); }) == vs.end());
-        std::map<int, std::vector<int> > res;  // res[v][]:=(圧縮した木におけるノードvの隣接リスト).
+    std::map<int, std::vector<int> > auxiliary_tree(std::vector<int> &vs) const {
+        assert(std::find_if(vs.cbegin(), vs.cend(), [&](int v) -> bool { return !(0 <= v and v < order()); }) == vs.cend());
         const int n = vs.size();
-        if(n == 0) return {-1, res};
-        vs.erase(std::remove_if(vs.begin(), vs.end(), [&](int v) -> bool { return is_unconnected(v); }), vs.end());
-        if(n == 1) {
-            res[vs[0]];
-            return {vs[0], res};
-        }
-        auto comp = [&m_ord](int u, int v) -> bool { return m_ord[u] < m_ord[v]; };
+        if(n == 0) return std::map<int, std::vector<int> >();
+        std::map<int, std::vector<int> > res;  // res[v][]:=(圧縮した木におけるノードvの隣接リスト).
+        auto comp = [&](int u, int v) -> bool { return m_ord[u] < m_ord[v]; };
         std::sort(vs.begin(), vs.end(), comp);
         vs.erase(std::unique(vs.begin(), vs.end()), vs.end());
         std::stack<int> st;
         st.push(vs[0]);
         for(int i = 1; i < n; ++i) {
             int w = lca(vs[i - 1], vs[i]);
-            if(w != vs[i - 1]) {
+            if(w == -1) {
+                while(st.size() > 1) {
+                    int v = st.top();
+                    st.pop();
+                    res[st.top()].push_back(v);
+                    res[v].push_back(st.top());
+                }
+                res[st.top()];  // for unconnected node.
+                st.pop();
+            } else if(w != vs[i - 1]) {
                 int v = st.top();
                 st.pop();
                 while(!st.empty() and m_depth[st.top()] > m_depth[w]) {
@@ -190,8 +202,9 @@ public:
             res[st.top()].push_back(v);
             res[v].push_back(st.top());
         }
+        res[st.top()];  // for unconnected node.
         std::sort(vs.begin(), vs.end(), comp);
-        return {st.top(), res};  // pair of (root, tree).
+        return res;
     }
 };
 
