@@ -10,3 +10,8 @@
 ## 参考文献
 
 1. "Strongly connected component". Wikipedia. <https://en.wikipedia.org/wiki/Strongly_connected_component>.
+
+
+## 問題
+
+- "G - SCC". AtCoder Library Practice Contest. AtCoder. <https://atcoder.jp/contests/practice2/tasks/practice2_g>.

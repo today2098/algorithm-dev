@@ -1,10 +1,9 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/scc"
 
 #include <iostream>
-#include <queue>
-#include <vector>
 
 #include "../lib/Graph/Others/strongly_connected_components.hpp"
+#include "../lib/Graph/Others/topological_sort.hpp"
 
 int main() {
     int n;
@@ -23,27 +22,16 @@ int main() {
     auto &&sccs = scc.scc(num, ids);
     auto &&dag = scc.directed_acyclic_graph(num, ids);
 
+    algorithm::TopologicalSort ts(num);
+    for(int u = 0; u < num; ++u) {
+        for(auto v : dag[u]) ts.add_edge(u, v);
+    }
+    auto &&v = ts.topological_sort();
+
     std::cout << num << "\n";
-
-    std::vector<int> degree(num, 0);
-    for(const auto &edge : dag) {
-        for(auto to : edge) degree[to]++;
-    }
-
-    std::queue<int> que;
-    for(int i = 0; i < num; ++i) {
-        if(degree[i] == 0) que.push(i);
-    }
-    while(!que.empty()) {
-        auto id = que.front();
-        que.pop();
-
+    for(auto id : v) {
         std::cout << sccs[id].size() << " ";
         for(auto v : sccs[id]) std::cout << v << " ";
         std::cout << "\n";
-
-        for(auto id2 : dag[id]) {
-            if(--degree[id2] == 0) que.push(id2);
-        }
     }
 }
