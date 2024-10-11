@@ -44,6 +44,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/Graph/Flow/primal_dual.hpp
       title: "\u6700\u5C0F\u8CBB\u7528\u6D41\u554F\u984C"
+  - name: lib/Graph/Others
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: lib/Graph/Others/prim.hpp
+      title: "Prim's Algorithm\uFF08\u6700\u5C0F\u5168\u57DF\u6728\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/Graph/Others/strongly_connected_components.hpp
+      title: "Strongly Connected Components\uFF08\u5F37\u9023\u7D50\u6210\u5206\u5206\
+        \u89E3\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/Graph/Others/topological_sort.hpp
+      title: "Topological Sort\uFF08\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\
+        \u30C8\uFF09"
   - name: lib/Graph/ShortestPath
     pages:
     - icon: ':heavy_check_mark:'
@@ -182,6 +195,9 @@ data:
       title: "Longest Common Subsequence\uFF08\u6700\u9577\u5171\u901A\u90E8\u5206\
         \u5217\uFF09"
     - icon: ':heavy_check_mark:'
+      path: lib/String/manacher.hpp
+      title: "Manacher's Algorithm\uFF08\u6700\u9577\u56DE\u6587\uFF09"
+    - icon: ':heavy_check_mark:'
       path: lib/String/z_algorithm.hpp
       title: "Z algorithm\uFF08\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\uFF09"
   - name: lib/Utils
@@ -219,6 +235,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
       title: test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-ALDS1_12_A.test.cpp
+      title: test/aoj-ALDS1_12_A.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_1_C-is_prime.test.cpp
       title: test/aoj-ALDS1_1_C-is_prime.test.cpp
@@ -276,6 +295,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-GRL_1_B-bellman_ford.test.cpp
       title: test/aoj-GRL_1_B-bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-GRL_3_C-strongly_connected_components.test.cpp
+      title: test/aoj-GRL_3_C-strongly_connected_components.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-GRL_5_A-double_sweep.test.cpp
       title: test/aoj-GRL_5_A-double_sweep.test.cpp
@@ -337,6 +359,9 @@ data:
       path: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
       title: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo-enumerate_palindromes-manacher.test.cpp
+      title: test/yosupo-enumerate_palindromes-manacher.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
       title: test/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
     - icon: ':heavy_check_mark:'
@@ -351,6 +376,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
       title: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-scc-strongly_connected_components.test.cpp
+      title: test/yosupo-scc-strongly_connected_components.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo-staticrmp-sparse_table.test.cpp
       title: test/yosupo-staticrmp-sparse_table.test.cpp

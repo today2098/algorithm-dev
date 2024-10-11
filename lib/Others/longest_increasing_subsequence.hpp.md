@@ -84,8 +84,8 @@ data:
   timestamp: '2024-09-16 00:47:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
   - test/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
+  - test/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
 documentation_of: lib/Others/longest_increasing_subsequence.hpp
 layout: document
 redirect_from:
