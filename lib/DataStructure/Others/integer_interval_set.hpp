@@ -3,7 +3,7 @@
 
 /**
  * @brief Integer Interval Set（整数の集合を区間で管理するデータ構造）
- * @docs docs/DataStructure/integer_interval_set.md
+ * @docs docs/DataStructure/Others/integer_interval_set.md
  */
 
 #include <cassert>
