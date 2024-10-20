@@ -20,7 +20,7 @@ public:
 
 private:
     struct Node {
-        size_type cnt;  // cnt:=(自身を根とする部分木に含まれる要素数).
+        size_type cnt;  // cnt:=(自身を根とする部分木に含まれる要素の数).
         Node *ch[2];    // ch[]:=(子のポインタ).
         Node() : cnt(0), ch{nullptr, nullptr} {}
     };
@@ -41,16 +41,16 @@ private:
         if(!p) p = new Node();
         p->cnt += cnt;
         if(shift >= 0) {
-            bool bit = x[shift] ^ m_bias[shift];
-            p->ch[bit] = add(p->ch[bit], x, cnt, shift - 1);
+            bool b = x[shift] ^ m_bias[shift];
+            p->ch[b] = add(p->ch[b], x, cnt, shift - 1);
         }
         return p;
     }
     Node *sub(Node *p, const std::bitset<B> &x, size_type cnt, int shift = B - 1) {  // bottom up.
         assert(p and p->cnt >= cnt);
         if(shift >= 0) {
-            bool bit = x[shift] ^ m_bias[shift];
-            p->ch[bit] = sub(p->ch[bit], x, cnt, shift - 1);
+            bool b = x[shift] ^ m_bias[shift];
+            p->ch[b] = sub(p->ch[b], x, cnt, shift - 1);
         }
         p->cnt -= cnt;
         if(p->cnt == 0) {
@@ -62,24 +62,28 @@ private:
     std::bitset<B> get(Node *p, size_type k, int shift = B - 1) const {
         assert(p);
         if(shift < 0) return 0;
-        bool bit = m_bias[shift];
-        size_type m = (p->ch[bit] ? p->ch[bit]->cnt : 0);
-        if(k < m) return get(p->ch[bit], k, shift - 1);
-        return std::bitset<B>(0).set(shift) | get(p->ch[!bit], k - m, shift - 1);
+        bool b = m_bias[shift];
+        size_type m = (p->ch[b] ? p->ch[b]->cnt : 0);
+        if(k < m) return get(p->ch[b], k, shift - 1);
+        return get(p->ch[!b], k - m, shift - 1) | std::bitset<B>(0).set(shift);
     }
     size_type get_lower(Node *p, const std::bitset<B> &x, int shift = B - 1) const {
         if(!p) return 0;
         if(shift < 0) return 0;
-        return (x[shift] and p->ch[m_bias[shift]] ? p->ch[m_bias[shift]]->cnt : 0) + get_lower(p->ch[x[shift] ^ m_bias[shift]], x, shift - 1);
+        size_type res = get_lower(p->ch[x[shift] ^ m_bias[shift]], x, shift - 1);
+        if(x[shift] and p->ch[m_bias[shift]]) res += p->ch[m_bias[shift]]->cnt;
+        return res;
     }
     size_type get_upper(Node *p, const std::bitset<B> &x, int shift = B - 1) const {
         if(!p) return 0;
         if(shift < 0) return p->cnt;
-        return (x[shift] and p->ch[m_bias[shift]] ? p->ch[m_bias[shift]]->cnt : 0) + get_upper(p->ch[x[shift] ^ m_bias[shift]], x, shift - 1);
+        size_type res = get_upper(p->ch[x[shift] ^ m_bias[shift]], x, shift - 1);
+        if(x[shift] and p->ch[m_bias[shift]]) res += p->ch[m_bias[shift]]->cnt;
+        return res;
     }
     Node *clear_dfs(Node *p) {
         if(!p) return nullptr;
-        for(bool bit : {0, 1}) p->ch[bit] = clear_dfs(p->ch[bit]);
+        for(Node *&next : p->ch) next = clear_dfs(next);
         delete p;
         return p = nullptr;
     }
@@ -90,10 +94,10 @@ private:
             os << ", " << p->cnt << "}\n";
             return;
         }
-        for(bool bit : {0, 1}) {
-            x[shift] = bit;
-            bit ^= m_bias[shift];
-            if(p->ch[bit]) print_dfs(os, p->ch[bit], x, shift - 1);
+        for(bool b : {0, 1}) {
+            x[shift] = b;
+            b ^= m_bias[shift];
+            if(p->ch[b]) print_dfs(os, p->ch[b], x, shift - 1);
         }
     }
 
@@ -113,7 +117,7 @@ public:
     size_type size() const { return (m_root ? m_root->cnt : 0); }
     // 値xの要素が集合に含まれるか判定する．O(B).
     bool exists(const std::bitset<B> &x) const { return find(x); }
-    // 多重集合に含まれる値xの要素数を返す．O(B).
+    // 値xの要素数を返す．O(B).
     size_type count(const std::bitset<B> &x) const {
         Node *p = find(x);
         return (p ? p->cnt : 0);
@@ -139,9 +143,9 @@ public:
     std::bitset<B> min_element() const { return kth_element(0); }
     // 集合内で最大の要素値を取得する．O(B).
     std::bitset<B> max_element() const { return kth_element(size() - 1); }
-    // x以上である要素値が現れる先頭の位置を取得する．O(B).
+    // 値x以上である要素が現れる先頭の位置を取得する．O(B).
     size_type lower_bound(const std::bitset<B> &x) const { return get_lower(m_root, x); }
-    // xより大きい要素値が現れる先頭の位置を取得する．O(B).
+    // 値xより大きい要素が現れる先頭の位置を取得する．O(B).
     size_type upper_bound(const std::bitset<B> &x) const { return get_upper(m_root, x); }
     // xorの操作に用いる値を返す．
     std::bitset<B> bias() const { return m_bias; }
