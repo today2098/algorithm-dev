@@ -35,12 +35,12 @@ int main() {
         while(i < m) {
             const auto &[d, a, b] = vt[i];
             if(e <= d) break;
-            st.insert(a, b + 1);
+            st.insert(a, b);
             i++;
         }
         debug(e, st);
 
-        ans[idx] = (s >= t or st.contains(s, t + 1) == 2);
+        ans[idx] = (s >= t or st.contains(s, t) == 2);
     }
 
     for(auto elem : ans) std::cout << (elem ? "Yes" : "No") << "\n";
