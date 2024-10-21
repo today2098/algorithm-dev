@@ -17,7 +17,7 @@ int main() {
     while(q--) {
         int time;
         int c;
-        std::cin >> time >> c >> y >> x;
+        std::cin >> time >> c;
 
         while(!que.empty()) {
             auto [end, y, x] = que.front();
