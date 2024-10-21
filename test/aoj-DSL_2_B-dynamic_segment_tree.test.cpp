@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/DataStructure/SegmentTree/segment_tree.hpp"
+#include "../lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp"
 
 int main() {
     int n;
@@ -12,7 +12,7 @@ int main() {
     using S = int;
     constexpr S e = 0;
     auto op = [](const S &lhs, const S &rhs) -> S { return lhs + rhs; };
-    algorithm::SegmentTree<S> segtree(op, e, n);
+    algorithm::DynamicSegmentTree<S> segtree(op, e, n);
 
     while(q--) {
         int com;
