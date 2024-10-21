@@ -90,7 +90,7 @@ data:
     \ S = int;\n    constexpr S e = 0;\n    auto op = [](const S &lhs, const S &rhs)\
     \ -> S { return lhs + rhs; };\n    algorithm::SegmentTree<S> segtree(op, e, n);\n\
     \n    while(q--) {\n        int com;\n        std::cin >> com;\n\n        if(com\
-    \ == 0) {\n            int x;\n            S y;\n            std::cin >> x >>\
+    \ == 0) {\n            int x;\n            int y;\n            std::cin >> x >>\
     \ y;\n            x--;\n\n            auto &&now = segtree.prod(x);\n        \
     \    segtree.set(x, now + y);\n        } else {\n            int x, y;\n     \
     \       std::cin >> x >> y;\n            x--;\n\n            auto &&ans = segtree.prod(x,\
@@ -101,7 +101,7 @@ data:
     \ S = int;\n    constexpr S e = 0;\n    auto op = [](const S &lhs, const S &rhs)\
     \ -> S { return lhs + rhs; };\n    algorithm::SegmentTree<S> segtree(op, e, n);\n\
     \n    while(q--) {\n        int com;\n        std::cin >> com;\n\n        if(com\
-    \ == 0) {\n            int x;\n            S y;\n            std::cin >> x >>\
+    \ == 0) {\n            int x;\n            int y;\n            std::cin >> x >>\
     \ y;\n            x--;\n\n            auto &&now = segtree.prod(x);\n        \
     \    segtree.set(x, now + y);\n        } else {\n            int x, y;\n     \
     \       std::cin >> x >> y;\n            x--;\n\n            auto &&ans = segtree.prod(x,\
@@ -111,7 +111,7 @@ data:
   isVerificationFile: true
   path: test/aoj-DSL_2_B-segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2024-09-08 15:33:33+09:00'
+  timestamp: '2024-10-22 01:28:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj-DSL_2_B-segment_tree.test.cpp

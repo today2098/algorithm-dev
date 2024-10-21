@@ -1,14 +1,31 @@
 ---
 data:
   libraryCategories:
+  - name: lib/DataStructure/Others
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: lib/DataStructure/Others/binary_trie.hpp
+      title: "Binary Trie\uFF08\u975E\u8CA0\u6574\u6570\u5024\u3092\u8981\u7D20\u3068\
+        \u3059\u308B\u591A\u91CD\u96C6\u5408\uFF09"
+    - icon: ':heavy_check_mark:'
+      path: lib/DataStructure/Others/integer_interval_set.hpp
+      title: "Integer Interval Set\uFF08\u6574\u6570\u306E\u96C6\u5408\u3092\u533A\
+        \u9593\u3067\u7BA1\u7406\u3059\u308B\u30C7\u30FC\u30BF\u69CB\u9020\uFF09"
   - name: lib/DataStructure/SegmentTree
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
       title: Binary Indexed Tree
     - icon: ':heavy_check_mark:'
+      path: lib/DataStructure/SegmentTree/binary_indexed_tree_2d_zero.hpp
+      title: "\u4E8C\u6B21\u5143BIT (0-based index)"
+    - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp
       title: Binary Indexed Tree (0-based index)
+    - icon: ':heavy_check_mark:'
+      path: lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
+      title: "Dynamic Segment Tree\uFF08\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\
+        \u6728\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
       title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\
@@ -197,6 +214,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/String/manacher.hpp
       title: "Manacher's Algorithm\uFF08\u6700\u9577\u56DE\u6587\uFF09"
+    - icon: ':warning:'
+      path: lib/String/trie.hpp
+      title: "Trie\u6728"
     - icon: ':heavy_check_mark:'
       path: lib/String/z_algorithm.hpp
       title: "Z algorithm\uFF08\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\uFF09"
@@ -229,6 +249,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-1276-sieve.test.cpp
       title: test/aoj-1276-sieve.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
+      title: test/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-2880-integer_interval_set.test.cpp
+      title: test/aoj-2880-integer_interval_set.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_10_A-kitamasa.test.cpp
       title: test/aoj-ALDS1_10_A-kitamasa.test.cpp
@@ -274,6 +300,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
       title: test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_2_B-binary_trie.test.cpp
+      title: test/aoj-DSL_2_B-binary_trie.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
+      title: test/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-DSL_2_B-segment_tree.test.cpp
       title: test/aoj-DSL_2_B-segment_tree.test.cpp
@@ -371,6 +403,9 @@ data:
       path: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
       title: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo-point_add_range_sum-dynamic_segment_tree.test.cpp
+      title: test/yosupo-point_add_range_sum-dynamic_segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo-point_add_range_sum-segment_tree.test.cpp
       title: test/yosupo-point_add_range_sum-segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -379,6 +414,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo-scc-strongly_connected_components.test.cpp
       title: test/yosupo-scc-strongly_connected_components.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-set_xor_min-binary_trie.test.cpp
+      title: test/yosupo-set_xor_min-binary_trie.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo-staticrmp-sparse_table.test.cpp
       title: test/yosupo-staticrmp-sparse_table.test.cpp
