@@ -2165,7 +2165,7 @@
 			"public:",
 			"    // constructor. O(|V|).",
 			"    LowLink() : LowLink(0) {}",
-			"    explicit LowLink(size_t vn) : m_g(vn) {}",
+			"    explicit LowLink(size_t vn) : m_vn(vn), m_g(vn) {}",
 			"",
 			"    // 頂点数を返す．",
 			"    int order() const { return m_vn; }",
