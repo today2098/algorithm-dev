@@ -6,6 +6,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
     title: test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+    title: test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+    title: test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -70,7 +76,9 @@ data:
   timestamp: '2024-09-07 15:00:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
   - test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
+  - test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp
 layout: document
 redirect_from:

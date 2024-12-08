@@ -64,6 +64,9 @@ data:
   - name: lib/Graph/Others
     pages:
     - icon: ':heavy_check_mark:'
+      path: lib/Graph/Others/low_link.hpp
+      title: "Low-Link\uFF08\u6A4B\uFF0C\u95A2\u7BC0\u70B9\uFF09"
+    - icon: ':heavy_check_mark:'
       path: lib/Graph/Others/prim.hpp
       title: "Prim's Algorithm\uFF08\u6700\u5C0F\u5168\u57DF\u6728\uFF09"
     - icon: ':heavy_check_mark:'
@@ -90,6 +93,10 @@ data:
       path: lib/Graph/Tree/double_sweep.hpp
       title: "Double Sweep\uFF08\u6728\u306E\u76F4\u5F84\uFF09"
     - icon: ':heavy_check_mark:'
+      path: lib/Graph/Tree/heavy_light_decomposition.hpp
+      title: "Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\u91CD\u8EFD\u5206\
+        \u89E3\uFF09"
+    - icon: ':heavy_check_mark:'
       path: lib/Graph/Tree/lowest_common_ancestor.hpp
       title: "Lowest Common Ancestor\uFF08\u6700\u8FD1\u5171\u901A\u7956\u5148\uFF09"
   - name: lib/Math/Algebra
@@ -111,6 +118,10 @@ data:
     - icon: ':warning:'
       path: lib/Math/Combinatorics/combination.hpp
       title: "\u7D44\u5408\u305B\uFF08mod\u4ED8\u304D\uFF09"
+    - icon: ':warning:'
+      path: lib/Math/Combinatorics/montmort.hpp
+      title: "\u5B8C\u5168\u9806\u5217\u306E\u7DCF\u6570\uFF0C\u30E2\u30F3\u30E2\u30FC\
+        \u30EB\u6570\uFF08mod\u4ED8\u304D\uFF09"
     - icon: ':warning:'
       path: lib/Math/Combinatorics/naive_combination.hpp
       title: "\u9806\u5217\uFF0C\u7D44\u5408\u305B\uFF0C\u91CD\u8907\u7D44\u5408\u305B"
@@ -186,9 +197,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/Others/binary_search.hpp
       title: "\u4E8C\u5206\u63A2\u7D22"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/Others/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
+    - icon: ':heavy_check_mark:'
+      path: lib/Others/imos_2d.hpp
+      title: "\u4E8C\u6B21\u5143\u3044\u3082\u3059\u6CD5"
     - icon: ':heavy_check_mark:'
       path: lib/Others/largest_rectangle.hpp
       title: "\u6700\u5927\u9577\u65B9\u5F62\u554F\u984C"
@@ -231,6 +245,9 @@ data:
     - icon: ':warning:'
       path: lib/Utils/my_template.hpp
       title: My Template
+    - icon: ':warning:'
+      path: lib/Utils/split.hpp
+      title: "\u6587\u5B57\u5217\u5206\u5272"
     - icon: ':warning:'
       path: lib/Utils/table.hpp
       title: "\u591A\u6B21\u5143\u914D\u5217\u751F\u6210"
@@ -322,11 +339,20 @@ data:
       path: test/aoj-DSL_2_I-lazy_segment_tree.test.cpp
       title: test/aoj-DSL_2_I-lazy_segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj-DSL_4_A-imos_2d.test.cpp
+      title: test/aoj-DSL_4_A-imos_2d.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj-GRL_1_A-dijkstra.test.cpp
       title: test/aoj-GRL_1_A-dijkstra.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-GRL_1_B-bellman_ford.test.cpp
       title: test/aoj-GRL_1_B-bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-GRL_3_A-low_link.test.cpp
+      title: test/aoj-GRL_3_A-low_link.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-GRL_3_B-low_link.test.cpp
+      title: test/aoj-GRL_3_B-low_link.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-GRL_3_C-strongly_connected_components.test.cpp
       title: test/aoj-GRL_3_C-strongly_connected_components.test.cpp
@@ -423,6 +449,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo-tree_diameter-double_sweep.test.cpp
       title: test/yosupo-tree_diameter-double_sweep.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+      title: test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+      title: test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo-zalgorithm-z_algorithm.test.cpp
       title: test/yosupo-zalgorithm-z_algorithm.test.cpp

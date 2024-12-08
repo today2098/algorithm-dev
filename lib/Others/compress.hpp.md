@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj-DSL_4_A-imos_2d.test.cpp
+    title: test/aoj-DSL_4_A-imos_2d.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/Others/compress.md
     document_title: "\u5EA7\u6A19\u5727\u7E2E"
@@ -31,8 +34,9 @@ data:
   path: lib/Others/compress.hpp
   requiredBy: []
   timestamp: '2024-09-12 23:37:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj-DSL_4_A-imos_2d.test.cpp
 documentation_of: lib/Others/compress.hpp
 layout: document
 redirect_from:
