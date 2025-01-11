@@ -4,6 +4,9 @@ data:
   - name: lib/DataStructure/Others
     pages:
     - icon: ':heavy_check_mark:'
+      path: lib/DataStructure/Others/binary_heap.hpp
+      title: lib/DataStructure/Others/binary_heap.hpp
+    - icon: ':heavy_check_mark:'
       path: lib/DataStructure/Others/binary_trie.hpp
       title: "Binary Trie\uFF08\u975E\u8CA0\u6574\u6570\u5024\u3092\u8981\u7D20\u3068\
         \u3059\u308B\u591A\u91CD\u96C6\u5408\uFF09"
@@ -243,6 +246,10 @@ data:
       path: lib/Utils/debug.hpp
       title: "\u30C7\u30D0\u30C3\u30B0\u7528\u95A2\u6570\u5F62\u5F0F\u30DE\u30AF\u30ED"
     - icon: ':warning:'
+      path: lib/Utils/grid.hpp
+      title: "\u30B0\u30EA\u30C3\u30C9\u554F\u984C\u306B\u95A2\u3059\u308B\u30E6\u30FC\
+        \u30C6\u30A3\u30EA\u30C6\u30A3\u30E9\u30A4\u30D6\u30E9\u30EA"
+    - icon: ':warning:'
       path: lib/Utils/my_template.hpp
       title: My Template
     - icon: ':warning:'
@@ -293,6 +300,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj-ALDS1_4_B-binary_search.test.cpp
       title: test/aoj-ALDS1_4_B-binary_search.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-ALDS1_9_C-binary_heap.test.cpp
+      title: test/aoj-ALDS1_9_C-binary_heap.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
       title: test/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
