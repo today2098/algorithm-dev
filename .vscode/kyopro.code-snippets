@@ -215,5 +215,31 @@
 			"auto table(size_t n, const Args &...args) { return std::vector(n, table(args...)); }"
 		],
 		"description": "多次元配列生成"
+	},
+	"dydx4": {
+		"scope": "cpp",
+		"prefix": "dydx4",
+		"body": [
+			"constexpr std::pair<int, int> dydx4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};",
+		],
+		"description": "グリッドの4近傍"
+	},
+	"dydx8": {
+		"scope": "cpp",
+		"prefix": "dydx8",
+		"body": [
+			"constexpr std::pair<int, int> dydx8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};",
+		],
+		"description": "グリッドの8近傍"
+	},
+	"is_inner": {
+		"scope": "cpp",
+		"prefix": "is_inner",
+		"body": [
+			"auto is_inner = [](int h, int w, int y, int x) -> bool {",
+			"    return (0 <= y and y < h and 0 <= x and x < w);",
+			"};",
+		],
+		"description": ""
 	}
 }
