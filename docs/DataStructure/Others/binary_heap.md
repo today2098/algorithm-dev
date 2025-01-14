@@ -1,6 +1,6 @@
 ---
 title: 二分ヒープ
-documentation_of: //lib/DataStructure/Others/binary_heap.cpp
+documentation_of: //lib/DataStructure/Others/binary_heap.hpp
 ---
 
 
