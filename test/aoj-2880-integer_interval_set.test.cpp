@@ -29,7 +29,7 @@ int main() {
     debug(query);
 
     std::vector<bool> ans(q);
-    algorithm::IntegerIntervalSet<int> st;
+    algorithm::IntervalSet<int> st;
     int i = 0;
     for(const auto &[e, s, t, idx] : query) {
         while(i < m) {
