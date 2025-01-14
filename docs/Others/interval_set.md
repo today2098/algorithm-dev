@@ -1,6 +1,6 @@
 ---
 title: Interval Set（連続していない区間を管理するクラス）
-documentation_of: //lib/DataStructure/Others/integer_interval_set.hpp
+documentation_of: //lib/Others/interval_set.hpp
 ---
 
 
