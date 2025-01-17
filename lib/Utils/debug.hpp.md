@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-2880-integer_interval_set.test.cpp
-    title: test/aoj-2880-integer_interval_set.test.cpp
+    path: test/aoj-2880-interval_set.test.cpp
+    title: test/aoj-2880-interval_set.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj-ITP1_1_A-popcount.test.cpp
     title: test/aoj-ITP1_1_A-popcount.test.cpp
@@ -129,8 +129,8 @@ data:
   timestamp: '2024-09-01 18:40:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-2880-integer_interval_set.test.cpp
   - test/aoj-ITP1_1_A-popcount.test.cpp
+  - test/aoj-2880-interval_set.test.cpp
 documentation_of: lib/Utils/debug.hpp
 layout: document
 redirect_from:

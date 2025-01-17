@@ -61,8 +61,8 @@ data:
   timestamp: '2024-09-16 00:47:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-DPL_3_C-largest_rectangle.test.cpp
   - test/aoj-DPL_3_B-largest_rectangle.test.cpp
+  - test/aoj-DPL_3_C-largest_rectangle.test.cpp
 documentation_of: lib/Others/largest_rectangle.hpp
 layout: document
 redirect_from:

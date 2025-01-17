@@ -238,8 +238,8 @@ data:
   timestamp: '2024-10-22 01:28:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
   - test/yosupo-point_add_range_sum-dynamic_segment_tree.test.cpp
+  - test/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
 layout: document
 redirect_from:

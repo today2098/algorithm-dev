@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/Others/binary_heap.hpp
-    title: lib/DataStructure/Others/binary_heap.hpp
+    title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
