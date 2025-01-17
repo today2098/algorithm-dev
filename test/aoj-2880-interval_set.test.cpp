@@ -36,11 +36,12 @@ int main() {
             const auto &[d, a, b] = vt[i];
             if(e <= d) break;
             st.insert(a, b);
+            debug(d, a, b, st);
             i++;
         }
-        debug(e, st);
 
         ans[idx] = (s >= t or st.contains(s, t) == 2);
+        debug(e, s, t, st, idx, ans[idx]);
     }
 
     for(auto elem : ans) std::cout << (elem ? "Yes" : "No") << "\n";

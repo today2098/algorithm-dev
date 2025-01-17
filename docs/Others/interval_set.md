@@ -7,7 +7,7 @@ documentation_of: //lib/Others/interval_set.hpp
 ## 概要
 
 連続していない区間を管理するクラス．
-重複する区間はマージされる．
+重複する区間を追加するとマージされる．
 
 特に mex (Minimum EXcluded value) を効率的に求めることができる．
 
