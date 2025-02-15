@@ -6,93 +6,113 @@
 
 namespace algorithm {
 
-// 数え上げ（mod付き）．
 template <int mod>
 class Combination {
-    static_assert(mod >= 2);
+    static_assert(2 <= mod);
 
-    static int s_sz, s_cap;
-    static std::vector<long long> s_fact;  // s_fact[n]:=(nの階乗).
-    static std::vector<long long> s_inv;   // s_inv[n]:=(nの逆元).
-    static std::vector<long long> s_finv;  // s_finv[n]:=(nの階乗の逆元).
+    static Combination *s_instance;
+    int m_sz;
+    std::vector<long long> m_fact;  // m_fact[n]:=(nの階乗).
+    std::vector<long long> m_inv;   // m_inv[n]:=(nの逆元).
+    std::vector<long long> m_finv;  // m_finv[n]:=(nの階乗の逆元).
 
-    Combination() = default;
+    Combination() : m_sz(2), m_fact({1, 1}), m_inv({-1, 1}), m_finv({1, 1}) {}
 
-    static void calc(int mx) {
-        assert(mx < mod);
-        if(mx < s_sz) return;
-        reserve(mx);
-        for(int n = s_sz; n <= mx; ++n) {
-            s_fact.push_back(s_fact[n - 1] * n % mod);
-            s_inv.push_back(mod - s_inv[mod % n] * (mod / n) % mod);
-            s_finv.push_back(s_finv[n - 1] * s_inv[n] % mod);
+    static Combination *instance() {
+        if(!s_instance) s_instance = new Combination;
+        return s_instance;
+    }
+    void calc(int limit) {
+        assert(limit <= mod);
+        if(limit <= m_sz) return;
+        reserve_internal(limit);
+        for(int n = m_sz; n < limit; ++n) {
+            m_fact.push_back(m_fact[n - 1] * n % mod);
+            m_inv.push_back(mod - m_inv[mod % n] * (mod / n) % mod);
+            m_finv.push_back(m_finv[n - 1] * m_inv[n] % mod);
         }
-        s_sz = mx + 1;
+        m_sz = limit;
+    }
+    long long fact(int n) {
+        assert(0 <= n);
+        calc(n + 1);
+        return m_fact[n];
+    }
+    long long inv(int n) {
+        assert(1 <= n);
+        calc(n + 1);
+        return m_inv[n];
+    }
+    long long finv(int n) {
+        assert(0 <= n);
+        calc(n + 1);
+        return m_finv[n];
+    }
+    long long nPk_internal(int n, int k) {
+        assert(0 <= k and k <= n);
+        calc(n + 1);
+        return m_fact[n] * m_finv[n - k] % mod;
+    }
+    long long nCk_internal(int n, int k) {
+        assert(0 <= n);
+        assert(0 <= k);
+        if(k > n) return 0;
+        calc(n + 1);
+        return m_fact[n] * m_finv[n - k] % mod * m_finv[k] % mod;
+    }
+    void resize_internal(int limit) {
+        assert(0 <= limit);
+        if(limit < 2) return;
+        if(m_sz < limit) {
+            reserve_internal(limit);
+            return;
+        }
+        m_fact.resize(limit);
+        m_inv.resize(limit);
+        m_finv.resize(limit);
+        m_sz = limit;
+    }
+    void reserve_internal(int cap) {
+        assert(0 <= cap);
+        m_fact.reserve(cap);
+        m_inv.reserve(cap);
+        m_finv.reserve(cap);
+    }
+    void shrink_to_fit_internal() {
+        m_fact.shrink_to_fit();
+        m_inv.shrink_to_fit();
+        m_finv.shrink_to_fit();
     }
 
 public:
     static constexpr int modulus() { return mod; }
-    static void reserve(int mx) {
-        if(mx < s_cap) return;
-        s_cap = mx + 1;
-        s_fact.reserve(s_cap);
-        s_inv.reserve(s_cap);
-        s_finv.reserve(s_cap);
-    }
     // 階乗．O(1).
-    static long long factorial(int n) {
-        assert(0 <= n);
-        calc(n);
-        return s_fact[n];
-    }
+    static long long factorial(int n) { return instance()->fact(n); }
     // 逆元．O(1).
-    static long long inverse(int n) {
-        assert(1 <= n);
-        calc(n);
-        return s_inv[n];
-    }
+    static long long inverse(int n) { return instance()->inv(n); }
     // 階乗の逆元．O(1).
-    static long long inverse_fact(int n) {
-        assert(0 <= n);
-        calc(n);
-        return s_finv[n];
-    }
+    static long long inverse_fact(int n) { return instance()->finv(n); }
     // 順列．O(1).
-    static long long nPk(int n, int k) {
-        assert(0 <= k and k <= n);
-        calc(n);
-        return s_fact[n] * s_finv[n - k] % mod;
-    }
+    static long long nPk(int n, int k) { return instance()->nPk_internal(n, k); }
     // 組合せ．O(1).
-    static long long nCk(int n, int k) {
-        assert(0 <= n);
-        assert(0 <= k);
-        if(k > n) return 0;
-        calc(n);
-        return s_fact[n] * s_finv[n - k] % mod * s_finv[k] % mod;
-    }
+    static long long nCk(int n, int k) { return instance()->nCk_internal(n, k); }
     // 重複組合せ．O(1).
     static long long nHk(int n, int k) {
         assert(1 <= n);
         assert(0 <= k);
-        return nCk(k + n - 1, k);
+        return instance()->nCk_internal(k + n - 1, k);
+    }
+    static void resize(int limit) { instance()->resize_internal(limit); }
+    static void reserve(int cap) { instance()->reserve_internal(cap); }
+    static void shrink_to_fit() { instance()->shrink_to_fit_internal(); }
+    static void destroy() {
+        delete s_instance;
+        s_instance = nullptr;
     }
 };
 
 template <int mod>
-int Combination<mod>::s_sz = 2;
-
-template <int mod>
-int Combination<mod>::s_cap = 2;
-
-template <int mod>
-std::vector<long long> Combination<mod>::s_fact({1, 1});
-
-template <int mod>
-std::vector<long long> Combination<mod>::s_inv({-1, 1});
-
-template <int mod>
-std::vector<long long> Combination<mod>::s_finv({1, 1});
+Combination<mod> *Combination<mod>::s_instance = nullptr;
 
 using Combination998244353 = Combination<998'244'353>;
 using Combination1000000007 = Combination<1'000'000'007>;
