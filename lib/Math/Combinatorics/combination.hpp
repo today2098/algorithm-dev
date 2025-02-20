@@ -8,7 +8,7 @@ namespace algorithm {
 
 template <int mod>
 class Combination {
-    static_assert(2 <= mod);
+    static_assert(mod >= 2);
 
     static Combination *s_instance;
     int m_sz;
@@ -22,29 +22,29 @@ class Combination {
         if(!s_instance) s_instance = new Combination;
         return s_instance;
     }
-    void calc(int limit) {
-        assert(limit <= mod);
-        if(limit <= m_sz) return;
-        reserve_internal(limit);
-        for(int n = m_sz; n < limit; ++n) {
+    void calc(int sz) {
+        assert(sz <= mod);
+        if(sz <= m_sz) return;
+        reserve_internal(sz);
+        for(int n = m_sz; n < sz; ++n) {
             m_fact.push_back(m_fact[n - 1] * n % mod);
             m_inv.push_back(mod - m_inv[mod % n] * (mod / n) % mod);
             m_finv.push_back(m_finv[n - 1] * m_inv[n] % mod);
         }
-        m_sz = limit;
+        m_sz = sz;
     }
     long long fact(int n) {
-        assert(0 <= n);
+        assert(n >= 0);
         calc(n + 1);
         return m_fact[n];
     }
     long long inv(int n) {
-        assert(1 <= n);
+        assert(n >= 1);
         calc(n + 1);
         return m_inv[n];
     }
     long long finv(int n) {
-        assert(0 <= n);
+        assert(n >= 0);
         calc(n + 1);
         return m_finv[n];
     }
@@ -54,23 +54,23 @@ class Combination {
         return m_fact[n] * m_finv[n - k] % mod;
     }
     long long nCk_internal(int n, int k) {
-        assert(0 <= n);
-        assert(0 <= k);
-        if(k > n) return 0;
+        assert(n >= 0);
+        assert(k >= 0);
+        if(n < k) return 0;
         calc(n + 1);
         return m_fact[n] * m_finv[n - k] % mod * m_finv[k] % mod;
     }
-    void resize_internal(int limit) {
-        assert(0 <= limit);
-        if(limit < 2) return;
-        if(m_sz < limit) {
-            reserve_internal(limit);
+    void resize_internal(int sz) {
+        assert(0 <= sz);
+        if(sz < 2) return;
+        if(m_sz < sz) {
+            reserve_internal(sz);
             return;
         }
-        m_fact.resize(limit);
-        m_inv.resize(limit);
-        m_finv.resize(limit);
-        m_sz = limit;
+        m_fact.resize(sz);
+        m_inv.resize(sz);
+        m_finv.resize(sz);
+        m_sz = sz;
     }
     void reserve_internal(int cap) {
         assert(0 <= cap);
@@ -98,11 +98,11 @@ public:
     static long long nCk(int n, int k) { return instance()->nCk_internal(n, k); }
     // 重複組合せ．O(1).
     static long long nHk(int n, int k) {
-        assert(1 <= n);
-        assert(0 <= k);
+        assert(n >= 1);
+        assert(k >= 0);
         return instance()->nCk_internal(k + n - 1, k);
     }
-    static void resize(int limit) { instance()->resize_internal(limit); }
+    static void resize(int sz) { instance()->resize_internal(sz); }
     static void reserve(int cap) { instance()->reserve_internal(cap); }
     static void shrink_to_fit() { instance()->shrink_to_fit_internal(); }
     static void destroy() {
