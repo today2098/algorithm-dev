@@ -114,9 +114,9 @@ data:
       title: "\u5E73\u65B9\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
   - name: lib/Math/Combinatorics
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/Math/Combinatorics/combination.hpp
-      title: "\u7D44\u5408\u305B\uFF08mod\u4ED8\u304D\uFF09"
+      title: "\u6570\u3048\u4E0A\u3052\uFF08mod\u4ED8\u304D\uFF09"
     - icon: ':warning:'
       path: lib/Math/Combinatorics/montmort.hpp
       title: "\u5B8C\u5168\u9806\u5217\u306E\u7DCF\u6570\uFF0C\u30E2\u30F3\u30E2\u30FC\
@@ -468,5 +468,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo-zalgorithm-z_algorithm.test.cpp
       title: test/yosupo-zalgorithm-z_algorithm.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yuki-117-combination.test.cpp
+      title: test/yuki-117-combination.test.cpp
 layout: toppage
 ---

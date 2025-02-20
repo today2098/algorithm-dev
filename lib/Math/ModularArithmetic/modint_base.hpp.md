@@ -50,9 +50,9 @@ data:
   timestamp: '2024-09-06 22:39:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   - test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+  - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+  - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
 documentation_of: lib/Math/ModularArithmetic/modint_base.hpp
 layout: document
 redirect_from:

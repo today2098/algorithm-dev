@@ -204,8 +204,8 @@ data:
   timestamp: '2024-10-21 00:27:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-DSL_2_B-binary_trie.test.cpp
   - test/yosupo-set_xor_min-binary_trie.test.cpp
+  - test/aoj-DSL_2_B-binary_trie.test.cpp
 documentation_of: lib/DataStructure/Others/binary_trie.hpp
 layout: document
 redirect_from:

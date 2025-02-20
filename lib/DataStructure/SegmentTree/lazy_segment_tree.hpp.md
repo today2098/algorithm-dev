@@ -263,11 +263,11 @@ data:
   timestamp: '2024-09-08 15:33:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-DSL_2_G-lazy_segment_tree.test.cpp
-  - test/aoj-DSL_2_H-lazy_segment_tree.test.cpp
   - test/aoj-DSL_2_F-lazy_segment_tree.test.cpp
-  - test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+  - test/aoj-DSL_2_H-lazy_segment_tree.test.cpp
   - test/aoj-DSL_2_I-lazy_segment_tree.test.cpp
+  - test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+  - test/aoj-DSL_2_G-lazy_segment_tree.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
 layout: document
 redirect_from:

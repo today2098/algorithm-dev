@@ -146,8 +146,8 @@ data:
   timestamp: '2024-10-26 17:30:55+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
   - test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+  - test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
 documentation_of: lib/Graph/Tree/heavy_light_decomposition.hpp
 layout: document
 redirect_from:

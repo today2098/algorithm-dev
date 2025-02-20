@@ -1,7 +1,10 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: lib/Math/Combinatorics/naive_combination.hpp
+    title: "\u9806\u5217\uFF0C\u7D44\u5408\u305B\uFF0C\u91CD\u8907\u7D44\u5408\u305B"
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -40,7 +43,8 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: lib/Math/ModularArithmetic/mod_inv.hpp
-  requiredBy: []
+  requiredBy:
+  - lib/Math/Combinatorics/naive_combination.hpp
   timestamp: '2024-09-03 10:16:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

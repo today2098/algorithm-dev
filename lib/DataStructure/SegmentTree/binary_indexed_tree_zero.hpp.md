@@ -76,8 +76,8 @@ data:
   timestamp: '2024-09-07 15:00:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
   - test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+  - test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
   - test/yosupo-point_add_range_sum-binary_indexed_tree_zero.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp
 layout: document

@@ -234,9 +234,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj-NTL_2_A-big_integer.test.cpp
-  - test/yosupo-addition_of_big_integers-big_integer.test.cpp
   - test/aoj-NTL_2_B-big_integer.test.cpp
   - test/aoj-NTL_2_C-big_integer.test.cpp
+  - test/yosupo-addition_of_big_integers-big_integer.test.cpp
 documentation_of: lib/Math/NumberTheory/big_integer.hpp
 layout: document
 redirect_from:
