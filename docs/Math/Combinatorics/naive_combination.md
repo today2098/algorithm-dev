@@ -6,7 +6,43 @@ documentation_of: //lib/Math/Combinatorics/naive_combination.hpp
 
 ## 概要
 
-ある場合の数を求める．
+順列，組合せ，重複組合せの総数を $\mathcal{O}(K)$ で数え上げる．
+
+
+#### 順列
+
+$$
+{}_n \mathrm{P}_k = n \times (n-1) \times (n-2) \times \cdots \times (n-k+1)
+$$
+
+
+#### 組合せ
+
+$$
+\begin{equation}
+    {}_n \mathrm{C}_k = 
+    \begin{cases}
+        0 & \text{if $n<k$,} \\
+        {}_n \mathrm{P}_k / k! & \text{otherwise}
+    \end{cases}
+    \notag
+\end{equation}
+$$
+
+
+#### 重複組合せ
+
+$$
+\begin{equation}
+    {}_n \mathrm{H}_k = 
+    \begin{cases}
+        1 & \text{if $k=0$,} \\
+        0 & \text{if $n=0$ and $k>0$,} \\
+        {}_{k+n-1} \mathrm{C}_k & \text{otherwise}
+    \end{cases}
+    \notag
+\end{equation}
+$$
 
 
 ## 参考文献

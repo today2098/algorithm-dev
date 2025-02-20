@@ -6,7 +6,7 @@ documentation_of: //lib/Math/Combinatorics/combination.hpp
 
 ## 概要
 
-ある場合の数を，素数 $p$ を法として mod を取りながら数え上げる．
+ある場合の数を，素数 $p$ を法として $\bmod$ を取りながら数え上げる．
 
 計算量は，前処理が $\mathcal{O}(N)$ ，各クエリ処理が $\mathcal{O}(1)$ となる．
 
