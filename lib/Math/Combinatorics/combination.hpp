@@ -49,7 +49,9 @@ class Combination {
         return m_finv[n];
     }
     long long nPk_internal(int n, int k) {
-        assert(0 <= k and k <= n);
+        assert(n >= 0);
+        assert(k >= 0);
+        if(n < k) return 0;
         calc(n + 1);
         return m_fact[n] * m_finv[n - k] % mod;
     }
