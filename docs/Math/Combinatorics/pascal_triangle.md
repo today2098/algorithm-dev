@@ -1,3 +1,9 @@
+---
+title: Pascal's Triangle（パスカルの三角形）
+documentation_of: //lib/Math/Combinatorics/pascal_triangle.hpp
+---
+
+
 ## 概要
 
 パスカルの三角形とは，二項展開における係数を三角形状に並べたもの．
