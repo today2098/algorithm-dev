@@ -100,8 +100,10 @@ public:
     static long long nCk(int n, int k) { return instance()->nCk_internal(n, k); }
     // 重複組合せ．O(1).
     static long long nHk(int n, int k) {
-        assert(n >= 1);
+        assert(n >= 0);
         assert(k >= 0);
+        if(k == 0) return 1;
+        if(n == 0) return 0;
         return instance()->nCk_internal(k + n - 1, k);
     }
     static void resize(int sz) { instance()->resize_internal(sz); }
