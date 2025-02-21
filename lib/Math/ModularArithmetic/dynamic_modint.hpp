@@ -1,11 +1,6 @@
 #ifndef ALGORITHM_DYNAMIC_MODINT_HPP
 #define ALGORITHM_DYNAMIC_MODINT_HPP 1
 
-/**
- * @brief 動的Modint構造体
- * @docs docs/Math/ModularArithmetic/dynamic_modint.md
- */
-
 #include <cassert>
 #include <iostream>
 #include <utility>
@@ -26,7 +21,7 @@ class DynamicModint : ModintBase {
 
 public:
     DynamicModint() : DynamicModint(0) {}
-    DynamicModint(long long val_) : val(val_) {
+    DynamicModint(long long val) : val(val) {
         assert(mod >= 1);
         normalize();
     }
@@ -83,11 +78,11 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const DynamicModint &rhs) { return os << rhs.val; }
 
     static constexpr int get_id() { return id; }
-    static void set_modulus(int mod_) {
-        assert(mod_ >= 1);
-        mod = mod_;
-    }
     static int modulus() { return mod; }
+    static void set_modulus(int mod) {
+        assert(mod >= 1);
+        DynamicModint::mod = mod;
+    }
     long long value() const { return val; }
     DynamicModint inv() const {
         long long a = mod, b = val, u = 0, v = 1;

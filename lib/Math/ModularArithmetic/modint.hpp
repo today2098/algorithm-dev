@@ -1,11 +1,6 @@
 #ifndef ALGORITHM_MODINT_HPP
 #define ALGORITHM_MODINT_HPP 1
 
-/**
- * @brief Modint構造体
- * @docs docs/Math/ModularArithmetic/modint.md
- */
-
 #include <iostream>
 #include <utility>
 
@@ -15,6 +10,8 @@ namespace algorithm {
 
 template <int mod>
 class Modint : ModintBase {
+    static_assert(mod >= 1);
+
     long long val;
 
     constexpr void normalize() {
@@ -24,8 +21,7 @@ class Modint : ModintBase {
 
 public:
     constexpr Modint() : Modint(0) {}
-    constexpr Modint(long long val_) : val(val_) {
-        static_assert(mod >= 1);
+    constexpr Modint(long long val) : val(val) {
         normalize();
     }
 
