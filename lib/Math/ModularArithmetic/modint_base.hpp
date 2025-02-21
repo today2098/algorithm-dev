@@ -1,11 +1,6 @@
 #ifndef ALGORITHM_MODINT_BASE_HPP
 #define ALGORITHM_MODINT_BASE_HPP 1
 
-/**
- * @brief Modint構造体の基底クラス
- * @docs docs/Math/ModularArithmetic/modint_base.md
- */
-
 #include <type_traits>
 
 namespace algorithm {

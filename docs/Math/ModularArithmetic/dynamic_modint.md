@@ -1,6 +1,12 @@
+---
+title: 動的Modint構造体
+documentation_of: //lib/Math/ModularArithmetic/dynamic_modint.hpp
+---
+
+
 ## 概要
 
-実行時に法が決まる「Modint構造体」．
+実行時に法が決まる Modint 構造体．
 
 インスタンスを生成する前に法とする自然数を設定する．
 

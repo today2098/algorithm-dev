@@ -1,6 +1,12 @@
+---
+title: 繰り返し二乗法（mod付き）
+documentation_of: //lib/Math/ModularArithmetic/mod_pow.hpp
+---
+
+
 ## 概要
 
-整数 $n, k, m$ に対して，
+自然数 $n, k, m$ に対して，
 
 $$
 n^k \bmod m

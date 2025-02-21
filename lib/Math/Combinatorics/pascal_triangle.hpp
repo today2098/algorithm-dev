@@ -8,6 +8,7 @@ namespace algorithm {
 
 template <typename T = long long>
 class PascalTriangle {
+    static int s_sz;
     static std::vector<std::vector<T> > s_c;  // s_c[n][k]:=(C(n,n-k) and C(n,k)).
 
     PascalTriangle() = default;
@@ -19,7 +20,7 @@ public:
         assert(n >= 0);
         assert(k >= 0);
         if(k > n) return 0;
-        resize(n + 1);
+        if(s_sz <= n) resize(n + 1);
         return (n - k < k ? s_c[n][n - k] : s_c[n][k]);
     }
     // 重複組合せ．
@@ -37,9 +38,13 @@ public:
             s_c[n][0] = 1;
             for(int k = 1; k < len; ++k) s_c[n][k] = s_c[n - 1][k - 1] + (n - 1 - k < k ? s_c[n - 1][n - 1 - k] : s_c[n - 1][k]);
         }
+        s_sz = sz;
     }
     static void clear() { s_c.clear(); }
 };
+
+template <typename T>
+int PascalTriangle<T>::s_sz = 0;
 
 template <typename T>
 std::vector<std::vector<T> > PascalTriangle<T>::s_c;

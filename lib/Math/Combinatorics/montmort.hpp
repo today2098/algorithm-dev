@@ -1,43 +1,79 @@
 #ifndef ALGORITHM_MONTMORT_HPP
 #define ALGORTIHM_MONTMORT_HPP 1
 
-/**
- * @brief 完全順列の総数，モンモール数（mod付き）
- * @docs docs/Math/Combinatorics/montmort.md
- */
-
 #include <cassert>
 #include <cmath>
 #include <vector>
 
 namespace algorithm {
 
-// モンモール数（mod付き）．
+namespace montmort {
+
+// COMPLETE_PERMUTATIONS_PROBABILITY:=(無限個の要素を並び替えたときに完全順列となる確率).
+const double COMPLETE_PERMUTATIONS_PROBABILITY = std::exp(-1.0);
+
+// 完全順列の総数，モンモール数．
 template <int mod>
 class Montmort {
-    int m_sz;
-    std::vector<long long> m_montmort;  // m_montmort[i]:=(i番目のモンモール数).
+    static_assert(mod >= 2);
+
+    static int s_sz;
+    static std::vector<long long> s_montmort;  // m_montmort[k]:=(k項目のモンモール数).
+
+    Montmort() = default;
+    ~Montmort() = default;
 
 public:
-    // constructor. O(N).
-    Montmort() : Montmort(51e4) {}
-    explicit Montmort(size_t sz) : m_sz(sz), m_montmort(sz) {
-        static_assert(mod >= 1);
-        assert(m_sz >= 2);
-        m_montmort[0] = 1, m_montmort[1] = 0;
-        // for(int i = 2; i < m_sz; ++i) m_montmort[i] = (i - 1) * ((m_montmort[i - 2] + m_montmort[i - 1]) % mod) % mod;  // 隣接三項間の漸化式．
-        for(int i = 2; i < m_sz; ++i) m_montmort[i] = (i * m_montmort[i - 1] % mod + (i & 1 ? -1 : 1) + mod) % mod;  // 隣接二項間の漸化式．
-    }
-
     static constexpr int modulus() { return mod; }
-    // k個の要素を並び替えたときに完全順列となる通り数を返す．O(1).
-    long long montmort(int k) const {
-        assert(1 <= k and k < m_sz);
-        return m_montmort[k];
+    // k項目のモンモール数を返す．O(1).
+    static long long montmort(int k) {
+        assert(k >= 0);
+        if(s_sz <= k) resize(k + 1);
+        return s_montmort[k];
     }
-    // 無限個の要素を並び替えたときに完全順列となる確率を求める．O(1).
-    static constexpr double converged_probability() { return 1.0 / std::exp(1.0); }
+    static void resize(int sz) {
+        assert(0 <= sz);
+        if(sz < 2) sz = 2;
+        s_montmort.resize(sz);
+        for(int i = s_sz; i < sz; ++i) s_montmort[i] = (i - 1) * (s_montmort[i - 2] + s_montmort[i - 1]) % mod;
+        s_sz = sz;
+    }
 };
+
+template <int mod>
+int Montmort<mod>::s_sz = 2;
+
+template <int mod>
+std::vector<long long> Montmort<mod>::s_montmort({1, 0});
+
+// モンモール数．O(K).
+constexpr long long montmort(int k) {
+    assert(k >= 0);
+    if(k == 0) return 1;
+    long long a = 1, b = 0;
+    for(int i = 2; i <= k; ++i) {
+        long long c = (i - 1) * (a + b);
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+// モンモール数（mod付き）．O(K).
+constexpr long long montmort(int k, int mod) {
+    assert(k >= 0);
+    assert(mod >= 1);
+    if(k == 0) return 1 % mod;
+    long long a = 1, b = 0;
+    for(int i = 2; i <= k; ++i) {
+        long long c = (i - 1) * (a + b) % mod;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+}  // namespace montmort
 
 }  // namespace algorithm
 

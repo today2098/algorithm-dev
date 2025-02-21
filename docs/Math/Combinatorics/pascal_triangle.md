@@ -11,7 +11,7 @@ documentation_of: //lib/Math/Combinatorics/pascal_triangle.hpp
 次の公式を利用し，二項係数のテーブルを構築する．
 
 $$
-{}_n C_k = {}_{n-1} C_{k-1} + {}_{n-1} C_{k}
+{}_n \mathrm{C}_k = {}_{n-1} \mathrm{C}_{k-1} + {}_{n-1} \mathrm{C}_{k}
 $$
 
 計算量は，時間と空間のともに $\mathcal{O}(N^2)$ を要する．

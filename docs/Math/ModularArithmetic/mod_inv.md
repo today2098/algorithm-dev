@@ -1,6 +1,12 @@
+---
+title: モジュラ逆数（乗法逆元）
+documentation_of: //lib/Math/ModularArithmetic/mod_inv.hpp
+---
+
+
 ## 概要
 
-法 $m > 1$ に関する整数 $a$ のモジュラ逆数 (modular multiplicative inverse)，つまり
+法 $m > 1$ における整数 $a$ のモジュラ逆数 (modular multiplicative inverse) ，つまり
 
 $$
 a^{-1} \bmod m
@@ -9,12 +15,12 @@ $$
 を求める．
 解が存在する必要十分条件は，$a$ と $m$ が互いに素であること． 
 
-アルゴリズムの計算量は $\mathcal{O}(\log a)$．
+アルゴリズムの計算量は $\mathcal{O}(\log a)$ ．
 
 
 ### アルゴリズムの説明
 
-法 $m$ に関する整数 $a$ の逆元（モジュラ逆数）を求めることは，合同方程式
+法 $m$ における整数 $a$ の逆元（モジュラ逆数）を求めることは，合同方程式
 
 $$
 a x \equiv 1 \pmod m
@@ -59,9 +65,9 @@ $$
 
 $$
 \begin{align}
-s_0 &\equiv t_0 \cdot a \ &\left( s_0 = M - \left\lfloor \frac{M}{a} \right\rfloor \cdot a, t_0 = 0 - \left\lfloor \frac{M}{a} \right\rfloor \cdot 1 \right) \ &\left( (1) - (2) \times \left\lfloor \frac{M}{a} \right\rfloor \right), \tag{3}\\
-s_1 &\equiv t_1 \cdot a \ &\left( s_1 = a - \left\lfloor \frac{a}{s_0} \right\rfloor \cdot s_0, t_1 = 1 - \left\lfloor \frac{a}{s_0} \right\rfloor \cdot t_0 \right) \ &\left( (2) - (3) \times \left\lfloor \frac{a}{s_0} \right\rfloor \right), \tag{4}\\
-s_2 &\equiv t_2 \cdot a \ &\left( s_2 = s_0 - \left\lfloor \frac{s_0}{s_1} \right\rfloor \cdot s_1, t_2 = t_0 - \left\lfloor \frac{s_0}{s_1} \right\rfloor \cdot t_1 \right) \ &\left( (3) - (4) \times \left\lfloor \frac{s_0}{s_1} \right\rfloor \right), \tag{5}\\
+s_0 &\equiv t_0 \cdot a \ &\left( s_0 = M - \left\lfloor \frac{M}{a} \right\rfloor \cdot a, \ t_0 = 0 - \left\lfloor \frac{M}{a} \right\rfloor \cdot 1 \right) \ &\left( (1)-(2) \times \left\lfloor \frac{M}{a} \right\rfloor \right), \tag{3}\\
+s_1 &\equiv t_1 \cdot a \ &\left( s_1 = a - \left\lfloor \frac{a}{s_0} \right\rfloor \cdot s_0, \ t_1 = 1 - \left\lfloor \frac{a}{s_0} \right\rfloor \cdot t_0 \right) \ &\left( (2)-(3) \times \left\lfloor \frac{a}{s_0} \right\rfloor \right), \tag{4}\\
+s_2 &\equiv t_2 \cdot a \ &\left( s_2 = s_0 - \left\lfloor \frac{s_0}{s_1} \right\rfloor \cdot s_1, \ t_2 = t_0 - \left\lfloor \frac{s_0}{s_1} \right\rfloor \cdot t_1 \right) \ &\left( (3)-(4) \times \left\lfloor \frac{s_0}{s_1} \right\rfloor \right), \tag{5}\\
 &\cdots \notag
 \end{align}
 $$
@@ -70,18 +76,20 @@ $$
 
 $$
 \begin{align}
-s_n \equiv 1 \equiv t_n \cdot a \ \left( s_n = s_{n-2} - \left\lfloor \frac{s_{n-2}}{s_{n-1}} \right\rfloor \cdot s_{n-1}, t_n = t_{n-2} - \left\lfloor \frac{s_{n-2}}{s_{n-1}} \right\rfloor \cdot t_{n-1} \right) \tag{6}\\
+s_n \equiv 1 \equiv t_n \cdot a \ \left( s_n = s_{n-2} - \left\lfloor \frac{s_{n-2}}{s_{n-1}} \right\rfloor \cdot s_{n-1}, \ t_n = t_{n-2} - \left\lfloor \frac{s_{n-2}}{s_{n-1}} \right\rfloor \cdot t_{n-1} \right) \tag{6}\\
 \end{align}
 $$
 
 よって，求める解は $t_n$ となる．
 
-また，操作回数も高々 $2 \log a$ 回となので，計算量は $\mathcal{O}(\log a)$ である． 
+また，操作回数も高々 $2 \log a$ 回なので，計算量は $\mathcal{O}(\log a)$ である． 
 
 
 ## 参考文献
 
 1. "モジュラ逆数". Wikipedia. <https://ja.wikipedia.org/wiki/モジュラ逆数>.
+1. "零環". Wikipedia. <https://ja.wikipedia.org/wiki/零環>.
+1. ei1333. "mod1における逆元". HatenaBlog. <https://ei1333.hateblo.jp/entry/2021/08/18/225417>.
 1. noshi91. "mod 逆元と拡張ユークリッド互除法". HatenaBlog. <https://noshi91.hatenablog.com/entry/2019/10/18/182935>.
 
 

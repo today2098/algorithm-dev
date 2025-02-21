@@ -10,6 +10,6 @@ int main() {
     int m, n;
     std::cin >> m >> n;
 
-    auto &&ans = algorithm::mod_pow(m, n, MOD);
+    auto ans = algorithm::mod_pow(m, n, MOD);
     std::cout << ans << std::endl;
 }

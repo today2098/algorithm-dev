@@ -17,73 +17,53 @@ class Combination {
     std::vector<long long> m_finv;  // m_finv[n]:=(nの階乗の逆元).
 
     Combination() : m_sz(2), m_fact({1, 1}), m_inv({-1, 1}), m_finv({1, 1}) {}
+    ~Combination() = default;
 
     static Combination *instance() {
         if(!s_instance) s_instance = new Combination;
         return s_instance;
     }
-    void calc(int sz) {
-        assert(sz <= mod);
-        if(sz <= m_sz) return;
-        reserve_internal(sz);
-        for(int n = m_sz; n < sz; ++n) {
-            m_fact.push_back(m_fact[n - 1] * n % mod);
-            m_inv.push_back(mod - m_inv[mod % n] * (mod / n) % mod);
-            m_finv.push_back(m_finv[n - 1] * m_inv[n] % mod);
-        }
-        m_sz = sz;
-    }
     long long fact(int n) {
         assert(n >= 0);
-        calc(n + 1);
+        if(m_sz <= n) resize_internal(n + 1);
         return m_fact[n];
     }
     long long inv(int n) {
         assert(n >= 1);
-        calc(n + 1);
+        if(m_sz <= n) resize_internal(n + 1);
         return m_inv[n];
     }
     long long finv(int n) {
         assert(n >= 0);
-        calc(n + 1);
+        if(m_sz <= n) resize_internal(n + 1);
         return m_finv[n];
     }
     long long nPk_internal(int n, int k) {
         assert(n >= 0);
         assert(k >= 0);
         if(n < k) return 0;
-        calc(n + 1);
+        if(m_sz <= n) resize_internal(n + 1);
         return m_fact[n] * m_finv[n - k] % mod;
     }
     long long nCk_internal(int n, int k) {
         assert(n >= 0);
         assert(k >= 0);
         if(n < k) return 0;
-        calc(n + 1);
+        if(m_sz <= n) resize_internal(n + 1);
         return m_fact[n] * m_finv[n - k] % mod * m_finv[k] % mod;
     }
     void resize_internal(int sz) {
         assert(0 <= sz);
         if(sz < 2) return;
-        if(m_sz < sz) {
-            reserve_internal(sz);
-            return;
-        }
         m_fact.resize(sz);
         m_inv.resize(sz);
         m_finv.resize(sz);
+        for(int n = m_sz; n < sz; ++n) {
+            m_fact[n] = m_fact[n - 1] * n % mod;
+            m_inv[n] = mod - m_inv[mod % n] * (mod / n) % mod;
+            m_finv[n] = m_finv[n - 1] * m_inv[n] % mod;
+        }
         m_sz = sz;
-    }
-    void reserve_internal(int cap) {
-        assert(0 <= cap);
-        m_fact.reserve(cap);
-        m_inv.reserve(cap);
-        m_finv.reserve(cap);
-    }
-    void shrink_to_fit_internal() {
-        m_fact.shrink_to_fit();
-        m_inv.shrink_to_fit();
-        m_finv.shrink_to_fit();
     }
 
 public:
@@ -107,8 +87,6 @@ public:
         return instance()->nCk_internal(k + n - 1, k);
     }
     static void resize(int sz) { instance()->resize_internal(sz); }
-    static void reserve(int cap) { instance()->reserve_internal(cap); }
-    static void shrink_to_fit() { instance()->shrink_to_fit_internal(); }
     static void destroy() {
         delete s_instance;
         s_instance = nullptr;

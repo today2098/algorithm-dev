@@ -1,6 +1,12 @@
+---
+title: Modint構造体
+documentation_of: //lib/Math/ModularArithmetic/modint.hpp
+---
+
+
 ## 概要
 
-任意の自然数 $m \geq 1$ を法として，自動で整数値の剰余をとる構造体．
+任意の自然数 $m \geq 1$ を法として，四則演算時に剰余をとる構造体．
 
 自然数 $m$ を法とする剰余類の代表元（$0$ 以上 $m$ 未満）を値として保存し，剰余類環 $\mathbb{Z}/m\mathbb{Z}$ における加法と乗法の演算をサポートする．
 
