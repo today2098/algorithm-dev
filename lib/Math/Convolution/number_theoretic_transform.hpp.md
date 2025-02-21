@@ -21,36 +21,34 @@ data:
     \n * @docs docs/Math/Convolution/number_theoretic_transform.md\n */\n\n#include\
     \ <algorithm>\n#include <array>\n#include <cassert>\n#include <type_traits>\n\
     #include <utility>\n#include <vector>\n\n#line 1 \"lib/Math/ModularArithmetic/modint_base.hpp\"\
-    \n\n\n\n/**\n * @brief Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9\
-    \n * @docs docs/Math/ModularArithmetic/modint_base.md\n */\n\n#line 10 \"lib/Math/ModularArithmetic/modint_base.hpp\"\
-    \n\nnamespace algorithm {\n\nclass ModintBase {};\n\ntemplate <class T>\nusing\
-    \ is_modint = std::is_base_of<ModintBase, T>;\n\ntemplate <class T>\ninline constexpr\
-    \ bool is_modint_v = is_modint<T>::value;\n\n}  // namespace algorithm\n\n\n#line\
-    \ 17 \"lib/Math/Convolution/number_theoretic_transform.hpp\"\n\nnamespace algorithm\
-    \ {\n\nnamespace ntt {\n\nconstexpr int MOD = 998'244'353;     // 998'244'353\
-    \ = 2^23 * 7 * 17 + 1.\nconstexpr int MOD2 = 167'772'161;    // 167'772'161 =\
-    \ 2^25 * 5 + 1.\nconstexpr int MOD3 = 469'762'049;    // 469'762'049 = 2^26 *\
-    \ 7 + 1.\nconstexpr int MOD4 = 754'974'721;    // 754'974'721 = 2^24 * 3^2 * 5\
-    \ + 1.\nconstexpr int MOD5 = 1'107'296'257;  // 1'107'296'257 = 2^25 * 3 * 11\
-    \ + 1.\nconstexpr int MOD6 = 1'224'736'769;  // 1'224'736'769 = 2^24 * 73 + 1.\n\
-    constexpr int MOD7 = 1'711'276'033;  // 1'224'736'769 = 2^25 * 3 * 17 + 1.\nconstexpr\
-    \ int MOD8 = 1'811'939'329;  // 1'224'736'769 = 2^26 * 3^3 + 1.\n\n// \u7D20\u6570\
-    \u5224\u5B9A\uFF0EO(\u221AN).\ntemplate <typename Type>\nconstexpr bool is_prime(Type\
-    \ n) {\n    assert(n >= 0);\n    if(n < 2) return false;\n    if(n == 2) return\
-    \ true;\n    if(n % 2 == 0) return false;\n    for(Type p = 3; p * p <= n; p +=\
-    \ 2) {\n        if(n % p == 0) return false;\n    }\n    return true;\n}\n\n//\
-    \ \u7E70\u308A\u8FD4\u3057\u4E8C\u4E57\u6CD5\uFF08mod\u4ED8\u304D\uFF09\uFF0E\
-    n^k (mod m) \u3092\u6C42\u3081\u308B\uFF0EO(logK).\nconstexpr int mod_pow(long\
-    \ long n, long long k, int m) {\n    assert(k >= 0);\n    assert(m >= 1);\n  \
-    \  long long res = 1;\n    n %= m;\n    while(k > 0) {\n        if(k & 1LL) res\
-    \ = res * n % m;\n        n = n * n % m;\n        k >>= 1;\n    }\n    return\
-    \ res;\n}\n\n// \u7D20\u6570p\u3092\u6CD5\u3068\u3059\u308B\u6700\u5C0F\u306E\u539F\
-    \u59CB\u6839\u3092\u6C42\u3081\u308B\uFF0E\nconstexpr int primitive_root(int p)\
-    \ {\n    assert(p >= 2);\n    if(p == 2) return 1;\n    if(p == MOD) return 3;\n\
-    \    if(p == MOD2) return 3;\n    if(p == MOD3) return 3;\n    if(p == MOD4) return\
-    \ 11;\n    if(p == MOD5) return 10;\n    if(p == MOD6) return 3;\n    if(p ==\
-    \ MOD7) return 29;\n    if(p == MOD8) return 13;\n    assert(is_prime(p));\n \
-    \   std::array<int, 20> divs({2});  // divs[]:=(p-1\u306E\u7D20\u56E0\u6570).\n\
+    \n\n\n\n#line 5 \"lib/Math/ModularArithmetic/modint_base.hpp\"\n\nnamespace algorithm\
+    \ {\n\nclass ModintBase {};\n\ntemplate <class T>\nusing is_modint = std::is_base_of<ModintBase,\
+    \ T>;\n\ntemplate <class T>\ninline constexpr bool is_modint_v = is_modint<T>::value;\n\
+    \n}  // namespace algorithm\n\n\n#line 17 \"lib/Math/Convolution/number_theoretic_transform.hpp\"\
+    \n\nnamespace algorithm {\n\nnamespace ntt {\n\nconstexpr int MOD = 998'244'353;\
+    \     // 998'244'353 = 2^23 * 7 * 17 + 1.\nconstexpr int MOD2 = 167'772'161; \
+    \   // 167'772'161 = 2^25 * 5 + 1.\nconstexpr int MOD3 = 469'762'049;    // 469'762'049\
+    \ = 2^26 * 7 + 1.\nconstexpr int MOD4 = 754'974'721;    // 754'974'721 = 2^24\
+    \ * 3^2 * 5 + 1.\nconstexpr int MOD5 = 1'107'296'257;  // 1'107'296'257 = 2^25\
+    \ * 3 * 11 + 1.\nconstexpr int MOD6 = 1'224'736'769;  // 1'224'736'769 = 2^24\
+    \ * 73 + 1.\nconstexpr int MOD7 = 1'711'276'033;  // 1'224'736'769 = 2^25 * 3\
+    \ * 17 + 1.\nconstexpr int MOD8 = 1'811'939'329;  // 1'224'736'769 = 2^26 * 3^3\
+    \ + 1.\n\n// \u7D20\u6570\u5224\u5B9A\uFF0EO(\u221AN).\ntemplate <typename Type>\n\
+    constexpr bool is_prime(Type n) {\n    assert(n >= 0);\n    if(n < 2) return false;\n\
+    \    if(n == 2) return true;\n    if(n % 2 == 0) return false;\n    for(Type p\
+    \ = 3; p * p <= n; p += 2) {\n        if(n % p == 0) return false;\n    }\n  \
+    \  return true;\n}\n\n// \u7E70\u308A\u8FD4\u3057\u4E8C\u4E57\u6CD5\uFF08mod\u4ED8\
+    \u304D\uFF09\uFF0En^k (mod m) \u3092\u6C42\u3081\u308B\uFF0EO(logK).\nconstexpr\
+    \ int mod_pow(long long n, long long k, int m) {\n    assert(k >= 0);\n    assert(m\
+    \ >= 1);\n    long long res = 1;\n    n %= m;\n    while(k > 0) {\n        if(k\
+    \ & 1LL) res = res * n % m;\n        n = n * n % m;\n        k >>= 1;\n    }\n\
+    \    return res;\n}\n\n// \u7D20\u6570p\u3092\u6CD5\u3068\u3059\u308B\u6700\u5C0F\
+    \u306E\u539F\u59CB\u6839\u3092\u6C42\u3081\u308B\uFF0E\nconstexpr int primitive_root(int\
+    \ p) {\n    assert(p >= 2);\n    if(p == 2) return 1;\n    if(p == MOD) return\
+    \ 3;\n    if(p == MOD2) return 3;\n    if(p == MOD3) return 3;\n    if(p == MOD4)\
+    \ return 11;\n    if(p == MOD5) return 10;\n    if(p == MOD6) return 3;\n    if(p\
+    \ == MOD7) return 29;\n    if(p == MOD8) return 13;\n    assert(is_prime(p));\n\
+    \    std::array<int, 20> divs({2});  // divs[]:=(p-1\u306E\u7D20\u56E0\u6570).\n\
     \    int cnt = 1;\n    int n = (p - 1) / 2;\n    while(n % 2 == 0) n /= 2;\n \
     \   for(int q = 3; q * q <= n; q += 2) {\n        if(n % q == 0) {\n         \
     \   divs[cnt++] = q;\n            while(n % q == 0) n /= q;\n        }\n    }\n\
@@ -177,7 +175,7 @@ data:
   isVerificationFile: false
   path: lib/Math/Convolution/number_theoretic_transform.hpp
   requiredBy: []
-  timestamp: '2024-09-28 17:21:15+09:00'
+  timestamp: '2025-02-22 06:53:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp

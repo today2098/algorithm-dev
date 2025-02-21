@@ -120,7 +120,7 @@ data:
     - icon: ':warning:'
       path: lib/Math/Combinatorics/montmort.hpp
       title: "\u5B8C\u5168\u9806\u5217\u306E\u7DCF\u6570\uFF0C\u30E2\u30F3\u30E2\u30FC\
-        \u30EB\u6570\uFF08mod\u4ED8\u304D\uFF09"
+        \u30EB\u6570"
     - icon: ':warning:'
       path: lib/Math/Combinatorics/naive_combination.hpp
       title: "\u9806\u5217\uFF0C\u7D44\u5408\u305B\uFF0C\u91CD\u8907\u7D44\u5408\u305B"
