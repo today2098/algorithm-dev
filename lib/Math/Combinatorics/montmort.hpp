@@ -15,6 +15,8 @@ const double COMPLETE_PERMUTATIONS_PROBABILITY = std::exp(-1.0);
 // 完全順列の総数，モンモール数．
 template <int mod>
 class Montmort {
+    static_assert(mod >= 2);
+
     static int s_sz;
     static std::vector<long long> s_montmort;  // m_montmort[k]:=(k項目のモンモール数).
 
