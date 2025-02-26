@@ -10,7 +10,9 @@ int main() {
     std::cin >> a >> b >> c;
 
     const auto &&divs = algorithm::divisors(c);
+    auto left = std::lower_bound(divs.cbegin(), divs.cend(), a);
+    auto right = std::upper_bound(divs.cbegin(), divs.cend(), b);
 
-    auto ans = std::upper_bound(divs.begin(), divs.end(), b) - std::lower_bound(divs.begin(), divs.end(), a);
+    auto ans = right - left;
     std::cout << ans << std::endl;
 }

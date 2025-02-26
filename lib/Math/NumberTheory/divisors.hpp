@@ -1,13 +1,9 @@
 #ifndef ALGORITHM_DIVISORS_HPP
 #define ALGORITHM_DIVISORS_HPP 1
 
-/**
- * @brief 約数列挙
- * @docs docs/Math/NumberTheory/divisors.md
- */
-
 #include <algorithm>
 #include <cassert>
+#include <map>
 #include <vector>
 
 namespace algorithm {
@@ -22,6 +18,22 @@ std::vector<Type> divisors(Type n) {
             res.push_back(p);
             Type q = n / p;
             if(q != p) res.push_back(q);
+        }
+    }
+    std::sort(res.begin(), res.end());
+    return res;
+}
+
+// 高速約数列挙．
+template <typename Type>
+std::vector<Type> divisors(const std::map<Type, int> &pf) {
+    std::vector<Type> res({1});
+    for(const auto &[p, cnt] : pf) {
+        const int sz = res.size();
+        Type b = 1;
+        for(int i = 0; i < cnt; ++i) {
+            b *= p;
+            for(int j = 0; j < sz; ++j) res.push_back(res[j] * b);
         }
     }
     std::sort(res.begin(), res.end());
