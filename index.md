@@ -271,9 +271,6 @@ data:
       path: test/aoj-1276-linear_sieve.test.cpp
       title: test/aoj-1276-linear_sieve.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj-1276-sieve.test.cpp
-      title: test/aoj-1276-sieve.test.cpp
-    - icon: ':heavy_check_mark:'
       path: test/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
       title: test/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
     - icon: ':heavy_check_mark:'

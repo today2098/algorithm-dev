@@ -17,13 +17,12 @@ data:
   bundledCode: "#line 1 \"test/aoj-NTL_1_A-prime_factorize.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A\"\n\n#include\
     \ <iostream>\n\n#line 1 \"lib/Math/NumberTheory/prime_factorize.hpp\"\n\n\n\n\
-    /**\n * @brief \u7D20\u56E0\u6570\u5206\u89E3\n * @docs docs/Math/NumberTheory/prime_factorize.md\n\
-    \ */\n\n#include <cassert>\n#include <map>\n\nnamespace algorithm {\n\n// \u7D20\
-    \u56E0\u6570\u5206\u89E3\uFF0EO(\u221AN).\ntemplate <typename Type>\nstd::map<Type,\
+    #include <cassert>\n#include <map>\n\nnamespace algorithm {\n\n// \u7D20\u56E0\
+    \u6570\u5206\u89E3\uFF0EO(\u221AN).\ntemplate <typename Type>\nstd::map<Type,\
     \ int> prime_factorize(Type n) {\n    assert(n >= 0);\n    std::map<Type, int>\
     \ res;  // res[p]:=(\u81EA\u7136\u6570n\u306B\u542B\u307E\u308C\u308B\u7D20\u56E0\
-    \u6570p\u306E\u500B\u6570).\n    while(n % 2 == 0) res[2]++, n /= 2;\n    for(Type\
-    \ p = 3; p * p <= n; p += 2) {\n        while(n % p == 0) res[p]++, n /= p;\n\
+    \u6570p\u306E\u500B\u6570).\n    for(; n % 2 == 0; n /= 2) res[2]++;\n    for(Type\
+    \ p = 3; p * p <= n; p += 2) {\n        for(; n % p == 0; n /= p) res[p]++;\n\
     \    }\n    if(n > 1) res[n] = 1;\n    return res;\n}\n\n}  // namespace algorithm\n\
     \n\n#line 6 \"test/aoj-NTL_1_A-prime_factorize.test.cpp\"\n\nint main() {\n  \
     \  int n;\n    std::cin >> n;\n\n    const auto &&pf = algorithm::prime_factorize(n);\n\
@@ -41,7 +40,7 @@ data:
   isVerificationFile: true
   path: test/aoj-NTL_1_A-prime_factorize.test.cpp
   requiredBy: []
-  timestamp: '2024-09-02 23:37:09+09:00'
+  timestamp: '2025-02-26 23:12:59+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj-NTL_1_A-prime_factorize.test.cpp
