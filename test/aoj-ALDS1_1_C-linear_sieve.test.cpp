@@ -5,13 +5,13 @@
 #include "../lib/Math/NumberTheory/linear_sieve.hpp"
 
 int main() {
+    constexpr int mx = 1e8;
+
     int n;
     std::cin >> n;
 
-    constexpr int mx = 1e8;
-    algorithm::LinearSieve sieve(mx);
-
     int ans = 0;
+    algorithm::LinearSieve sieve(mx + 1);
     for(int i = 0; i < n; ++i) {
         int a;
         std::cin >> a;
