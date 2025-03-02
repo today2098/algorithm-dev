@@ -8,7 +8,7 @@
 
 int main() {
     constexpr int mx = 1299709;
-    algorithm::LinearSieve sieve(mx);
+    algorithm::LinearSieve sieve(mx + 1);
 
     while(1) {
         int a;
@@ -16,7 +16,7 @@ int main() {
         if(a == 0) break;
 
         auto itr = std::lower_bound(sieve.primes().cbegin(), sieve.primes().cend(), a);
-        if(*itr == a) std::cout << 0 << "\n";
-        else std::cout << *itr - *std::prev(itr) << "\n";
+        auto ans = (*itr == a ? 0 : *itr - *prev(itr));
+        std::cout << ans << "\n";
     }
 }

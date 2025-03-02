@@ -1,11 +1,6 @@
 #ifndef ALGORITHM_IS_PRIME_HPP
 #define ALGORITHM_IS_PRIME_HPP 1
 
-/**
- * @brief 素数判定
- * @docs docs/Math/NumberTheory/is_prime.md
- */
-
 #include <cassert>
 
 namespace algorithm {

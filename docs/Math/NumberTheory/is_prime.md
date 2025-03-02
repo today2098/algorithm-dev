@@ -1,8 +1,14 @@
+---
+title: 素数判定
+documentation_of: //lib/Math/NumberTheory/is_prime.hpp
+---
+
+
 ## 概要
 
-自然数 $n$ に対して素数判定を行う．
+自然数 $n$ が素数かどうか判定する．
 
-本実装では「試し割り法 (trial division)」を利用しており，計算量は $\mathcal{O}(\sqrt n)$ となる．
+本実装では「試し割り法 (trial division)」を用いており，計算量は $\mathcal{O}(\sqrt n)$ となる．
 
 
 ## 参考文献
