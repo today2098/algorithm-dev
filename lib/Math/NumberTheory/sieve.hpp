@@ -23,7 +23,7 @@ public:
         for(long long p = 3; p < m_sz; p += 2) {
             if(m_lpf[p / 2] == -1) {
                 m_lpf[p / 2] = p;
-                for(long long q = p * p; q < m_sz; q += p) {
+                for(long long q = p * p; q < m_sz; q += 2 * p) {
                     if(m_lpf[q / 2] == -1) m_lpf[q / 2] = p;
                 }
             }
