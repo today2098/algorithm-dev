@@ -5,9 +5,9 @@
 #include "../lib/Math/NumberTheory/big_integer.hpp"
 
 int main() {
-    algorithm::BigInteger a, b;
+    algorithm::Bigint a, b;
     std::cin >> a >> b;
 
-    auto &&ans = a - b;
+    auto ans = a - b;
     std::cout << ans << std::endl;
 }
