@@ -2,17 +2,17 @@
 
 #include <iostream>
 
-#include "../lib/Math/NumberTheory/big_integer.hpp"
+#include "../lib/Math/NumberTheory/bigint.hpp"
 
 int main() {
     int t;
     std::cin >> t;
 
-    algorithm::BigInteger a, b;
     for(int i = 0; i < t; ++i) {
+        algorithm::Bigint a, b;
         std::cin >> a >> b;
 
-        auto &&ans = a + b;
+        auto ans = a + b;
         std::cout << ans << "\n";
     }
 }

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/NumberTheory/big_integer.hpp"
+#include "../lib/Math/NumberTheory/bigint.hpp"
 
 int main() {
     algorithm::Bigint a, b;
