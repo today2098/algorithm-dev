@@ -4,10 +4,12 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdint>
+#include <deque>
 #include <iomanip>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace algorithm {
@@ -38,12 +40,97 @@ class Bigint {
         if(n > m) return 1;
         for(ssize_t i = n - 1; i >= 0; --i) {
             if(lhs[i] == rhs[i]) continue;
-            if(lhs[i] < rhs[i]) return -1;
-            return 1;
+            return (lhs[i] < rhs[i] ? -1 : 1);
         }
         return 0;
     }
+    static void addition(std::vector<int64_t> &lhs, size_t n, const std::vector<int64_t> &rhs, size_t m) {
+        n = std::max(n, m);
+        lhs.resize(n + 1, 0);
+        for(size_t i = 0; i < m; ++i) {
+            lhs[i] += rhs[i];
+            if(lhs[i] >= BASE) lhs[i] -= BASE, lhs[i + 1]++;  // carry.
+        }
+        for(size_t i = m; i < n; ++i) {
+            if(lhs[i] < BASE) break;
+            lhs[i] -= BASE, lhs[i + 1]++;  // carry.
+        }
+        if(lhs.back() == 0) lhs.pop_back();
+    }
+    static int subtraction(std::vector<int64_t> &lhs, ssize_t n, const std::vector<int64_t> &rhs, ssize_t m) {
+        n = std::max(n, m);
+        lhs.resize(n, 0);
+        for(ssize_t i = 0; i < m; ++i) lhs[i] -= rhs[i];
+        int sign = 0;
+        for(ssize_t i = n - 1; i >= 0; --i) {
+            if(lhs[i] == 0) continue;
+            sign = (lhs[i] < 0 ? -1 : 1);
+            break;
+        }
+        for(int64_t &word : lhs) word *= sign;
+        for(ssize_t i = 0; i < n - 1; ++i) {
+            if(lhs[i] < 0) lhs[i] += BASE, lhs[i + 1]--;  // carry.
+        }
+        while(lhs.size() > 1 and lhs.back() == 0) lhs.pop_back();
+        return sign;
+    }
+    static int multiplication(std::vector<int64_t> &lhs, size_t n, const std::vector<int64_t> &rhs, size_t m) {
+        std::vector<int64_t> res(n + m, 0);
+        for(size_t i = 0; i < n; ++i) {
+            for(size_t j = 0; j < m; ++j) {
+                res[i + j] += lhs[i] * rhs[j];
+                int64_t c = res[i + j] / BASE;
+                res[i + j] -= c * BASE, res[i + j + 1] += c;  // carry.
+            }
+        }
+        while(res.size() > 1 and res.back() == 0) res.pop_back();
+        lhs = std::move(res);
+        return (lhs.back() == 0 ? 0 : 1);
+    }
+    static std::deque<int64_t> division(std::vector<int64_t> &lhs, ssize_t n, const std::vector<int64_t> &rhs, ssize_t m) {
+        n = n - m + 1;
+        std::vector<int64_t> res(n);
+        std::deque<int64_t> remain(lhs.cend() - m, lhs.cend());
+        auto bisearch = [&remain, &rhs, m]() -> int64_t {
+            auto compare = [](const std::deque<int64_t> &remain, std::vector<int64_t> rhs, ssize_t m, int64_t d) -> int {
+                for(ssize_t i = 0; i < m; ++i) rhs[i] *= d;
+                for(ssize_t i = 0; i < m - 1; ++i) {
+                    int64_t c = rhs[i] / BASE;
+                    rhs[i] -= c * BASE, rhs[i + 1] += c;
+                }
+                for(ssize_t i = m - 1; i >= 0; --i) {
+                    if(remain[i] == rhs[i]) continue;
+                    return (remain[i] < rhs[i] ? -1 : 1);
+                }
+                return 0;
+            };
+            int64_t ok = 0, ng = BASE;
+            while(ng - ok > 1) {
+                int64_t mid = ok + (ng - ok) / 2;
+                (compare(remain, rhs, m, mid) >= 0 ? ok : ng) = mid;
+            }
+            return ok;
+        };
+        for(ssize_t i = n - 1; i >= 0; --i) {
+            res[i] = bisearch();
+            for(ssize_t j = 0; j < m; ++j) {
+                remain[j] -= res[i] * rhs[j];
+                if(j == m - 1) break;
+                int64_t c = (-remain[j] + BASE - 1) / BASE;
+                remain[j] += c * BASE, remain[j + 1] -= c;  // carry.
+            }
+            if(i == 0) break;
+            remain.push_front(lhs[i - 1]);
+            remain[m - 1] += remain[m] * BASE;
+            remain.pop_back();
+        }
+        if(res.back() == 0) res.pop_back();
+        lhs = std::move(res);
+        while(remain.size() > 1 and remain.back() == 0) remain.pop_back();
+        return remain;
+    }
     void convert(std::string_view sv, size_t n) {
+        assert(n > 0);
         if(sv[0] == '+') {
             convert_without_sign(sv.substr(1), n - 1);
         } else if(sv[0] == '-') {
@@ -61,75 +148,28 @@ class Bigint {
             int64_t d = 1;
             for(size_t j = 0; j < BASE_DIGIT; ++j) {
                 if(iter >= sv.crend()) break;
-                m_words[i] += d * (*iter - '0');
+                m_words[i] += (*iter - '0') * d;
                 iter++, d *= 10;
             }
         }
         while(m_words.size() > 1 and m_words.back() == 0) m_words.pop_back();
         m_sign = (m_words.back() == 0 ? 0 : 1);
     }
-    void addition(const std::vector<int64_t> &rhs, size_t m) {
-        size_t n = std::max(m_words.size(), m) + 1;
-        m_words.resize(n, 0);
-        for(size_t i = 0; i < m; ++i) {
-            m_words[i] += rhs[i];
-            if(m_words[i] >= BASE) m_words[i] -= BASE, m_words[i + 1]++;  // carry.
-        }
-        for(size_t i = m; i < n - 1; ++i) {
-            if(m_words[i] < BASE) break;
-            m_words[i] -= BASE, m_words[i + 1]++;  // carry.
-        }
-        if(m_words.back() == 0) m_words.pop_back();
-    }
-    int subtraction(const std::vector<int64_t> &rhs, ssize_t m) {
-        ssize_t n = std::max<ssize_t>(m_words.size(), m);
-        m_words.resize(n, 0);
-        for(ssize_t i = 0; i < m; ++i) m_words[i] -= rhs[i];
-        int sign = 0;
-        for(ssize_t i = n - 1; i >= 0; --i) {
-            if(m_words[i] == 0) continue;
-            if(m_words[i] < 0) sign = -1;
-            else sign = 1;
-            break;
-        }
-        if(sign == -1) {
-            for(auto &word : m_words) word *= -1;
-        }
-        for(ssize_t i = 0; i < n - 1; ++i) {
-            if(m_words[i] < 0) m_words[i] += BASE, m_words[i + 1]--;  // carry.
-        }
-        while(m_words.size() > 1 and m_words.back() == 0) m_words.pop_back();
-        return sign;
-    }
-    void multiplication(const std::vector<int64_t> &rhs, size_t m) {
-        size_t n = m_words.size();
-        std::vector<int64_t> res(n + m, 0);
-        for(size_t i = 0; i < n; ++i) {
-            for(size_t j = 0; j < m; ++j) {
-                res[i + j] += m_words[i] * rhs[j];
-                int64_t c = res[i + j] / BASE;
-                res[i + j] -= BASE * c, res[i + j + 1] += c;  // carry.
-            }
-        }
-        if(res.back() == 0) res.pop_back();
-        m_words = res;
-    }
 
 public:
     Bigint() : m_words({0}), m_sign(0) {};
     Bigint(int64_t n) : m_words({n}), m_sign(0) {
-        if(n < 0) m_words[0] = -m_words[0], m_sign = -1;
+        if(n < 0) m_words[0] *= -1, m_sign = -1;
         else if(n > 0) m_sign = 1;
         while(m_words.back() >= BASE) {
             int64_t c = m_words.back() / BASE;
-            m_words.back() -= BASE * c;
+            m_words.back() -= c * BASE;
             m_words.push_back(c);  // carry.
         }
     }
-    Bigint(const char *s) : Bigint(std::string_view(s)) {}
-    explicit Bigint(std::string_view sv) {
+    Bigint(const std::string &s) {
         std::stringstream ss;
-        ss << sv;
+        ss << s;
         ss >> *this;
     }
 
@@ -142,15 +182,15 @@ public:
     Bigint &operator+=(const Bigint &rhs) {
         if(rhs.is_zero()) return *this;
         if(is_zero()) return *this = rhs;
-        if(sign() == rhs.sign()) addition(rhs.m_words, rhs.m_words.size());
-        else m_sign *= subtraction(rhs.m_words, rhs.m_words.size());
+        if(sign() == rhs.sign()) addition(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        else m_sign *= subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
         return *this;
     }
     Bigint &operator-=(const Bigint &rhs) {
         if(rhs.is_zero()) return *this;
         if(is_zero()) return *this = -rhs;
-        if(sign() == rhs.sign()) m_sign *= subtraction(rhs.m_words, rhs.m_words.size());
-        else addition(rhs.m_words, rhs.m_words.size());
+        if(sign() == rhs.sign()) m_sign *= subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        else addition(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
         return *this;
     }
     Bigint &operator*=(const Bigint &rhs) {
@@ -159,8 +199,31 @@ public:
             zeroing();
             return *this;
         }
-        m_sign *= rhs.sign();
-        multiplication(rhs.m_words, rhs.m_words.size());
+        multiplication(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        if(rhs.is_minus()) negation();
+        return *this;
+    }
+    Bigint &operator/=(const Bigint &rhs) {
+        assert(!rhs.is_zero());
+        if(is_zero()) return *this;
+        int cmp = compare(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        if(cmp < 0) zeroing();
+        else if(cmp == 0) m_words = {1};
+        else division(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        if(rhs.is_minus()) negation();
+        return *this;
+    }
+    Bigint &operator%=(const Bigint &rhs) {
+        assert(!rhs.is_zero());
+        int cmp = compare(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        if(cmp < 0) return *this;
+        if(cmp == 0) {
+            zeroing();
+            return *this;
+        }
+        auto &&remain = division(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        if(remain.back() == 0) zeroing();
+        else m_words.assign(remain.cbegin(), remain.cend());
         return *this;
     }
 
@@ -170,6 +233,8 @@ public:
     friend Bigint operator+(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) += rhs; }
     friend Bigint operator-(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) -= rhs; }
     friend Bigint operator*(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) *= rhs; }
+    friend Bigint operator/(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) /= rhs; }
+    friend Bigint operator%(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) %= rhs; }
     friend std::istream &operator>>(std::istream &is, Bigint &rhs) {
         std::string s;
         is >> s;
@@ -184,10 +249,11 @@ public:
     }
 
     bool is_zero() const { return sign() == 0; }
+    bool is_minus() const { return sign() < 0; }
     int sign() const { return m_sign; }
     const std::vector<int64_t> &words() const { return m_words; }
     void zeroing() {
-        m_words.assign(1, 0);
+        m_words = {0};
         m_sign = 0;
     }
     void negation() { m_sign *= -1; }
