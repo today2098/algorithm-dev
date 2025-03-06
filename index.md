@@ -161,8 +161,8 @@ data:
   - name: lib/Math/NumberTheory
     pages:
     - icon: ':heavy_check_mark:'
-      path: lib/Math/NumberTheory/big_integer.hpp
-      title: "\u591A\u500D\u9577\u6574\u6570"
+      path: lib/Math/NumberTheory/bigint.hpp
+      title: lib/Math/NumberTheory/bigint.hpp
     - icon: ':heavy_check_mark:'
       path: lib/Math/NumberTheory/divisors.hpp
       title: "\u7D04\u6570\u5217\u6319"
@@ -409,17 +409,23 @@ data:
       path: test/aoj-NTL_1_E-extgcd.test.cpp
       title: test/aoj-NTL_1_E-extgcd.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj-NTL_2_A-big_integer.test.cpp
-      title: test/aoj-NTL_2_A-big_integer.test.cpp
+      path: test/aoj-NTL_2_A-bigint.test.cpp
+      title: test/aoj-NTL_2_A-bigint.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj-NTL_2_B-big_integer.test.cpp
-      title: test/aoj-NTL_2_B-big_integer.test.cpp
+      path: test/aoj-NTL_2_B-bigint.test.cpp
+      title: test/aoj-NTL_2_B-bigint.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj-NTL_2_C-big_integer.test.cpp
-      title: test/aoj-NTL_2_C-big_integer.test.cpp
+      path: test/aoj-NTL_2_C-bigint.test.cpp
+      title: test/aoj-NTL_2_C-bigint.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/yosupo-addition_of_big_integers-big_integer.test.cpp
-      title: test/yosupo-addition_of_big_integers-big_integer.test.cpp
+      path: test/aoj-NTL_2_D-bigint.test.cpp
+      title: test/aoj-NTL_2_D-bigint.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj-NTL_2_E-bigint.test.cpp
+      title: test/aoj-NTL_2_E-bigint.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-addition_of_big_integers-bigint.test.cpp
+      title: test/yosupo-addition_of_big_integers-bigint.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
       title: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
