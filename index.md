@@ -162,7 +162,10 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/Math/NumberTheory/bigint.hpp
-      title: lib/Math/NumberTheory/bigint.hpp
+      title: "\u591A\u500D\u9577\u6574\u6570"
+    - icon: ':warning:'
+      path: lib/Math/NumberTheory/binary_bigint.hpp
+      title: "\u591A\u500D\u9577\u6574\u6570\uFF0816\u9032\u6570\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/Math/NumberTheory/divisors.hpp
       title: "\u7D04\u6570\u5217\u6319"
