@@ -38,7 +38,7 @@ class Bigint {
         if(word < 0) word += BASE, --carry;
         return carry;
     }
-    static int32_t add_store(int32_t &word, int64_t val) {
+    static int32_t add_store(int32_t &word, int32_t val) {
         if(val < 0) {
             word = val + BASE;
             return -1;
@@ -67,8 +67,8 @@ class Bigint {
         n = std::max(n, m);
         lhs.resize(n, 0);
         int32_t carry = 0;
-        for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], (int64_t)lhs[i] + rhs[i] + carry);
-        for(size_t i = m; i < n and carry != 0; ++i) carry = add_store(lhs[i], (int64_t)lhs[i] + carry);
+        for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], lhs[i] + rhs[i] + carry);
+        for(size_t i = m; i < n and carry != 0; ++i) carry = add_store(lhs[i], lhs[i] + carry);
         if(carry != 0) lhs.push_back(carry);
     }
     static int subtraction(std::vector<int32_t> &lhs, size_t n, const std::vector<int32_t> &rhs, size_t m) {
@@ -80,11 +80,11 @@ class Bigint {
         if(sign < 0) {
             lhs.resize(m, 0);
             int32_t carry = 0;
-            for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], (int64_t)rhs[i] - lhs[i] + carry);
+            for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], rhs[i] - lhs[i] + carry);
         } else {
             int32_t carry = 0;
-            for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], (int64_t)lhs[i] - rhs[i] + carry);
-            for(size_t i = m; i < n and carry != 0; ++i) carry = add_store(lhs[i], (int64_t)lhs[i] + carry);
+            for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], lhs[i] - rhs[i] + carry);
+            for(size_t i = m; i < n and carry != 0; ++i) carry = add_store(lhs[i], lhs[i] + carry);
         }
         while(!lhs.empty() and lhs.back() == 0) lhs.pop_back();
         return sign;
