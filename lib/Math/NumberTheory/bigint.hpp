@@ -104,6 +104,7 @@ class Bigint {
         if(n < m) return {};
         std::vector<int32_t> res(n - m + 1);
         auto bisearch = [&](ssize_t offset) -> int32_t {
+            if(n - offset < m) return 0;
             auto eval = [&](int32_t d) -> bool {
                 int32_t carry = 0;
                 for(ssize_t i = 0; i < m; ++i) {
@@ -123,14 +124,16 @@ class Bigint {
         auto sub = [&](ssize_t offset, int32_t d) -> void {
             int32_t carry = 0;
             for(ssize_t i = 0; i < m; ++i) carry = store(lhs[i + offset], lhs[i + offset] - (int64_t)rhs[i] * d + carry);
-            if(carry != 0) lhs[m + offset] += carry;
+            if(m + offset < n) lhs.pop_back();
+            while(offset < n and lhs.back() == 0) lhs.pop_back(), --n;
         };
-        for(ssize_t i = n - m; i >= 0; --i) {
+        for(ssize_t i = n - m; i >= 0;) {
             res[i] = bisearch(i);
             sub(i, res[i]);
+            --i;
+            while(!lhs.empty() and lhs.back() == 0) lhs.pop_back(), --n, --i;
         }
         if(res.back() == 0) res.pop_back();
-        while(!lhs.empty() and lhs.back() == 0) lhs.pop_back();
         return res;
     }
     void normalize(std::string_view sv, size_t n) {
