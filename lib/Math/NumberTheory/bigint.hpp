@@ -100,7 +100,8 @@ class Bigint {
         return res;
     }
     static std::vector<int32_t> division(std::vector<int32_t> &lhs, ssize_t n, const std::vector<int32_t> &rhs, ssize_t m) {
-        assert(0 < m and m <= n);
+        assert(m > 0);
+        if(n < m) return {};
         std::vector<int32_t> res(n - m + 1);
         auto bisearch = [&](ssize_t offset) -> int32_t {
             auto eval = [&](int32_t d) -> bool {
@@ -199,7 +200,7 @@ public:
         assert(!rhs.is_zero());
         if(is_zero()) return *this;
         m_words = division(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
-        m_sign = sign() * rhs.sign();
+        m_sign = (m_words.empty() ? 0 : sign() * rhs.sign());
         return *this;
     }
     Bigint &operator%=(const Bigint &rhs) {
