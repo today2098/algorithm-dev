@@ -111,12 +111,11 @@ class Bigint {
                     int32_t tmp;
                     carry = store(tmp, lhs[i + offset] - (int64_t)rhs[i] * d + carry);
                 }
-                if(carry == 0) return true;
-                return (m + offset < n ? lhs[m + offset] + carry >= 0 : false);
+                return (m + offset < n ? lhs.back() : 0) + carry >= 0;
             };
             int32_t ok = 0, ng = BASE;
             while(ng - ok > 1) {
-                int32_t mid = (ok + ng) / 2;
+                int32_t mid = ok + (ng - ok) / 2;
                 (eval(mid) ? ok : ng) = mid;
             }
             return ok;
