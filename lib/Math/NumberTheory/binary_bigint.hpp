@@ -40,6 +40,7 @@ class BinaryBigint {
         if(ncarry) ncarry |= 0xffffffff00000000ULL;
         return ncarry;
     }
+    static int compare(const BinaryBigint &lhs, const BinaryBigint &rhs) { return compare(lhs.m_words, lhs.m_words.size(), rhs.m_words, rhs.m_words.size()); }
     static int compare(const std::deque<uint32_t> &lhs, ssize_t n, const std::deque<uint32_t> &rhs, ssize_t m) {
         if(n < m) return -1;
         if(n > m) return 1;
@@ -84,7 +85,7 @@ class BinaryBigint {
                 uint32_t carry = 0;
                 uint64_t ncarry = 0;
                 for(ssize_t i = 0; i < m; ++i) {
-                    uint32_t tmp = 0;
+                    uint32_t tmp;
                     carry = store(tmp, (uint64_t)rhs[i] * d + carry);
                     ncarry = sub_store(tmp, (uint64_t)lhs[i + offset] - tmp + ncarry);
                 }
@@ -148,11 +149,18 @@ class BinaryBigint {
         n = std::min(n, m);
         lhs.resize(n);
         for(size_t i = 0; i < n; ++i) lhs[i] &= rhs[i];
+        while(!lhs.empty() and !lhs.back()) lhs.pop_back();
     }
     static void bit_or(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
         n = std::max(n, m);
         lhs.resize(n, 0);
         for(size_t i = 0; i < m; ++i) lhs[i] |= rhs[i];
+    }
+    static void bit_xor(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
+        n = std::max(n, m);
+        lhs.resize(n, 0);
+        for(size_t i = 0; i < m; ++i) lhs[i] ^= rhs[i];
+        while(!lhs.empty() and !lhs.back()) lhs.pop_back();
     }
     void normalize(std::string_view sv, size_t n) {
         size_t m = (n + 7) / 8;
@@ -215,9 +223,13 @@ public:
         bit_or(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
         return *this;
     }
+    BinaryBigint &operator^=(const BinaryBigint &rhs) {
+        bit_xor(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        return *this;
+    }
 
     friend bool operator==(const BinaryBigint &lhs, const BinaryBigint &rhs) { return lhs.m_words == rhs.m_words; }
-    friend int operator<=>(const BinaryBigint &lhs, const BinaryBigint &rhs) { return compare(lhs.m_words, lhs.m_words.size(), rhs.m_words, rhs.m_words.size()); }
+    friend int operator<=>(const BinaryBigint &lhs, const BinaryBigint &rhs) { return compare(lhs, rhs); }
     friend BinaryBigint operator+(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) += rhs; }
     friend BinaryBigint operator-(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) -= rhs; }
     friend BinaryBigint operator*(const BinaryBigint &lhs, const BinaryBigint &rhs) {
@@ -230,6 +242,7 @@ public:
     friend BinaryBigint operator>>(const BinaryBigint &lhs, unsigned long long k) { return BinaryBigint(lhs) >>= k; }
     friend BinaryBigint operator&(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) &= rhs; }
     friend BinaryBigint operator|(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) |= rhs; }
+    friend BinaryBigint operator^(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) ^= rhs; }
     friend std::istream &operator>>(std::istream &is, BinaryBigint &rhs) {
         std::string s;
         is >> s;
