@@ -15,9 +15,11 @@
 namespace algorithm {
 
 class BinaryBigint {
+protected:
     std::deque<uint32_t> m_words;
 
     explicit BinaryBigint(const std::deque<uint32_t> &words) : m_words(words) {}
+    explicit BinaryBigint(std::deque<uint32_t> &&words) : m_words(std::move(words)) {}
 
     static constexpr bool isdigit(char c) { return '0' <= c and c <= '9'; }
     static constexpr bool isupper(char c) { return 'A' <= c and c <= 'F'; }
@@ -27,8 +29,8 @@ class BinaryBigint {
         if(isupper(c)) return 10 + (c - 'A');
         return 10 + (c - 'a');
     }
-    static constexpr bool validate(std::string_view sv) {
-        if(sv == "") return false;
+    static constexpr bool validate(std::string_view sv, size_t n) {
+        if(n == 0) return false;
         return std::find_if_not(sv.cbegin(), sv.cend(), [](char c) -> bool { return isdigit(c) or isupper(c) or islower(c); }) == sv.cend();
     }
     static uint32_t store(uint32_t &word, uint64_t val) {
@@ -58,13 +60,14 @@ class BinaryBigint {
         for(size_t i = m; i < n and carry; ++i) carry = store(lhs[i], (uint64_t)lhs[i] + carry);
         if(carry) lhs.push_back(carry);
     }
-    static void subtraction(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
+    static uint64_t subtraction(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
         n = std::max(n, m);
         lhs.resize(n, 0);
         uint64_t ncarry = 0;
         for(size_t i = 0; i < m; ++i) ncarry = sub_store(lhs[i], (uint64_t)lhs[i] - rhs[i] + ncarry);
         for(size_t i = m; i < n and ncarry; ++i) ncarry = sub_store(lhs[i], lhs[i] + ncarry);
         while(!lhs.empty() and !lhs.back()) lhs.pop_back();
+        return ncarry;
     }
     static std::deque<uint32_t> multiplication(const std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
         std::deque<uint32_t> res(n + m, 0);
@@ -191,7 +194,6 @@ public:
         return *this;
     }
     BinaryBigint &operator-=(const BinaryBigint &rhs) {
-        // assert(compare(*this, rhs) >= 0);  // lhs<rhs のとき，未定義動作．
         if(rhs.is_zero()) return *this;
         subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
         return *this;
@@ -246,7 +248,7 @@ public:
     friend std::istream &operator>>(std::istream &is, BinaryBigint &rhs) {
         std::string s;
         is >> s;
-        assert(validate(s));
+        assert(validate(s, s.size()));
         rhs.normalize(s, s.size());
         return is;
     }
@@ -260,13 +262,13 @@ public:
     }
 
     bool is_zero() const { return m_words.empty(); }
-    void zeroize() { m_words.clear(); }
     std::pair<BinaryBigint, BinaryBigint> divide(const BinaryBigint &a) const {
         assert(!a.is_zero());
         auto remain = m_words;
         auto &&quotient = division(remain, remain.size(), a.m_words, a.m_words.size());
         return {BinaryBigint(std::move(quotient)), BinaryBigint(std::move(remain))};
     }
+    void zeroize() { m_words.clear(); }
     std::string to_string() const {
         std::ostringstream oss;
         oss << *this;
