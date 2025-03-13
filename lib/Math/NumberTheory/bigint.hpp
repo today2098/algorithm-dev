@@ -70,6 +70,10 @@ class Bigint {
         int32_t ncarry = 0;
         for(int32_t &word : words) ncarry = add_store(word, -word + ncarry);
     }
+    static size_t shrink(std::vector<int32_t> &words) {
+        while(!words.empty() and words.back() == 0) words.pop_back();
+        return words.size();
+    }
     static void addition(std::vector<int32_t> &lhs, size_t n, const std::vector<int32_t> &rhs, size_t m) {
         n = std::max(n, m);
         lhs.resize(n, 0);
@@ -84,13 +88,9 @@ class Bigint {
         int32_t ncarry = 0;
         for(size_t i = 0; i < m; ++i) ncarry = add_store(lhs[i], lhs[i] - rhs[i] + ncarry);
         for(size_t i = m; i < n and ncarry < 0; ++i) ncarry = add_store(lhs[i], lhs[i] + ncarry);
-        if(ncarry < 0) {
-            while(n >= 2 and lhs[n - 1] == BASE - 1 and lhs[n - 2] > 0) lhs.pop_back(), --n;
-            negation(lhs);
-            return true;
-        }
-        while(!lhs.empty() and lhs.back() == 0) lhs.pop_back();
-        return false;
+        if(ncarry < 0) negation(lhs);
+        shrink(lhs);
+        return ncarry < 0;
     }
     static std::vector<int32_t> multiplication(const std::vector<int32_t> &lhs, size_t n, const std::vector<int32_t> &rhs, size_t m) {
         std::vector<int32_t> res(n + m, 0);
@@ -99,7 +99,7 @@ class Bigint {
             for(size_t j = 0; j < m; ++j) carry = store(res[i + j], res[i + j] + (int64_t)lhs[i] * rhs[j] + carry);
             res[i + m] = carry;
         }
-        while(!res.empty() and res.back() == 0) res.pop_back();
+        shrink(res);
         return res;
     }
     static std::vector<int32_t> division(std::vector<int32_t> &lhs, ssize_t n, const std::vector<int32_t> &rhs, ssize_t m) {
@@ -110,9 +110,9 @@ class Bigint {
             if(n - offset < m) return 0;
             auto eval = [&](int32_t d) -> bool {
                 int32_t carry = 0;
-                for(ssize_t i = 0; i < m; ++i) {
+                for(size_t i = 0; i < m; ++i) {
                     int32_t tmp;
-                    carry = store(tmp, lhs[i + offset] - (int64_t)rhs[i] * d + carry);
+                    carry = store(tmp, lhs[i + offset] - (int64_t)d * rhs[i] + carry);
                 }
                 return (m + offset < n ? lhs.back() : 0) + carry >= 0;
             };
@@ -123,15 +123,15 @@ class Bigint {
             }
             return ok;
         };
-        auto sub = [&](ssize_t offset, int32_t d) -> void {
+        auto sub = [&](size_t offset, int32_t d) -> void {
             int32_t ncarry = 0;
-            for(ssize_t i = 0; i < m; ++i) ncarry = store(lhs[i + offset], lhs[i + offset] - (int64_t)rhs[i] * d + ncarry);
+            for(size_t i = 0; i < m; ++i) ncarry = store(lhs[i + offset], lhs[i + offset] - (int64_t)d * rhs[i] + ncarry);
             if(m + offset < n) lhs.pop_back(), --n;
-            while(offset < n and lhs.back() == 0) lhs.pop_back(), --n;
+            n = shrink(lhs);
         };
         for(ssize_t i = n - m; i >= 0; --i) {
             res[i] = bisearch(i);
-            sub(i, res[i]);
+            if(res[i] > 0) sub(i, res[i]);
         }
         if(res.back() == 0) res.pop_back();
         return res;
@@ -157,7 +157,7 @@ class Bigint {
             int32_t d = 1;
             for(size_t j = 0; j < BASE_DIGIT and iter < sv.crend(); ++j, ++iter, d *= 10) m_words[i] += (*iter - '0') * d;
         }
-        while(!m_words.empty() and m_words.back() == 0) m_words.pop_back();
+        shrink(m_words);
     }
 
 public:
