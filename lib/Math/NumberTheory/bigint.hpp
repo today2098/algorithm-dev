@@ -20,23 +20,33 @@ class Bigint {
     static constexpr size_t BASE_DIGIT = 9;
 
     std::vector<int32_t> m_words;
-    int m_sign;
+    bool m_neg;
 
-    explicit Bigint(const std::vector<int32_t> &words, int sign) : m_words(words), m_sign(sign) {}
+    explicit Bigint(const std::vector<int32_t> &words, bool neg) : m_words(words), m_neg(neg) {}
+    explicit Bigint(std::vector<int32_t> &&words, bool neg) : m_words(std::move(words)), m_neg(neg) {}
 
     static constexpr bool isdigit(char c) { return '0' <= c and c <= '9'; }
-    static constexpr bool validate(std::string_view sv) {
-        size_t n = sv.size();
+    static constexpr bool validate(std::string_view sv, size_t n) {
         if(n == 0) return false;
-        if(n == 1) return isdigit(sv[0]);
-        if(!(sv[0] == '+' or sv[0] == '-' or isdigit(sv[0]))) return false;
-        return std::find_if_not(sv.cbegin() + 1, sv.cend(), [](char c) -> bool { return isdigit(c); }) == sv.cend();
+        if(sv[0] == '+' or sv[0] == '-') return validate_words(sv.substr(1), n - 1);
+        return validate_words(sv, n);
     }
-    static int32_t store(int32_t &word, int64_t val) {
-        int32_t carry = val / BASE;
-        word = val - (int64_t)carry * BASE;
-        if(word < 0) word += BASE, --carry;
-        return carry;
+    static constexpr bool validate_words(std::string_view sv, size_t n) {
+        if(n == 0) return false;
+        return std::find_if_not(sv.cbegin(), sv.cend(), [](char c) -> bool { return isdigit(c); }) == sv.cend();
+    }
+    static int compare(const Bigint &lhs, const Bigint &rhs) {
+        if(lhs.isnegative() ^ rhs.isnegative()) return (lhs.isnegative() ? -1 : 1);
+        return compare(lhs.m_words, lhs.m_words.size(), rhs.m_words, rhs.m_words.size());
+    }
+    static int compare(const std::vector<int32_t> &lhs, ssize_t n, const std::vector<int32_t> &rhs, ssize_t m) {
+        if(n < m) return -1;
+        if(n > m) return 1;
+        for(ssize_t i = n - 1; i >= 0; --i) {
+            if(lhs[i] == rhs[i]) continue;
+            return (lhs[i] < rhs[i] ? -1 : 1);
+        }
+        return 0;
     }
     static int32_t add_store(int32_t &word, int32_t val) {
         if(val < 0) {
@@ -50,44 +60,37 @@ class Bigint {
         word = val - BASE;
         return 1;
     }
-    static int compare(const Bigint &lhs, const Bigint &rhs) {
-        if(lhs.sign() == rhs.sign()) return compare(lhs.m_words, lhs.m_words.size(), rhs.m_words, rhs.m_words.size());
-        return (lhs.sign() < rhs.sign() ? -1 : 1);
+    static int32_t store(int32_t &word, int64_t val) {
+        int32_t carry = val / BASE;
+        word = val - (int64_t)carry * BASE;
+        if(word < 0) word += BASE, --carry;
+        return carry;
     }
-    static int compare(const std::vector<int32_t> &lhs, ssize_t n, const std::vector<int32_t> &rhs, ssize_t m) {
-        if(n < m) return -1;
-        if(n > m) return 1;
-        for(ssize_t i = n - 1; i >= 0; --i) {
-            if(lhs[i] == rhs[i]) continue;
-            return (lhs[i] < rhs[i] ? -1 : 1);
-        }
-        return 0;
+    static void negation(std::vector<int32_t> &words) {
+        int32_t ncarry = 0;
+        for(int32_t &word : words) ncarry = add_store(word, -word + ncarry);
     }
     static void addition(std::vector<int32_t> &lhs, size_t n, const std::vector<int32_t> &rhs, size_t m) {
         n = std::max(n, m);
         lhs.resize(n, 0);
         int32_t carry = 0;
         for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], lhs[i] + rhs[i] + carry);
-        for(size_t i = m; i < n and carry != 0; ++i) carry = add_store(lhs[i], lhs[i] + carry);
-        if(carry != 0) lhs.push_back(carry);
+        for(size_t i = m; i < n and carry > 0; ++i) carry = add_store(lhs[i], lhs[i] + carry);
+        if(carry > 0) lhs.push_back(carry);
     }
-    static int subtraction(std::vector<int32_t> &lhs, size_t n, const std::vector<int32_t> &rhs, size_t m) {
-        int sign = compare(lhs, n, rhs, m);
-        if(sign == 0) {
-            lhs.clear();
-            return 0;
-        }
-        if(sign < 0) {
-            lhs.resize(m, 0);
-            int32_t carry = 0;
-            for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], rhs[i] - lhs[i] + carry);
-        } else {
-            int32_t carry = 0;
-            for(size_t i = 0; i < m; ++i) carry = add_store(lhs[i], lhs[i] - rhs[i] + carry);
-            for(size_t i = m; i < n and carry != 0; ++i) carry = add_store(lhs[i], lhs[i] + carry);
+    static bool subtraction(std::vector<int32_t> &lhs, size_t n, const std::vector<int32_t> &rhs, size_t m) {
+        n = std::max(n, m);
+        lhs.resize(n, 0);
+        int32_t ncarry = 0;
+        for(size_t i = 0; i < m; ++i) ncarry = add_store(lhs[i], lhs[i] - rhs[i] + ncarry);
+        for(size_t i = m; i < n and ncarry < 0; ++i) ncarry = add_store(lhs[i], lhs[i] + ncarry);
+        if(ncarry < 0) {
+            while(n >= 2 and lhs[n - 1] == BASE - 1 and lhs[n - 2] > 0) lhs.pop_back(), --n;
+            negation(lhs);
+            return true;
         }
         while(!lhs.empty() and lhs.back() == 0) lhs.pop_back();
-        return sign;
+        return false;
     }
     static std::vector<int32_t> multiplication(const std::vector<int32_t> &lhs, size_t n, const std::vector<int32_t> &rhs, size_t m) {
         std::vector<int32_t> res(n + m, 0);
@@ -121,16 +124,14 @@ class Bigint {
             return ok;
         };
         auto sub = [&](ssize_t offset, int32_t d) -> void {
-            int32_t carry = 0;
-            for(ssize_t i = 0; i < m; ++i) carry = store(lhs[i + offset], lhs[i + offset] - (int64_t)rhs[i] * d + carry);
-            if(m + offset < n) lhs.pop_back();
+            int32_t ncarry = 0;
+            for(ssize_t i = 0; i < m; ++i) ncarry = store(lhs[i + offset], lhs[i + offset] - (int64_t)rhs[i] * d + ncarry);
+            if(m + offset < n) lhs.pop_back(), --n;
             while(offset < n and lhs.back() == 0) lhs.pop_back(), --n;
         };
-        for(ssize_t i = n - m; i >= 0;) {
+        for(ssize_t i = n - m; i >= 0; --i) {
             res[i] = bisearch(i);
             sub(i, res[i]);
-            --i;
-            while(!lhs.empty() and lhs.back() == 0) lhs.pop_back(), --n, --i;
         }
         if(res.back() == 0) res.pop_back();
         return res;
@@ -138,15 +139,17 @@ class Bigint {
     void normalize(std::string_view sv, size_t n) {
         assert(n > 0);
         if(sv[0] == '+') {
-            normalize_unsigned(sv.substr(1), n - 1);
+            normalize_words(sv.substr(1), n - 1);
+            m_neg = false;
         } else if(sv[0] == '-') {
-            normalize_unsigned(sv.substr(1), n - 1);
-            negation();
+            normalize_words(sv.substr(1), n - 1);
+            m_neg = !m_words.empty();
         } else {
-            normalize_unsigned(sv, n);
+            normalize_words(sv, n);
+            m_neg = false;
         }
     }
-    void normalize_unsigned(std::string_view sv, size_t n) {
+    void normalize_words(std::string_view sv, size_t n) {
         size_t m = (n + BASE_DIGIT - 1) / BASE_DIGIT;
         m_words.assign(m, 0);
         auto iter = sv.crbegin();
@@ -155,15 +158,13 @@ class Bigint {
             for(size_t j = 0; j < BASE_DIGIT and iter < sv.crend(); ++j, ++iter, d *= 10) m_words[i] += (*iter - '0') * d;
         }
         while(!m_words.empty() and m_words.back() == 0) m_words.pop_back();
-        m_sign = (m_words.empty() ? 0 : 1);
     }
 
 public:
-    Bigint() : m_words(), m_sign(0) {};
+    Bigint() : m_words(), m_neg(false) {};
     Bigint(int64_t n) : Bigint() {
-        if(n == 0) return;
-        if(n < 0) n *= -1, m_sign = -1;
-        else m_sign = 1;
+        m_neg = (n < 0);
+        n = std::abs(n);
         while(n > 0) {
             int32_t word;
             n = store(word, n);
@@ -180,87 +181,92 @@ public:
     Bigint operator+() const { return Bigint(*this); }
     Bigint operator-() const {
         Bigint res = *this;
-        res.negation();
+        res.negate();
         return res;
     }
     Bigint &operator+=(const Bigint &rhs) {
-        if(rhs.is_zero()) return *this;
-        if(is_zero()) return *this = rhs;
-        if(sign() == rhs.sign()) addition(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
-        else m_sign *= subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        if(isnegative() ^ rhs.isnegative()) {
+            m_neg ^= subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+            if(m_words.empty()) m_neg = false;
+        } else {
+            addition(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        }
         return *this;
     }
     Bigint &operator-=(const Bigint &rhs) {
-        if(rhs.is_zero()) return *this;
-        if(is_zero()) return *this = -rhs;
-        if(sign() == rhs.sign()) m_sign *= subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
-        else addition(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        if(isnegative() ^ rhs.isnegative()) {
+            addition(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        } else {
+            m_neg ^= subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+            if(m_words.empty()) m_neg = false;
+        }
         return *this;
     }
     Bigint &operator*=(const Bigint &rhs) { return *this = (*this) * rhs; }
     Bigint &operator/=(const Bigint &rhs) {
-        assert(!rhs.is_zero());
-        if(is_zero()) return *this;
+        assert(!rhs.iszero());
         m_words = division(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
-        m_sign = (m_words.empty() ? 0 : sign() * rhs.sign());
+        m_neg = (m_words.empty() ? false : isnegative() ^ rhs.isnegative());
         return *this;
     }
     Bigint &operator%=(const Bigint &rhs) {
-        assert(!rhs.is_zero());
-        if(is_zero()) return *this;
+        assert(!rhs.iszero());
         division(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
-        if(m_words.empty()) m_sign = 0;
+        if(m_words.empty()) m_neg = false;
         return *this;
     }
 
-    friend bool operator==(const Bigint &lhs, const Bigint &rhs) { return lhs.sign() == rhs.sign() and lhs.m_words == rhs.m_words; }
+    friend bool operator==(const Bigint &lhs, const Bigint &rhs) { return lhs.m_words == rhs.m_words and lhs.isnegative() == rhs.isnegative(); }
     friend int operator<=>(const Bigint &lhs, const Bigint &rhs) { return compare(lhs, rhs); }
     friend Bigint operator+(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) += rhs; }
     friend Bigint operator-(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) -= rhs; }
     friend Bigint operator*(const Bigint &lhs, const Bigint &rhs) {
-        if(lhs.is_zero() or rhs.is_zero()) return Bigint();
-        return Bigint(multiplication(lhs.m_words, lhs.m_words.size(), rhs.m_words, rhs.m_words.size()), lhs.sign() * rhs.sign());
+        if(lhs.iszero() or rhs.iszero()) return Bigint();
+        return Bigint(multiplication(lhs.m_words, lhs.m_words.size(), rhs.m_words, rhs.m_words.size()), lhs.isnegative() ^ rhs.isnegative());
     }
     friend Bigint operator/(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) /= rhs; }
     friend Bigint operator%(const Bigint &lhs, const Bigint &rhs) { return Bigint(lhs) %= rhs; }
     friend std::istream &operator>>(std::istream &is, Bigint &rhs) {
         std::string s;
         is >> s;
-        assert(validate(s));
+        assert(validate(s, s.size()));
         rhs.normalize(s, s.size());
         return is;
     }
     friend std::ostream &operator<<(std::ostream &os, const Bigint &rhs) {
-        if(rhs.is_zero()) return os << 0;
-        os << (rhs.is_minus() ? "-" : "") << rhs.m_words.back();
+        if(rhs.iszero()) return os << 0;
+        os << (rhs.isnegative() ? "-" : "") << rhs.m_words.back();
         for(auto iter = rhs.m_words.crbegin() + 1; iter < rhs.m_words.crend(); ++iter) os << std::setw(BASE_DIGIT) << std::setfill('0') << *iter;
         return os;
     }
 
-    bool is_zero() const { return sign() == 0; }
-    bool is_minus() const { return sign() < 0; }
-    int sign() const { return m_sign; }
-    Bigint abs() const { return Bigint(m_words, std::abs(sign())); }
+    bool iszero() const { return m_words.empty(); }
+    bool isnegative() const { return m_neg; }
+    int sign() const {
+        if(iszero()) return 0;
+        return (isnegative() ? -1 : 1);
+    }
+    Bigint abs() const { return Bigint(m_words, false); }
     std::pair<Bigint, Bigint> divide(const Bigint &a) const {
-        assert(!a.is_zero());
-        if(is_zero()) return {Bigint(), Bigint()};
+        assert(!a.iszero());
         auto remain = m_words;
         auto &&quotient = division(remain, remain.size(), a.m_words, a.m_words.size());
-        return {Bigint(std::move(quotient), (quotient.empty() ? 0 : sign() * a.sign())), Bigint(std::move(remain), (remain.empty() ? 0 : sign()))};
+        Bigint q(std::move(quotient), false), r(std::move(remain), false);
+        if(!q.iszero()) q.m_neg = isnegative() ^ a.isnegative();
+        if(!r.iszero()) q.m_neg = isnegative();
+        return {q, r};
     }
     void zeroize() {
         m_words.clear();
-        m_sign = 0;
+        m_neg = false;
     }
-    void negation() { m_sign *= -1; }
+    void negate() { m_neg = !m_neg; }
     std::string to_string() const {
         std::ostringstream oss;
         oss << *this;
         return oss.str();
     }
     const std::vector<int32_t> &words() const { return m_words; }
-
-    friend Bigint abs(const Bigint &a) { return a.abs(); }
 };
 
 }  // namespace algorithm
