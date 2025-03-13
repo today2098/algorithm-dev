@@ -184,6 +184,18 @@ public:
         res.negate();
         return res;
     }
+    Bigint &operator++() { return *this += Bigint({1}, false); }
+    Bigint &operator--() { return *this -= Bigint({1}, false); }
+    Bigint &operator++(int) {
+        auto res = *this;
+        ++(*this);
+        return res;
+    }
+    Bigint &operator--(int) {
+        auto res = *this;
+        --(*this);
+        return res;
+    }
     Bigint &operator+=(const Bigint &rhs) {
         if(isnegative() ^ rhs.isnegative()) {
             m_neg ^= subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
@@ -235,8 +247,9 @@ public:
     }
     friend std::ostream &operator<<(std::ostream &os, const Bigint &rhs) {
         if(rhs.iszero()) return os << 0;
-        os << (rhs.isnegative() ? "-" : "") << rhs.m_words.back();
-        for(auto iter = rhs.m_words.crbegin() + 1; iter < rhs.m_words.crend(); ++iter) os << std::setw(BASE_DIGIT) << std::setfill('0') << *iter;
+        auto iter = rhs.m_words.crbegin();
+        os << (rhs.isnegative() ? "-" : "") << *iter++;
+        for(; iter < rhs.m_words.crend(); ++iter) os << std::setw(BASE_DIGIT) << std::setfill('0') << *iter;
         return os;
     }
 
