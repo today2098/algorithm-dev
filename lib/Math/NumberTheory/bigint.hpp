@@ -110,7 +110,7 @@ class Bigint {
             if(n - offset < m) return 0;
             auto eval = [&](int32_t d) -> bool {
                 int32_t carry = 0;
-                for(size_t i = 0; i < m; ++i) {
+                for(ssize_t i = 0; i < m; ++i) {
                     int32_t tmp;
                     carry = store(tmp, lhs[i + offset] - (int64_t)d * rhs[i] + carry);
                 }
@@ -123,9 +123,9 @@ class Bigint {
             }
             return ok;
         };
-        auto sub = [&](size_t offset, int32_t d) -> void {
+        auto sub = [&](ssize_t offset, int32_t d) -> void {
             int32_t ncarry = 0;
-            for(size_t i = 0; i < m; ++i) ncarry = store(lhs[i + offset], lhs[i + offset] - (int64_t)d * rhs[i] + ncarry);
+            for(ssize_t i = 0; i < m; ++i) ncarry = store(lhs[i + offset], lhs[i + offset] - (int64_t)d * rhs[i] + ncarry);
             if(m + offset < n) lhs.pop_back(), --n;
             n = shrink(lhs);
         };
@@ -186,12 +186,12 @@ public:
     }
     Bigint &operator++() { return *this += Bigint({1}, false); }
     Bigint &operator--() { return *this -= Bigint({1}, false); }
-    Bigint &operator++(int) {
+    Bigint operator++(int) {
         auto res = *this;
         ++(*this);
         return res;
     }
-    Bigint &operator--(int) {
+    Bigint operator--(int) {
         auto res = *this;
         --(*this);
         return res;
