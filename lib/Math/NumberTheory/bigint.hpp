@@ -100,11 +100,11 @@ class Bigint {
     }
     static std::vector<int32_t> multiplication(const std::vector<int32_t> &lhs, size_t n, const std::vector<int32_t> &rhs, size_t m) {
         std::vector<int32_t> res(n + m, 0);
-        for(size_t i = 0; i < n; ++i) {
-            if(lhs[i] == 0) continue;
+        for(size_t j = 0; j < m; ++j) {
+            if(rhs[j] == 0) continue;
             int32_t carry = 0;
-            for(size_t j = 0; j < m; ++j) carry = store(res[i + j], res[i + j] + (int64_t)lhs[i] * rhs[j] + carry);
-            res[i + m] = carry;
+            for(size_t i = 0; i < n; ++i) carry = store(res[i + j], res[i + j] + (int64_t)lhs[i] * rhs[j] + carry);
+            res[j + n] = carry;
         }
         shrink(res);
         return res;
@@ -185,7 +185,7 @@ public:
         ss >> *this;
     }
 
-    explicit operator bool() const { !is_zero(); }
+    explicit operator bool() const { return !is_zero(); }
     Bigint operator+() const { return Bigint(*this); }
     Bigint operator-() const {
         Bigint res = *this;

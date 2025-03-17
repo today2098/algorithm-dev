@@ -99,11 +99,11 @@ class BinaryBigint {
     static std::pair<std::deque<uint32_t>, uint32_t> multiplication(const std::deque<uint32_t> &lhs, size_t n, uint32_t lsb, const std::deque<uint32_t> &rhs, size_t m, uint32_t rsb) {
         std::deque<uint32_t> words(n + m, 0);
         uint32_t signbit = lsb ^ rsb;
-        for(size_t i = 0; i < n; ++i) {
-            if(!lhs[i]) continue;
+        for(size_t j = 0; j < m; ++j) {
+            if(!rhs[j]) continue;
             uint32_t carry = 0;
-            for(size_t j = 0; j < m; ++j) carry = store(words[i + j], words[i + j] + (uint64_t)lhs[i] * rhs[j] + carry);
-            words[i + m] = carry;
+            for(size_t i = 0; i < n; ++i) carry = store(words[i + j], words[i + j] + (uint64_t)lhs[i] * rhs[j] + carry);
+            words[j + n] = carry;
         }
         if(rsb) {
             uint32_t ncarry = 1;
