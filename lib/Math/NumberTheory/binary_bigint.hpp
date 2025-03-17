@@ -295,6 +295,24 @@ public:
         BinaryBigint res = *this;
         return res.bitwise_not();
     }
+    BinaryBigint &operator++() {
+        addition(m_words, m_words.size(), m_signbit, {1}, 1, SIGNBIT[0]);
+        return *this;
+    }
+    BinaryBigint &operator--() {
+        addition(m_words, m_words.size(), m_signbit, {}, 0, SIGNBIT[1]);
+        return *this;
+    }
+    BinaryBigint operator++(int) {
+        BinaryBigint res = *this;
+        ++(*this);
+        return res;
+    }
+    BinaryBigint operator--(int) {
+        BinaryBigint res = *this;
+        --(*this);
+        return res;
+    }
     BinaryBigint &operator+=(const BinaryBigint &rhs) {
         addition(m_words, m_words.size(), m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
         return *this;
