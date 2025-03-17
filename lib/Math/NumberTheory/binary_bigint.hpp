@@ -160,7 +160,6 @@ class BinaryBigint {
                 carry = store(tmp, (uint64_t)rhs[i] * d + carry);
                 ncarry = store(lhs[i + offset], (uint64_t)lhs[i + offset] + ~tmp + ncarry);
             }
-            store(lhs[m + offset], lhs[m + offset] + ~(rsb * d + carry) + ncarry);
             lhs.pop_back();
         };
         for(ssize_t i = n - m - 1; i >= 0; --i) {
@@ -378,7 +377,7 @@ public:
         return is;
     }
     friend std::ostream &operator<<(std::ostream &os, const BinaryBigint &rhs) {
-        if(rhs.signbit()) return os << "-" << -rhs;
+        if(rhs.is_negative()) return os << "-" << -rhs;
         if(rhs.is_zero()) return os << 0;
         auto old = os.setf(std::ios_base::hex, std::ios_base::basefield);  // 16進数表示．
         auto iter = rhs.m_words.crbegin();
@@ -391,12 +390,14 @@ public:
     static constexpr uint64_t base() { return BASE; }
     static constexpr size_t base_digit() { return BASE_DIGIT; }
     const std::deque<uint32_t> &words() const { return m_words; }
-    bool signbit() const { return m_signbit; }
+    uint32_t signbit() const { return m_signbit; }
     bool is_zero() const { return m_words.empty() and !m_signbit; }
+    bool is_negative() const { return m_signbit; }
     int sign() const {
-        if(is_zero()) return 0;
-        return (signbit() ? -1 : 1);
+        if(m_signbit) return -1;
+        return (m_words.empty() ? 0 : 1);
     }
+    BinaryBigint abs() const { return (is_negative() ? -(*this) : BinaryBigint(*this)); }
     std::pair<BinaryBigint, BinaryBigint> divide(const BinaryBigint &divisor) const {
         assert(!divisor.is_zero());
         auto remain = *this;
