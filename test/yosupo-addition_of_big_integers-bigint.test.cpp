@@ -12,7 +12,7 @@ int main() {
         algorithm::Bigint a, b;
         std::cin >> a >> b;
 
-        auto &&ans = a + b;
-        std::cout << ans << "\n";
+        a += b;
+        std::cout << a << "\n";
     }
 }
