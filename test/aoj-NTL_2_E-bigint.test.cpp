@@ -8,6 +8,6 @@ int main() {
     algorithm::Bigint a, b;
     std::cin >> a >> b;
 
-    auto ans = a % b;
-    std::cout << ans << std::endl;
+    a %= b;
+    std::cout << a << std::endl;
 }

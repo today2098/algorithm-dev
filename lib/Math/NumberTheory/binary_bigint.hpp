@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <deque>
 #include <iomanip>
-#include <iterator>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -15,84 +15,138 @@
 namespace algorithm {
 
 class BinaryBigint {
-    std::deque<uint32_t> m_words;
+    static constexpr uint64_t BASE = 0x0000000100000000ULL;
+    static constexpr size_t BASE_DIGIT = 32;
+    static constexpr uint32_t SIGNBIT[2] = {0x00000000U, 0xffffffffU};
 
-    explicit BinaryBigint(const std::deque<uint32_t> &words) : m_words(words) {}
+    std::deque<uint32_t> m_words;
+    uint32_t m_signbit;
+
+    explicit BinaryBigint(const std::deque<uint32_t> &words, uint32_t signbit) : m_words(words), m_signbit(signbit) {}
+    explicit BinaryBigint(std::deque<uint32_t> &&words, uint32_t signbit) : m_words(std::move(words)), m_signbit(signbit) {}
 
     static constexpr bool isdigit(char c) { return '0' <= c and c <= '9'; }
     static constexpr bool isupper(char c) { return 'A' <= c and c <= 'F'; }
     static constexpr bool islower(char c) { return 'a' <= c and c <= 'f'; }
-    static constexpr uint32_t to_dec(char c) {
+    static constexpr uint32_t ctoi(char c) {
         if(isdigit(c)) return c - '0';
         if(isupper(c)) return 10 + (c - 'A');
         return 10 + (c - 'a');
     }
-    static constexpr bool validate(std::string_view sv) {
-        if(sv == "") return false;
+    static constexpr bool validate(std::string_view sv, size_t n) {
+        if(n == 0) return false;
+        if(sv[0] == '+' or sv[0] == '-') return validate_unsigned(sv.substr(1), n - 1);
+        return validate_unsigned(sv, n);
+    }
+    static constexpr bool validate_unsigned(std::string_view sv, size_t n) {
+        if(n == 0) return false;
         return std::find_if_not(sv.cbegin(), sv.cend(), [](char c) -> bool { return isdigit(c) or isupper(c) or islower(c); }) == sv.cend();
     }
-    static uint32_t store(uint32_t &word, uint64_t val) {
-        word = val;
-        return val >> 32;  // carry.
-    }
-    static uint64_t sub_store(uint32_t &word, uint64_t val) {
-        uint64_t ncarry = store(word, val);
-        if(ncarry) ncarry |= 0xffffffff00000000ULL;
-        return ncarry;
-    }
-    static int compare(const BinaryBigint &lhs, const BinaryBigint &rhs) { return compare(lhs.m_words, lhs.m_words.size(), rhs.m_words, rhs.m_words.size()); }
-    static int compare(const std::deque<uint32_t> &lhs, ssize_t n, const std::deque<uint32_t> &rhs, ssize_t m) {
-        if(n < m) return -1;
-        if(n > m) return 1;
+    static int compare(const BinaryBigint &lhs, const BinaryBigint &rhs) { return compare(lhs.m_words, lhs.m_words.size(), lhs.m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit); }
+    static int compare(const std::deque<uint32_t> &lhs, ssize_t n, uint32_t lsb, const std::deque<uint32_t> &rhs, ssize_t m, uint32_t rsb) {
+        if(lsb ^ rsb) return (lsb ? -1 : 1);
+        if(n < m) return (lsb ? 1 : -1);
+        if(n > m) return (lsb ? -1 : 1);
         for(ssize_t i = n - 1; i >= 0; --i) {
             if(lhs[i] == rhs[i]) continue;
-            return (lhs[i] < rhs[i] ? -1 : 1);
+            if(lhs[i] < rhs[i]) return -1;
+            return 1;
         }
         return 0;
     }
-    static void addition(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
-        n = std::max(n, m);
-        lhs.resize(n, 0);
+    static uint32_t store(uint32_t &word, uint64_t val) {
+        word = val;
+        return val >> BASE_DIGIT;  // return carry.
+    }
+    static size_t shrink(std::deque<uint32_t> &words, uint32_t signbit) {
+        while(!words.empty() and words.back() == signbit) words.pop_back();
+        return words.size();
+    }
+    static size_t zeroisation(std::deque<uint32_t> &words, uint32_t &signbit) {
+        words.clear(), signbit = SIGNBIT[0];
+        return 0;
+    }
+    static size_t negation(std::deque<uint32_t> &words, uint32_t &signbit) {
+        words.push_back(signbit);
+        uint32_t ncarry = 1;
+        for(uint32_t &word : words) ncarry = store(word, (uint64_t)~word + ncarry);
+        signbit = ~signbit + ncarry;
+        return shrink(words, signbit);
+    }
+    static uint32_t bitwise_not(std::deque<uint32_t> &words, uint32_t &signbit) {
+        for(uint32_t &word : words) word = ~word;
+        signbit = ~signbit;
+        return words.size();
+    }
+    static void addition(std::deque<uint32_t> &lhs, size_t n, uint32_t &lsb, const std::deque<uint32_t> &rhs, size_t m, uint32_t rsb) {
+        n = std::max(n, m) + 1;
+        lhs.resize(n, lsb);
         uint32_t carry = 0;
         for(size_t i = 0; i < m; ++i) carry = store(lhs[i], (uint64_t)lhs[i] + rhs[i] + carry);
-        for(size_t i = m; i < n and carry; ++i) carry = store(lhs[i], (uint64_t)lhs[i] + carry);
-        if(carry) lhs.push_back(carry);
+        for(size_t i = m; i < n and rsb + carry; ++i) carry = store(lhs[i], (uint64_t)lhs[i] + rsb + carry);
+        lsb = lsb + rsb + carry;
+        shrink(lhs, lsb);
     }
-    static void subtraction(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
-        n = std::max(n, m);
-        lhs.resize(n, 0);
-        uint64_t ncarry = 0;
-        for(size_t i = 0; i < m; ++i) ncarry = sub_store(lhs[i], (uint64_t)lhs[i] - rhs[i] + ncarry);
-        for(size_t i = m; i < n and ncarry; ++i) ncarry = sub_store(lhs[i], lhs[i] + ncarry);
-        while(!lhs.empty() and !lhs.back()) lhs.pop_back();
+    static void subtraction(std::deque<uint32_t> &lhs, size_t n, uint32_t &lsb, const std::deque<uint32_t> &rhs, size_t m, uint32_t rsb) {
+        n = std::max(n, m) + 1;
+        lhs.resize(n, lsb);
+        uint32_t ncarry = 1;
+        for(size_t i = 0; i < m; ++i) ncarry = store(lhs[i], (uint64_t)lhs[i] + ~rhs[i] + ncarry);
+        for(size_t i = m; i < n and ~rsb + ncarry; ++i) ncarry = store(lhs[i], (uint64_t)lhs[i] + ~rsb + ncarry);
+        lsb = lsb + ~rsb + ncarry;
+        shrink(lhs, lsb);
     }
-    static std::deque<uint32_t> multiplication(const std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
-        std::deque<uint32_t> res(n + m, 0);
-        for(size_t i = 0; i < n; ++i) {
+    static std::pair<std::deque<uint32_t>, uint32_t> multiplication(const std::deque<uint32_t> &lhs, size_t n, uint32_t lsb, const std::deque<uint32_t> &rhs, size_t m, uint32_t rsb) {
+        std::deque<uint32_t> words(n + m, 0);
+        uint32_t signbit = lsb ^ rsb;
+        for(size_t j = 0; j < m; ++j) {
+            if(!rhs[j]) continue;
             uint32_t carry = 0;
-            for(size_t j = 0; j < m; ++j) carry = store(res[i + j], res[i + j] + (uint64_t)lhs[i] * rhs[j] + carry);
-            res[i + m] = carry;
+            for(size_t i = 0; i < n; ++i) carry = store(words[i + j], words[i + j] + (uint64_t)lhs[i] * rhs[j] + carry);
+            words[j + n] = carry;
         }
-        while(!res.empty() and !res.back()) res.pop_back();
-        return res;
+        if(rsb) {
+            uint32_t ncarry = 1;
+            for(size_t i = 0; i < n; ++i) ncarry = store(words[i + m], (uint64_t)words[i + m] + ~lhs[i] + ncarry);
+        }
+        if(lsb) {
+            uint32_t ncarry = 1;
+            for(size_t j = 0; j < m; ++j) ncarry = store(words[j + n], (uint64_t)words[j + n] + ~rhs[j] + ncarry);
+        }
+        shrink(words, signbit);
+        return {words, signbit};
     }
-    static std::deque<uint32_t> division(std::deque<uint32_t> &lhs, ssize_t n, const std::deque<uint32_t> &rhs, ssize_t m) {
-        assert(m > 0);
-        std::deque<uint32_t> res;
+    static std::pair<std::deque<uint32_t>, uint32_t> division(std::deque<uint32_t> &lhs, ssize_t n, uint32_t &lsb, const std::deque<uint32_t> &rhs, ssize_t m, uint32_t rsb) {
+        if(m == 0) {
+            assert(rsb != SIGNBIT[0]);
+            auto words = lhs;
+            uint32_t signbit = lsb;
+            negation(words, signbit), zeroisation(lhs, lsb);
+            return {words, signbit};
+        }
+        if(lsb ^ rsb) {
+            n = negation(lhs, lsb);
+            auto &&[words, signbit] = division(lhs, n, lsb, rhs, m, rsb);
+            negation(words, signbit), negation(lhs, lsb);
+            return {words, signbit};
+        }
+        std::deque<uint32_t> words;
+        uint32_t signbit = SIGNBIT[0];
+        lhs.push_back(lsb), ++n;
         auto bisearch = [&](ssize_t offset) -> uint32_t {
-            if(n - offset < m) return 0;
             auto eval = [&](uint32_t d) -> bool {
-                uint32_t carry = 0;
-                uint64_t ncarry = 0;
+                uint32_t tmp;
+                uint32_t carry = 0, ncarry = 1;
                 for(ssize_t i = 0; i < m; ++i) {
-                    uint32_t tmp;
                     carry = store(tmp, (uint64_t)rhs[i] * d + carry);
-                    ncarry = sub_store(tmp, (uint64_t)lhs[i + offset] - tmp + ncarry);
+                    ncarry = store(tmp, (uint64_t)lhs[i + offset] + ~tmp + ncarry);
                 }
-                uint64_t last = (uint64_t)(m + offset < n ? lhs.back() : 0) - carry + ncarry;
-                return !(last & 0xffffffff00000000ULL);
+                carry = store(tmp, (uint64_t)rsb * d + carry);
+                ncarry = store(tmp, (uint64_t)lhs[m + offset] + ~tmp + ncarry);
+                uint32_t last = lsb + ~(rsb * d + carry) + ncarry;
+                return last == lsb;
             };
-            uint64_t ok = 0, ng = (1ULL << 32);
+            uint64_t ok = 0, ng = BASE;
             while(ng - ok > 1) {
                 uint64_t mid = ok + (ng - ok) / 2;
                 (eval(mid) ? ok : ng) = mid;
@@ -100,82 +154,128 @@ class BinaryBigint {
             return ok;
         };
         auto sub = [&](ssize_t offset, uint32_t d) -> void {
-            uint32_t carry = 0;
-            uint64_t ncarry = 0;
+            uint32_t carry = 0, ncarry = 1;
             for(ssize_t i = 0; i < m; ++i) {
-                uint32_t tmp = 0;
+                uint32_t tmp;
                 carry = store(tmp, (uint64_t)rhs[i] * d + carry);
-                ncarry = sub_store(lhs[i + offset], (uint64_t)lhs[i + offset] - tmp + ncarry);
+                ncarry = store(lhs[i + offset], (uint64_t)lhs[i + offset] + ~tmp + ncarry);
             }
-            if(m + offset < n) lhs.pop_back();
-            while(offset < n and !lhs.back()) lhs.pop_back(), --n;
+            lhs.pop_back();
         };
-        for(ssize_t i = n - m; i >= 0;) {
+        for(ssize_t i = n - m - 1; i >= 0; --i) {
             uint32_t d = bisearch(i);
-            res.push_front(d);
+            words.push_front(d);
             sub(i, d);
-            --i;
-            while(!lhs.empty() and !lhs.back()) lhs.pop_back(), --n, --i;
         }
-        if(!res.back()) res.pop_back();
-        return res;
+        shrink(words, signbit), n = shrink(lhs, lsb);
+        if(lsb and compare(lhs, n, lsb, rhs, m, rsb) == 0) addition(words, words.size(), signbit, {1}, 1, SIGNBIT[0]), zeroisation(lhs, lsb);
+        return {words, signbit};
     }
-    static void shift_left(std::deque<uint32_t> &words, size_t n, unsigned long long k) {
-        if(n == 0) return;
-        size_t t = k / 32;
+    static void shift_left(std::deque<uint32_t> &words, size_t n, uint32_t signbit, size_t k) {
+        size_t t = k / BASE_DIGIT;
         k -= 32ULL * t;
         uint32_t carry = 0;
         for(size_t i = 0; i < n; ++i) {
             uint32_t word = words[i];
             words[i] = word << k | carry;
-            carry = word >> (32 - k);
+            carry = word >> (BASE_DIGIT - k);
         }
-        if(carry) words.push_back(carry);
-        for(size_t i = 0; i < t; ++i) words.push_front(0);
+        words.push_back(signbit << k | carry);
+        for(size_t i = 0; i < t; ++i) words.push_front(SIGNBIT[0]);
+        shrink(words, signbit);
     }
-    static void shift_right(std::deque<uint32_t> &words, size_t n, unsigned long long k) {
+    static void shift_right(std::deque<uint32_t> &words, size_t n, uint32_t signbit, size_t k) {
         if(k >= 32ULL * n) {
             words.clear();
             return;
         }
-        size_t t = k / 32;
+        size_t t = k / BASE_DIGIT;
         for(size_t i = 0; i < t; ++i) words.pop_front();
         n -= t, k -= 32ULL * t;
-        for(size_t i = 0; i < n - 1; ++i) words[i] = words[i + 1] << (32 - k) | words[i] >> k;
-        words.back() >>= k;
-        if(!words.back()) words.pop_back();
+        for(size_t i = 0; i < n - 1; ++i) words[i] = words[i + 1] << (BASE_DIGIT - k) | words[i] >> k;
+        words[n - 1] = signbit << (BASE_DIGIT - k) | words[n - 1] >> k;
+        shrink(words, signbit);
     }
-    static void bit_and(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
-        n = std::min(n, m);
-        lhs.resize(n);
-        for(size_t i = 0; i < n; ++i) lhs[i] &= rhs[i];
-        while(!lhs.empty() and !lhs.back()) lhs.pop_back();
-    }
-    static void bit_or(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
+    static void bitwise_and(std::deque<uint32_t> &lhs, size_t n, uint32_t &lsb, const std::deque<uint32_t> &rhs, size_t m, uint32_t rsb) {
         n = std::max(n, m);
-        lhs.resize(n, 0);
+        lhs.resize(n, lsb);
+        for(size_t i = 0; i < m; ++i) lhs[i] &= rhs[i];
+        for(size_t i = m; i < n; ++i) lhs[i] &= rsb;
+        lsb &= rsb;
+        shrink(lhs, lsb);
+    }
+    static void bitwise_or(std::deque<uint32_t> &lhs, size_t n, uint32_t &lsb, const std::deque<uint32_t> &rhs, size_t m, uint32_t rsb) {
+        n = std::max(n, m);
+        lhs.resize(n, lsb);
         for(size_t i = 0; i < m; ++i) lhs[i] |= rhs[i];
+        for(size_t i = m; i < n; ++i) lhs[i] |= rsb;
+        lsb |= rsb;
+        shrink(lhs, lsb);
     }
-    static void bit_xor(std::deque<uint32_t> &lhs, size_t n, const std::deque<uint32_t> &rhs, size_t m) {
+    static void bitwise_xor(std::deque<uint32_t> &lhs, size_t n, uint32_t &lsb, const std::deque<uint32_t> &rhs, size_t m, uint32_t rsb) {
         n = std::max(n, m);
-        lhs.resize(n, 0);
+        lhs.resize(n, lsb);
         for(size_t i = 0; i < m; ++i) lhs[i] ^= rhs[i];
-        while(!lhs.empty() and !lhs.back()) lhs.pop_back();
+        for(size_t i = m; i < n; ++i) lhs[i] ^= rsb;
+        lsb ^= rsb;
+        shrink(lhs, lsb);
+    }
+    static bool bitwise_test(const std::deque<uint32_t> &words, size_t n, uint32_t signbit, size_t pos) {
+        size_t t = pos / BASE_DIGIT;
+        pos -= BASE_DIGIT * t;
+        if(t < n) return words[t] >> pos & 1U;
+        return signbit;
+    }
+    static void bitwise_set(std::deque<uint32_t> &words, size_t n, uint32_t signbit, size_t pos) {
+        size_t t = pos / BASE_DIGIT;
+        pos -= BASE_DIGIT * t;
+        if(t < n) {
+            words[t] |= 1U << pos;
+            shrink(words, signbit);
+            return;
+        }
+        if(signbit) return;
+        words.resize(t + 1, SIGNBIT[0]);
+        words[t] |= 1U << pos;
+    }
+    static void bitwise_reset(std::deque<uint32_t> &words, size_t n, uint32_t signbit, size_t pos) {
+        size_t t = pos / BASE_DIGIT;
+        pos -= BASE_DIGIT * t;
+        if(t < n) {
+            words[t] &= ~(1U << pos);
+            shrink(words, signbit);
+            return;
+        }
+        if(!signbit) return;
+        words.resize(t + 1, SIGNBIT[1]);
+        words[t] &= ~(1U << pos);
     }
     void normalize(std::string_view sv, size_t n) {
+        assert(n > 0);
+        if(sv[0] == '+') {
+            normalize_unsigned(sv.substr(1), n - 1);
+        } else if(sv[0] == '-') {
+            normalize_unsigned(sv.substr(1), n - 1);
+            negation(m_words, m_signbit);
+        } else {
+            normalize_unsigned(sv, n);
+        }
+    }
+    void normalize_unsigned(std::string_view sv, size_t n) {
         size_t m = (n + 7) / 8;
-        m_words.assign(m, 0);
+        m_words.assign(m, SIGNBIT[0]);
         auto iter = sv.crbegin();
         for(size_t i = 0; i < m; ++i) {
-            for(unsigned j = 0; j < 32 and iter < sv.crend(); j += 4, ++iter) m_words[i] |= to_dec(*iter) << j;
+            for(size_t j = 0; j < BASE_DIGIT and iter < sv.crend(); j += 4, ++iter) m_words[i] |= ctoi(*iter) << j;
         }
-        while(!m_words.empty() and !m_words.back()) m_words.pop_back();
+        shrink(m_words, SIGNBIT[0]);
+        m_signbit = SIGNBIT[0];
     }
 
 public:
-    BinaryBigint() : m_words() {}
-    BinaryBigint(uint64_t n) : m_words({(uint32_t)n, uint32_t(n >> 32)}) {
-        while(!m_words.empty() and !m_words.back()) m_words.pop_back();
+    BinaryBigint() : m_words(), m_signbit(SIGNBIT[0]) {}
+    BinaryBigint(int64_t n) : m_words({(uint32_t)n, uint32_t(n >> BASE_DIGIT)}), m_signbit(SIGNBIT[n < 0]) {
+        shrink(m_words, m_signbit);
     }
     BinaryBigint(const char *c) : BinaryBigint(std::string_view(c)) {}
     BinaryBigint(std::string_view sv) {
@@ -184,95 +284,153 @@ public:
         ss >> *this;
     }
 
+    explicit operator bool() const { return !is_zero(); }
+    BinaryBigint operator+() const { return BinaryBigint(*this); }
+    BinaryBigint operator-() const {
+        BinaryBigint res = *this;
+        return res.negate();
+    }
+    BinaryBigint operator~() const {
+        BinaryBigint res = *this;
+        return res.bitwise_not();
+    }
+    BinaryBigint &operator++() {
+        addition(m_words, m_words.size(), m_signbit, {1}, 1, SIGNBIT[0]);
+        return *this;
+    }
+    BinaryBigint &operator--() {
+        addition(m_words, m_words.size(), m_signbit, {}, 0, SIGNBIT[1]);
+        return *this;
+    }
+    BinaryBigint operator++(int) {
+        BinaryBigint res = *this;
+        ++(*this);
+        return res;
+    }
+    BinaryBigint operator--(int) {
+        BinaryBigint res = *this;
+        --(*this);
+        return res;
+    }
     BinaryBigint &operator+=(const BinaryBigint &rhs) {
-        if(rhs.is_zero()) return *this;
-        if(is_zero()) return *this = rhs;
-        addition(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        addition(m_words, m_words.size(), m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
         return *this;
     }
     BinaryBigint &operator-=(const BinaryBigint &rhs) {
-        // assert(compare(*this, rhs) >= 0);  // lhs<rhs のとき，未定義動作．
-        if(rhs.is_zero()) return *this;
-        subtraction(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        subtraction(m_words, m_words.size(), m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
         return *this;
     }
     BinaryBigint &operator*=(const BinaryBigint &rhs) { return *this = (*this) * rhs; }
     BinaryBigint &operator/=(const BinaryBigint &rhs) {
         assert(!rhs.is_zero());
-        m_words = division(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        auto &&[words, signbit] = division(m_words, m_words.size(), m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
+        m_words = std::move(words), m_signbit = signbit;
         return *this;
     }
     BinaryBigint &operator%=(const BinaryBigint &rhs) {
         assert(!rhs.is_zero());
-        division(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        division(m_words, m_words.size(), m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
         return *this;
     }
-    BinaryBigint &operator<<=(unsigned long long k) {
-        shift_left(m_words, m_words.size(), k);
+    BinaryBigint &operator<<=(size_t k) {
+        shift_left(m_words, m_words.size(), m_signbit, k);
         return *this;
     }
-    BinaryBigint &operator>>=(unsigned long long k) {
-        shift_right(m_words, m_words.size(), k);
+    BinaryBigint &operator>>=(size_t k) {
+        shift_right(m_words, m_words.size(), m_signbit, k);
         return *this;
     }
     BinaryBigint &operator&=(const BinaryBigint &rhs) {
-        bit_and(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        bitwise_and(m_words, m_words.size(), m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
         return *this;
     }
     BinaryBigint &operator|=(const BinaryBigint &rhs) {
-        bit_or(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        bitwise_or(m_words, m_words.size(), m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
         return *this;
     }
     BinaryBigint &operator^=(const BinaryBigint &rhs) {
-        bit_xor(m_words, m_words.size(), rhs.m_words, rhs.m_words.size());
+        bitwise_xor(m_words, m_words.size(), m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
         return *this;
     }
 
-    friend bool operator==(const BinaryBigint &lhs, const BinaryBigint &rhs) { return lhs.m_words == rhs.m_words; }
+    friend bool operator==(const BinaryBigint &lhs, const BinaryBigint &rhs) { return lhs.m_words == rhs.m_words and lhs.m_signbit == rhs.m_signbit; }
     friend int operator<=>(const BinaryBigint &lhs, const BinaryBigint &rhs) { return compare(lhs, rhs); }
     friend BinaryBigint operator+(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) += rhs; }
     friend BinaryBigint operator-(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) -= rhs; }
     friend BinaryBigint operator*(const BinaryBigint &lhs, const BinaryBigint &rhs) {
         if(lhs.is_zero() or rhs.is_zero()) return BinaryBigint();
-        return BinaryBigint(multiplication(lhs.m_words, lhs.m_words.size(), rhs.m_words, rhs.m_words.size()));
+        auto &&[words, signbit] = multiplication(lhs.m_words, lhs.m_words.size(), lhs.m_signbit, rhs.m_words, rhs.m_words.size(), rhs.m_signbit);
+        return BinaryBigint(std::move(words), signbit);
     }
     friend BinaryBigint operator/(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) /= rhs; }
     friend BinaryBigint operator%(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) %= rhs; }
-    friend BinaryBigint operator<<(const BinaryBigint &lhs, unsigned long long k) { return BinaryBigint(lhs) <<= k; }
-    friend BinaryBigint operator>>(const BinaryBigint &lhs, unsigned long long k) { return BinaryBigint(lhs) >>= k; }
+    friend BinaryBigint operator<<(const BinaryBigint &lhs, size_t k) { return BinaryBigint(lhs) <<= k; }
+    friend BinaryBigint operator>>(const BinaryBigint &lhs, size_t k) { return BinaryBigint(lhs) >>= k; }
     friend BinaryBigint operator&(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) &= rhs; }
     friend BinaryBigint operator|(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) |= rhs; }
     friend BinaryBigint operator^(const BinaryBigint &lhs, const BinaryBigint &rhs) { return BinaryBigint(lhs) ^= rhs; }
     friend std::istream &operator>>(std::istream &is, BinaryBigint &rhs) {
         std::string s;
         is >> s;
-        assert(validate(s));
+        assert(validate(s, s.size()));
         rhs.normalize(s, s.size());
         return is;
     }
     friend std::ostream &operator<<(std::ostream &os, const BinaryBigint &rhs) {
+        if(rhs.is_negative()) return os << "-" << -rhs;
         if(rhs.is_zero()) return os << 0;
         auto old = os.setf(std::ios_base::hex, std::ios_base::basefield);  // 16進数表示．
-        os << rhs.m_words.back();
-        for(auto iter = rhs.m_words.crbegin() + 1; iter < rhs.m_words.crend(); ++iter) os << std::setw(8) << std::setfill('0') << *iter;
+        auto iter = rhs.m_words.crbegin();
+        os << *iter++;
+        for(; iter < rhs.m_words.crend(); ++iter) os << std::setw(8) << std::setfill('0') << *iter;
         os.flags(old);
         return os;
     }
 
-    bool is_zero() const { return m_words.empty(); }
-    void zeroize() { m_words.clear(); }
-    std::pair<BinaryBigint, BinaryBigint> divide(const BinaryBigint &a) const {
-        assert(!a.is_zero());
-        auto remain = m_words;
-        auto &&quotient = division(remain, remain.size(), a.m_words, a.m_words.size());
-        return {BinaryBigint(std::move(quotient)), BinaryBigint(std::move(remain))};
+    static constexpr uint64_t base() { return BASE; }
+    static constexpr size_t base_digit() { return BASE_DIGIT; }
+    const std::deque<uint32_t> &words() const { return m_words; }
+    uint32_t signbit() const { return m_signbit; }
+    bool is_zero() const { return m_words.empty() and !m_signbit; }
+    bool is_negative() const { return m_signbit; }
+    int sign() const {
+        if(m_signbit) return -1;
+        return (m_words.empty() ? 0 : 1);
+    }
+    BinaryBigint abs() const { return (is_negative() ? -(*this) : BinaryBigint(*this)); }
+    std::pair<BinaryBigint, BinaryBigint> divide(const BinaryBigint &divisor) const {
+        assert(!divisor.is_zero());
+        auto remain = *this;
+        auto &&[words, signbit] = division(remain.m_words, remain.m_words.size(), remain.m_signbit, divisor.m_words, divisor.m_words.size(), divisor.m_signbit);
+        return {BinaryBigint(std::move(words), signbit), std::move(remain)};
+    }
+    BinaryBigint &zeroise() {
+        zeroisation(m_words, m_signbit);
+        return *this;
+    }
+    BinaryBigint &negate() {
+        negation(m_words, m_signbit);
+        return *this;
+    }
+    BinaryBigint &bitwise_not() {
+        bitwise_not(m_words, m_signbit);
+        return *this;
+    }
+    bool test(size_t k) const { return bitwise_test(m_words, m_words.size(), m_signbit, k); }
+    BinaryBigint &set(size_t k, bool val = true) {
+        if(!val) return reset(k);
+        bitwise_set(m_words, m_words.size(), m_signbit, k);
+        return *this;
+    }
+    BinaryBigint &reset(size_t k) {
+        bitwise_reset(m_words, m_words.size(), m_signbit, k);
+        return *this;
     }
     std::string to_string() const {
         std::ostringstream oss;
         oss << *this;
         return oss.str();
     }
-    const std::deque<uint32_t> &words() const { return m_words; }
 };
 
 }  // namespace algorithm
