@@ -164,6 +164,9 @@ data:
       path: lib/Math/NumberTheory/bigint.hpp
       title: "\u591A\u500D\u9577\u6574\u6570"
     - icon: ':warning:'
+      path: lib/Math/NumberTheory/bigint_utils.hpp
+      title: lib/Math/NumberTheory/bigint_utils.hpp
+    - icon: ':heavy_check_mark:'
       path: lib/Math/NumberTheory/binary_bigint.hpp
       title: "\u591A\u500D\u9577\u6574\u6570\uFF0816\u9032\u6570\uFF09"
     - icon: ':heavy_check_mark:'
@@ -429,6 +432,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo-addition_of_big_integers-bigint.test.cpp
       title: test/yosupo-addition_of_big_integers-bigint.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
+      title: test/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
       title: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
