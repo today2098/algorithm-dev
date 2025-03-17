@@ -20,14 +20,18 @@ class DynamicModint : ModintBase {
     }
 
 public:
-    DynamicModint() : DynamicModint(0) {}
+    DynamicModint() : val(0) {}
     DynamicModint(long long val) : val(val) {
-        assert(mod >= 1);
         normalize();
     }
 
     DynamicModint operator+() const { return DynamicModint(*this); }
-    DynamicModint operator-() const { return (val == 0 ? DynamicModint(*this) : DynamicModint(mod - val)); }
+    DynamicModint operator-() const {
+        if(val == 0) DynamicModint();
+        DynamicModint res = *this;
+        res.val = mod - res.val;
+        return res;
+    }
     DynamicModint &operator++() {
         val++;
         if(val == mod) val = 0;
@@ -65,7 +69,6 @@ public:
     DynamicModint &operator/=(const DynamicModint &rhs) { return *this *= rhs.inv(); }
 
     friend bool operator==(const DynamicModint &lhs, const DynamicModint &rhs) { return lhs.val == rhs.val; }
-    friend bool operator!=(const DynamicModint &lhs, const DynamicModint &rhs) { return lhs.val != rhs.val; }
     friend DynamicModint operator+(const DynamicModint &lhs, const DynamicModint &rhs) { return DynamicModint(lhs) += rhs; }
     friend DynamicModint operator-(const DynamicModint &lhs, const DynamicModint &rhs) { return DynamicModint(lhs) -= rhs; }
     friend DynamicModint operator*(const DynamicModint &lhs, const DynamicModint &rhs) { return DynamicModint(lhs) *= rhs; }
