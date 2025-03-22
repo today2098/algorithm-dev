@@ -20,13 +20,18 @@ class Modint : ModintBase {
     }
 
 public:
-    constexpr Modint() : Modint(0) {}
+    constexpr Modint() : val(0) {}
     constexpr Modint(long long val) : val(val) {
         normalize();
     }
 
     constexpr Modint operator+() const { return Modint(*this); }
-    constexpr Modint operator-() const { return (val == 0 ? Modint(*this) : Modint(mod - val)); }
+    constexpr Modint operator-() const {
+        if(val == 0) Modint();
+        Modint res = *this;
+        res.val = mod - res.val;
+        return res;
+    }
     constexpr Modint &operator++() {
         val++;
         if(val == mod) val = 0;
@@ -64,7 +69,6 @@ public:
     constexpr Modint &operator/=(const Modint &rhs) { return *this *= rhs.inv(); }
 
     friend constexpr bool operator==(const Modint &lhs, const Modint &rhs) { return lhs.val == rhs.val; }
-    friend constexpr bool operator!=(const Modint &lhs, const Modint &rhs) { return lhs.val != rhs.val; }
     friend constexpr Modint operator+(const Modint &lhs, const Modint &rhs) { return Modint(lhs) += rhs; }
     friend constexpr Modint operator-(const Modint &lhs, const Modint &rhs) { return Modint(lhs) -= rhs; }
     friend constexpr Modint operator*(const Modint &lhs, const Modint &rhs) { return Modint(lhs) *= rhs; }
