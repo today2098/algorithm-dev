@@ -26,55 +26,55 @@ data:
     \nnamespace algorithm {\n\ntemplate <int mod>\nclass Modint : ModintBase {\n \
     \   static_assert(mod >= 1);\n\n    long long val;\n\n    constexpr void normalize()\
     \ {\n        if(val < -mod or mod <= val) val %= mod;\n        if(val < 0) val\
-    \ += mod;\n    }\n\npublic:\n    constexpr Modint() : Modint(0) {}\n    constexpr\
+    \ += mod;\n    }\n\npublic:\n    constexpr Modint() : val(0) {}\n    constexpr\
     \ Modint(long long val) : val(val) {\n        normalize();\n    }\n\n    constexpr\
     \ Modint operator+() const { return Modint(*this); }\n    constexpr Modint operator-()\
-    \ const { return (val == 0 ? Modint(*this) : Modint(mod - val)); }\n    constexpr\
-    \ Modint &operator++() {\n        val++;\n        if(val == mod) val = 0;\n  \
-    \      return *this;\n    }\n    constexpr Modint &operator--() {\n        if(val\
-    \ == 0) val = mod;\n        val--;\n        return *this;\n    }\n    constexpr\
-    \ Modint operator++(int) {\n        Modint res = *this;\n        ++(*this);\n\
-    \        return res;\n    }\n    constexpr Modint operator--(int) {\n        Modint\
-    \ res = *this;\n        --(*this);\n        return res;\n    }\n    constexpr\
-    \ Modint &operator+=(const Modint &rhs) {\n        val += rhs.val;\n        if(val\
-    \ >= mod) val -= mod;\n        return *this;\n    }\n    constexpr Modint &operator-=(const\
-    \ Modint &rhs) {\n        val -= rhs.val;\n        if(val < 0) val += mod;\n \
-    \       return *this;\n    }\n    constexpr Modint &operator*=(const Modint &rhs)\
-    \ {\n        val = val * rhs.val % mod;\n        return *this;\n    }\n    constexpr\
-    \ Modint &operator/=(const Modint &rhs) { return *this *= rhs.inv(); }\n\n   \
-    \ friend constexpr bool operator==(const Modint &lhs, const Modint &rhs) { return\
-    \ lhs.val == rhs.val; }\n    friend constexpr bool operator!=(const Modint &lhs,\
-    \ const Modint &rhs) { return lhs.val != rhs.val; }\n    friend constexpr Modint\
-    \ operator+(const Modint &lhs, const Modint &rhs) { return Modint(lhs) += rhs;\
-    \ }\n    friend constexpr Modint operator-(const Modint &lhs, const Modint &rhs)\
-    \ { return Modint(lhs) -= rhs; }\n    friend constexpr Modint operator*(const\
-    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) *= rhs; }\n    friend constexpr\
-    \ Modint operator/(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
-    \ /= rhs; }\n    friend std::istream &operator>>(std::istream &is, Modint &rhs)\
-    \ {\n        is >> rhs.val;\n        rhs.normalize();\n        return is;\n  \
-    \  }\n    friend std::ostream &operator<<(std::ostream &os, const Modint &rhs)\
-    \ { return os << rhs.val; }\n\n    static constexpr int modulus() { return mod;\
-    \ }\n    constexpr long long value() const { return val; }\n    constexpr Modint\
-    \ inv() const {\n        long long a = mod, b = val, u = 0, v = 1;\n        while(b\
-    \ != 0) {\n            long long t = a / b;\n            a -= b * t, u -= v *\
-    \ t;\n            std::swap(a, b), std::swap(u, v);\n        }\n        return\
-    \ Modint(u);\n    }\n    constexpr Modint pow(long long k) const {\n        if(k\
-    \ < 0) return inv().pow(-k);\n        Modint res = 1, mul = *this;\n        while(k\
-    \ > 0) {\n            if(k & 1LL) res *= mul;\n            mul *= mul;\n     \
-    \       k >>= 1;\n        }\n        return res;\n    }\n\n    friend constexpr\
-    \ Modint mod_inv(const Modint &a) { return a.inv(); }\n    friend constexpr Modint\
-    \ mod_pow(const Modint &a, long long k) { return a.pow(k); }\n};\n\nusing mint998244353\
-    \ = Modint<998'244'353>;\nusing mint1000000007 = Modint<1'000'000'007>;\n\n} \
-    \ // namespace algorithm\n\n\n"
+    \ const {\n        if(val == 0) Modint();\n        Modint res = *this;\n     \
+    \   res.val = mod - res.val;\n        return res;\n    }\n    constexpr Modint\
+    \ &operator++() {\n        val++;\n        if(val == mod) val = 0;\n        return\
+    \ *this;\n    }\n    constexpr Modint &operator--() {\n        if(val == 0) val\
+    \ = mod;\n        val--;\n        return *this;\n    }\n    constexpr Modint operator++(int)\
+    \ {\n        Modint res = *this;\n        ++(*this);\n        return res;\n  \
+    \  }\n    constexpr Modint operator--(int) {\n        Modint res = *this;\n  \
+    \      --(*this);\n        return res;\n    }\n    constexpr Modint &operator+=(const\
+    \ Modint &rhs) {\n        val += rhs.val;\n        if(val >= mod) val -= mod;\n\
+    \        return *this;\n    }\n    constexpr Modint &operator-=(const Modint &rhs)\
+    \ {\n        val -= rhs.val;\n        if(val < 0) val += mod;\n        return\
+    \ *this;\n    }\n    constexpr Modint &operator*=(const Modint &rhs) {\n     \
+    \   val = val * rhs.val % mod;\n        return *this;\n    }\n    constexpr Modint\
+    \ &operator/=(const Modint &rhs) { return *this *= rhs.inv(); }\n\n    friend\
+    \ constexpr bool operator==(const Modint &lhs, const Modint &rhs) { return lhs.val\
+    \ == rhs.val; }\n    friend constexpr Modint operator+(const Modint &lhs, const\
+    \ Modint &rhs) { return Modint(lhs) += rhs; }\n    friend constexpr Modint operator-(const\
+    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) -= rhs; }\n    friend constexpr\
+    \ Modint operator*(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
+    \ *= rhs; }\n    friend constexpr Modint operator/(const Modint &lhs, const Modint\
+    \ &rhs) { return Modint(lhs) /= rhs; }\n    friend std::istream &operator>>(std::istream\
+    \ &is, Modint &rhs) {\n        is >> rhs.val;\n        rhs.normalize();\n    \
+    \    return is;\n    }\n    friend std::ostream &operator<<(std::ostream &os,\
+    \ const Modint &rhs) { return os << rhs.val; }\n\n    static constexpr int modulus()\
+    \ { return mod; }\n    constexpr long long value() const { return val; }\n   \
+    \ constexpr Modint inv() const {\n        long long a = mod, b = val, u = 0, v\
+    \ = 1;\n        while(b != 0) {\n            long long t = a / b;\n          \
+    \  a -= b * t, u -= v * t;\n            std::swap(a, b), std::swap(u, v);\n  \
+    \      }\n        return Modint(u);\n    }\n    constexpr Modint pow(long long\
+    \ k) const {\n        if(k < 0) return inv().pow(-k);\n        Modint res = 1,\
+    \ mul = *this;\n        while(k > 0) {\n            if(k & 1LL) res *= mul;\n\
+    \            mul *= mul;\n            k >>= 1;\n        }\n        return res;\n\
+    \    }\n\n    friend constexpr Modint mod_inv(const Modint &a) { return a.inv();\
+    \ }\n    friend constexpr Modint mod_pow(const Modint &a, long long k) { return\
+    \ a.pow(k); }\n};\n\nusing mint998244353 = Modint<998'244'353>;\nusing mint1000000007\
+    \ = Modint<1'000'000'007>;\n\n}  // namespace algorithm\n\n\n"
   code: "#ifndef ALGORITHM_MODINT_HPP\n#define ALGORITHM_MODINT_HPP 1\n\n#include\
     \ <iostream>\n#include <utility>\n\n#include \"modint_base.hpp\"\n\nnamespace\
     \ algorithm {\n\ntemplate <int mod>\nclass Modint : ModintBase {\n    static_assert(mod\
     \ >= 1);\n\n    long long val;\n\n    constexpr void normalize() {\n        if(val\
     \ < -mod or mod <= val) val %= mod;\n        if(val < 0) val += mod;\n    }\n\n\
-    public:\n    constexpr Modint() : Modint(0) {}\n    constexpr Modint(long long\
-    \ val) : val(val) {\n        normalize();\n    }\n\n    constexpr Modint operator+()\
-    \ const { return Modint(*this); }\n    constexpr Modint operator-() const { return\
-    \ (val == 0 ? Modint(*this) : Modint(mod - val)); }\n    constexpr Modint &operator++()\
+    public:\n    constexpr Modint() : val(0) {}\n    constexpr Modint(long long val)\
+    \ : val(val) {\n        normalize();\n    }\n\n    constexpr Modint operator+()\
+    \ const { return Modint(*this); }\n    constexpr Modint operator-() const {\n\
+    \        if(val == 0) Modint();\n        Modint res = *this;\n        res.val\
+    \ = mod - res.val;\n        return res;\n    }\n    constexpr Modint &operator++()\
     \ {\n        val++;\n        if(val == mod) val = 0;\n        return *this;\n\
     \    }\n    constexpr Modint &operator--() {\n        if(val == 0) val = mod;\n\
     \        val--;\n        return *this;\n    }\n    constexpr Modint operator++(int)\
@@ -88,21 +88,20 @@ data:
     \   val = val * rhs.val % mod;\n        return *this;\n    }\n    constexpr Modint\
     \ &operator/=(const Modint &rhs) { return *this *= rhs.inv(); }\n\n    friend\
     \ constexpr bool operator==(const Modint &lhs, const Modint &rhs) { return lhs.val\
-    \ == rhs.val; }\n    friend constexpr bool operator!=(const Modint &lhs, const\
-    \ Modint &rhs) { return lhs.val != rhs.val; }\n    friend constexpr Modint operator+(const\
-    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) += rhs; }\n    friend constexpr\
-    \ Modint operator-(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
-    \ -= rhs; }\n    friend constexpr Modint operator*(const Modint &lhs, const Modint\
-    \ &rhs) { return Modint(lhs) *= rhs; }\n    friend constexpr Modint operator/(const\
-    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) /= rhs; }\n    friend std::istream\
-    \ &operator>>(std::istream &is, Modint &rhs) {\n        is >> rhs.val;\n     \
-    \   rhs.normalize();\n        return is;\n    }\n    friend std::ostream &operator<<(std::ostream\
-    \ &os, const Modint &rhs) { return os << rhs.val; }\n\n    static constexpr int\
-    \ modulus() { return mod; }\n    constexpr long long value() const { return val;\
-    \ }\n    constexpr Modint inv() const {\n        long long a = mod, b = val, u\
-    \ = 0, v = 1;\n        while(b != 0) {\n            long long t = a / b;\n   \
-    \         a -= b * t, u -= v * t;\n            std::swap(a, b), std::swap(u, v);\n\
-    \        }\n        return Modint(u);\n    }\n    constexpr Modint pow(long long\
+    \ == rhs.val; }\n    friend constexpr Modint operator+(const Modint &lhs, const\
+    \ Modint &rhs) { return Modint(lhs) += rhs; }\n    friend constexpr Modint operator-(const\
+    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) -= rhs; }\n    friend constexpr\
+    \ Modint operator*(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
+    \ *= rhs; }\n    friend constexpr Modint operator/(const Modint &lhs, const Modint\
+    \ &rhs) { return Modint(lhs) /= rhs; }\n    friend std::istream &operator>>(std::istream\
+    \ &is, Modint &rhs) {\n        is >> rhs.val;\n        rhs.normalize();\n    \
+    \    return is;\n    }\n    friend std::ostream &operator<<(std::ostream &os,\
+    \ const Modint &rhs) { return os << rhs.val; }\n\n    static constexpr int modulus()\
+    \ { return mod; }\n    constexpr long long value() const { return val; }\n   \
+    \ constexpr Modint inv() const {\n        long long a = mod, b = val, u = 0, v\
+    \ = 1;\n        while(b != 0) {\n            long long t = a / b;\n          \
+    \  a -= b * t, u -= v * t;\n            std::swap(a, b), std::swap(u, v);\n  \
+    \      }\n        return Modint(u);\n    }\n    constexpr Modint pow(long long\
     \ k) const {\n        if(k < 0) return inv().pow(-k);\n        Modint res = 1,\
     \ mul = *this;\n        while(k > 0) {\n            if(k & 1LL) res *= mul;\n\
     \            mul *= mul;\n            k >>= 1;\n        }\n        return res;\n\
@@ -115,7 +114,7 @@ data:
   isVerificationFile: false
   path: lib/Math/ModularArithmetic/modint.hpp
   requiredBy: []
-  timestamp: '2025-02-22 06:53:42+09:00'
+  timestamp: '2025-03-18 02:00:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
