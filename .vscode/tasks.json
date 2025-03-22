@@ -6,7 +6,7 @@
             "type": "cppbuild",
             "command": "/usr/bin/g++",
             "args": [
-                "-std=gnu++20",
+                "-std=gnu++23",
                 "-D=DEBUG",
                 "-O2",
                 "-Wall",
@@ -32,7 +32,7 @@
             "type": "cppbuild",
             "command": "/usr/bin/g++",
             "args": [
-                "-std=gnu++20",
+                "-std=gnu++23",
                 "-g",
                 "-fdiagnostics-color=always",
                 "-o",
