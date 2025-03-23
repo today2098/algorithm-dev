@@ -1,6 +1,13 @@
+---
+title: 文字列分割
+documentation_of: //lib/Utils/split.hpp
+---
+
+
 ## 概要
 
 Python などにある split 関数とほぼ同じ機能をもつもの．
+
 引数にある文字列を任意の文字または文字列，正規表現にマッチする文字列で分割する．
 
 
