@@ -247,14 +247,15 @@ data:
     pages:
     - icon: ':warning:'
       path: lib/Utils/convert.hpp
-      title: "\u5024\u306E\u5909\u63DB"
+      title: "\u5024\u306E\u5909\u63DB\u3092\u884C\u3046\u30E6\u30FC\u30C6\u30A3\u30EA\
+        \u30C6\u30A3\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':heavy_check_mark:'
       path: lib/Utils/debug.hpp
       title: "\u30C7\u30D0\u30C3\u30B0\u7528\u95A2\u6570\u5F62\u5F0F\u30DE\u30AF\u30ED"
     - icon: ':warning:'
       path: lib/Utils/grid.hpp
-      title: "\u30B0\u30EA\u30C3\u30C9\u554F\u984C\u306B\u95A2\u3059\u308B\u30E6\u30FC\
-        \u30C6\u30A3\u30EA\u30C6\u30A3\u30E9\u30A4\u30D6\u30E9\u30EA"
+      title: "\u30B0\u30EA\u30C3\u30C9\u554F\u984C\u306B\u95A2\u9023\u3059\u308B\u30E6\
+        \u30FC\u30C6\u30A3\u30EA\u30C6\u30A3\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':warning:'
       path: lib/Utils/my_template.hpp
       title: My Template
