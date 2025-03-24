@@ -1,6 +1,12 @@
+---
+title: Heavy-Light Decomposition（HL分解，重軽分解）
+documentation_of: //lib/Graph/Tree/heavy_light_decomposition.hpp
+---
+
+
 ## 概要
 
-根付き木をいくつかのパスに分割し，列に対して用いるアルゴリズムを木に対しても適用させるテクニック．
+根付き木をいくつかのパスに分割し，一次元配列に対して用いるアルゴリズムを木に対しても適用させるテクニック．
 
 
 ## 参考文献
