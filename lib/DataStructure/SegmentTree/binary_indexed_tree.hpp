@@ -48,7 +48,7 @@ public:
     // k番目の要素にaを加算する．O(logN).
     void add(int k, const value_type &a) {
         assert(0 <= k and k < size());
-        for(int i = k + 1, end = size(); i <= end; i += lsb(k)) m_tree[i - 1] += a;
+        for(int i = k + 1, end = size(); i <= end; i += lsb(i)) m_tree[i - 1] += a;
     }
     // 区間[0,r)の要素の総和を求める．O(logN).
     T sum(int r) const {
