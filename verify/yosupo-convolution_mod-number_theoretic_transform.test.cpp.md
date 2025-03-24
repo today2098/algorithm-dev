@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/Math/Convolution/number_theoretic_transform.hpp
     title: "Number Theoretic Transform\uFF08\u6570\u8AD6\u5909\u63DB\uFF09"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/Math/ModularArithmetic/modint.hpp
     title: "Modint\u69CB\u9020\u4F53"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/Math/ModularArithmetic/modint_base.hpp
     title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/Math/ModularArithmetic/modint_base.hpp
     title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/convolution_mod
@@ -170,7 +170,7 @@ data:
   path: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   requiredBy: []
   timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
 layout: document

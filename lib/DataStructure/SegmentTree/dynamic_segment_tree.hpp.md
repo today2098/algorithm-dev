@@ -6,12 +6,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
     title: verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_add_range_sum-dynamic_segment_tree.test.cpp
     title: verify/yosupo-point_add_range_sum-dynamic_segment_tree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/DataStructure/SegmentTree/dynamic_segment_tree.md
     document_title: "Dynamic Segment Tree\uFF08\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\
@@ -236,7 +236,7 @@ data:
   path: lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
   requiredBy: []
   timestamp: '2024-10-22 01:28:50+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_add_range_sum-dynamic_segment_tree.test.cpp
   - verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp

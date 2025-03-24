@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/Graph/Tree/double_sweep.hpp
     title: "Double Sweep\uFF08\u6728\u306E\u76F4\u5F84\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/tree_diameter
@@ -72,7 +72,7 @@ data:
   path: verify/yosupo-tree_diameter-double_sweep.test.cpp
   requiredBy: []
   timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-tree_diameter-double_sweep.test.cpp
 layout: document

@@ -9,24 +9,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_2_A-bigint.test.cpp
     title: verify/aoj-NTL_2_A-bigint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_2_B-bigint.test.cpp
     title: verify/aoj-NTL_2_B-bigint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_2_C-bigint.test.cpp
     title: verify/aoj-NTL_2_C-bigint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_2_D-bigint.test.cpp
     title: verify/aoj-NTL_2_D-bigint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_2_E-bigint.test.cpp
     title: verify/aoj-NTL_2_E-bigint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-addition_of_big_integers-bigint.test.cpp
     title: verify/yosupo-addition_of_big_integers-bigint.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/Math/NumberTheory/bigint.hpp\"\n\n\n\n#include <algorithm>\n\
@@ -329,7 +329,7 @@ data:
   requiredBy:
   - lib/Math/NumberTheory/bigint_utils.hpp
   timestamp: '2025-03-17 22:21:56+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-NTL_2_B-bigint.test.cpp
   - verify/aoj-NTL_2_A-bigint.test.cpp

@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-staticrmp-sparse_table.test.cpp
     title: verify/yosupo-staticrmp-sparse_table.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/DataStructure/SegmentTree/sparse_table.md
     document_title: Sparse Table
@@ -70,7 +70,7 @@ data:
   path: lib/DataStructure/SegmentTree/sparse_table.hpp
   requiredBy: []
   timestamp: '2024-09-12 09:05:32+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-staticrmp-sparse_table.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/sparse_table.hpp

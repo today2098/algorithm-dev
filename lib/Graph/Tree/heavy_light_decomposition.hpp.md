@@ -3,15 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
     title: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
     title: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/Graph/Tree/heavy_light_decomposition.hpp\"\n\n\n\n#include\
@@ -147,7 +147,7 @@ data:
   path: lib/Graph/Tree/heavy_light_decomposition.hpp
   requiredBy: []
   timestamp: '2025-03-24 17:53:38+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
   - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp

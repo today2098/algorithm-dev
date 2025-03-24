@@ -6,18 +6,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
     title: verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
     title: verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
     title: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
     title: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\n\
@@ -80,7 +80,7 @@ data:
   path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
   requiredBy: []
   timestamp: '2025-03-24 17:00:14+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
   - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp

@@ -9,12 +9,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-DSL_2_B-segment_tree.test.cpp
     title: verify/aoj-DSL_2_B-segment_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
     title: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/DataStructure/SegmentTree/segment_tree.md
     document_title: Segment Tree
@@ -162,7 +162,7 @@ data:
   path: lib/DataStructure/SegmentTree/segment_tree.hpp
   requiredBy: []
   timestamp: '2024-09-08 15:33:33+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-DSL_2_A-segment_tree.test.cpp
   - verify/yosupo-point_add_range_sum-segment_tree.test.cpp
