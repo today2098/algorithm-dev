@@ -1,9 +1,10 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+#define PROBLEM "https://judge.yosupo.jp/problem/pointt_add_range_sum"
 
 #include <iostream>
+#include <utility>
 #include <vector>
 
-#include "../lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp"
+#include "../lib/DataStructure/SegmentTree/binary_indexed_tree.hpp"
 
 int main() {
     int n;
@@ -11,9 +12,9 @@ int main() {
     std::cin >> n >> q;
 
     std::vector<long long> a(n);
-    for(auto &in : a) std::cin >> in;
+    for(auto &elem : a) std::cin >> elem;
 
-    algorithm::BIT0 bit(a);
+    algorithm::BIT<long long> bit(std::move(a));
     while(q--) {
         int t;
         std::cin >> t;

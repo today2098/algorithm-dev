@@ -18,11 +18,13 @@ int main() {
             int x;
             int y;
             std::cin >> x >> y;
+            --x;
 
             bit.add(x, y);
         } else {
             int x, y;
             std::cin >> x >> y;
+            --x;
 
             auto &&ans = bit.sum(x, y);
             std::cout << ans << "\n";
