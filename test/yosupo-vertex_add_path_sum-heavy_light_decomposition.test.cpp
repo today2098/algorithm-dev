@@ -1,9 +1,10 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
 
 #include <iostream>
+#include <utility>
 #include <vector>
 
-#include "../lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp"
+#include "../lib/DataStructure/SegmentTree/binary_indexed_tree.hpp"
 #include "../lib/Graph/Tree/heavy_light_decomposition.hpp"
 
 int main() {
@@ -23,8 +24,9 @@ int main() {
     }
     hld.build();
 
-    algorithm::BIT0<long long> bitree(n);
-    for(int i = 0; i < n; ++i) bitree.add(hld.vid(i), a[i]);
+    std::vector<long long> b(n);
+    for(int i = 0; i < n; ++i) b[hld.vertex_index()[i]] = a[i];
+    algorithm::BIT bit(std::move(b));
 
     while(q--) {
         int t;
@@ -35,15 +37,14 @@ int main() {
             int x;
             std::cin >> p >> x;
 
-            auto k = hld.vid(p);
-            bitree.add(k, x);
+            bit.add(hld.vertex_index(p), x);
         } else {
             int u, v;
             std::cin >> u >> v;
 
             long long ans = 0;
             auto &&ranges = hld.vertex_query_ranges(u, v);
-            for(const auto &[l, r] : ranges) ans += bitree.sum(l, r);
+            for(const auto &[l, r] : ranges) ans += bit.sum(l, r);
 
             std::cout << ans << "\n";
         }

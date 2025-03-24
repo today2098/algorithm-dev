@@ -1,9 +1,10 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_subtree_sum"
 
 #include <iostream>
+#include <utility>
 #include <vector>
 
-#include "../lib/DataStructure/SegmentTree/binary_indexed_tree_zero.hpp"
+#include "../lib/DataStructure/SegmentTree/binary_indexed_tree.hpp"
 #include "../lib/Graph/Tree/heavy_light_decomposition.hpp"
 
 int main() {
@@ -21,10 +22,11 @@ int main() {
 
         hld.add_edge(p, i);
     }
-    hld.build(0);
+    hld.build();
 
-    algorithm::BIT0<long long> bit(n);
-    for(int i = 0; i < n; ++i) bit.add(hld.vid(i), a[i]);
+    std::vector<long long> b(n);
+    for(int i = 0; i < n; ++i) b[hld.vertex_index()[i]] = a[i];
+    algorithm::BIT bit(std::move(b));
 
     while(q--) {
         int t;
@@ -35,11 +37,10 @@ int main() {
             int x;
             std::cin >> x;
 
-            auto k = hld.vid(u);
-            bit.add(k, x);
+            bit.add(hld.vertex_index(u), x);
         } else {
-            auto &&[l, r] = hld.subtree_vertex_query_range(u);
-            long long ans = bit.sum(l, r);
+            auto &&[l, r] = hld.vertex_query_range_of_subtree(u);
+            auto &&ans = bit.sum(l, r);
             std::cout << ans << "\n";
         }
     }
