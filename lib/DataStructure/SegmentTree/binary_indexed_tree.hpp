@@ -15,7 +15,7 @@ public:
     using value_type = T;
 
 private:
-    int m_sz;  // m_sz:=(配列の要素数).
+    int m_sz;  // m_sz:=(要素数).
     std::vector<value_type> m_tree;
 
     static constexpr int lsb(int bit) { return bit & -bit; }
@@ -43,7 +43,7 @@ public:
         build();
     }
 
-    // 要素数を返す．
+    // 要素数を取得する．
     int size() const { return m_sz; }
     // k番目の要素にaを加算する．O(logN).
     void add(int k, const value_type &a) {
