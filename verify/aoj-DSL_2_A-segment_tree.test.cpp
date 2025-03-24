@@ -10,10 +10,10 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using S = long long;
-    constexpr S e = (1LL << 31) - 1;
-    auto op = [](const S &lhs, const S &rhs) -> S { return std::min(lhs, rhs); };
-    algorithm::SegmentTree<S> segtree(op, e, n);
+    using S = unsigned;
+    auto op = [](S lhs, S rhs) -> S { return std::min(lhs, rhs); };
+    auto e = []() -> S { return (1U << 31) - 1; };
+    algorithm::segmenttree::SegmentTree<S, op, e> segtree(n);
 
     while(q--) {
         int com;
@@ -28,7 +28,7 @@ int main() {
         } else {
             int x, y;
             std::cin >> x >> y;
-            y++;
+            ++y;
 
             auto &&ans = segtree.prod(x, y);
             std::cout << ans << "\n";

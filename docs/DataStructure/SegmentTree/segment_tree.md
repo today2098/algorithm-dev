@@ -1,3 +1,9 @@
+---
+title: Segment Tree
+documentation_of: //lib/DataStructure/SegmentTree/segment_tree.hpp
+---
+
+
 ## 概要
 
 長さ $N$ の配列 $\lbrace a_0, a_1, \ldots, a_{n-1} \rbrace$ に対して，次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
