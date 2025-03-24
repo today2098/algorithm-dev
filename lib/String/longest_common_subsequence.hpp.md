@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
-    title: test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
+    path: verify/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
+    title: verify/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -59,7 +59,7 @@ data:
   timestamp: '2024-09-16 01:10:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
+  - verify/aoj-ALDS1_10_C-longest_common_subsequence.test.cpp
 documentation_of: lib/String/longest_common_subsequence.hpp
 layout: document
 redirect_from:

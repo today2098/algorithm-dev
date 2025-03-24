@@ -6,12 +6,12 @@ data:
     path: lib/Math/NumberTheory/bigint_utils.hpp
     title: lib/Math/NumberTheory/bigint_utils.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
-    title: test/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
+    title: verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/Math/NumberTheory/binary_bigint.hpp\"\n\n\n\n#include\
@@ -500,9 +500,9 @@ data:
   requiredBy:
   - lib/Math/NumberTheory/bigint_utils.hpp
   timestamp: '2025-03-17 22:21:56+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
+  - verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
 documentation_of: lib/Math/NumberTheory/binary_bigint.hpp
 layout: document
 title: "\u591A\u500D\u9577\u6574\u6570\uFF0816\u9032\u6570\uFF09"

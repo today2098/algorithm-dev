@@ -4,14 +4,14 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-GRL_3_C-strongly_connected_components.test.cpp
-    title: test/aoj-GRL_3_C-strongly_connected_components.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-scc-strongly_connected_components.test.cpp
-    title: test/yosupo-scc-strongly_connected_components.test.cpp
-  _isVerificationFailed: false
+    path: verify/aoj-GRL_3_C-strongly_connected_components.test.cpp
+    title: verify/aoj-GRL_3_C-strongly_connected_components.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-scc-strongly_connected_components.test.cpp
+    title: verify/yosupo-scc-strongly_connected_components.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/Graph/Others/strongly_connected_components.md
     document_title: "Strongly Connected Components\uFF08\u5F37\u9023\u7D50\u6210\u5206\
@@ -140,10 +140,10 @@ data:
   path: lib/Graph/Others/strongly_connected_components.hpp
   requiredBy: []
   timestamp: '2024-10-12 05:38:22+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/yosupo-scc-strongly_connected_components.test.cpp
-  - test/aoj-GRL_3_C-strongly_connected_components.test.cpp
+  - verify/yosupo-scc-strongly_connected_components.test.cpp
+  - verify/aoj-GRL_3_C-strongly_connected_components.test.cpp
 documentation_of: lib/Graph/Others/strongly_connected_components.hpp
 layout: document
 redirect_from:

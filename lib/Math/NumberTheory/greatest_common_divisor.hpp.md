@@ -7,8 +7,8 @@ data:
     title: "Least Common Multiple\uFF08\u6700\u5C0F\u516C\u500D\u6570\uFF09"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-NTL_1_C-least_common_multiple.test.cpp
-    title: test/aoj-NTL_1_C-least_common_multiple.test.cpp
+    path: verify/aoj-NTL_1_C-least_common_multiple.test.cpp
+    title: verify/aoj-NTL_1_C-least_common_multiple.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -34,7 +34,7 @@ data:
   timestamp: '2024-09-06 22:47:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-NTL_1_C-least_common_multiple.test.cpp
+  - verify/aoj-NTL_1_C-least_common_multiple.test.cpp
 documentation_of: lib/Math/NumberTheory/greatest_common_divisor.hpp
 layout: document
 redirect_from:

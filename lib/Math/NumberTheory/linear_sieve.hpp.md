@@ -4,11 +4,11 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-1276-linear_sieve.test.cpp
-    title: test/aoj-1276-linear_sieve.test.cpp
+    path: verify/aoj-1276-linear_sieve.test.cpp
+    title: verify/aoj-1276-linear_sieve.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ALDS1_1_C-linear_sieve.test.cpp
-    title: test/aoj-ALDS1_1_C-linear_sieve.test.cpp
+    path: verify/aoj-ALDS1_1_C-linear_sieve.test.cpp
+    title: verify/aoj-ALDS1_1_C-linear_sieve.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -83,8 +83,8 @@ data:
   timestamp: '2025-03-02 15:28:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-1276-linear_sieve.test.cpp
-  - test/aoj-ALDS1_1_C-linear_sieve.test.cpp
+  - verify/aoj-1276-linear_sieve.test.cpp
+  - verify/aoj-ALDS1_1_C-linear_sieve.test.cpp
 documentation_of: lib/Math/NumberTheory/linear_sieve.hpp
 layout: document
 title: "\u7DDA\u5F62\u7BE9"

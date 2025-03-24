@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-DPL_1_E-edit_distance.test.cpp
-    title: test/aoj-DPL_1_E-edit_distance.test.cpp
+    path: verify/aoj-DPL_1_E-edit_distance.test.cpp
+    title: verify/aoj-DPL_1_E-edit_distance.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -52,7 +52,7 @@ data:
   timestamp: '2024-09-16 02:05:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-DPL_1_E-edit_distance.test.cpp
+  - verify/aoj-DPL_1_E-edit_distance.test.cpp
 documentation_of: lib/String/edit_distance.hpp
 layout: document
 redirect_from:

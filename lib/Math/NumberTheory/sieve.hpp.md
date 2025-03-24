@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ALDS1_1_C-sieve.test.cpp
-    title: test/aoj-ALDS1_1_C-sieve.test.cpp
+    path: verify/aoj-ALDS1_1_C-sieve.test.cpp
+    title: verify/aoj-ALDS1_1_C-sieve.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -96,7 +96,7 @@ data:
   timestamp: '2025-03-02 22:11:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ALDS1_1_C-sieve.test.cpp
+  - verify/aoj-ALDS1_1_C-sieve.test.cpp
 documentation_of: lib/Math/NumberTheory/sieve.hpp
 layout: document
 title: "Sieve of Eratosthenes\uFF08\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\

@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-NTL_1_A-prime_factorize.test.cpp
-    title: test/aoj-NTL_1_A-prime_factorize.test.cpp
+    path: verify/aoj-NTL_1_A-prime_factorize.test.cpp
+    title: verify/aoj-NTL_1_A-prime_factorize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -35,7 +35,7 @@ data:
   timestamp: '2025-02-26 23:12:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-NTL_1_A-prime_factorize.test.cpp
+  - verify/aoj-NTL_1_A-prime_factorize.test.cpp
 documentation_of: lib/Math/NumberTheory/prime_factorize.hpp
 layout: document
 title: "\u7D20\u56E0\u6570\u5206\u89E3"

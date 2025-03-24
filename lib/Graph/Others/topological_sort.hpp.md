@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-scc-strongly_connected_components.test.cpp
-    title: test/yosupo-scc-strongly_connected_components.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/yosupo-scc-strongly_connected_components.test.cpp
+    title: verify/yosupo-scc-strongly_connected_components.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     _deprecated_at_docs: docs/Graph/Others/topological_sort.md
     document_title: "Topological Sort\uFF08\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\
@@ -97,9 +97,9 @@ data:
   path: lib/Graph/Others/topological_sort.hpp
   requiredBy: []
   timestamp: '2024-10-12 06:18:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/yosupo-scc-strongly_connected_components.test.cpp
+  - verify/yosupo-scc-strongly_connected_components.test.cpp
 documentation_of: lib/Graph/Others/topological_sort.hpp
 layout: document
 redirect_from:

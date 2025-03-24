@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-DSL_4_A-imos_2d.test.cpp
-    title: test/aoj-DSL_4_A-imos_2d.test.cpp
+    path: verify/aoj-DSL_4_A-imos_2d.test.cpp
+    title: verify/aoj-DSL_4_A-imos_2d.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -60,7 +60,7 @@ data:
   timestamp: '2024-10-27 21:27:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-DSL_4_A-imos_2d.test.cpp
+  - verify/aoj-DSL_4_A-imos_2d.test.cpp
 documentation_of: lib/Others/imos_2d.hpp
 layout: document
 redirect_from:

@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-persistent_unionfind-rollback_union_find.test.cpp
-    title: test/yosupo-persistent_unionfind-rollback_union_find.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp
+    title: verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     _deprecated_at_docs: docs/DataStructure/UnionFind/rollback_union_find.md
     document_title: "Rollback\u4ED8\u304DUnion-Find"
@@ -100,9 +100,9 @@ data:
   path: lib/DataStructure/UnionFind/rollback_union_find.hpp
   requiredBy: []
   timestamp: '2024-10-05 14:30:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/yosupo-persistent_unionfind-rollback_union_find.test.cpp
+  - verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp
 documentation_of: lib/DataStructure/UnionFind/rollback_union_find.hpp
 layout: document
 redirect_from:

@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
-    title: test/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
+    path: verify/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
+    title: verify/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -90,7 +90,7 @@ data:
   timestamp: '2024-10-12 14:17:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
+  - verify/aoj-2842-binary_indexed_tree_2d_zero.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/binary_indexed_tree_2d_zero.hpp
 layout: document
 redirect_from:

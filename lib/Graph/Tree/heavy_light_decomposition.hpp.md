@@ -3,15 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-    title: test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
-    title: test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+    title: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+    title: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/Graph/Tree/heavy_light_decomposition.hpp\"\n\n\n\n#include\
@@ -147,10 +147,10 @@ data:
   path: lib/Graph/Tree/heavy_light_decomposition.hpp
   requiredBy: []
   timestamp: '2025-03-24 17:53:38+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-  - test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+  - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+  - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
 documentation_of: lib/Graph/Tree/heavy_light_decomposition.hpp
 layout: document
 title: "Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\u91CD\u8EFD\u5206\u89E3\

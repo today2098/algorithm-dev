@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ALDS1_4_B-binary_search.test.cpp
-    title: test/aoj-ALDS1_4_B-binary_search.test.cpp
+    path: verify/aoj-ALDS1_4_B-binary_search.test.cpp
+    title: verify/aoj-ALDS1_4_B-binary_search.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -44,7 +44,7 @@ data:
   timestamp: '2024-09-29 17:03:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ALDS1_4_B-binary_search.test.cpp
+  - verify/aoj-ALDS1_4_B-binary_search.test.cpp
 documentation_of: lib/Others/binary_search.hpp
 layout: document
 redirect_from:

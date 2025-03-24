@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ALDS1_9_C-binary_heap.test.cpp
-    title: test/aoj-ALDS1_9_C-binary_heap.test.cpp
+    path: verify/aoj-ALDS1_9_C-binary_heap.test.cpp
+    title: verify/aoj-ALDS1_9_C-binary_heap.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -100,7 +100,7 @@ data:
   timestamp: '2025-01-12 02:15:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ALDS1_9_C-binary_heap.test.cpp
+  - verify/aoj-ALDS1_9_C-binary_heap.test.cpp
 documentation_of: lib/DataStructure/Others/binary_heap.hpp
 layout: document
 title: "\u4E8C\u5206\u30D2\u30FC\u30D7"

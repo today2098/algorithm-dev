@@ -4,11 +4,11 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-DPL_3_B-largest_rectangle.test.cpp
-    title: test/aoj-DPL_3_B-largest_rectangle.test.cpp
+    path: verify/aoj-DPL_3_B-largest_rectangle.test.cpp
+    title: verify/aoj-DPL_3_B-largest_rectangle.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj-DPL_3_C-largest_rectangle.test.cpp
-    title: test/aoj-DPL_3_C-largest_rectangle.test.cpp
+    path: verify/aoj-DPL_3_C-largest_rectangle.test.cpp
+    title: verify/aoj-DPL_3_C-largest_rectangle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -61,8 +61,8 @@ data:
   timestamp: '2024-09-16 00:47:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-DPL_3_C-largest_rectangle.test.cpp
-  - test/aoj-DPL_3_B-largest_rectangle.test.cpp
+  - verify/aoj-DPL_3_C-largest_rectangle.test.cpp
+  - verify/aoj-DPL_3_B-largest_rectangle.test.cpp
 documentation_of: lib/Others/largest_rectangle.hpp
 layout: document
 redirect_from:

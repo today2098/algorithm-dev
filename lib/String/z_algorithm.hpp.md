@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-zalgorithm-z_algorithm.test.cpp
-    title: test/yosupo-zalgorithm-z_algorithm.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/yosupo-zalgorithm-z_algorithm.test.cpp
+    title: verify/yosupo-zalgorithm-z_algorithm.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     _deprecated_at_docs: docs/String/z_algorithm.md
     document_title: "Z algorithm\uFF08\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\uFF09"
@@ -46,9 +46,9 @@ data:
   path: lib/String/z_algorithm.hpp
   requiredBy: []
   timestamp: '2024-09-16 02:32:32+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/yosupo-zalgorithm-z_algorithm.test.cpp
+  - verify/yosupo-zalgorithm-z_algorithm.test.cpp
 documentation_of: lib/String/z_algorithm.hpp
 layout: document
 redirect_from:

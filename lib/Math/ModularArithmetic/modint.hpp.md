@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/Math/ModularArithmetic/modint_base.hpp
     title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-    title: test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
-    title: test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+    title: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+    title: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/Math/ModularArithmetic/modint.hpp\"\n\n\n\n#include\
@@ -115,10 +115,10 @@ data:
   path: lib/Math/ModularArithmetic/modint.hpp
   requiredBy: []
   timestamp: '2025-03-18 02:00:13+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  - test/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+  - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+  - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
 documentation_of: lib/Math/ModularArithmetic/modint.hpp
 layout: document
 title: "Modint\u69CB\u9020\u4F53"

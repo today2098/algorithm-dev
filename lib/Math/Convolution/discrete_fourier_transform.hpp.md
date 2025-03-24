@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp
-    title: test/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp
+    path: verify/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp
+    title: verify/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -105,7 +105,7 @@ data:
   timestamp: '2024-09-28 13:46:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp
+  - verify/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp
 documentation_of: lib/Math/Convolution/discrete_fourier_transform.hpp
 layout: document
 redirect_from:

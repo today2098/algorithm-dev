@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-0425-mo_algorithm.test.cpp
-    title: test/aoj-0425-mo_algorithm.test.cpp
+    path: verify/aoj-0425-mo_algorithm.test.cpp
+    title: verify/aoj-0425-mo_algorithm.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -86,7 +86,7 @@ data:
   timestamp: '2024-10-05 02:32:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-0425-mo_algorithm.test.cpp
+  - verify/aoj-0425-mo_algorithm.test.cpp
 documentation_of: lib/Others/mo_algorithm.hpp
 layout: document
 redirect_from:

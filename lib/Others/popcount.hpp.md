@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ITP1_1_A-popcount.test.cpp
-    title: test/aoj-ITP1_1_A-popcount.test.cpp
+    path: verify/aoj-ITP1_1_A-popcount.test.cpp
+    title: verify/aoj-ITP1_1_A-popcount.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -41,7 +41,7 @@ data:
   timestamp: '2024-09-20 06:57:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ITP1_1_A-popcount.test.cpp
+  - verify/aoj-ITP1_1_A-popcount.test.cpp
 documentation_of: lib/Others/popcount.hpp
 layout: document
 redirect_from:

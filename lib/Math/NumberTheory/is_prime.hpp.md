@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ALDS1_1_C-is_prime.test.cpp
-    title: test/aoj-ALDS1_1_C-is_prime.test.cpp
+    path: verify/aoj-ALDS1_1_C-is_prime.test.cpp
+    title: verify/aoj-ALDS1_1_C-is_prime.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -31,7 +31,7 @@ data:
   timestamp: '2025-02-26 23:08:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ALDS1_1_C-is_prime.test.cpp
+  - verify/aoj-ALDS1_1_C-is_prime.test.cpp
 documentation_of: lib/Math/NumberTheory/is_prime.hpp
 layout: document
 title: "\u7D20\u6570\u5224\u5B9A"

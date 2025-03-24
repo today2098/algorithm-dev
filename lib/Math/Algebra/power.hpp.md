@@ -7,11 +7,11 @@ data:
     title: "\u7D2F\u4E57\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ITP1_10_D-nth_root.test.cpp
-    title: test/aoj-ITP1_10_D-nth_root.test.cpp
+    path: verify/aoj-ITP1_10_D-nth_root.test.cpp
+    title: verify/aoj-ITP1_10_D-nth_root.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ITP1_10_D-nth_root.test.cpp
-    title: test/aoj-ITP1_10_D-nth_root.test.cpp
+    path: verify/aoj-ITP1_10_D-nth_root.test.cpp
+    title: verify/aoj-ITP1_10_D-nth_root.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -41,8 +41,8 @@ data:
   timestamp: '2024-09-20 04:30:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ITP1_10_D-nth_root.test.cpp
-  - test/aoj-ITP1_10_D-nth_root.test.cpp
+  - verify/aoj-ITP1_10_D-nth_root.test.cpp
+  - verify/aoj-ITP1_10_D-nth_root.test.cpp
 documentation_of: lib/Math/Algebra/power.hpp
 layout: document
 redirect_from:

@@ -4,14 +4,14 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-GRL_5_A-double_sweep.test.cpp
-    title: test/aoj-GRL_5_A-double_sweep.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-tree_diameter-double_sweep.test.cpp
-    title: test/yosupo-tree_diameter-double_sweep.test.cpp
-  _isVerificationFailed: false
+    path: verify/aoj-GRL_5_A-double_sweep.test.cpp
+    title: verify/aoj-GRL_5_A-double_sweep.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-tree_diameter-double_sweep.test.cpp
+    title: verify/yosupo-tree_diameter-double_sweep.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/Graph/Tree/double_sweep.md
     document_title: "Double Sweep\uFF08\u6728\u306E\u76F4\u5F84\uFF09"
@@ -91,10 +91,10 @@ data:
   path: lib/Graph/Tree/double_sweep.hpp
   requiredBy: []
   timestamp: '2024-09-16 18:16:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/yosupo-tree_diameter-double_sweep.test.cpp
-  - test/aoj-GRL_5_A-double_sweep.test.cpp
+  - verify/yosupo-tree_diameter-double_sweep.test.cpp
+  - verify/aoj-GRL_5_A-double_sweep.test.cpp
 documentation_of: lib/Graph/Tree/double_sweep.hpp
 layout: document
 redirect_from:

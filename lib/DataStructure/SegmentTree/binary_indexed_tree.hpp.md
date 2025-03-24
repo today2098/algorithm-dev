@@ -4,20 +4,20 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
-    title: test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
-    title: test/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-    title: test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
-    title: test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
-  _isVerificationFailed: false
+    path: verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+    title: verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
+    title: verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+    title: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+    title: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\n\
@@ -80,12 +80,12 @@ data:
   path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
   requiredBy: []
   timestamp: '2025-03-24 17:00:14+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/aoj-DSL_2_B-binary_indexed_tree.test.cpp
-  - test/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-  - test/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
-  - test/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
+  - verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+  - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
+  - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+  - verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
 layout: document
 title: Binary Indexed Tree

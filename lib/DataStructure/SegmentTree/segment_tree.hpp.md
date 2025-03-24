@@ -4,17 +4,17 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-DSL_2_A-segment_tree.test.cpp
-    title: test/aoj-DSL_2_A-segment_tree.test.cpp
+    path: verify/aoj-DSL_2_A-segment_tree.test.cpp
+    title: verify/aoj-DSL_2_A-segment_tree.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj-DSL_2_B-segment_tree.test.cpp
-    title: test/aoj-DSL_2_B-segment_tree.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-point_add_range_sum-segment_tree.test.cpp
-    title: test/yosupo-point_add_range_sum-segment_tree.test.cpp
-  _isVerificationFailed: false
+    path: verify/aoj-DSL_2_B-segment_tree.test.cpp
+    title: verify/aoj-DSL_2_B-segment_tree.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
+    title: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/DataStructure/SegmentTree/segment_tree.md
     document_title: Segment Tree
@@ -162,11 +162,11 @@ data:
   path: lib/DataStructure/SegmentTree/segment_tree.hpp
   requiredBy: []
   timestamp: '2024-09-08 15:33:33+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/aoj-DSL_2_A-segment_tree.test.cpp
-  - test/yosupo-point_add_range_sum-segment_tree.test.cpp
-  - test/aoj-DSL_2_B-segment_tree.test.cpp
+  - verify/aoj-DSL_2_A-segment_tree.test.cpp
+  - verify/yosupo-point_add_range_sum-segment_tree.test.cpp
+  - verify/aoj-DSL_2_B-segment_tree.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/segment_tree.hpp
 layout: document
 redirect_from:

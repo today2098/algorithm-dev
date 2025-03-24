@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-GRL_5_C-lowest_common_ancestor.test.cpp
-    title: test/aoj-GRL_5_C-lowest_common_ancestor.test.cpp
+    path: verify/aoj-GRL_5_C-lowest_common_ancestor.test.cpp
+    title: verify/aoj-GRL_5_C-lowest_common_ancestor.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -267,7 +267,7 @@ data:
   timestamp: '2024-10-06 03:45:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-GRL_5_C-lowest_common_ancestor.test.cpp
+  - verify/aoj-GRL_5_C-lowest_common_ancestor.test.cpp
 documentation_of: lib/Graph/Tree/lowest_common_ancestor.hpp
 layout: document
 redirect_from:

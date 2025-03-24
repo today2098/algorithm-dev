@@ -4,11 +4,11 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-GRL_3_A-low_link.test.cpp
-    title: test/aoj-GRL_3_A-low_link.test.cpp
+    path: verify/aoj-GRL_3_A-low_link.test.cpp
+    title: verify/aoj-GRL_3_A-low_link.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj-GRL_3_B-low_link.test.cpp
-    title: test/aoj-GRL_3_B-low_link.test.cpp
+    path: verify/aoj-GRL_3_B-low_link.test.cpp
+    title: verify/aoj-GRL_3_B-low_link.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -119,8 +119,8 @@ data:
   timestamp: '2024-12-08 15:42:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-GRL_3_B-low_link.test.cpp
-  - test/aoj-GRL_3_A-low_link.test.cpp
+  - verify/aoj-GRL_3_B-low_link.test.cpp
+  - verify/aoj-GRL_3_A-low_link.test.cpp
 documentation_of: lib/Graph/Others/low_link.hpp
 layout: document
 redirect_from:

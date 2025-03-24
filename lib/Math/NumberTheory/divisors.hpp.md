@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ITP1_3_D-divisors.test.cpp
-    title: test/aoj-ITP1_3_D-divisors.test.cpp
+    path: verify/aoj-ITP1_3_D-divisors.test.cpp
+    title: verify/aoj-ITP1_3_D-divisors.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -48,7 +48,7 @@ data:
   timestamp: '2025-02-27 00:18:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ITP1_3_D-divisors.test.cpp
+  - verify/aoj-ITP1_3_D-divisors.test.cpp
 documentation_of: lib/Math/NumberTheory/divisors.hpp
 layout: document
 title: "\u7D04\u6570\u5217\u6319"

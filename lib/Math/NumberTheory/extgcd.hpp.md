@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-NTL_1_E-extgcd.test.cpp
-    title: test/aoj-NTL_1_E-extgcd.test.cpp
+    path: verify/aoj-NTL_1_E-extgcd.test.cpp
+    title: verify/aoj-NTL_1_E-extgcd.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -39,7 +39,7 @@ data:
   timestamp: '2024-09-03 00:12:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-NTL_1_E-extgcd.test.cpp
+  - verify/aoj-NTL_1_E-extgcd.test.cpp
 documentation_of: lib/Math/NumberTheory/extgcd.hpp
 layout: document
 redirect_from:

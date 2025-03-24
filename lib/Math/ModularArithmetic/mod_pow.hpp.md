@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-NTL_1_B-mod_pow.test.cpp
-    title: test/aoj-NTL_1_B-mod_pow.test.cpp
+    path: verify/aoj-NTL_1_B-mod_pow.test.cpp
+    title: verify/aoj-NTL_1_B-mod_pow.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -32,7 +32,7 @@ data:
   timestamp: '2025-02-22 06:53:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-NTL_1_B-mod_pow.test.cpp
+  - verify/aoj-NTL_1_B-mod_pow.test.cpp
 documentation_of: lib/Math/ModularArithmetic/mod_pow.hpp
 layout: document
 title: "\u7E70\u308A\u8FD4\u3057\u4E8C\u4E57\u6CD5\uFF08mod\u4ED8\u304D\uFF09"

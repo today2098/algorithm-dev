@@ -7,8 +7,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ITP1_10_D-nth_root.test.cpp
-    title: test/aoj-ITP1_10_D-nth_root.test.cpp
+    path: verify/aoj-ITP1_10_D-nth_root.test.cpp
+    title: verify/aoj-ITP1_10_D-nth_root.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -51,7 +51,7 @@ data:
   timestamp: '2024-09-20 04:48:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ITP1_10_D-nth_root.test.cpp
+  - verify/aoj-ITP1_10_D-nth_root.test.cpp
 documentation_of: lib/Math/Algebra/nth_root.hpp
 layout: document
 redirect_from:

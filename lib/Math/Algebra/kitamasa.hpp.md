@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-ALDS1_10_A-kitamasa.test.cpp
-    title: test/aoj-ALDS1_10_A-kitamasa.test.cpp
+    path: verify/aoj-ALDS1_10_A-kitamasa.test.cpp
+    title: verify/aoj-ALDS1_10_A-kitamasa.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -91,7 +91,7 @@ data:
   timestamp: '2024-09-29 19:29:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-ALDS1_10_A-kitamasa.test.cpp
+  - verify/aoj-ALDS1_10_A-kitamasa.test.cpp
 documentation_of: lib/Math/Algebra/kitamasa.hpp
 layout: document
 redirect_from:

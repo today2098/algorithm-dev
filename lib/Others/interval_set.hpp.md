@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-2880-interval_set.test.cpp
-    title: test/aoj-2880-interval_set.test.cpp
+    path: verify/aoj-2880-interval_set.test.cpp
+    title: verify/aoj-2880-interval_set.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -234,7 +234,7 @@ data:
   timestamp: '2025-01-17 09:47:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-2880-interval_set.test.cpp
+  - verify/aoj-2880-interval_set.test.cpp
 documentation_of: lib/Others/interval_set.hpp
 layout: document
 title: "Interval Set\uFF08\u9023\u7D9A\u3057\u3066\u3044\u306A\u3044\u533A\u9593\u3092\

@@ -4,14 +4,14 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-DSL_2_B-binary_trie.test.cpp
-    title: test/aoj-DSL_2_B-binary_trie.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo-set_xor_min-binary_trie.test.cpp
-    title: test/yosupo-set_xor_min-binary_trie.test.cpp
-  _isVerificationFailed: false
+    path: verify/aoj-DSL_2_B-binary_trie.test.cpp
+    title: verify/aoj-DSL_2_B-binary_trie.test.cpp
+  - icon: ':x:'
+    path: verify/yosupo-set_xor_min-binary_trie.test.cpp
+    title: verify/yosupo-set_xor_min-binary_trie.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/DataStructure/Others/binary_trie.md
     document_title: "Binary Trie\uFF08\u975E\u8CA0\u6574\u6570\u5024\u3092\u8981\u7D20\
@@ -202,10 +202,10 @@ data:
   path: lib/DataStructure/Others/binary_trie.hpp
   requiredBy: []
   timestamp: '2024-10-21 00:27:44+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/yosupo-set_xor_min-binary_trie.test.cpp
-  - test/aoj-DSL_2_B-binary_trie.test.cpp
+  - verify/yosupo-set_xor_min-binary_trie.test.cpp
+  - verify/aoj-DSL_2_B-binary_trie.test.cpp
 documentation_of: lib/DataStructure/Others/binary_trie.hpp
 layout: document
 redirect_from:

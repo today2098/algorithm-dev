@@ -7,8 +7,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj-NTL_1_C-least_common_multiple.test.cpp
-    title: test/aoj-NTL_1_C-least_common_multiple.test.cpp
+    path: verify/aoj-NTL_1_C-least_common_multiple.test.cpp
+    title: verify/aoj-NTL_1_C-least_common_multiple.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -40,7 +40,7 @@ data:
   timestamp: '2024-09-06 22:47:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj-NTL_1_C-least_common_multiple.test.cpp
+  - verify/aoj-NTL_1_C-least_common_multiple.test.cpp
 documentation_of: lib/Math/NumberTheory/least_common_multiple.hpp
 layout: document
 redirect_from:
