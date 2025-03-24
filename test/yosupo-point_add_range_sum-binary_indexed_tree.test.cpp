@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/pointt_add_range_sum"
+#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
 
 #include <iostream>
 #include <utility>
