@@ -4,7 +4,7 @@
 #include <queue>
 #include <tuple>
 
-#include "../lib/DataStructure/SegmentTree/binary_indexed_tree_2d_zero.hpp"
+#include "../lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp"
 
 int main() {
     int y, x;
@@ -12,7 +12,7 @@ int main() {
     int q;
     std::cin >> y >> x >> t >> q;
 
-    algorithm::BIT2D0<int> raw(y, x), baked(y, x);
+    algorithm::BIT2D<int> raw(y, x), baked(y, x);
     std::queue<std::tuple<int, int, int> > que;
     while(q--) {
         int time;
@@ -46,8 +46,8 @@ int main() {
             std::cin >> y >> x >> yy >> xx;
             y--, x--;
 
-            auto a = baked.sum(y, x, yy, xx);
-            auto b = raw.sum(y, x, yy, xx);
+            auto &&a = baked.sum(y, x, yy, xx);
+            auto &&b = raw.sum(y, x, yy, xx);
             std::cout << a << " " << b << "\n";
         }
     }
