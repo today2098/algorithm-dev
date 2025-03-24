@@ -22,7 +22,7 @@ class HLD {
 public:
     // constructor. O(|V|).
     HLD() : HLD(0) {}
-    explicit HLD(int vn) : m_is_built(false), m_vn(vn), m_g(vn), m_par(vn, -1), m_sub(vn, 1), m_head(vn, -1), m_ord(vn, -1) {
+    explicit HLD(int vn) : m_vn(vn), m_g(vn), m_par(vn, -1), m_head(vn, -1), m_sub(vn, 1), m_ord(vn, -1), m_is_built(false) {
         assert(vn >= 0);
     }
 
@@ -58,7 +58,6 @@ public:
             }
         };
         std::fill(m_par.begin(), m_par.end(), -1);
-        std::fill(m_ord.begin(), m_ord.end(), -1);
         for(int v = 0, end = order(); v < end; ++v) {
             if(m_par[v] != -1) continue;
             dfs(dfs, v, -1);
