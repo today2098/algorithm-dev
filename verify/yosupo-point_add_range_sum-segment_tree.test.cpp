@@ -11,13 +11,9 @@ int main() {
     std::cin >> n >> q;
 
     std::vector<long long> a(n);
-    for(auto &in : a) std::cin >> in;
+    for(auto &elem : a) std::cin >> elem;
 
-    using S = long long;
-    constexpr S e = 0;
-    auto op = [](const S &lhs, const S &rhs) -> S { return lhs + rhs; };
-    algorithm::SegmentTree<S> segtree(op, e, a);
-
+    auto &&segtree = algorithm::segmenttree::range_sum_query(a);
     while(q--) {
         int t;
         std::cin >> t;

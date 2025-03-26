@@ -1,3 +1,9 @@
+---
+title: Lazy Segment Tree（遅延評価セグメント木）
+documentation_of: //lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
+---
+
+
 ##  概要
 
 通常の Segment Tree が処理するクエリは「一点更新・区間取得」であるのに対し，Lazy Segment Tree（遅延評価セグメント木）は「**区間更新**・区間取得」のクエリを処理する．

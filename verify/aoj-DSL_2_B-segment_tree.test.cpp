@@ -9,27 +9,24 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using S = int;
-    constexpr S e = 0;
-    auto op = [](const S &lhs, const S &rhs) -> S { return lhs + rhs; };
-    algorithm::SegmentTree<S> segtree(op, e, n);
-
+    using Type = int;
+    auto &&segtree = algorithm::segmenttree::range_sum_query<Type>(n);
     while(q--) {
         int com;
         std::cin >> com;
 
         if(com == 0) {
             int x;
-            int y;
+            Type y;
             std::cin >> x >> y;
-            x--;
+            --x;
 
             auto &&now = segtree.prod(x);
             segtree.set(x, now + y);
         } else {
             int x, y;
             std::cin >> x >> y;
-            x--;
+            --x;
 
             auto &&ans = segtree.prod(x, y);
             std::cout << ans << "\n";
