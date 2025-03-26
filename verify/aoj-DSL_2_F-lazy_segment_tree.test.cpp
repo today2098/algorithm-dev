@@ -10,7 +10,7 @@ int main() {
     std::cin >> n >> q;
 
     using Type = long long;
-    auto &&segtree = algorithm::lazysegmenttree::range_minimum_query_and_range_update_query<Type>(n);
+    auto &&segtree = algorithm::lazysegmenttree::range_minimum_query_and_range_update_query<Type>(std::vector<Type>(n, (1LL << 31) - 1));
     while(q--) {
         int type;
         std::cin >> type;

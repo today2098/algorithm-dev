@@ -11,6 +11,8 @@ int main() {
 
     using Type = int;
     auto &&segtree = algorithm::lazysegmenttree::range_minimum_query_and_range_add_query<Type>(n);
+    for(int i = 0; i < n; ++i) segtree.set(i, 0);
+
     while(q--) {
         int type;
         std::cin >> type;
