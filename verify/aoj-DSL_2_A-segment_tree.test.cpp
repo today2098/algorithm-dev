@@ -1,6 +1,5 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
 
-#include <algorithm>
 #include <iostream>
 
 #include "../lib/DataStructure/SegmentTree/segment_tree.hpp"
@@ -10,15 +9,15 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using S = int;
-    auto &&segtree = algorithm::segmenttree::range_minimum_query<S>(n);
+    using Type = int;
+    auto &&segtree = algorithm::segmenttree::range_minimum_query<Type>(n);
     while(q--) {
         int com;
         std::cin >> com;
 
         if(com == 0) {
             int x;
-            S y;
+            Type y;
             std::cin >> x >> y;
 
             segtree.set(x, y);

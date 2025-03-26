@@ -9,15 +9,15 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using S = int;
-    auto &&segtree = algorithm::segmenttree::range_sum_query<S>(n);
+    using Type = int;
+    auto &&segtree = algorithm::segmenttree::range_sum_query<Type>(n);
     while(q--) {
         int com;
         std::cin >> com;
 
         if(com == 0) {
             int x;
-            S y;
+            Type y;
             std::cin >> x >> y;
             --x;
 

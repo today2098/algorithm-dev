@@ -52,7 +52,7 @@ private:
 public:
     // constructor. O(N).
     LazySegmentTree() : LazySegmentTree(0) {}
-    explicit LazySegmentTree(int n) : m_sz(n), m_depth(0), m_n(1) {
+    explicit LazySegmentTree(int n) : m_sz(n), m_n(1), m_depth(0) {
         assert(n >= 0);
         while(m_n < m_sz) m_n <<= 1, ++m_depth;
         m_tree.assign(2 * m_n, e());
@@ -307,12 +307,12 @@ auto range_sum_query_and_range_update_query(int n) {
         int size;
     };
     using F = Type;
-    constexpr auto e = []() -> S { return (S){0, 0}; };
+    constexpr auto e = []() -> S { return {0, 0}; };
     constexpr auto id = []() -> F { return std::numeric_limits<F>::max(); };
-    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return (S){lhs.val + rhs.val, lhs.size + rhs.size}; };
-    constexpr auto mapping = [id](F f, const S &x) -> S { return (S){(f == id() ? x.val : f * x.size), x.size}; };
+    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.val + rhs.val, lhs.size + rhs.size}; };
+    constexpr auto mapping = [id](F f, const S &x) -> S { return {(f == id() ? x.val : f * x.size), x.size}; };
     constexpr auto composition = [id](F f, F g) -> F { return (f == id() ? g : f); };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, (S){0, 1});
+    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, {0, 1});
 }
 
 template <typename Type>
@@ -323,12 +323,12 @@ auto range_sum_query_and_range_add_query(int n) {
         int size;
     };
     using F = Type;
-    constexpr auto e = []() -> S { return (S){0, 0}; };
+    constexpr auto e = []() -> S { return {0, 0}; };
     constexpr auto id = []() -> F { return 0; };
-    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return (S){lhs.val + rhs.val, lhs.size + rhs.size}; };
-    constexpr auto mapping = [](F f, const S &x) -> S { return (S){x.val + f * x.size, x.size}; };
+    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.val + rhs.val, lhs.size + rhs.size}; };
+    constexpr auto mapping = [](F f, const S &x) -> S { return {x.val + f * x.size, x.size}; };
     constexpr auto composition = [](F f, F g) -> F { return g + f; };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, (S){0, 1});
+    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, {0, 1});
 }
 
 template <typename Type>
@@ -342,12 +342,12 @@ auto range_sum_query_and_range_affine_query(int n) {
         Type a;
         Type b;
     };
-    constexpr auto e = []() -> S { return (S){0, 0}; };
-    constexpr auto id = []() -> F { return (F){1, 0}; };
-    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return (S){lhs.val + rhs.val, lhs.size + rhs.size}; };
-    constexpr auto mapping = [](const F &f, const S &x) -> S { return (S){x.val * f.a + f.b * x.size, x.size}; };
-    constexpr auto composition = [](const F &f, const F &g) -> F { return (F){g.a * f.a, g.b * f.a + f.b}; };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, (S){0, 1});
+    constexpr auto e = []() -> S { return {0, 0}; };
+    constexpr auto id = []() -> F { return {1, 0}; };
+    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.val + rhs.val, lhs.size + rhs.size}; };
+    constexpr auto mapping = [](const F &f, const S &x) -> S { return {x.val * f.a + f.b * x.size, x.size}; };
+    constexpr auto composition = [](const F &f, const F &g) -> F { return {g.a * f.a, g.b * f.a + f.b}; };
+    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, {0, 1});
 }
 
 }  // namespace lazysegmenttree
