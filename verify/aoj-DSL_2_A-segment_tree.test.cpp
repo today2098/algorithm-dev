@@ -10,11 +10,8 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using S = unsigned;
-    auto op = [](S lhs, S rhs) -> S { return std::min(lhs, rhs); };
-    auto e = []() -> S { return (1U << 31) - 1; };
-    algorithm::segmenttree::SegmentTree<S, op, e> segtree(n);
-
+    using S = int;
+    auto &&segtree = algorithm::segmenttree::range_minimum_query<S>(n);
     while(q--) {
         int com;
         std::cin >> com;
