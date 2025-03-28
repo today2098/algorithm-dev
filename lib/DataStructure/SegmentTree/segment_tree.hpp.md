@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
     title: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
+    title: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -222,6 +225,7 @@ data:
   verifiedWith:
   - verify/aoj-DSL_2_A-segment_tree.test.cpp
   - verify/yosupo-point_add_range_sum-segment_tree.test.cpp
+  - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
   - verify/aoj-DSL_2_B-segment_tree.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/segment_tree.hpp
 layout: document

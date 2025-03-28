@@ -17,23 +17,24 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F
   bundledCode: "#line 1 \"verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp\"\n#define\
     \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F\"\
-    \n\n#include <iostream>\n\n#line 1 \"lib/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
+    \n\n#include <iostream>\n#include <vector>\n\n#line 1 \"lib/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <functional>\n#include\
-    \ <limits>\n#include <type_traits>\n#include <vector>\n\nnamespace algorithm {\n\
-    \nnamespace lazysegmenttree {\n\n// Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\
-    \u30BB\u30B0\u30E1\u30F3\u30C8\u6728\uFF09.\ntemplate <class S, auto op, auto\
-    \ e, class F, auto map, auto compose, auto id>\nclass LazySegmentTree {\n    static_assert(std::is_convertible_v<decltype(op),\
-    \ std::function<S(S, S)>>);\n    static_assert(std::is_convertible_v<decltype(e),\
-    \ std::function<S()>>);\n    static_assert(std::is_convertible_v<decltype(map),\
-    \ std::function<S(F, S)>>);\n    static_assert(std::is_convertible_v<decltype(compose),\
-    \ std::function<F(F, F)>>);\n    static_assert(std::is_convertible_v<decltype(id),\
-    \ std::function<F()>>);\n\npublic:\n    using value_type = S;    // \u30E2\u30CE\
-    \u30A4\u30C9\u306E\u578B\uFF0E\n    using mapping_type = F;  // \u5199\u50CF\u306E\
-    \u578B\uFF0E\n\nprivate:\n    int m_sz;                          // m_sz:=(\u8981\
-    \u7D20\u6570).\n    int m_n;                           // m_n:=(\u5B8C\u5168\u4E8C\
-    \u5206\u6728\u306E\u8449\u6570).\n    int m_depth;                       // m_depth:=(\u5B8C\
-    \u5168\u4E8C\u5206\u6728\u306E\u6DF1\u3055).\n    std::vector<value_type> m_tree;\
-    \    // m_tree(2n)[]:=(\u5B8C\u5168\u4E8C\u5206\u6728). 1-based index.\n    std::vector<mapping_type>\
+    \ <limits>\n#include <type_traits>\n#line 10 \"lib/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
+    \n\nnamespace algorithm {\n\nnamespace lazysegmenttree {\n\n// Lazy Segment Tree\uFF08\
+    \u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\uFF09.\ntemplate\
+    \ <class S, auto op, auto e, class F, auto map, auto compose, auto id>\nclass\
+    \ LazySegmentTree {\n    static_assert(std::is_convertible_v<decltype(op), std::function<S(S,\
+    \ S)>>);\n    static_assert(std::is_convertible_v<decltype(e), std::function<S()>>);\n\
+    \    static_assert(std::is_convertible_v<decltype(map), std::function<S(F, S)>>);\n\
+    \    static_assert(std::is_convertible_v<decltype(compose), std::function<F(F,\
+    \ F)>>);\n    static_assert(std::is_convertible_v<decltype(id), std::function<F()>>);\n\
+    \npublic:\n    using value_type = S;    // \u30E2\u30CE\u30A4\u30C9\u306E\u578B\
+    \uFF0E\n    using mapping_type = F;  // \u5199\u50CF\u306E\u578B\uFF0E\n\nprivate:\n\
+    \    int m_sz;                          // m_sz:=(\u8981\u7D20\u6570).\n    int\
+    \ m_n;                           // m_n:=(\u5B8C\u5168\u4E8C\u5206\u6728\u306E\
+    \u8449\u6570).\n    int m_depth;                       // m_depth:=(\u5B8C\u5168\
+    \u4E8C\u5206\u6728\u306E\u6DF1\u3055).\n    std::vector<value_type> m_tree;  \
+    \  // m_tree(2n)[]:=(\u5B8C\u5168\u4E8C\u5206\u6728). 1-based index.\n    std::vector<mapping_type>\
     \ m_lazy;  // m_lazy(n)[k]:=(m_tree[k]\u306E\u5B50 (m_tree[2k], m_tree[2k+1])\
     \ \u306B\u5BFE\u3059\u308B\u9045\u5EF6\u8A55\u4FA1).\n\n    void apply_with_lazy(int\
     \ k, const mapping_type &f) {\n        m_tree[k] = map(f, m_tree[k]);\n      \
@@ -217,9 +218,9 @@ data:
     \ f.a + f.b * x.size, x.size}; };\n    constexpr auto composition = [](const F\
     \ &f, const F &g) -> F { return {g.a * f.a, g.b * f.a + f.b}; };\n    return LazySegmentTree<S,\
     \ op, e, F, mapping, composition, id>(n, {0, 1});\n}\n\n}  // namespace lazysegmenttree\n\
-    \n}  // namespace algorithm\n\n\n#line 6 \"verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp\"\
+    \n}  // namespace algorithm\n\n\n#line 7 \"verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    using\
-    \ Type = long long;\n    auto &&segtree = algorithm::lazysegmenttree::range_minimum_query_and_range_update_query<Type>(std::vector<Type>(n,\
+    \ Type = long long;\n    auto &&segtree = algorithm::lazysegmenttree::range_minimum_query_and_range_update_query(std::vector<Type>(n,\
     \ (1LL << 31) - 1));\n    while(q--) {\n        int type;\n        std::cin >>\
     \ type;\n\n        if(type == 0) {\n            int s, t;\n            Type x;\n\
     \            std::cin >> s >> t >> x;\n            ++t;\n\n            segtree.apply(s,\
@@ -227,9 +228,9 @@ data:
     \ t;\n            ++t;\n\n            auto &&ans = segtree.prod(s, t);\n     \
     \       std::cout << ans << \"\\n\";\n        }\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F\"\
-    \n\n#include <iostream>\n\n#include \"../lib/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
+    \n\n#include <iostream>\n#include <vector>\n\n#include \"../lib/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    using\
-    \ Type = long long;\n    auto &&segtree = algorithm::lazysegmenttree::range_minimum_query_and_range_update_query<Type>(std::vector<Type>(n,\
+    \ Type = long long;\n    auto &&segtree = algorithm::lazysegmenttree::range_minimum_query_and_range_update_query(std::vector<Type>(n,\
     \ (1LL << 31) - 1));\n    while(q--) {\n        int type;\n        std::cin >>\
     \ type;\n\n        if(type == 0) {\n            int s, t;\n            Type x;\n\
     \            std::cin >> s >> t >> x;\n            ++t;\n\n            segtree.apply(s,\
@@ -241,7 +242,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-03-27 01:57:44+09:00'
+  timestamp: '2025-03-27 02:02:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp

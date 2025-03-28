@@ -19,6 +19,9 @@ data:
     path: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
     title: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
+    title: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
     title: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
   _isVerificationFailed: false
@@ -97,6 +100,7 @@ data:
   verifiedWith:
   - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+  - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
   - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
 documentation_of: lib/Math/ModularArithmetic/modint_base.hpp
 layout: document

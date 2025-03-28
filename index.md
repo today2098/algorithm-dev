@@ -455,6 +455,9 @@ data:
       path: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
       title: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
+      title: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
       title: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
