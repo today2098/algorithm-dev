@@ -323,6 +323,9 @@ data:
       path: verify/aoj-DSL_1_B-potentialized_union_find.test.cpp
       title: verify/aoj-DSL_1_B-potentialized_union_find.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
+      title: verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/aoj-DSL_2_A-segment_tree.test.cpp
       title: verify/aoj-DSL_2_A-segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -448,9 +451,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
       title: verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: verify/yosupo-point_add_range_sum-dynamic_segment_tree.test.cpp
-      title: verify/yosupo-point_add_range_sum-dynamic_segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-point_add_range_sum-segment_tree.test.cpp
       title: verify/yosupo-point_add_range_sum-segment_tree.test.cpp

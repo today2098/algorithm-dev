@@ -12,11 +12,11 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
-  bundledCode: "#line 1 \"verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp\"\n#define\
-    \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\
+    - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A
+  bundledCode: "#line 1 \"verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp\"\n#define\
+    \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\"\
     \n\n#include <iostream>\n\n#line 1 \"lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <functional>\n#line\
     \ 8 \"lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\n#include <limits>\n\
@@ -128,37 +128,37 @@ data:
     \ n) {\n    using S = Type;\n    constexpr auto op = [](S lhs, S rhs) -> S { return\
     \ lhs + rhs; };\n    constexpr auto e = []() -> S { return 0; };\n    return DynamicSegmentTree<S,\
     \ op, e>(n);\n}\n\n}  // namespace dynamicsegmenttree\n\n}  // namespace algorithm\n\
-    \n\n#line 6 \"verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp\"\n\nint main()\
+    \n\n#line 6 \"verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp\"\n\nint main()\
     \ {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    using Type = int;\n\
-    \    auto &&segtree = algorithm::dynamicsegmenttree::range_sum_query<Type>(n);\n\
+    \    auto &&segtree = algorithm::dynamicsegmenttree::range_minimum_query<Type>(n);\n\
     \    while(q--) {\n        int com;\n        std::cin >> com;\n\n        if(com\
     \ == 0) {\n            int x;\n            Type y;\n            std::cin >> x\
-    \ >> y;\n            --x;\n\n            auto &&now = segtree.prod(x);\n     \
-    \       segtree.set(x, now + y);\n        } else {\n            int x, y;\n  \
-    \          std::cin >> x >> y;\n            --x;\n\n            auto &&ans = segtree.prod(x,\
-    \ y);\n            std::cout << ans << \"\\n\";\n        }\n    }\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\
+    \ >> y;\n\n            segtree.set(x, y);\n        } else {\n            int x,\
+    \ y;\n            std::cin >> x >> y;\n            ++y;\n\n            auto &&ans\
+    \ = segtree.prod(x, y);\n            std::cout << ans << \"\\n\";\n        }\n\
+    \    }\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\"\
     \n\n#include <iostream>\n\n#include \"../lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    using\
-    \ Type = int;\n    auto &&segtree = algorithm::dynamicsegmenttree::range_sum_query<Type>(n);\n\
+    \ Type = int;\n    auto &&segtree = algorithm::dynamicsegmenttree::range_minimum_query<Type>(n);\n\
     \    while(q--) {\n        int com;\n        std::cin >> com;\n\n        if(com\
     \ == 0) {\n            int x;\n            Type y;\n            std::cin >> x\
-    \ >> y;\n            --x;\n\n            auto &&now = segtree.prod(x);\n     \
-    \       segtree.set(x, now + y);\n        } else {\n            int x, y;\n  \
-    \          std::cin >> x >> y;\n            --x;\n\n            auto &&ans = segtree.prod(x,\
-    \ y);\n            std::cout << ans << \"\\n\";\n        }\n    }\n}\n"
+    \ >> y;\n\n            segtree.set(x, y);\n        } else {\n            int x,\
+    \ y;\n            std::cin >> x >> y;\n            ++y;\n\n            auto &&ans\
+    \ = segtree.prod(x, y);\n            std::cout << ans << \"\\n\";\n        }\n\
+    \    }\n}\n"
   dependsOn:
   - lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
   isVerificationFile: true
-  path: verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
+  path: verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
   requiredBy: []
   timestamp: '2025-03-29 15:29:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
+documentation_of: verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
-- /verify/verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp.html
-title: verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
+- /verify/verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
+- /verify/verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp.html
+title: verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
 ---
