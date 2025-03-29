@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
 
 #include <iostream>
 
@@ -10,7 +10,7 @@ int main() {
     std::cin >> n >> q;
 
     using Type = int;
-    auto &&segtree = algorithm::dynamicsegmenttree::range_sum_query<Type>(n);
+    auto &&segtree = algorithm::dynamicsegmenttree::range_minimum_query<Type>(n);
     while(q--) {
         int com;
         std::cin >> com;
@@ -19,14 +19,12 @@ int main() {
             int x;
             Type y;
             std::cin >> x >> y;
-            --x;
 
-            auto &&now = segtree.prod(x);
-            segtree.set(x, now + y);
+            segtree.set(x, y);
         } else {
             int x, y;
             std::cin >> x >> y;
-            --x;
+            ++y;
 
             auto &&ans = segtree.prod(x, y);
             std::cout << ans << "\n";
