@@ -8,7 +8,7 @@ documentation_of: //lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
 
 通常の Segment Tree は，全要素分の値を保持するための領域を用意する必要がある．
 それに対し，Dynamic Segment Tree（動的セグメント木）は，必要な要素についてのみ更新時に動的に領域確保する．
-つまり，扱う要素配列の長さを $N$ ，更新のある要素数を $Q \leq N$ とすると，空間計算量は $\mathcal{O}(Q) \leq \mathcal{O}(N)$ となる．
+つまり，扱う要素列の長さを $N$ ，更新のある要素数を $Q \leq N$ とすると，空間計算量は $\mathcal{O}(Q) \leq \mathcal{O}(N)$ となる．
 特に，$N$ の制約が大きく，また「クエリを先読みし，座標圧縮する」というテクニックが使えないオンラインクエリの場合に適する．
 
 ただし，一点取得が $\mathcal{O}(\log N)$ となる．
