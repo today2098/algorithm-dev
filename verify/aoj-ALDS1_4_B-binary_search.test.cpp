@@ -20,14 +20,14 @@ int main() {
         int t;
         std::cin >> t;
 
-        auto l = algorithm::bisearch(-1, n, [&](int idx) -> bool {
+        int l = algorithm::bisearch(-1, n, [&](int idx) -> bool {
             return s[idx] < t;
         });
-        auto r = algorithm::bisearch(-1, n, [&](int idx) -> bool {
+        int r = algorithm::bisearch(-1, n, [&](int idx) -> bool {
             return s[idx] <= t;
         });
 
-        if(r - l > 0) ans++;
+        if(r - l > 0) ++ans;
     }
 
     std::cout << ans << std::endl;

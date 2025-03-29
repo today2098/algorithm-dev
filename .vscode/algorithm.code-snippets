@@ -2955,9 +2955,9 @@
 		"scope": "cpp",
 		"prefix": "bisearch",
 		"body": [
-			"// 二分探索．O(logN).",
-			"template <typename Type, class Func, typename std::enable_if_t<std::is_integral_v<Type>, bool> = false>",
-			"constexpr Type bisearch(Type ok, Type ng, const Func &eval) {",
+			"template <std::integral Type, class Eval>",
+			"constexpr Type bisearch(Type ok, Type ng, Eval eval) {",
+			"    static_assert(std::is_convertible_v<Eval, std::function<bool(Type)>>);",
 			"    while(ng - ok > 1) {",
 			"        Type mid = ok + (ng - ok) / 2;",
 			"        (eval(mid) ? ok : ng) = mid;",
@@ -2965,9 +2965,9 @@
 			"    return ng;",
 			"}",
 			"",
-			"// 二分探索．O(logN).",
-			"template <typename Type, class Func, typename std::enable_if_t<std::is_floating_point_v<Type>, bool> = false>",
-			"constexpr Type bisearch(Type ok, Type ng, Type eps, const Func &eval) {",
+			"template <std::floating_point Type, class Eval>",
+			"constexpr Type bisearch(Type ok, Type ng, Type eps, Eval eval) {",
+			"    static_assert(std::is_convertible_v<Eval, std::function<bool(Type)>>);",
 			"    while(ng - ok > eps) {",
 			"        Type mid = ok + (ng - ok) / 2;",
 			"        (eval(mid) ? ok : ng) = mid;",
@@ -2975,7 +2975,7 @@
 			"    return ng;",
 			"}"
 		],
-		"description": " 二分探索"
+		"description": "Binary Search（二分探索）"
 	},
 	"compress": {
 		"scope": "cpp",
