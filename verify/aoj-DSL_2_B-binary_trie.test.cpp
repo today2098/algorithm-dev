@@ -24,7 +24,8 @@ int main() {
             int x, y;
             std::cin >> x >> y;
 
-            auto ans = trie.upper_bound(y) - trie.lower_bound(x);
+            int l = trie.lower_bound(x), r = trie.upper_bound(y);
+            int ans = r - l;
             std::cout << ans << "\n";
         }
     }

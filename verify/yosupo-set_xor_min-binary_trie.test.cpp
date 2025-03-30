@@ -11,13 +11,13 @@ int main() {
     algorithm::BinaryTrie<30> trie;
     while(q--) {
         int t;
-        unsigned int x;
+        unsigned x;
         std::cin >> t >> x;
 
         if(t == 0) {
-            if(!trie.exists(x)) trie.insert(x);
+            if(!trie.contains(x)) trie.insert(x);
         } else if(t == 1) {
-            if(trie.exists(x)) trie.erase(x, 1);
+            if(trie.contains(x)) trie.erase(x, 1);
         } else {
             trie.xor_all(x);
             auto ans = trie.min_element().to_ulong();
