@@ -6,19 +6,22 @@
 #include "../lib/DataStructure/Others/binary_heap.hpp"
 
 int main() {
-    algorithm::BinaryHeap<int> heap;
+    using Type = int;
+    auto comp = [](Type a, Type b) -> bool { return a < b; };
+    algorithm::BinaryHeap<Type, comp> heap;
 
     while(true) {
         std::string op;
         std::cin >> op;
 
         if(op == "insert") {
-            int k;
+            Type k;
             std::cin >> k;
 
             heap.push(k);
         } else if(op == "extract") {
-            std::cout << heap.pop() << "\n";
+            auto &&ans = heap.pop();
+            std::cout << ans << "\n";
         } else {
             break;
         }
