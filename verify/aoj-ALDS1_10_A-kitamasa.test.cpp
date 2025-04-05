@@ -8,6 +8,8 @@ int main() {
     int n;
     std::cin >> n;
 
-    algorithm::Kitamasa kitamasa({1, 1}, {1, 1});
-    std::cout << kitamasa[n] << std::endl;
+    algorithm::Kitamasa<int> kitamasa({1, 1}, {1, 1});
+
+    auto ans = kitamasa[n];
+    std::cout << ans << std::endl;
 }
