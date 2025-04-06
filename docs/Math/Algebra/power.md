@@ -1,3 +1,9 @@
+---
+title: 繰り返し二乗法
+documentation_of: //lib/Math/Algebra/power.hpp
+---
+
+
 ## 概要
 
 $n$ を $k$ 乗した値 $n^k$ を求める（ただし，$k$ は非負整数）．
