@@ -17,60 +17,53 @@ template <int mod>
 class Montmort {
     static_assert(mod >= 2);
 
-    static int s_sz;
-    static std::vector<long long> s_montmort;  // m_montmort[k]:=(k項目のモンモール数).
-
-    Montmort() = default;
-    ~Montmort() = default;
+private:
+    int m_sz;
+    std::vector<long long> m_montmort;  // m_montmort[k]:=(k項目のモンモール数).
 
 public:
-    static constexpr int modulus() { return mod; }
-    // k項目のモンモール数を返す．O(1).
-    static long long montmort(int k) {
-        assert(k >= 0);
-        if(s_sz <= k) resize(k + 1);
-        return s_montmort[k];
+    Montmort() : Montmort(2) {}
+    explicit Montmort(int n) : m_sz(n), m_montmort(n) {
+        assert(n >= 2);
+        m_montmort[0] = 1;
+        m_montmort[1] = 0;
+        for(int i = 2; i < m_sz; ++i) m_montmort[i] = (i - 1) * (m_montmort[i - 2] + m_montmort[i - 1]) % mod;
     }
-    static void resize(int sz) {
-        assert(0 <= sz);
-        if(sz < 2) sz = 2;
-        s_montmort.resize(sz);
-        for(int i = s_sz; i < sz; ++i) s_montmort[i] = (i - 1) * (s_montmort[i - 2] + s_montmort[i - 1]) % mod;
-        s_sz = sz;
+
+    static constexpr int modulus() { return mod; }
+    int size() const { return m_sz; }
+    // k項目のモンモール数を取得する．O(1).
+    long long montmort(int k) const {
+        assert(0 <= k and k < size());
+        return m_montmort[k];
     }
 };
-
-template <int mod>
-int Montmort<mod>::s_sz = 2;
-
-template <int mod>
-std::vector<long long> Montmort<mod>::s_montmort({1, 0});
 
 // モンモール数．O(K).
 constexpr long long montmort(int k) {
     assert(k >= 0);
-    if(k == 0) return 1;
-    long long a = 1, b = 0;
+    long long a[2] = {1, 0};
+    if(k < 2) return a[k];
     for(int i = 2; i <= k; ++i) {
-        long long c = (i - 1) * (a + b);
-        a = b;
-        b = c;
+        long long tmp = (i - 1) * (a[0] + a[1]);
+        a[0] = a[1];
+        a[1] = tmp;
     }
-    return b;
+    return a[1];
 }
 
 // モンモール数（mod付き）．O(K).
 constexpr long long montmort(int k, int mod) {
     assert(k >= 0);
     assert(mod >= 1);
-    if(k == 0) return 1 % mod;
-    long long a = 1, b = 0;
+    long long a[2] = {1, 0};
+    if(k < 2) return a[k] % mod;
     for(int i = 2; i <= k; ++i) {
-        long long c = (i - 1) * (a + b) % mod;
-        a = b;
-        b = c;
+        long long tmp = (i - 1) * (a[0] + a[1]) % mod;
+        a[0] = a[1];
+        a[1] = tmp;
     }
-    return b;
+    return a[1];
 }
 
 }  // namespace montmort
