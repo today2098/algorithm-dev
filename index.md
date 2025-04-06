@@ -5,7 +5,7 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/Others/binary_heap.hpp
-      title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
+      title: "Binary Heap\uFF08\u4E8C\u5206\u30D2\u30FC\u30D7\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/Others/binary_trie.hpp
       title: "Binary Trie\uFF08\u975E\u8CA0\u6574\u6570\u5024\u3092\u8981\u7D20\u3068\
@@ -198,7 +198,7 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/Others/binary_search.hpp
-      title: "\u4E8C\u5206\u63A2\u7D22"
+      title: "Binary Search\uFF08\u4E8C\u5206\u63A2\u7D22\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/Others/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
