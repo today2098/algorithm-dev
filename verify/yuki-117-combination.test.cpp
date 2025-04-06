@@ -8,7 +8,7 @@ int main() {
     int t;
     scanf("%d\n", &t);
 
-    algorithm::Combination1000000007 comb(1e6 + 1);
+    algorithm::Combination1000000007 comb(2e6);
     while(t--) {
         char c;
         int n, k;
