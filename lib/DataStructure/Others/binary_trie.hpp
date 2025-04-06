@@ -71,7 +71,7 @@ private:
         if(!p) return 0;
         if(itr == 0) return p->cnt;
         size_type res = get_upper(p->ch[x[itr - 1] ^ m_bias[itr - 1]], x, itr - 1);
-        if(x[itr] and p->ch[m_bias[itr - 1]]) res += p->ch[m_bias[itr - 1]]->cnt;
+        if(x[itr - 1] and p->ch[m_bias[itr - 1]]) res += p->ch[m_bias[itr - 1]]->cnt;
         return res;
     }
     Node *clear(Node *p) {
