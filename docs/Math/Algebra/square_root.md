@@ -1,6 +1,12 @@
+---
+title: 平方根（ニュートン法）
+documentation_of: //lib/Math/Algebra/square_root.hpp
+---
+
+
 ## 概要
 
-非負の実数 $x$ に対して，非負の平方根 $\sqrt x$ を求める．
+非負の実数 $x$ に対する平方根 $\sqrt x$ を求める．
 
 本実装では「ニュートン法」を用いており，近似解を計算する．
 

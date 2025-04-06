@@ -2943,23 +2943,6 @@
 		],
 		"description": "素数判定"
 	},
-	"isqrt": {
-		"prefix": "isqrt",
-		"body": [
-			"// 平方根（ニュートン法）．",
-			"constexpr double isqrt(double x, const double eps = 1e-10) {",
-			"    assert(x >= 0.0);",
-			"    double res = 1.0;",
-			"    while(1) {",
-			"        double tmp = (x / res + res) / 2;",
-			"        if(std::abs(tmp - res) < eps) break;",
-			"        res = tmp;",
-			"    }",
-			"    return res;",
-			"}"
-		],
-		"description": "平方根（ニュートン法）"
-	},
 	"largest_rectangle": {
 		"scope": "cpp",
 		"prefix": "largest_rectangle",
