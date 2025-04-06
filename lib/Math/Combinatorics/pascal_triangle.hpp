@@ -6,48 +6,41 @@
 
 namespace algorithm {
 
-template <typename T = long long>
+template <int mod>
 class PascalTriangle {
-    static int s_sz;
-    static std::vector<std::vector<T> > s_c;  // s_c[n][k]:=(C(n,n-k) and C(n,k)).
+    static_assert(mod >= 1);
 
-    PascalTriangle() = default;
-    ~PascalTriangle() = default;
+    int m_sz;
+    std::vector<std::vector<long long>> m_c;  // m_c[n][k]:=(C(n,n-k) and C(n,k)).
 
 public:
-    // 組合せ．
-    static T nCk(int n, int k) {
+    // constructor. O(N^2).
+    PascalTriangle() : PascalTriangle(0) {}
+    PascalTriangle(int n) : m_sz(n), m_c(n) {
+        for(int i = 0; i < n; ++i) {
+            const int m = (i + 2) / 2;
+            m_c[i].resize(m);
+            m_c[i][0] = 1 % mod;
+            for(int j = 1; j < m; ++j) m_c[i][j] = (m_c[i - 1][j - 1] + (i - 1 - j < j ? m_c[i - 1][i - 1 - j] : m_c[i - 1][j])) % mod;
+        }
+    }
+
+    static constexpr int modulus() { return mod; }
+    // 組合せ．O(1).
+    long long nCk(int n, int k) const {
         assert(n >= 0);
         assert(k >= 0);
         if(k > n) return 0;
-        if(s_sz <= n) resize(n + 1);
-        return (n - k < k ? s_c[n][n - k] : s_c[n][k]);
+        return (n - k < k ? m_c[n][n - k] : m_c[n][k]);
     }
-    // 重複組合せ．
-    static T nHk(int n, int k) {
-        assert(n >= 1);
+    // 重複組合せ．O(1).
+    long long nHk(int n, int k) const {
+        assert(n >= 0);
         assert(k >= 0);
+        if(n == 0) return 0;
         return nCk(k + n - 1, k);
     }
-    static void resize(int sz) {
-        const int now = s_c.size();
-        s_c.resize(sz);
-        for(int n = now; n < sz; ++n) {
-            const int len = (n + 2) / 2;
-            s_c[n].resize(len);
-            s_c[n][0] = 1;
-            for(int k = 1; k < len; ++k) s_c[n][k] = s_c[n - 1][k - 1] + (n - 1 - k < k ? s_c[n - 1][n - 1 - k] : s_c[n - 1][k]);
-        }
-        s_sz = sz;
-    }
-    static void clear() { s_c.clear(); }
 };
-
-template <typename T>
-int PascalTriangle<T>::s_sz = 0;
-
-template <typename T>
-std::vector<std::vector<T> > PascalTriangle<T>::s_c;
 
 }  // namespace algorithm
 
