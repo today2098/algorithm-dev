@@ -1,3 +1,9 @@
+---
+title: Binary Search（二分探索）
+documentation_of: //lib/Others/binary_search.hpp
+---
+
+
 ## 概要
 
 $\forall x \in \mathbb{Z}, f(x) \rightarrow f(x+1)$ 及び $\exists x \in \mathbb{Z}, f(x)$ を満たす1変数述語 $f(x)$ に対し，$\min{\lbrace x \in \mathbb{Z} \mid f(x) \rbrace}$ を求めるアルゴリズム．

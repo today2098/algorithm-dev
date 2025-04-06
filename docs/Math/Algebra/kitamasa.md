@@ -1,71 +1,117 @@
+---
+title: きたまさ法
+documentation_of: //lib/Math/Algebra/kitamasa.hpp
+---
+
+
 ## 概要
 
 初めの $k$ 項 $\lbrace a_0, a_1, \ldots, a_{k-1} \rbrace$ と $k$ 階線形漸化式
 
 $$
-a_n = d_0 \cdot a_{n-k} + d_1 \cdot a_{n-(k-1)} + \cdots + d_{k-1} \cdot a_{n-1}
+a_n = c_0 \cdot a_{n-k} + c_1 \cdot a_{n-(k-1)} + \cdots + c_{k-1} \cdot a_{n-1}
 $$
 
-によって定まる数列の任意の項 $a_n$ を $\mathcal{O}(k^2 \log n)$ で求める．
+によって定まる数列の任意の項 $a_N$ を $\mathcal{O}(k^2 \log N)$ で求める．
 
 
 ### アルゴリズムの説明
 
-このアルゴリズムの主な方針は，
+#### 方針
+
+説明のため，
 
 $$
-a_n = x_{(n)0} \cdot a_0 + x_{(n)1} \cdot a_1 + \cdots + x_{(n)k-1} \cdot a_{k-1}
+a_n = C(n,0) \cdot a_0 + C(n,1) \cdot a_1 + \cdots + C(n,k-1) \cdot a_{k-1} = \sum_{i=0}^{k-1} C(n,i) \cdot a_{i}
 $$
 
-となる $f(n) = \lbrace x_{(n)0}, x_{(n)1}, \ldots, x_{(n)k-1} \rbrace$ を求めることである．
+となる $C(n,*)$ を定義する（ただし，$n \geq 0$ ）．
 
-まず，前提として $f(i)$ が分かっていると仮定する．
 このとき，
 
 $$
-a_i = x_{(i)0} \cdot a_0 + x_{(i)1} \cdot a_1 + \cdots + x_{(i)k-2} \cdot a_{k-2} + x_{(i)k-1} \cdot a_{k-1} \notag
+\begin{equation}
+C(0,i) = 
+    \begin{cases}
+    1 &\text{if \ $i=0$,} \\
+    0 &\text{if \ $0<i<k$}
+    \end{cases} \notag
+\end{equation}
 $$
 
-とすると，
+である．
 
-$$
-\begin{align}
-a_{i+1} &= x_{(i)0} \cdot a_1 + x_{(i)1} \cdot a_2 + \cdots + x_{(i)k-2} \cdot a_{k-1} + x_{(i)k-1} \cdot a_k \notag\\
-a_{i+1} &= x_{(i)0} \cdot a_1 + x_{(i)1} \cdot a_2 + \cdots + x_{(i)k-2} \cdot a_{k-1} + x_{(i)k-1} \cdot (d_0 \cdot a_0 + d_1 \cdot a_1 + \cdots + d_{k-1} \cdot a_{k-1}) \notag\\
 
-a_{i+1} &= x_{(i)k-1} \cdot d_0 \cdot a_0 + (x_{(i)0} + x_{(i)k-1} \cdot d_1) \cdot a_1 + (x_{(i)1} + x_{(i)k-1} \cdot d_2) \cdot a_2 + \cdots + (x_{(i)k-2} + x_{(i)k-1} \cdot d_{k-1}) \cdot a_{k-1} \notag\\
-\end{align}
-$$
+きたまさ法の方針は，$C(n,*) \rightarrow C(n+1,*), C(n,*) \rightarrow C(2n,*)$ を計算することにより，繰り返し二乗法と同じ要領で $C(0,*)$ から $C(N,*)$ を求めることである．
 
-より，$f(i+1)$ が $\mathcal{O}(k)$ で求められる．
 
-また，先の方法で $f(i), f(i+1), \ldots, f(i+k-1)$ が $\mathcal{O}(k^2)$ で列挙できるとする．
+#### $C(n,*) \rightarrow C(n+1,*)$ の計算
+
+まず，前提として $C(n,*)$ が分かっていると仮定する．
 このとき，
 
 $$
 \begin{align}
-a_{2i} &= x_{(i)0} \cdot a_i + x_{(i)1} \cdot a_{i+1} + \cdots + x_{(i)k-1} \cdot a_{i+k-1} \notag\\
-a_{2i} &= x_{(i)0} \cdot (x_{(i)0} \cdot a_0 + x_{(i)1} \cdot a_1 + \cdots + x_{(i)k-1} \cdot a_{k-1}) \notag\\
-    &\quad + x_{(i)1} \cdot (x_{(i+1)0} \cdot a_0 + x_{(i+1)1} \cdot a_1 + \cdots + x_{(i+1)k-1} \cdot a_{k-1}) \notag\\
-    &\quad + \cdots \notag\\
-    &\quad + x_{(i)k-1} \cdot (x_{(i+k-1)0} \cdot a_0 + x_{(i+k-1)1} \cdot a_1 + \cdots + x_{(i+k-1)k-1} \cdot a_{k-1}) \notag\\
-a_{2i} &= (x_{(i)0} \cdot x_{(i)0} + x_{(i)1} \cdot x_{(i+1)0} + \cdots + x_{(i)k-1} \cdot x_{(i+k-1)0}) \cdot a_0 \notag\\
-    &\quad + (x_{(i)0} \cdot x_{(i)1} + x_{(i)1} \cdot x_{(i+1)1} + \cdots + x_{(i)k-1} \cdot x_{(i+k-1)1}) \cdot a_1 \notag\\
-    &\quad + \cdots \notag\\
-    &\quad + (x_{(i)0} \cdot x_{(i)k-1} + x_{(i)1} \cdot x_{(i+1)k-1} + \cdots + x_{(i)k-1} \cdot x_{(i+k-1)k-1}) \cdot a_{k-1} \notag\\
+a_{n+1} &= C(n,0) \cdot a_1 + C(n,1) \cdot a_2 + \cdots + C(n,k-2) \cdot a_{k-1} + C(n,k-1) \cdot a_k \notag\\
+    &= C(n,0) \cdot a_1 + C(n,1) \cdot a_2 + \cdots + C(n,k-2) \cdot a_{k-1} + C(n,k-1) \cdot (c_0 \cdot a_0 + c_1 \cdot a_1 + \cdots + c_{k-1} \cdot a_{k-1}) \notag\\
+    &= C(n,k-1) \cdot c_0 \cdot a_0 + (C(n,0) + C(n,k-1) \cdot c_1) \cdot a_1 + (C(n,1) + C(n,k-1) \cdot c_2) \cdot a_2 + \cdots + (C(n,k-2) + C(n,k-1)  \cdot c_{k-1}) \cdot a_{k-1} \notag\\
 \end{align}
 $$
 
-となり，$f(2i)$ が $\mathcal{O}(k^2)$ で求められる．
+となるから，
 
-よって，「繰り返し二乗法」と同じ要領で $f(k) = \lbrace d_0, d_1, \ldots, d_{k-1} \rbrace$ から $f(n)$ を求めることができ，全体の計算量は $\mathcal{O}(k^2 \log n)$ となる．
+$$
+\begin{equation}
+C(n+1,i) = 
+    \begin{cases}
+    C(n,k-1) \cdot c_0 &\text{if \ $i=0$,} \\
+    C(n,i-1) + C(n,k-1)  \cdot c_i &\text{if \ $0<i<k$}
+    \end{cases} \notag
+\end{equation}
+$$
+
+と求まる．
+これは $\mathcal{O}(k)$ で計算できる．
+
+
+#### $C(n,*) \rightarrow C(2n,*)$ の計算
+
+先の方法で $C(n,*), C(n+1,*), \ldots, C(n+k-1,*)$ が $\mathcal{O}(k^2)$ で列挙できるとする．
+このとき，
+
+$$
+\begin{align}
+a_{2n} &= C(n,0) \cdot a_n + C(n,1) \cdot a_{n+1} + \cdots + C(n,k-1) \cdot a_{n+k-1} \notag\\
+    &= C(n,0) \cdot (C(n,0) \cdot a_0 + C(n,1) \cdot a_1 + \cdots + C(n,k-1) \cdot a_{k-1}) \notag\\
+    &\quad + C(n,1) \cdot (C(n+1,0) \cdot a_0 + C(n+1,1) \cdot a_1 + \cdots + C(n+1,k-1) \cdot a_{k-1}) \notag\\
+    &\quad + \cdots \notag\\
+    &\quad + C(n,k-1) \cdot (C(n+k-1,0) \cdot a_0 + C(n+k-1,1) \cdot a_1 + \cdots + C(n+k-1,k-1) \cdot a_{k-1}) \notag\\
+    &= (C(n,0) \cdot C(n,0) + C(n,1) \cdot C(n+1,0) + \cdots + C(n,k-1) \cdot C(n+k-1,0)) \cdot a_0 \notag\\
+    &\quad + (C(n,0) \cdot C(n,1) + C(n,1) \cdot C(n+1,1) + \cdots + C(n,k-1) \cdot C(n+k-1,1)) \cdot a_1 \notag\\
+    &\quad + \cdots \notag\\
+    &\quad + (C(n,0) \cdot C(n,k-1) + C(n,1) \cdot C(n+1,k-1) + \cdots + C(n,k-1) \cdot C(n+k-1,k-1)) \cdot a_{k-1} \notag\\
+\end{align}
+$$
+
+となるから，
+
+$$
+C(2n,i) = \sum_{j=0}^{k-1} C(n,j) \cdot C(n+j,i)
+$$
+
+と求まる．
+これは $\mathcal{O}(k^2)$ で計算できる．
+
+よって，繰り返し二乗法と同じ要領で $C(0,*)$ から $C(N,*)$ を $\mathcal{O}(k^2 \log N)$ で求めることができる．
 
 
 ## 参考文献
 
+1. "漸化式". Wikipedia. <https://ja.wikipedia.org/wiki/漸化式>.
 1. yosupo. "きたまさ法メモ". HatenaBlog. <https://yosupo.hatenablog.com/entry/2015/03/27/025132>.
+1. smijake3. "Kitamasa法". HatenaBlog. <https://smijake3.hatenablog.com/entry/2017/01/02/024712>.
 
 
 ## 問題
 
-- "T - フィボナッチ". Typical DP Contest. AtCoder. <https://atcoder.jp/contests/tdpc/tasks/tdpc_fibonacci>.
+- "T - フィボナッチ". Typical CP Contest. AtCoder. <https://atcoder.jp/contests/tdpc/tasks/tdpc_fibonacci>.

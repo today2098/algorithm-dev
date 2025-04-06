@@ -1,3 +1,9 @@
+---
+title: Binary Trie（非負整数値を要素とする多重集合）
+documentation_of: //lib/DataStructure/Others/binary_trie.hpp
+---
+
+
 ## 概要
 
 非負整数値を要素とする多重集合．
