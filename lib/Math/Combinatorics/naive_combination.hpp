@@ -59,6 +59,7 @@ constexpr long long nCk(long long n, long long k, int mod) {
 constexpr long long nHk(long long n, long long k) {
     assert(n >= 0);
     assert(k >= 0);
+    if(k == 0) return 1;
     if(n == 0) return 0;
     return nCk(k + n - 1, k);
 }
@@ -68,6 +69,7 @@ constexpr long long nHk(long long n, long long k, int mod) {
     assert(n >= 0);
     assert(k >= 0);
     assert(mod >= 1);
+    if(k == 0) return 1 % mod;
     if(n == 0) return 0;
     return nCk(k + n - 1, k, mod);
 }

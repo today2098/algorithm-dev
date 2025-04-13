@@ -33,13 +33,6 @@ public:
         if(k > n) return 0;
         return (n - k < k ? m_c[n][n - k] : m_c[n][k]);
     }
-    // 重複組合せ．O(1).
-    long long nHk(int n, int k) const {
-        assert(n >= 0);
-        assert(k >= 0);
-        if(n == 0) return 0;
-        return nCk(k + n - 1, k);
-    }
 };
 
 }  // namespace algorithm
