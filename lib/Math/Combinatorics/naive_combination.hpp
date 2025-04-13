@@ -25,7 +25,7 @@ constexpr long long nPk(long long n, long long k, int mod) {
     assert(mod >= 1);
     if(n < k) return 0;
     n %= mod;
-    long long res = 1;
+    long long res = 1 % mod;
     for(long long i = 0; i < k; ++i) {
         long long tmp = n - i;
         if(tmp < 0) tmp += mod;
