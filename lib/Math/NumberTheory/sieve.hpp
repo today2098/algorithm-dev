@@ -49,8 +49,8 @@ public:
     std::map<int, int> prime_factorize(int n) const {
         assert(1 <= n and n < size());
         std::map<int, int> res;
-        for(; n % 2 == 0; n /= 2) res[2]++;
-        for(; n > 1; n /= m_lpf[n / 2]) res[m_lpf[n / 2]]++;
+        for(; n % 2 == 0; n /= 2) ++res[2];
+        for(; n > 1; n /= m_lpf[n / 2]) ++res[m_lpf[n / 2]];
         return res;
     }
     // オイラーのファイ関数．n以下でnと互いに素な自然数の個数を求める．O(logN).

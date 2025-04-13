@@ -1,3 +1,9 @@
+---
+title: 区間篩
+documentation_of: //lib/Math/NumberTheory/segment_sieve.hpp
+---
+
+
 ## 概要
 
 区間 $[L,R)$ の自然数の中からすべての素数を発見する．
