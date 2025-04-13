@@ -9,47 +9,38 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/Math/Combinatorics/pascal_triangle.hpp\"\n\n\n\n#include\
-    \ <cassert>\n#include <vector>\n\nnamespace algorithm {\n\ntemplate <typename\
-    \ T = long long>\nclass PascalTriangle {\n    static int s_sz;\n    static std::vector<std::vector<T>\
-    \ > s_c;  // s_c[n][k]:=(C(n,n-k) and C(n,k)).\n\n    PascalTriangle() = default;\n\
-    \    ~PascalTriangle() = default;\n\npublic:\n    // \u7D44\u5408\u305B\uFF0E\n\
-    \    static T nCk(int n, int k) {\n        assert(n >= 0);\n        assert(k >=\
-    \ 0);\n        if(k > n) return 0;\n        if(s_sz <= n) resize(n + 1);\n   \
-    \     return (n - k < k ? s_c[n][n - k] : s_c[n][k]);\n    }\n    // \u91CD\u8907\
-    \u7D44\u5408\u305B\uFF0E\n    static T nHk(int n, int k) {\n        assert(n >=\
-    \ 1);\n        assert(k >= 0);\n        return nCk(k + n - 1, k);\n    }\n   \
-    \ static void resize(int sz) {\n        const int now = s_c.size();\n        s_c.resize(sz);\n\
-    \        for(int n = now; n < sz; ++n) {\n            const int len = (n + 2)\
-    \ / 2;\n            s_c[n].resize(len);\n            s_c[n][0] = 1;\n        \
-    \    for(int k = 1; k < len; ++k) s_c[n][k] = s_c[n - 1][k - 1] + (n - 1 - k <\
-    \ k ? s_c[n - 1][n - 1 - k] : s_c[n - 1][k]);\n        }\n        s_sz = sz;\n\
-    \    }\n    static void clear() { s_c.clear(); }\n};\n\ntemplate <typename T>\n\
-    int PascalTriangle<T>::s_sz = 0;\n\ntemplate <typename T>\nstd::vector<std::vector<T>\
-    \ > PascalTriangle<T>::s_c;\n\n}  // namespace algorithm\n\n\n"
+    \ <cassert>\n#include <vector>\n\nnamespace algorithm {\n\ntemplate <int mod>\n\
+    class PascalTriangle {\n    static_assert(mod >= 1);\n\n    int m_sz;\n    std::vector<std::vector<long\
+    \ long>> m_c;  // m_c[n][k]:=(C(n,n-k) and C(n,k)).\n\npublic:\n    // constructor.\
+    \ O(N^2).\n    PascalTriangle() : PascalTriangle(0) {}\n    PascalTriangle(int\
+    \ n) : m_sz(n), m_c(n) {\n        for(int i = 0; i < n; ++i) {\n            const\
+    \ int m = (i + 2) / 2;\n            m_c[i].resize(m);\n            m_c[i][0] =\
+    \ 1 % mod;\n            for(int j = 1; j < m; ++j) m_c[i][j] = (m_c[i - 1][j -\
+    \ 1] + (i - 1 - j < j ? m_c[i - 1][i - 1 - j] : m_c[i - 1][j])) % mod;\n     \
+    \   }\n    }\n\n    static constexpr int modulus() { return mod; }\n    // \u7D44\
+    \u5408\u305B\uFF0EO(1).\n    long long nCk(int n, int k) const {\n        assert(n\
+    \ >= 0);\n        assert(k >= 0);\n        if(k > n) return 0;\n        return\
+    \ (n - k < k ? m_c[n][n - k] : m_c[n][k]);\n    }\n};\n\n}  // namespace algorithm\n\
+    \n\n"
   code: "#ifndef ALGORITHM_PASCAL_TRIANGLE_HPP\n#define ALGORITHM_PASCAL_TRIANGLE_HPP\
     \ 1\n\n#include <cassert>\n#include <vector>\n\nnamespace algorithm {\n\ntemplate\
-    \ <typename T = long long>\nclass PascalTriangle {\n    static int s_sz;\n   \
-    \ static std::vector<std::vector<T> > s_c;  // s_c[n][k]:=(C(n,n-k) and C(n,k)).\n\
-    \n    PascalTriangle() = default;\n    ~PascalTriangle() = default;\n\npublic:\n\
-    \    // \u7D44\u5408\u305B\uFF0E\n    static T nCk(int n, int k) {\n        assert(n\
-    \ >= 0);\n        assert(k >= 0);\n        if(k > n) return 0;\n        if(s_sz\
-    \ <= n) resize(n + 1);\n        return (n - k < k ? s_c[n][n - k] : s_c[n][k]);\n\
-    \    }\n    // \u91CD\u8907\u7D44\u5408\u305B\uFF0E\n    static T nHk(int n, int\
-    \ k) {\n        assert(n >= 1);\n        assert(k >= 0);\n        return nCk(k\
-    \ + n - 1, k);\n    }\n    static void resize(int sz) {\n        const int now\
-    \ = s_c.size();\n        s_c.resize(sz);\n        for(int n = now; n < sz; ++n)\
-    \ {\n            const int len = (n + 2) / 2;\n            s_c[n].resize(len);\n\
-    \            s_c[n][0] = 1;\n            for(int k = 1; k < len; ++k) s_c[n][k]\
-    \ = s_c[n - 1][k - 1] + (n - 1 - k < k ? s_c[n - 1][n - 1 - k] : s_c[n - 1][k]);\n\
-    \        }\n        s_sz = sz;\n    }\n    static void clear() { s_c.clear();\
-    \ }\n};\n\ntemplate <typename T>\nint PascalTriangle<T>::s_sz = 0;\n\ntemplate\
-    \ <typename T>\nstd::vector<std::vector<T> > PascalTriangle<T>::s_c;\n\n}  //\
-    \ namespace algorithm\n\n#endif\n"
+    \ <int mod>\nclass PascalTriangle {\n    static_assert(mod >= 1);\n\n    int m_sz;\n\
+    \    std::vector<std::vector<long long>> m_c;  // m_c[n][k]:=(C(n,n-k) and C(n,k)).\n\
+    \npublic:\n    // constructor. O(N^2).\n    PascalTriangle() : PascalTriangle(0)\
+    \ {}\n    PascalTriangle(int n) : m_sz(n), m_c(n) {\n        for(int i = 0; i\
+    \ < n; ++i) {\n            const int m = (i + 2) / 2;\n            m_c[i].resize(m);\n\
+    \            m_c[i][0] = 1 % mod;\n            for(int j = 1; j < m; ++j) m_c[i][j]\
+    \ = (m_c[i - 1][j - 1] + (i - 1 - j < j ? m_c[i - 1][i - 1 - j] : m_c[i - 1][j]))\
+    \ % mod;\n        }\n    }\n\n    static constexpr int modulus() { return mod;\
+    \ }\n    // \u7D44\u5408\u305B\uFF0EO(1).\n    long long nCk(int n, int k) const\
+    \ {\n        assert(n >= 0);\n        assert(k >= 0);\n        if(k > n) return\
+    \ 0;\n        return (n - k < k ? m_c[n][n - k] : m_c[n][k]);\n    }\n};\n\n}\
+    \  // namespace algorithm\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: lib/Math/Combinatorics/pascal_triangle.hpp
   requiredBy: []
-  timestamp: '2025-02-21 20:44:54+09:00'
+  timestamp: '2025-04-13 12:48:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/Math/Combinatorics/pascal_triangle.hpp

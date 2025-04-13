@@ -29,9 +29,9 @@ data:
     \    return res;\n}\n\n// \u9806\u5217\uFF08mod\u4ED8\u304D\uFF09\uFF0EO(K).\n\
     constexpr long long nPk(long long n, long long k, int mod) {\n    assert(n >=\
     \ 0);\n    assert(k >= 0);\n    assert(mod >= 1);\n    if(n < k) return 0;\n \
-    \   n %= mod;\n    long long res = 1;\n    for(long long i = 0; i < k; ++i) {\n\
-    \        long long tmp = n - i;\n        if(tmp < 0) tmp += mod;\n        res\
-    \ = res * tmp % mod;\n    }\n    return res;\n}\n\n// \u7D44\u5408\u305B\uFF0E\
+    \   n %= mod;\n    long long res = 1 % mod;\n    for(long long i = 0; i < k; ++i)\
+    \ {\n        long long tmp = n - i;\n        if(tmp < 0) tmp += mod;\n       \
+    \ res = res * tmp % mod;\n    }\n    return res;\n}\n\n// \u7D44\u5408\u305B\uFF0E\
     O(min(K,N-K)).\nconstexpr long long nCk(long long n, long long k) {\n    assert(n\
     \ >= 0);\n    assert(k >= 0);\n    if(n < k) return 0;\n    k = std::min(k, n\
     \ - k);\n    long long res = 1;\n    for(long long i = 0; i < k; ++i) res = res\
@@ -55,20 +55,20 @@ data:
     \ *= (n - i);\n    return res;\n}\n\n// \u9806\u5217\uFF08mod\u4ED8\u304D\uFF09\
     \uFF0EO(K).\nconstexpr long long nPk(long long n, long long k, int mod) {\n  \
     \  assert(n >= 0);\n    assert(k >= 0);\n    assert(mod >= 1);\n    if(n < k)\
-    \ return 0;\n    n %= mod;\n    long long res = 1;\n    for(long long i = 0; i\
-    \ < k; ++i) {\n        long long tmp = n - i;\n        if(tmp < 0) tmp += mod;\n\
-    \        res = res * tmp % mod;\n    }\n    return res;\n}\n\n// \u7D44\u5408\u305B\
-    \uFF0EO(min(K,N-K)).\nconstexpr long long nCk(long long n, long long k) {\n  \
-    \  assert(n >= 0);\n    assert(k >= 0);\n    if(n < k) return 0;\n    k = std::min(k,\
-    \ n - k);\n    long long res = 1;\n    for(long long i = 0; i < k; ++i) res =\
-    \ res * (n - i) / (i + 1);\n    return res;\n}\n\n// \u7D44\u5408\u305B\uFF08\
-    mod\u4ED8\u304D\uFF09\uFF0E\nconstexpr long long nCk(long long n, long long k,\
-    \ int mod) {\n    assert(n >= 0);\n    assert(k >= 0);\n    assert(mod >= 1);\n\
-    \    if(n < k) return 0;\n    k = std::min(k, n - k);\n    return nPk(n, k, mod)\
-    \ * mod_inv(nPk(k, k, mod), mod) % mod;\n}\n\n// \u91CD\u8907\u7D44\u5408\u305B\
-    \uFF0EO(min(N-1,K)).\nconstexpr long long nHk(long long n, long long k) {\n  \
-    \  assert(n >= 0);\n    assert(k >= 0);\n    if(k == 0) return 1;\n    if(n ==\
-    \ 0) return 0;\n    return nCk(k + n - 1, k);\n}\n\n// \u91CD\u8907\u7D44\u5408\
+    \ return 0;\n    n %= mod;\n    long long res = 1 % mod;\n    for(long long i\
+    \ = 0; i < k; ++i) {\n        long long tmp = n - i;\n        if(tmp < 0) tmp\
+    \ += mod;\n        res = res * tmp % mod;\n    }\n    return res;\n}\n\n// \u7D44\
+    \u5408\u305B\uFF0EO(min(K,N-K)).\nconstexpr long long nCk(long long n, long long\
+    \ k) {\n    assert(n >= 0);\n    assert(k >= 0);\n    if(n < k) return 0;\n  \
+    \  k = std::min(k, n - k);\n    long long res = 1;\n    for(long long i = 0; i\
+    \ < k; ++i) res = res * (n - i) / (i + 1);\n    return res;\n}\n\n// \u7D44\u5408\
+    \u305B\uFF08mod\u4ED8\u304D\uFF09\uFF0E\nconstexpr long long nCk(long long n,\
+    \ long long k, int mod) {\n    assert(n >= 0);\n    assert(k >= 0);\n    assert(mod\
+    \ >= 1);\n    if(n < k) return 0;\n    k = std::min(k, n - k);\n    return nPk(n,\
+    \ k, mod) * mod_inv(nPk(k, k, mod), mod) % mod;\n}\n\n// \u91CD\u8907\u7D44\u5408\
+    \u305B\uFF0EO(min(N-1,K)).\nconstexpr long long nHk(long long n, long long k)\
+    \ {\n    assert(n >= 0);\n    assert(k >= 0);\n    if(k == 0) return 1;\n    if(n\
+    \ == 0) return 0;\n    return nCk(k + n - 1, k);\n}\n\n// \u91CD\u8907\u7D44\u5408\
     \u305B\uFF08mod\u4ED8\u304D\uFF09\uFF0E\nconstexpr long long nHk(long long n,\
     \ long long k, int mod) {\n    assert(n >= 0);\n    assert(k >= 0);\n    assert(mod\
     \ >= 1);\n    if(k == 0) return 1 % mod;\n    if(n == 0) return 0;\n    return\
@@ -78,7 +78,7 @@ data:
   isVerificationFile: false
   path: lib/Math/Combinatorics/naive_combination.hpp
   requiredBy: []
-  timestamp: '2025-02-22 06:53:42+09:00'
+  timestamp: '2025-04-13 12:48:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/Math/Combinatorics/naive_combination.hpp
