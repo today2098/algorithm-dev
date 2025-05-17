@@ -4,8 +4,8 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
-#include <iterator>
 #include <queue>
+#include <ranges>
 #include <stack>
 #include <string>
 #include <string_view>
@@ -23,25 +23,16 @@ namespace debug {
 
 constexpr std::ostream &os = std::clog;
 
-struct has_const_iterator_impl {
-    template <class T>
-    static constexpr std::true_type check(typename T::const_iterator *);
+// Forward declaration.
 
-    template <class T>
-    static constexpr std::false_type check(...);
-};
-
-template <class T>
-class has_const_iterator : public decltype(has_const_iterator_impl::check<T>(nullptr)) {};
-
-// Prototype declaration.
 template <typename Type>
-auto print(const Type &) -> typename std::enable_if<!has_const_iterator<Type>::value>::type;
+void print(const Type &);
 
-template <class Container>
-auto print(const Container &) -> typename std::enable_if<has_const_iterator<Container>::value>::type;
+template <std::ranges::range R>
+void print(const R &);
 
-void print(const std::string &);
+template <typename... Types>
+void print(const std::basic_string<Types...> &);
 
 void print(std::string_view);
 
@@ -63,45 +54,44 @@ void print(const std::tuple<Types...> &);
 template <class Tuple, std::size_t... Idxes>
 void print_tuple(const Tuple &, std::index_sequence<Idxes...>);
 
-// Implementation.
-void elapsed() {
+auto elapsed() {
     static const auto start = std::chrono::system_clock::now();
-    auto t = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - start).count();
-    os << "(" << std::setw(8) << t << ")";
+    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - start).count();
 }
 
 template <typename Type, typename... Args>
 void debug_internal(int line, std::string_view context, const Type &first, const Args &...args) {
     constexpr const char *open_bracket = (sizeof...(args) == 0 ? "" : "(");
     constexpr const char *close_bracket = (sizeof...(args) == 0 ? "" : ")");
-    elapsed();
-    os << " [L" << line << "] " << open_bracket << context << close_bracket << ": " << open_bracket;
+    os << "(" << std::setw(8) << elapsed() << ") [L" << line << "] " << open_bracket << context << close_bracket << ": " << open_bracket;
     print(first);
     ((os << ", ", print(args)), ...);
     os << close_bracket << std::endl;
 }
 
 void debug_internal(int line) {
-    elapsed();
-    os << " [L" << line << "] (empty)" << std::endl;
+    os << "(" << std::setw(8) << elapsed() << ") [L" << line << "] (empty)" << std::endl;
 }
 
+// Implementation.
+
 template <typename Type>
-auto print(const Type &a) -> typename std::enable_if<!has_const_iterator<Type>::value>::type {
+void print(const Type &a) {
     os << a;
 }
 
-template <class Container>
-auto print(const Container &c) -> typename std::enable_if<has_const_iterator<Container>::value>::type {
+template <std::ranges::range R>
+void print(const R &r) {
     os << "[";
-    for(auto iter = std::cbegin(c); iter != std::cend(c); ++iter) {
-        if(iter != std::cbegin(c)) os << " ";
+    for(auto iter = std::ranges::cbegin(r); iter != std::ranges::cend(r); ++iter) {
+        if(iter != std::ranges::cbegin(r)) os << " ";
         print(*iter);
     }
     os << "]";
 }
 
-void print(const std::string &s) {
+template <typename... Types>
+void print(const std::basic_string<Types...> &s) {
     os << s;
 }
 
@@ -111,36 +101,33 @@ void print(std::string_view sv) {
 
 template <typename... Types>
 void print(const std::stack<Types...> &st) {
-    std::stack<Types...> tmp = st;
+    std::stack<Types...> tmp(st);
     os << "[";
-    while(!tmp.empty()) {
+    for(bool first = true; !tmp.empty(); tmp.pop(), first = false) {
+        if(!first) os << " ";
         print(tmp.top());
-        tmp.pop();
-        if(!tmp.empty()) os << " ";
     }
     os << "]";
 }
 
 template <typename... Types>
 void print(const std::queue<Types...> &que) {
-    std::queue<Types...> tmp = que;
+    std::queue<Types...> tmp(que);
     os << "[";
-    while(!tmp.empty()) {
+    for(bool first = true; !tmp.empty(); tmp.pop(), first = false) {
+        if(!first) os << " ";
         print(tmp.front());
-        tmp.pop();
-        if(!tmp.empty()) os << " ";
     }
     os << "]";
 }
 
 template <typename... Types>
 void print(const std::priority_queue<Types...> &pque) {
-    std::priority_queue<Types...> tmp = pque;
+    std::priority_queue<Types...> tmp(pque);
     os << "[";
-    while(!tmp.empty()) {
+    for(bool first = true; !tmp.empty(); tmp.pop(), first = false) {
+        if(!first) os << " ";
         print(tmp.top());
-        tmp.pop();
-        if(!tmp.empty()) os << " ";
     }
     os << "]";
 }
