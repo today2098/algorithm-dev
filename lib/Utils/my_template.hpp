@@ -3,8 +3,8 @@
 
 #include <bits/stdc++.h>
 #define REP(i, n) for(int i = 0; i < (int)(n); ++i)
-#define RREP(i, n) for(int i = (int)(n); i-- > 0;)
 #define FOR(i, l, r) for(int i = (int)(l); i < (int)(r); ++i)
+#define RREP(i, n) for(int i = (int)(n); i-- > 0;)
 #define RFOR(i, r, l) for(int i = (int)(r); i-- > (int)(l);)
 #define ALL(v) std::begin(v), std::end(v)
 using llong = long long;

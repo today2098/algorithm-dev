@@ -1,7 +1,18 @@
+---
+title: Population Count (popcount)
+documentation_of: //lib/Others/popcount.hpp
+---
+
+
 ## 概要
 
 与えられた非負整数値を2進数表記した際に1となっているビットの数を高速に求める．
 "popcount" は "population count" の略．
+
+```cpp
+static_assert(algorithm::popcount32(5) == 2);
+static_assert(algorithm::popcount64((1LL << 60) - 1) == 60);
+```
 
 
 ## 参考文献
