@@ -19,23 +19,23 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/4/DSL_4_A
   bundledCode: "#line 1 \"verify/aoj-DSL_4_A-imos_2d.test.cpp\"\n#define PROBLEM \"\
     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/4/DSL_4_A\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/Others/compress.hpp\"\n\n\n\n/**\n * @brief \u5EA7\
-    \u6A19\u5727\u7E2E\n * @docs docs/Others/compress.md\n */\n\n#include <algorithm>\n\
+    \ <iostream>\n\n#line 1 \"lib/Others/compress.hpp\"\n\n\n\n#include <algorithm>\n\
     #include <vector>\n\nnamespace algorithm {\n\n// \u5EA7\u6A19\u5727\u7E2E\uFF0E\
-    O(N*logN).\ntemplate <typename Type>\nstd::vector<Type> compress(std::vector<Type>\
-    \ &v) {\n    std::vector<Type> key = v;\n    std::sort(key.begin(), key.end());\n\
-    \    key.erase(std::unique(key.begin(), key.end()), key.end());\n    for(auto\
-    \ &elem : v) elem = std::lower_bound(key.begin(), key.end(), elem) - key.begin();\n\
-    \    return key;\n}\n\n}  // namespace algorithm\n\n\n#line 1 \"lib/Others/imos_2d.hpp\"\
-    \n\n\n\n/**\n * @brief \u4E8C\u6B21\u5143\u3044\u3082\u3059\u6CD5\n * @docs docs/Others/imos_2d.md\n\
-    \ */\n\n#line 10 \"lib/Others/imos_2d.hpp\"\n#include <cassert>\n#line 12 \"lib/Others/imos_2d.hpp\"\
-    \n\nnamespace algorithm {\n\n// \u4E8C\u6B21\u5143\u3044\u3082\u3059\u6CD5\uFF0E\
-    \ntemplate <typename T>\nclass Imos2D {\n    int m_h, m_w;\n    std::vector<std::vector<T>\
-    \ > m_dat;  // 0-based index.\n\npublic:\n    Imos2D() : Imos2D(0, 0) {}\n   \
-    \ explicit Imos2D(size_t h, size_t w) : m_h(h), m_w(w), m_dat(h + 1, std::vector<T>(w\
-    \ + 1, 0)) {}\n\n    int height() const { return m_h; }\n    int width() const\
-    \ { return m_w; }\n    void add(int ly, int lx, int ry, int rx, T a) {\n     \
-    \   assert(0 <= ly and ly <= ry and ry <= height());\n        assert(0 <= lx and\
+    O(N log N).\ntemplate <typename Type>\nstd::vector<Type> compress(std::vector<Type>\
+    \ &v) {\n    std::vector<Type> key(v);\n    std::sort(key.begin(), key.end());\n\
+    \    key.erase(std::unique(key.begin(), key.end()), key.end());\n    key.shrink_to_fit();\n\
+    \    for(auto &elem : v) elem = std::lower_bound(key.cbegin(), key.cend(), elem)\
+    \ - key.cbegin();\n    return key;\n}\n\n}  // namespace algorithm\n\n\n#line\
+    \ 1 \"lib/Others/imos_2d.hpp\"\n\n\n\n/**\n * @brief \u4E8C\u6B21\u5143\u3044\u3082\
+    \u3059\u6CD5\n * @docs docs/Others/imos_2d.md\n */\n\n#line 10 \"lib/Others/imos_2d.hpp\"\
+    \n#include <cassert>\n#line 12 \"lib/Others/imos_2d.hpp\"\n\nnamespace algorithm\
+    \ {\n\n// \u4E8C\u6B21\u5143\u3044\u3082\u3059\u6CD5\uFF0E\ntemplate <typename\
+    \ T>\nclass Imos2D {\n    int m_h, m_w;\n    std::vector<std::vector<T> > m_dat;\
+    \  // 0-based index.\n\npublic:\n    Imos2D() : Imos2D(0, 0) {}\n    explicit\
+    \ Imos2D(size_t h, size_t w) : m_h(h), m_w(w), m_dat(h + 1, std::vector<T>(w +\
+    \ 1, 0)) {}\n\n    int height() const { return m_h; }\n    int width() const {\
+    \ return m_w; }\n    void add(int ly, int lx, int ry, int rx, T a) {\n       \
+    \ assert(0 <= ly and ly <= ry and ry <= height());\n        assert(0 <= lx and\
     \ lx <= rx and rx <= width());\n        m_dat[ly][lx] += a;\n        m_dat[ly][rx]\
     \ -= a;\n        m_dat[ry][lx] -= a;\n        m_dat[ry][rx] += a;\n    }\n   \
     \ void build() {\n        for(int i = 0; i < height(); ++i) {\n            for(int\
@@ -77,7 +77,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-DSL_4_A-imos_2d.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-05-31 13:22:40+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_4_A-imos_2d.test.cpp

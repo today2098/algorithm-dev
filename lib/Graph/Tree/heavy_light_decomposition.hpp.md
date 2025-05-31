@@ -149,8 +149,8 @@ data:
   timestamp: '2025-03-24 17:53:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
   - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+  - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
 documentation_of: lib/Graph/Tree/heavy_light_decomposition.hpp
 layout: document
 title: "Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\u91CD\u8EFD\u5206\u89E3\

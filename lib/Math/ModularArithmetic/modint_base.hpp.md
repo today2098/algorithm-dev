@@ -92,16 +92,16 @@ data:
   isVerificationFile: false
   path: lib/Math/ModularArithmetic/modint_base.hpp
   requiredBy:
+  - lib/Math/Convolution/number_theoretic_transform.hpp
   - lib/Math/ModularArithmetic/modint.hpp
   - lib/Math/ModularArithmetic/dynamic_modint.hpp
-  - lib/Math/Convolution/number_theoretic_transform.hpp
   timestamp: '2025-02-22 06:53:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
   - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+  - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
+  - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
+  - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
 documentation_of: lib/Math/ModularArithmetic/modint_base.hpp
 layout: document
 title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"

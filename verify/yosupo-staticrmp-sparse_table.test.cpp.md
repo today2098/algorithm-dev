@@ -62,54 +62,50 @@ data:
     \ }\n    const_reverse_iterator crbegin() const { return m_table[0].crbegin();\
     \ }\n    const_reverse_iterator crend() const { return m_table[0].crend(); }\n\
     };\n\n}  // namespace algorithm\n\n\n#line 1 \"lib/Utils/debug.hpp\"\n\n\n\n#include\
-    \ <chrono>\n#include <iomanip>\n#line 8 \"lib/Utils/debug.hpp\"\n#include <queue>\n\
-    #include <stack>\n#include <string>\n#include <string_view>\n#include <tuple>\n\
-    #line 15 \"lib/Utils/debug.hpp\"\n\n#ifdef DEBUG\n\n#define debug(...) algorithm::debug::debug_internal(__LINE__\
-    \ __VA_OPT__(, #__VA_ARGS__, __VA_ARGS__))\n\nnamespace algorithm {\n\nnamespace\
-    \ debug {\n\nconstexpr std::ostream &os = std::clog;\n\nstruct has_const_iterator_impl\
-    \ {\n    template <class T>\n    static constexpr std::true_type check(typename\
-    \ T::const_iterator *);\n\n    template <class T>\n    static constexpr std::false_type\
-    \ check(...);\n};\n\ntemplate <class T>\nclass has_const_iterator : public decltype(has_const_iterator_impl::check<T>(nullptr))\
-    \ {};\n\n// Prototype declaration.\ntemplate <typename Type>\nauto print(const\
-    \ Type &) -> typename std::enable_if<!has_const_iterator<Type>::value>::type;\n\
-    \ntemplate <class Container>\nauto print(const Container &) -> typename std::enable_if<has_const_iterator<Container>::value>::type;\n\
-    \nvoid print(const std::string &);\n\nvoid print(std::string_view);\n\ntemplate\
-    \ <typename... Types>\nvoid print(const std::stack<Types...> &);\n\ntemplate <typename...\
-    \ Types>\nvoid print(const std::queue<Types...> &);\n\ntemplate <typename... Types>\n\
-    void print(const std::priority_queue<Types...> &);\n\ntemplate <typename T, typename\
-    \ U>\nvoid print(const std::pair<T, U> &);\n\ntemplate <typename... Types>\nvoid\
-    \ print(const std::tuple<Types...> &);\n\ntemplate <class Tuple, std::size_t...\
-    \ Idxes>\nvoid print_tuple(const Tuple &, std::index_sequence<Idxes...>);\n\n\
-    // Implementation.\nvoid elapsed() {\n    static const auto start = std::chrono::system_clock::now();\n\
-    \    auto t = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now()\
-    \ - start).count();\n    os << \"(\" << std::setw(8) << t << \")\";\n}\n\ntemplate\
-    \ <typename Type, typename... Args>\nvoid debug_internal(int line, std::string_view\
-    \ context, const Type &first, const Args &...args) {\n    constexpr const char\
-    \ *open_bracket = (sizeof...(args) == 0 ? \"\" : \"(\");\n    constexpr const\
-    \ char *close_bracket = (sizeof...(args) == 0 ? \"\" : \")\");\n    elapsed();\n\
-    \    os << \" [L\" << line << \"] \" << open_bracket << context << close_bracket\
-    \ << \": \" << open_bracket;\n    print(first);\n    ((os << \", \", print(args)),\
-    \ ...);\n    os << close_bracket << std::endl;\n}\n\nvoid debug_internal(int line)\
-    \ {\n    elapsed();\n    os << \" [L\" << line << \"] (empty)\" << std::endl;\n\
-    }\n\ntemplate <typename Type>\nauto print(const Type &a) -> typename std::enable_if<!has_const_iterator<Type>::value>::type\
-    \ {\n    os << a;\n}\n\ntemplate <class Container>\nauto print(const Container\
-    \ &c) -> typename std::enable_if<has_const_iterator<Container>::value>::type {\n\
-    \    os << \"[\";\n    for(auto iter = std::cbegin(c); iter != std::cend(c); ++iter)\
-    \ {\n        if(iter != std::cbegin(c)) os << \" \";\n        print(*iter);\n\
-    \    }\n    os << \"]\";\n}\n\nvoid print(const std::string &s) {\n    os << s;\n\
-    }\n\nvoid print(std::string_view sv) {\n    os << sv;\n}\n\ntemplate <typename...\
-    \ Types>\nvoid print(const std::stack<Types...> &st) {\n    std::stack<Types...>\
-    \ tmp = st;\n    os << \"[\";\n    while(!tmp.empty()) {\n        print(tmp.top());\n\
-    \        tmp.pop();\n        if(!tmp.empty()) os << \" \";\n    }\n    os << \"\
-    ]\";\n}\n\ntemplate <typename... Types>\nvoid print(const std::queue<Types...>\
-    \ &que) {\n    std::queue<Types...> tmp = que;\n    os << \"[\";\n    while(!tmp.empty())\
-    \ {\n        print(tmp.front());\n        tmp.pop();\n        if(!tmp.empty())\
-    \ os << \" \";\n    }\n    os << \"]\";\n}\n\ntemplate <typename... Types>\nvoid\
-    \ print(const std::priority_queue<Types...> &pque) {\n    std::priority_queue<Types...>\
-    \ tmp = pque;\n    os << \"[\";\n    while(!tmp.empty()) {\n        print(tmp.top());\n\
-    \        tmp.pop();\n        if(!tmp.empty()) os << \" \";\n    }\n    os << \"\
-    ]\";\n}\n\ntemplate <typename T, typename U>\nvoid print(const std::pair<T, U>\
-    \ &p) {\n    os << \"{\";\n    print(p.first);\n    os << \", \";\n    print(p.second);\n\
+    \ <chrono>\n#include <iomanip>\n#line 7 \"lib/Utils/debug.hpp\"\n#include <queue>\n\
+    #include <ranges>\n#include <stack>\n#include <string>\n#include <string_view>\n\
+    #include <tuple>\n#line 15 \"lib/Utils/debug.hpp\"\n\n#ifdef DEBUG\n\n#define\
+    \ debug(...) algorithm::debug::debug_internal(__LINE__ __VA_OPT__(, #__VA_ARGS__,\
+    \ __VA_ARGS__))\n\nnamespace algorithm {\n\nnamespace debug {\n\nconstexpr std::ostream\
+    \ &os = std::clog;\n\n// Forward declaration.\n\ntemplate <typename Type>\nvoid\
+    \ print(const Type &);\n\ntemplate <std::ranges::range R>\nvoid print(const R\
+    \ &);\n\ntemplate <typename... Types>\nvoid print(const std::basic_string<Types...>\
+    \ &);\n\nvoid print(std::string_view);\n\ntemplate <typename... Types>\nvoid print(const\
+    \ std::stack<Types...> &);\n\ntemplate <typename... Types>\nvoid print(const std::queue<Types...>\
+    \ &);\n\ntemplate <typename... Types>\nvoid print(const std::priority_queue<Types...>\
+    \ &);\n\ntemplate <typename T, typename U>\nvoid print(const std::pair<T, U> &);\n\
+    \ntemplate <typename... Types>\nvoid print(const std::tuple<Types...> &);\n\n\
+    template <class Tuple, std::size_t... Idxes>\nvoid print_tuple(const Tuple &,\
+    \ std::index_sequence<Idxes...>);\n\nauto elapsed() {\n    static const auto start\
+    \ = std::chrono::system_clock::now();\n    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now()\
+    \ - start).count();\n}\n\ntemplate <typename Type, typename... Args>\nvoid debug_internal(int\
+    \ line, std::string_view context, const Type &first, const Args &...args) {\n\
+    \    constexpr const char *open_bracket = (sizeof...(args) == 0 ? \"\" : \"(\"\
+    );\n    constexpr const char *close_bracket = (sizeof...(args) == 0 ? \"\" : \"\
+    )\");\n    os << \"(\" << std::setw(8) << elapsed() << \") [L\" << line << \"\
+    ] \" << open_bracket << context << close_bracket << \": \" << open_bracket;\n\
+    \    print(first);\n    ((os << \", \", print(args)), ...);\n    os << close_bracket\
+    \ << std::endl;\n}\n\nvoid debug_internal(int line) {\n    os << \"(\" << std::setw(8)\
+    \ << elapsed() << \") [L\" << line << \"] (empty)\" << std::endl;\n}\n\n// Implementation.\n\
+    \ntemplate <typename Type>\nvoid print(const Type &a) {\n    os << a;\n}\n\ntemplate\
+    \ <std::ranges::range R>\nvoid print(const R &r) {\n    os << \"[\";\n    for(auto\
+    \ iter = std::ranges::cbegin(r); iter != std::ranges::cend(r); ++iter) {\n   \
+    \     if(iter != std::ranges::cbegin(r)) os << \" \";\n        print(*iter);\n\
+    \    }\n    os << \"]\";\n}\n\ntemplate <typename... Types>\nvoid print(const\
+    \ std::basic_string<Types...> &s) {\n    os << s;\n}\n\nvoid print(std::string_view\
+    \ sv) {\n    os << sv;\n}\n\ntemplate <typename... Types>\nvoid print(const std::stack<Types...>\
+    \ &st) {\n    std::stack<Types...> tmp(st);\n    os << \"[\";\n    for(bool first\
+    \ = true; !tmp.empty(); tmp.pop(), first = false) {\n        if(!first) os <<\
+    \ \" \";\n        print(tmp.top());\n    }\n    os << \"]\";\n}\n\ntemplate <typename...\
+    \ Types>\nvoid print(const std::queue<Types...> &que) {\n    std::queue<Types...>\
+    \ tmp(que);\n    os << \"[\";\n    for(bool first = true; !tmp.empty(); tmp.pop(),\
+    \ first = false) {\n        if(!first) os << \" \";\n        print(tmp.front());\n\
+    \    }\n    os << \"]\";\n}\n\ntemplate <typename... Types>\nvoid print(const\
+    \ std::priority_queue<Types...> &pque) {\n    std::priority_queue<Types...> tmp(pque);\n\
+    \    os << \"[\";\n    for(bool first = true; !tmp.empty(); tmp.pop(), first =\
+    \ false) {\n        if(!first) os << \" \";\n        print(tmp.top());\n    }\n\
+    \    os << \"]\";\n}\n\ntemplate <typename T, typename U>\nvoid print(const std::pair<T,\
+    \ U> &p) {\n    os << \"{\";\n    print(p.first);\n    os << \", \";\n    print(p.second);\n\
     \    os << \"}\";\n}\n\ntemplate <typename... Types>\nvoid print(const std::tuple<Types...>\
     \ &t) {\n    print_tuple(t, std::make_index_sequence<sizeof...(Types)>());\n}\n\
     \ntemplate <class Tuple, std::size_t... Idxes>\nvoid print_tuple(const Tuple &t,\
@@ -140,7 +136,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-staticrmp-sparse_table.test.cpp
   requiredBy: []
-  timestamp: '2025-03-29 17:30:07+09:00'
+  timestamp: '2025-05-17 16:51:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-staticrmp-sparse_table.test.cpp
