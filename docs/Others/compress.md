@@ -20,9 +20,9 @@ documentation_of: //lib/Others/compress.hpp
 計算量は，配列の長さを $N$ とすると，$\mathcal{O}(N \log N)$ となる．
 
 
-## インターフェイス
+## 説明
 
-|関数|概要|計算量|
+|関数|説明|計算量|
 |---|---|---|
 |`key=compress(v)`|`v` をソートして重複を削除したもの `key` を返す．副作用として，`v` を座圧した結果に変換する．|$\mathcal{O}(N \log N)$|
 

@@ -6,7 +6,7 @@ documentation_of: //lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
 
 ## 概要
 
-1994年に Peter Fenwick により提案された木構造をしたデータ構造．
+「Binary Indexed Tree (BIT)」とは，1994年に Peter Fenwick により提案された木構造をしたデータ構造．
 別名「Fenwick Tree（フェニック木）」．
 
 長さ $N$ の数列 $\lbrace a_0, a_1, \ldots, a_{N-1} \rbrace$ に対して，次のクエリ処理 (RSM: Range Sum Query) を $\mathcal{O}(\log N)$ で行う．
@@ -18,7 +18,7 @@ documentation_of: //lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
 
 必要なメモリサイズは，対象の配列サイズと同じ（Segment Tree では2倍程度必要となる）．
 
-本実装の Binary Indexed Tree (BIT) は，数の加算のみをサポートしているが，拡張すればアーベル群（可換群）を成す他の演算もサポートすることができる．
+本実装では，数の加算のみをサポートしているが，拡張すればアーベル群（可換群）を成す他の演算もサポートすることができる．
 
 ここで「アーベル群」とは，集合 $G$ と二項演算 $\ast : S \times S \rightarrow S$ の組 $(G, \ast)$ で，以下の条件を満たす代数構造のことを指す．
 
@@ -31,7 +31,25 @@ Segment Tree が扱うのは「モノイド」であり，モノイドは上記�
 それに対し，BIT は条件 (3), (4) が加わり制約が厳しい．
 
 
-## 参考文献
+## 説明
+
+### algorithm::BIT
+
+|メンバ関数|説明|計算量|
+|---|---|---|
+|`BIT<T>()`|デフォルトコンストラクタ．サイズゼロの `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`BIT<T>(n)`|コンストラクタ．`n` 個の `T()` で初期化された要素をもつ `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`BIT<T>(n,a)`|コンストラクタ．`n` 個の `a` で初期化された要素をもつ `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`BIT<T>(first,last)`|コンストラクタ．イテレータ範囲 `[first,last)` の要素で `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`BIT<T>(il)`|コンストラクタ．初期化子リストの要素で `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
+|`add(k,a)`|`k` 番目の要素に `a` を加算する．|$\mathcal{O}(\log N)$|
+|`x=sum(r)`|区間 `[0,r)` の要素の総和 `x` を求める．|$\mathcal{O}(\log N)$|
+|`x=sum(l,r)`|区間 `[l,r)` の要素の総和 `x` を求める．|$\mathcal{O}(\log N)$|
+|`reset()`|全要素を `T()` で初期化する．|$\mathcal{O}(N)$|
+
+
+## 参考
 
 1. "フェニック木". Wikipedia. <https://ja.wikipedia.org/wiki/フェニック木>.
 1. "アーベル群". Wikipedia. <https://ja.wikipedia.org/wiki/アーベル群>.
