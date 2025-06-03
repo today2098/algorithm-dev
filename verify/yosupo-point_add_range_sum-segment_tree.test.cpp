@@ -13,7 +13,9 @@ int main() {
     std::vector<long long> a(n);
     for(auto &elem : a) std::cin >> elem;
 
-    auto &&segtree = algorithm::segmenttree::range_sum_query(a);
+    using monoid = algorithm::algebra::monoid::range_sum_query<long long>;
+    algorithm::SegmentTree<monoid> segtree(a.cbegin(), a.cend());
+
     while(q--) {
         int t;
         std::cin >> t;
