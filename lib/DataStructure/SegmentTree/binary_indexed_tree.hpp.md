@@ -21,65 +21,68 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\n\
-    \n\n\n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include <vector>\n\
-    \nnamespace algorithm {\n\n// Binary Indexed Tree.\ntemplate <typename T>\nclass\
-    \ BIT {\npublic:\n    using value_type = T;\n\nprivate:\n    int m_sz;  // m_sz:=(\u8981\
-    \u7D20\u6570).\n    std::vector<value_type> m_tree;\n\n    static constexpr int\
-    \ lsb(int bit) { return bit & -bit; }\n    void build() {\n        for(int i =\
-    \ 1, end = size(); i < end; ++i) {\n            int j = i + lsb(i);\n        \
-    \    if(j <= end) m_tree[j - 1] += m_tree[i - 1];\n        }\n    }\n\npublic:\n\
-    \    // constructor. O(N).\n    BIT() : BIT(0) {};\n    explicit BIT(int n) :\
-    \ m_sz(n), m_tree(n, value_type()) {\n        assert(n >= 0);\n    }\n    explicit\
-    \ BIT(int n, const value_type &a) : m_sz(n), m_tree(n, a) {\n        assert(n\
-    \ >= 0);\n        if(a != value_type()) build();\n    }\n    explicit BIT(const\
-    \ std::vector<value_type> &v) : m_sz(v.size()), m_tree(v) {\n        build();\n\
-    \    }\n    explicit BIT(std::vector<value_type> &&v) : m_sz(v.size()), m_tree(std::move(v))\
+    \n\n\n#include <algorithm>\n#include <cassert>\n#include <initializer_list>\n\
+    #include <iterator>\n#include <utility>\n#include <vector>\n\nnamespace algorithm\
+    \ {\n\n// Binary Indexed Tree.\ntemplate <typename T>\nclass BIT {\npublic:\n\
+    \    using value_type = T;\n\nprivate:\n    std::vector<value_type> m_tree;\n\n\
+    \    static constexpr int lsb(int bit) { return bit & -bit; }\n    void build()\
+    \ {\n        for(int i = 1, end = size(); i < end; ++i) {\n            int j =\
+    \ i + lsb(i);\n            if(j <= end) m_tree[j - 1] += m_tree[i - 1];\n    \
+    \    }\n    }\n\npublic:\n    // constructor. O(N).\n    BIT() : BIT(0) {};\n\
+    \    explicit BIT(int n) : BIT(n, value_type()) {}\n    explicit BIT(int n, const\
+    \ value_type &a) : m_tree(n, a) {\n        assert(n >= 0);\n        if(a != value_type())\
+    \ build();\n    }\n    template <std::input_iterator InputIter>\n    explicit\
+    \ BIT(InputIter first, InputIter last) : m_tree(first, last) {\n        build();\n\
+    \    }\n    explicit BIT(std::initializer_list<value_type> il) : m_tree(il) {\n\
+    \        build();\n    }\n    explicit BIT(std::vector<value_type> &&v) : m_tree(std::move(v))\
     \ {\n        build();\n    }\n\n    // \u8981\u7D20\u6570\u3092\u53D6\u5F97\u3059\
-    \u308B\uFF0E\n    int size() const { return m_sz; }\n    // k\u756A\u76EE\u306E\
-    \u8981\u7D20\u306Ba\u3092\u52A0\u7B97\u3059\u308B\uFF0EO(logN).\n    void add(int\
-    \ k, const value_type &a) {\n        assert(0 <= k and k < size());\n        for(int\
-    \ i = k + 1, end = size(); i <= end; i += lsb(i)) m_tree[i - 1] += a;\n    }\n\
-    \    // \u533A\u9593[0,r)\u306E\u8981\u7D20\u306E\u7DCF\u548C\u3092\u6C42\u3081\
-    \u308B\uFF0EO(logN).\n    T sum(int r) const {\n        assert(0 <= r and r <=\
-    \ size());\n        T res = value_type();\n        for(int i = r; i >= 1; i -=\
-    \ lsb(i)) res += m_tree[i - 1];\n        return res;\n    }\n    // \u533A\u9593\
-    [l,r)\u306E\u8981\u7D20\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\uFF0EO(logN).\n\
-    \    T sum(int l, int r) const {\n        assert(0 <= l and l < r and r <= size());\n\
-    \        return sum(r) - sum(l);\n    }\n    void reset() { std::fill(m_tree.begin(),\
-    \ m_tree.end(), value_type()); }\n};\n\n}  // namespace algorithm\n\n\n"
-  code: "#ifndef ALGORITHM_BINARY_INDEXED_TREE_HPP\n#define ALGORITHM_BINARY_INDEXED_TREE_HPP\
-    \ 1\n\n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include\
-    \ <vector>\n\nnamespace algorithm {\n\n// Binary Indexed Tree.\ntemplate <typename\
-    \ T>\nclass BIT {\npublic:\n    using value_type = T;\n\nprivate:\n    int m_sz;\
-    \  // m_sz:=(\u8981\u7D20\u6570).\n    std::vector<value_type> m_tree;\n\n   \
-    \ static constexpr int lsb(int bit) { return bit & -bit; }\n    void build() {\n\
-    \        for(int i = 1, end = size(); i < end; ++i) {\n            int j = i +\
-    \ lsb(i);\n            if(j <= end) m_tree[j - 1] += m_tree[i - 1];\n        }\n\
-    \    }\n\npublic:\n    // constructor. O(N).\n    BIT() : BIT(0) {};\n    explicit\
-    \ BIT(int n) : m_sz(n), m_tree(n, value_type()) {\n        assert(n >= 0);\n \
-    \   }\n    explicit BIT(int n, const value_type &a) : m_sz(n), m_tree(n, a) {\n\
-    \        assert(n >= 0);\n        if(a != value_type()) build();\n    }\n    explicit\
-    \ BIT(const std::vector<value_type> &v) : m_sz(v.size()), m_tree(v) {\n      \
-    \  build();\n    }\n    explicit BIT(std::vector<value_type> &&v) : m_sz(v.size()),\
-    \ m_tree(std::move(v)) {\n        build();\n    }\n\n    // \u8981\u7D20\u6570\
-    \u3092\u53D6\u5F97\u3059\u308B\uFF0E\n    int size() const { return m_sz; }\n\
-    \    // k\u756A\u76EE\u306E\u8981\u7D20\u306Ba\u3092\u52A0\u7B97\u3059\u308B\uFF0E\
-    O(logN).\n    void add(int k, const value_type &a) {\n        assert(0 <= k and\
-    \ k < size());\n        for(int i = k + 1, end = size(); i <= end; i += lsb(i))\
-    \ m_tree[i - 1] += a;\n    }\n    // \u533A\u9593[0,r)\u306E\u8981\u7D20\u306E\
-    \u7DCF\u548C\u3092\u6C42\u3081\u308B\uFF0EO(logN).\n    T sum(int r) const {\n\
-    \        assert(0 <= r and r <= size());\n        T res = value_type();\n    \
-    \    for(int i = r; i >= 1; i -= lsb(i)) res += m_tree[i - 1];\n        return\
+    \u308B\uFF0E\n    int size() const { return m_tree.size(); }\n    // k\u756A\u76EE\
+    \u306E\u8981\u7D20\u306Ba\u3092\u52A0\u7B97\u3059\u308B\uFF0EO(log N).\n    void\
+    \ add(int k, const value_type &a) {\n        assert(0 <= k and k < size());\n\
+    \        for(int i = k + 1, end = size(); i <= end; i += lsb(i)) m_tree[i - 1]\
+    \ += a;\n    }\n    // \u533A\u9593[0,r)\u306E\u8981\u7D20\u306E\u7DCF\u548C\u3092\
+    \u6C42\u3081\u308B\uFF0EO(log N).\n    value_type sum(int r) const {\n       \
+    \ assert(0 <= r and r <= size());\n        value_type res = value_type();\n  \
+    \      for(int i = r; i >= 1; i -= lsb(i)) res += m_tree[i - 1];\n        return\
     \ res;\n    }\n    // \u533A\u9593[l,r)\u306E\u8981\u7D20\u306E\u7DCF\u548C\u3092\
-    \u6C42\u3081\u308B\uFF0EO(logN).\n    T sum(int l, int r) const {\n        assert(0\
-    \ <= l and l < r and r <= size());\n        return sum(r) - sum(l);\n    }\n \
-    \   void reset() { std::fill(m_tree.begin(), m_tree.end(), value_type()); }\n\
-    };\n\n}  // namespace algorithm\n\n#endif\n"
+    \u6C42\u3081\u308B\uFF0EO(log N).\n    value_type sum(int l, int r) const {\n\
+    \        assert(0 <= l and l < r and r <= size());\n        return sum(r) - sum(l);\n\
+    \    }\n    void reset() {\n        std::fill(m_tree.begin(), m_tree.end(), value_type());\n\
+    \    }\n};\n\n}  // namespace algorithm\n\n\n"
+  code: "#ifndef ALGORITHM_BINARY_INDEXED_TREE_HPP\n#define ALGORITHM_BINARY_INDEXED_TREE_HPP\
+    \ 1\n\n#include <algorithm>\n#include <cassert>\n#include <initializer_list>\n\
+    #include <iterator>\n#include <utility>\n#include <vector>\n\nnamespace algorithm\
+    \ {\n\n// Binary Indexed Tree.\ntemplate <typename T>\nclass BIT {\npublic:\n\
+    \    using value_type = T;\n\nprivate:\n    std::vector<value_type> m_tree;\n\n\
+    \    static constexpr int lsb(int bit) { return bit & -bit; }\n    void build()\
+    \ {\n        for(int i = 1, end = size(); i < end; ++i) {\n            int j =\
+    \ i + lsb(i);\n            if(j <= end) m_tree[j - 1] += m_tree[i - 1];\n    \
+    \    }\n    }\n\npublic:\n    // constructor. O(N).\n    BIT() : BIT(0) {};\n\
+    \    explicit BIT(int n) : BIT(n, value_type()) {}\n    explicit BIT(int n, const\
+    \ value_type &a) : m_tree(n, a) {\n        assert(n >= 0);\n        if(a != value_type())\
+    \ build();\n    }\n    template <std::input_iterator InputIter>\n    explicit\
+    \ BIT(InputIter first, InputIter last) : m_tree(first, last) {\n        build();\n\
+    \    }\n    explicit BIT(std::initializer_list<value_type> il) : m_tree(il) {\n\
+    \        build();\n    }\n    explicit BIT(std::vector<value_type> &&v) : m_tree(std::move(v))\
+    \ {\n        build();\n    }\n\n    // \u8981\u7D20\u6570\u3092\u53D6\u5F97\u3059\
+    \u308B\uFF0E\n    int size() const { return m_tree.size(); }\n    // k\u756A\u76EE\
+    \u306E\u8981\u7D20\u306Ba\u3092\u52A0\u7B97\u3059\u308B\uFF0EO(log N).\n    void\
+    \ add(int k, const value_type &a) {\n        assert(0 <= k and k < size());\n\
+    \        for(int i = k + 1, end = size(); i <= end; i += lsb(i)) m_tree[i - 1]\
+    \ += a;\n    }\n    // \u533A\u9593[0,r)\u306E\u8981\u7D20\u306E\u7DCF\u548C\u3092\
+    \u6C42\u3081\u308B\uFF0EO(log N).\n    value_type sum(int r) const {\n       \
+    \ assert(0 <= r and r <= size());\n        value_type res = value_type();\n  \
+    \      for(int i = r; i >= 1; i -= lsb(i)) res += m_tree[i - 1];\n        return\
+    \ res;\n    }\n    // \u533A\u9593[l,r)\u306E\u8981\u7D20\u306E\u7DCF\u548C\u3092\
+    \u6C42\u3081\u308B\uFF0EO(log N).\n    value_type sum(int l, int r) const {\n\
+    \        assert(0 <= l and l < r and r <= size());\n        return sum(r) - sum(l);\n\
+    \    }\n    void reset() {\n        std::fill(m_tree.begin(), m_tree.end(), value_type());\n\
+    \    }\n};\n\n}  // namespace algorithm\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
   requiredBy: []
-  timestamp: '2025-03-24 17:00:14+09:00'
+  timestamp: '2025-06-01 10:46:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
@@ -94,7 +97,7 @@ title: Binary Indexed Tree
 
 ## 概要
 
-1994年に Peter Fenwick により提案された木構造をしたデータ構造．
+「Binary Indexed Tree (BIT)」とは，1994年に Peter Fenwick により提案された木構造をしたデータ構造．
 別名「Fenwick Tree（フェニック木）」．
 
 長さ $N$ の数列 $\lbrace a_0, a_1, \ldots, a_{N-1} \rbrace$ に対して，次のクエリ処理 (RSM: Range Sum Query) を $\mathcal{O}(\log N)$ で行う．
@@ -106,7 +109,7 @@ title: Binary Indexed Tree
 
 必要なメモリサイズは，対象の配列サイズと同じ（Segment Tree では2倍程度必要となる）．
 
-本実装の Binary Indexed Tree (BIT) は，数の加算のみをサポートしているが，拡張すればアーベル群（可換群）を成す他の演算もサポートすることができる．
+本実装では，数の加算のみをサポートしているが，拡張すればアーベル群（可換群）を成す他の演算もサポートすることができる．
 
 ここで「アーベル群」とは，集合 $G$ と二項演算 $\ast : S \times S \rightarrow S$ の組 $(G, \ast)$ で，以下の条件を満たす代数構造のことを指す．
 
@@ -119,7 +122,25 @@ Segment Tree が扱うのは「モノイド」であり，モノイドは上記�
 それに対し，BIT は条件 (3), (4) が加わり制約が厳しい．
 
 
-## 参考文献
+## 説明
+
+### algorithm::BIT
+
+|メンバ関数|説明|計算量|
+|---|---|---|
+|`BIT<T>()`|デフォルトコンストラクタ．サイズゼロの `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`BIT<T>(n)`|コンストラクタ．`n` 個の `T()` で初期化された要素をもつ `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`BIT<T>(n,a)`|コンストラクタ．`n` 個の `a` で初期化された要素をもつ `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`BIT<T>(first,last)`|コンストラクタ．イテレータ範囲 `[first,last)` の要素で `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`BIT<T>(il)`|コンストラクタ．初期化子リストの要素で `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
+|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
+|`add(k,a)`|`k` 番目の要素に `a` を加算する．|$\mathcal{O}(\log N)$|
+|`x=sum(r)`|区間 `[0,r)` の要素の総和 `x` を求める．|$\mathcal{O}(\log N)$|
+|`x=sum(l,r)`|区間 `[l,r)` の要素の総和 `x` を求める．|$\mathcal{O}(\log N)$|
+|`reset()`|全要素を `T()` で初期化する．|$\mathcal{O}(N)$|
+
+
+## 参考
 
 1. "フェニック木". Wikipedia. <https://ja.wikipedia.org/wiki/フェニック木>.
 1. "アーベル群". Wikipedia. <https://ja.wikipedia.org/wiki/アーベル群>.
