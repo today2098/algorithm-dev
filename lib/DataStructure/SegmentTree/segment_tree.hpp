@@ -3,21 +3,16 @@
 
 #include <algorithm>
 #include <cassert>
-#include <functional>
 #include <initializer_list>
 #include <iostream>
 #include <iterator>
 #include <type_traits>
 #include <vector>
 
-#include "algebra.hpp"
-
 namespace algorithm {
 
 template <class Monoid>
 class SegmentTree {
-    static_assert(algebra::is_monoid<Monoid>::value);
-
 public:
     using monoid_type = Monoid;
     using value_type = monoid_type::value_type;
@@ -44,9 +39,10 @@ public:
         while(m_n < m_sz) m_n <<= 1;
         m_tree.assign(2 * m_n, monoid_type::one());
     }
-    explicit SegmentTree(int n, const value_type &a) : SegmentTree(n) {
-        if(monoid_type(a) == monoid_type::one()) return;
-        std::fill(m_tree.begin() + m_n, m_tree.begin() + m_n + m_sz, monoid_type(a));
+    explicit SegmentTree(int n, const value_type &a) : SegmentTree(n, monoid_type(a)) {}
+    explicit SegmentTree(int n, const monoid_type &a) : SegmentTree(n) {
+        if(a == monoid_type::one()) return;
+        std::fill_n(m_tree.begin() + m_n, n, a);
         build();
     }
     template <std::input_iterator InputIter>
@@ -59,14 +55,18 @@ public:
         build();
     }
     explicit SegmentTree(std::initializer_list<value_type> il) : SegmentTree(il.begin(), il.end()) {}
+    explicit SegmentTree(std::initializer_list<monoid_type> il) : SegmentTree(il.begin(), il.end()) {}
 
     // 要素数を取得する．
     int size() const { return m_sz; }
     // k番目の要素をaに置き換える．O(log N).
     void set(int k, const value_type &a) {
+        set(k, monoid_type(a));
+    }
+    void set(int k, const monoid_type &a) {
         assert(0 <= k and k < size());
         k += m_n;
-        m_tree[k] = monoid_type(a);
+        m_tree[k] = a;
         while(k >>= 1) update(k);
     }
     // k番目の要素を取得する．O(1).
@@ -92,12 +92,12 @@ public:
     int most_right(int l) const {
         return most_right(l, [](const value_type &x) -> bool { return pred(x); });
     }
-    template <class Pred>
+    template <typename Pred>
     int most_right(int l, Pred pred) const {
-        static_assert(std::is_convertible_v<Pred, std::function<bool(value_type)>>);
+        static_assert(std::is_invocable_r<bool, Pred, value_type>::value);
         assert(0 <= l and l <= size());
         assert(pred(monoid_type::one().value()));
-        if(l == size()) return size();
+        if(l == m_sz) return m_sz;
         l += m_n;
         monoid_type &&val = monoid_type::one();
         do {
@@ -113,7 +113,7 @@ public:
             }
             val = tmp, ++l;
         } while((l & -l) != l);
-        return size();
+        return m_sz;
     }
     // pred(prod(l,r))==true となる区間の最左位値lを二分探索する．
     // ただし，区間[0,r)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
@@ -121,9 +121,9 @@ public:
     int most_left(int r) const {
         return most_left(r, [](const value_type &x) -> bool { return pred(x); });
     }
-    template <class Pred>
+    template <typename Pred>
     int most_left(int r, Pred pred) const {
-        static_assert(std::is_convertible_v<Pred, std::function<bool(value_type)>>);
+        static_assert(std::is_invocable_r<bool, Pred, value_type>::value);
         assert(0 <= r and r <= size());
         assert(pred(monoid_type::one().value()));
         if(r == 0) return 0;

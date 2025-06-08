@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../lib/DataStructure/SegmentTree/segment_tree.hpp"
+#include "../lib/Math/Algebra/algebra.hpp"
 #include "../lib/Math/ModularArithmetic/modint.hpp"
 
 int main() {

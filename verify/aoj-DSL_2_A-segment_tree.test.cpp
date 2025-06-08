@@ -3,13 +3,14 @@
 #include <iostream>
 
 #include "../lib/DataStructure/SegmentTree/segment_tree.hpp"
+#include "../lib/Math/Algebra/algebra.hpp"
 
 int main() {
     int n;
     int q;
     std::cin >> n >> q;
 
-    using monoid = algorithm::algebra::monoid::range_minimum_query<int>;
+    using monoid = algorithm::algebra::monoid::minimum<int>;
     algorithm::SegmentTree<monoid> segtree(n);
 
     while(q--) {

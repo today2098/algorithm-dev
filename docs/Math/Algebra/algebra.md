@@ -1,6 +1,6 @@
 ---
 title: Algebraic Structure（代数的構造）
-documentation_of: //lib/DataStructure/SegmentTree/algebra.hpp
+documentation_of: //lib/Math/Algebra/algebra.hpp
 ---
 
 

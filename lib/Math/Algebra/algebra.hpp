@@ -1,0 +1,247 @@
+#ifndef ALGORITHM_ALGEBRA_HPP
+#define ALGORITHM_ALGEBRA_HPP
+
+#include <algorithm>
+#include <iostream>
+#include <limits>
+#include <numeric>
+#include <type_traits>
+#include <utility>
+
+namespace algorithm {
+
+namespace algebra {
+
+template <typename S>
+class Set {
+public:
+    using value_type = S;
+
+protected:
+    value_type val;
+
+public:
+    constexpr Set() : val() {}
+    constexpr Set(const value_type &val) : val(val) {}
+    constexpr Set(value_type &&val) : val(std::move(val)) {}
+
+    friend constexpr bool operator==(const Set &lhs, const Set &rhs) { return lhs.val == rhs.val; }
+    friend std::istream &operator>>(std::istream &is, Set &rhs) { return is >> rhs.val; }
+    friend std::ostream &operator<<(std::ostream &os, const Set &rhs) { return os << rhs.val; }
+
+    constexpr value_type value() const { return val; }
+};
+
+template <class Derived>
+class is_set {
+    template <typename S>
+    static constexpr std::true_type test(Set<S> *);
+    static constexpr std::false_type test(...);
+
+public:
+    static constexpr bool value = decltype(test(std::declval<Derived *>()))::value;
+};
+
+template <class Derived>
+inline constexpr bool is_set_v = is_set<Derived>::value;
+
+template <typename S, auto op>
+class Semigroup : public Set<S> {
+    static_assert(std::is_invocable_r<S, decltype(op), S, S>::value);
+
+    using base_type = Set<S>;
+
+public:
+    using value_type = typename base_type::value_type;
+
+    constexpr Semigroup() : base_type() {}
+    constexpr Semigroup(const value_type &val) : base_type(val) {}
+    constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}
+
+    friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs) { return Semigroup(op(lhs.val, rhs.val)); }
+
+    static constexpr auto get_op() { return op; }
+};
+
+template <class Derived>
+class is_semigroup {
+    template <typename S, auto op>
+    static constexpr std::true_type test(Semigroup<S, op> *);
+    static constexpr std::false_type test(...);
+
+public:
+    static constexpr bool value = decltype(test(std::declval<Derived *>()))::value;
+};
+
+template <class Derived>
+inline constexpr bool is_semigroup_v = is_semigroup<Derived>::value;
+
+template <typename S, auto op, auto e>
+class Monoid : public Semigroup<S, op> {
+    static_assert(std::is_invocable_r<S, decltype(e)>::value);
+
+    using base_type = Semigroup<S, op>;
+
+public:
+    using value_type = typename base_type::value_type;
+
+    constexpr Monoid() : base_type() {}
+    constexpr Monoid(const value_type &val) : base_type(val) {}
+    constexpr Monoid(value_type &&val) : base_type(std::move(val)) {}
+
+    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.val, rhs.val)); }
+
+    static constexpr Monoid one() { return Monoid(e()); }  // return identity element.
+    static constexpr auto get_e() { return e; }
+};
+
+template <class Derived>
+class is_monoid {
+    template <typename S, auto op, auto e>
+    static constexpr std::true_type test(Monoid<S, op, e> *);
+    static constexpr std::false_type test(...);
+
+public:
+    static constexpr bool value = decltype(test(std::declval<Derived *>()))::value;
+};
+
+template <class Derived>
+inline constexpr bool is_monoid_v = is_monoid<Derived>::value;
+
+template <typename F, auto compose, auto id, typename X, auto mapping>
+class OperatorMonoid : public Monoid<F, compose, id> {
+    static_assert(std::is_invocable_r<X, decltype(mapping), F, X>::value);
+
+    using base_type = Monoid<F, compose, id>;
+
+public:
+    using value_type = typename base_type::value_type;
+    using acted_value_type = X;
+
+    constexpr OperatorMonoid() : base_type() {}
+    constexpr OperatorMonoid(const value_type &val) : base_type(val) {}
+    constexpr OperatorMonoid(value_type &&val) : base_type(std::move(val)) {}
+
+    friend constexpr OperatorMonoid operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val, rhs.val)); }
+
+    static constexpr OperatorMonoid one() { return OperatorMonoid(id()); }  // return identity mapping.
+    constexpr acted_value_type act(const acted_value_type &x) const { return mapping(this->val, x); }
+    template <class S>
+    constexpr S act(const S &x) const {
+        static_assert(std::is_base_of<Set<acted_value_type>, S>::value);
+        return S(mapping(this->val, x.val));
+    }
+};
+
+template <class Derived>
+class is_operator_monoid {
+    template <typename F, auto compose, auto id, typename X, auto mapping>
+    static constexpr std::true_type test(OperatorMonoid<F, compose, id, X, mapping> *);
+    static constexpr std::false_type test(...);
+
+public:
+    static constexpr bool value = decltype(test(std::declval<Derived *>()))::value;
+};
+
+template <class Derived>
+inline constexpr bool is_operator_monoid_v = is_operator_monoid<Derived>::value;
+
+namespace element {
+
+template <typename S>
+constexpr auto zero = []() -> S { return S(); };
+
+template <typename S>
+constexpr auto one = []() -> S { return 1; };
+
+template <typename S>
+constexpr auto min = []() -> S { return std::numeric_limits<S>::min(); };
+
+template <typename S>
+constexpr auto max = []() -> S { return std::numeric_limits<S>::max(); };
+
+template <typename S>
+constexpr auto one_below_max = []() -> S { return std::numeric_limits<S>::max() - 1; };
+
+template <typename S>
+constexpr auto lowest = []() -> S { return std::numeric_limits<S>::lowest(); };
+
+template <typename S>
+constexpr auto one_above_lowest = []() -> S { return std::numeric_limits<S>::lowest() + 1; };
+
+}  // namespace element
+
+namespace boperator {
+
+template <typename T, typename S = T>
+constexpr auto plus = [](const T &lhs, const S &rhs) -> S { return lhs + rhs; };
+
+template <typename T, typename S = T>
+constexpr auto mul = [](const T &lhs, const S &rhs) -> S { return lhs * rhs; };
+
+template <typename T, typename S = T>
+constexpr auto bit_and = [](const T &lhs, const S &rhs) -> S { return lhs & rhs; };
+
+template <typename T, typename S = T>
+constexpr auto bit_or = [](const T &lhs, const S &rhs) -> S { return lhs | rhs; };
+
+template <typename T, typename S = T>
+constexpr auto bit_xor = [](const T &lhs, const S &rhs) -> S { return lhs ^ rhs; };
+
+template <typename T, typename S = T>
+constexpr auto min = [](const T &lhs, const S &rhs) -> S { return std::min<S>(lhs, rhs); };
+
+template <typename T, typename S = T>
+constexpr auto max = [](const T &lhs, const S &rhs) -> S { return std::max<S>(lhs, rhs); };
+
+template <typename T, typename S = T>
+constexpr auto gcd = [](const T &lhs, const S &rhs) -> S { return std::gcd(lhs, rhs); };
+
+template <typename T, typename S = T>
+constexpr auto lcm = [](const T &lhs, const S &rhs) -> S { return std::lcm(lhs, rhs); };
+
+template <typename F, auto id, typename X = F>
+constexpr auto assign_if_not_id = [](const F &lhs, const X &rhs) -> X {
+    static_assert(std::is_invocable_r<F, decltype(id)>::value);
+    return (lhs == id() ? rhs : lhs);
+};
+
+}  // namespace boperator
+
+namespace monoid {
+
+template <typename S>
+using minimum = Monoid<S, boperator::min<S>, element::one_below_max<S>>;
+
+template <typename S>
+using maximum = Monoid<S, boperator::max<S>, element::one_above_lowest<S>>;
+
+template <typename S>
+using addition = Monoid<S, boperator::plus<S>, element::zero<S>>;
+
+template <typename S>
+using multiplication = Monoid<S, boperator::mul<S>, element::one<S>>;
+
+template <typename S>
+using bit_xor = Monoid<S, boperator::bit_xor<S>, element::zero<S>>;
+
+namespace action {
+
+template <typename F, typename X = F>
+using assign_for_minimum = OperatorMonoid<F, boperator::assign_if_not_id<F, element::max<F>>, element::max<F>, X, boperator::assign_if_not_id<F, element::max<F>, X>>;
+
+template <typename F, typename X = F>
+using assign_for_maximum = OperatorMonoid<F, boperator::assign_if_not_id<F, element::lowest<F>>, element::lowest<F>, X, boperator::assign_if_not_id<F, element::lowest<F>, X>>;
+
+template <typename F, typename X = F>
+using addition = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F, X>>;
+
+}  // namespace action
+
+}  // namespace monoid
+
+}  // namespace algebra
+
+}  // namespace algorithm
+
+#endif
