@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include "../lib/DataStructure/SegmentTree/segment_tree.hpp"
-#include "../lib/Math/Algebra/algebra.hpp"
 #include "../lib/Math/ModularArithmetic/modint.hpp"
 
 int main() {
@@ -11,26 +10,21 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using Type = algorithm::mint998244353;
     using S = struct {
-        Type a;
-        Type b;
+        algorithm::mint998244353 a;
+        algorithm::mint998244353 b;
     };
-    auto mapping = [](const S &f, Type x) -> Type {
-        return x * f.a + f.b;
+    auto mapping = [](const S &f, algorithm::mint998244353 x) -> algorithm::mint998244353 {
+        return f.a * x + f.b;
     };
+
+    std::vector<S> v(n);
+    for(auto &elem : v) std::cin >> elem.a >> elem.b;
 
     constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.a * rhs.a, lhs.b * rhs.a + rhs.b}; };
     constexpr auto e = []() -> S { return {1, 0}; };
     using monoid = algorithm::algebra::Monoid<S, op, e>;
-    algorithm::SegmentTree<monoid> segtree(n);
-
-    for(int i = 0; i < n; ++i) {
-        Type a, b;
-        std::cin >> a >> b;
-
-        segtree.set(i, {a, b});
-    }
+    algorithm::segment_tree::SegmentTree<monoid> segtree(v.cbegin(), v.cend());
 
     while(q--) {
         int t;
@@ -38,13 +32,13 @@ int main() {
 
         if(t == 0) {
             int p;
-            Type c, d;
+            algorithm::mint998244353 c, d;
             std::cin >> p >> c >> d;
 
             segtree.set(p, {c, d});
         } else {
             int l, r;
-            Type x;
+            int x;
             std::cin >> l >> r >> x;
 
             auto &&f = segtree.prod(l, r);

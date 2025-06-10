@@ -9,7 +9,11 @@
 #include <type_traits>
 #include <vector>
 
+#include "../../Math/Algebra/algebra.hpp"
+
 namespace algorithm {
+
+namespace segment_tree {
 
 template <class Monoid>
 class SegmentTree {
@@ -41,7 +45,6 @@ public:
     }
     explicit SegmentTree(int n, const value_type &a) : SegmentTree(n, monoid_type(a)) {}
     explicit SegmentTree(int n, const monoid_type &a) : SegmentTree(n) {
-        if(a == monoid_type::one()) return;
         std::fill_n(m_tree.begin() + m_n, n, a);
         build();
     }
@@ -54,8 +57,8 @@ public:
         m_tree.resize(2 * m_n, monoid_type::one());
         build();
     }
-    explicit SegmentTree(std::initializer_list<value_type> il) : SegmentTree(il.begin(), il.end()) {}
-    explicit SegmentTree(std::initializer_list<monoid_type> il) : SegmentTree(il.begin(), il.end()) {}
+    template <typename T>
+    explicit SegmentTree(std::initializer_list<T> il) : SegmentTree(il.begin(), il.end()) {}
 
     // 要素数を取得する．
     int size() const { return m_sz; }
@@ -158,6 +161,17 @@ public:
         return os << "]";
     }
 };
+
+template <typename S>
+using range_minimum_segment_tree = SegmentTree<algebra::monoid::minimum<S>>;
+
+template <typename S>
+using range_maximum_segment_tree = SegmentTree<algebra::monoid::maximum<S>>;
+
+template <typename S>
+using range_sum_segment_tree = SegmentTree<algebra::monoid::addition<S>>;
+
+}  // namespace segment_tree
 
 }  // namespace algorithm
 

@@ -9,7 +9,11 @@
 #include <type_traits>
 #include <vector>
 
+#include "../../Math/Algebra/algebra.hpp"
+
 namespace algorithm {
+
+namespace lazy_segment_tree {
 
 template <class ActedMonoid, class OperatorMonoid>
 class LazySegmentTree {
@@ -56,7 +60,6 @@ public:
     }
     explicit LazySegmentTree(int n, const acted_value_type &a) : LazySegmentTree(n, acted_monoid_type(a)) {}
     explicit LazySegmentTree(int n, const acted_monoid_type &a) : LazySegmentTree(n) {
-        if(a == acted_monoid_type::one()) return;
         std::fill_n(m_tree.begin() + m_n, n, a);
         build();
     }
@@ -70,8 +73,8 @@ public:
         m_lazy.resize(m_n, operator_monoid_type::one());
         build();
     }
-    explicit LazySegmentTree(std::initializer_list<acted_value_type> il) : LazySegmentTree(il.begin(), il.end()) {}
-    explicit LazySegmentTree(std::initializer_list<acted_monoid_type> il) : LazySegmentTree(il.begin(), il.end()) {}
+    template <typename T>
+    explicit LazySegmentTree(std::initializer_list<T> il) : LazySegmentTree(il.begin(), il.end()) {}
 
     // 要素数を取得する．
     int size() const { return m_sz; }
@@ -227,6 +230,124 @@ public:
         return os << "  ]\n}";
     }
 };
+
+namespace internal {
+
+namespace range_sum_range_update {
+
+template <typename T>
+struct S {
+    T val;
+    int size;
+
+    constexpr S() : S(T(), 0) {}
+    constexpr S(const T &val) : S(val, 1) {}
+    constexpr S(const T &val, int size) : val(val), size(size) {}
+
+    friend constexpr S operator+(const S &lhs, const S &rhs) { return {lhs.val + rhs.val, lhs.size + rhs.size}; }
+    friend std::ostream &operator<<(std::ostream &os, const S &rhs) { return os << "{" << rhs.val << ", " << rhs.size << "}"; }
+};
+
+template <typename T>
+using acted_monoid = algebra::Monoid<S<T>, algebra::boperator::plus<S<T>>, algebra::element::zero<S<T>>>;
+
+template <typename F>
+constexpr auto id = algebra::element::max<F>;
+
+template <typename F>
+constexpr auto compose = algebra::boperator::assign_if_not_id<F, id<F>>;
+
+template <typename F, typename T = F>
+constexpr auto mapping = [](const F &f, const S<T> &x) -> S<T> {
+    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);
+    return {(f == id<F>() ? x.val : f * x.size), x.size};
+};
+
+template <typename F, typename T = F>
+using operator_monoid = algebra::OperatorMonoid<F, compose<F>, id<F>, S<T>, mapping<F, T>>;
+
+}  // namespace range_sum_range_update
+
+namespace range_sum_range_add {
+
+template <typename T>
+using S = range_sum_range_update::S<T>;
+
+template <typename T>
+using acted_monoid = range_sum_range_update::acted_monoid<T>;
+
+template <typename F>
+constexpr auto id = algebra::element::zero<F>;
+
+template <typename F>
+constexpr auto compose = algebra::boperator::plus<F>;
+
+template <typename F, typename T = F>
+constexpr auto mapping = [](const F &f, const S<T> &x) -> S<T> { return {x.val + f * x.size, x.size}; };
+
+template <typename F, typename T = F>
+using operator_monoid = algebra::OperatorMonoid<F, compose<F>, id<F>, S<T>, mapping<F, T>>;
+
+}  // namespace range_sum_range_add
+
+namespace range_sum_range_affine {
+
+template <typename T>
+using S = range_sum_range_update::S<T>;
+
+template <typename T>
+using acted_monoid = range_sum_range_update::acted_monoid<T>;
+
+template <typename U>
+struct F {
+    U a;
+    U b;
+
+    constexpr F() : F(U(), U()) {}
+    constexpr F(const U &a, const U &b) : a(a), b(b) {}
+
+    friend constexpr F operator*(const F &lhs, const F &rhs) { return {lhs.a * rhs.a, lhs.a * rhs.b + lhs.b}; }
+    friend std::ostream &operator<<(std::ostream &os, const F &rhs) { return os << "{" << rhs.a << ", " << rhs.b << "}"; }
+};
+
+template <typename U>
+constexpr auto id = []() -> F<U> { return {1, 0}; };
+
+template <typename U>
+constexpr auto compose = algebra::boperator::mul<F<U>>;
+
+template <typename U, typename T = U>
+constexpr auto mapping = [](const F<U> &f, const S<T> &x) -> S<T> { return {f.a * x.val + f.b * x.size, x.size}; };
+
+template <typename U, typename T = U>
+using operator_monoid = algebra::OperatorMonoid<F<U>, compose<U>, id<U>, S<T>, mapping<U, T>>;
+
+}  // namespace range_sum_range_affine
+
+}  // namespace internal
+
+template <typename S, typename F = S>
+using range_minimum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum_safe<S>, algebra::monoid::action::assign_for_minimum<F, S>>;
+
+template <typename S, typename F = S>
+using range_minimum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum<S>, algebra::monoid::action::addition<F, S>>;
+
+template <typename S, typename F = S>
+using range_maximum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum_safe<S>, algebra::monoid::action::assign_for_maximum<F, S>>;
+
+template <typename S, typename F = S>
+using range_maximum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum<S>, algebra::monoid::action::addition<F, S>>;
+
+template <typename T, typename F = T>
+using range_sum_range_update_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_update::acted_monoid<T>, internal::range_sum_range_update::operator_monoid<F, T>>;
+
+template <typename T, typename F = T>
+using range_sum_range_add_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_add::acted_monoid<T>, internal::range_sum_range_add::operator_monoid<F, T>>;
+
+template <typename T, typename U = T>
+using range_sum_range_affine_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_affine::acted_monoid<T>, internal::range_sum_range_affine::operator_monoid<U, T>>;
+
+}  // namespace lazy_segment_tree
 
 }  // namespace algorithm
 

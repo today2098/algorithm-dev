@@ -32,19 +32,6 @@ public:
     constexpr value_type value() const { return val; }
 };
 
-template <class Derived>
-class is_set {
-    template <typename S>
-    static constexpr std::true_type test(Set<S> *);
-    static constexpr std::false_type test(...);
-
-public:
-    static constexpr bool value = decltype(test(std::declval<Derived *>()))::value;
-};
-
-template <class Derived>
-inline constexpr bool is_set_v = is_set<Derived>::value;
-
 template <typename S, auto op>
 class Semigroup : public Set<S> {
     static_assert(std::is_invocable_r<S, decltype(op), S, S>::value);
@@ -62,19 +49,6 @@ public:
 
     static constexpr auto get_op() { return op; }
 };
-
-template <class Derived>
-class is_semigroup {
-    template <typename S, auto op>
-    static constexpr std::true_type test(Semigroup<S, op> *);
-    static constexpr std::false_type test(...);
-
-public:
-    static constexpr bool value = decltype(test(std::declval<Derived *>()))::value;
-};
-
-template <class Derived>
-inline constexpr bool is_semigroup_v = is_semigroup<Derived>::value;
 
 template <typename S, auto op, auto e>
 class Monoid : public Semigroup<S, op> {
@@ -94,19 +68,6 @@ public:
     static constexpr Monoid one() { return Monoid(e()); }  // return identity element.
     static constexpr auto get_e() { return e; }
 };
-
-template <class Derived>
-class is_monoid {
-    template <typename S, auto op, auto e>
-    static constexpr std::true_type test(Monoid<S, op, e> *);
-    static constexpr std::false_type test(...);
-
-public:
-    static constexpr bool value = decltype(test(std::declval<Derived *>()))::value;
-};
-
-template <class Derived>
-inline constexpr bool is_monoid_v = is_monoid<Derived>::value;
 
 template <typename F, auto compose, auto id, typename X, auto mapping>
 class OperatorMonoid : public Monoid<F, compose, id> {
@@ -132,19 +93,6 @@ public:
         return S(mapping(this->val, x.value()));
     }
 };
-
-template <class Derived>
-class is_operator_monoid {
-    template <typename F, auto compose, auto id, typename X, auto mapping>
-    static constexpr std::true_type test(OperatorMonoid<F, compose, id, X, mapping> *);
-    static constexpr std::false_type test(...);
-
-public:
-    static constexpr bool value = decltype(test(std::declval<Derived *>()))::value;
-};
-
-template <class Derived>
-inline constexpr bool is_operator_monoid_v = is_operator_monoid<Derived>::value;
 
 namespace element {
 
@@ -211,10 +159,16 @@ constexpr auto assign_if_not_id = [](const F &lhs, const X &rhs) -> X {
 namespace monoid {
 
 template <typename S>
-using minimum = Monoid<S, boperator::min<S>, element::one_below_max<S>>;
+using minimum = Monoid<S, boperator::min<S>, element::max<S>>;
 
 template <typename S>
-using maximum = Monoid<S, boperator::max<S>, element::one_above_lowest<S>>;
+using minimum_safe = Monoid<S, boperator::min<S>, element::one_below_max<S>>;
+
+template <typename S>
+using maximum = Monoid<S, boperator::max<S>, element::lowest<S>>;
+
+template <typename S>
+using maximum_safe = Monoid<S, boperator::max<S>, element::one_above_lowest<S>>;
 
 template <typename S>
 using addition = Monoid<S, boperator::plus<S>, element::zero<S>>;
@@ -228,10 +182,14 @@ using bit_xor = Monoid<S, boperator::bit_xor<S>, element::zero<S>>;
 namespace action {
 
 template <typename F, typename X = F>
-using assign_for_minimum = OperatorMonoid<F, boperator::assign_if_not_id<F, element::max<F>>, element::max<F>, X, boperator::assign_if_not_id<F, element::max<F>, X>>;
+using assign_for_minimum = OperatorMonoid<
+    F, boperator::assign_if_not_id<F, element::max<F>>, element::max<F>,
+    X, boperator::assign_if_not_id<F, element::max<F>, X>>;
 
 template <typename F, typename X = F>
-using assign_for_maximum = OperatorMonoid<F, boperator::assign_if_not_id<F, element::lowest<F>>, element::lowest<F>, X, boperator::assign_if_not_id<F, element::lowest<F>, X>>;
+using assign_for_maximum = OperatorMonoid<
+    F, boperator::assign_if_not_id<F, element::lowest<F>>, element::lowest<F>,
+    X, boperator::assign_if_not_id<F, element::lowest<F>, X>>;
 
 template <typename F, typename X = F>
 using addition = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F, X>>;

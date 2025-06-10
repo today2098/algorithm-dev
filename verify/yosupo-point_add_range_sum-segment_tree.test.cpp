@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "../lib/DataStructure/SegmentTree/segment_tree.hpp"
-#include "../lib/Math/Algebra/algebra.hpp"
 
 int main() {
     int n;
@@ -14,8 +13,7 @@ int main() {
     std::vector<long long> a(n);
     for(auto &elem : a) std::cin >> elem;
 
-    using monoid = algorithm::algebra::monoid::addition<long long>;
-    algorithm::SegmentTree<monoid> segtree(a.cbegin(), a.cend());
+    algorithm::segment_tree::range_sum_segment_tree<long long> segtree(a.cbegin(), a.cend());
 
     while(q--) {
         int t;

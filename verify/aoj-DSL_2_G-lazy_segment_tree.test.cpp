@@ -9,15 +9,15 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using Type = long long;
-    auto &&segtree = algorithm::lazysegmenttree::range_sum_query_and_range_add_query<Type>(n);
+    algorithm::lazy_segment_tree::range_sum_range_add_lazy_segment_tree<long long, int> segtree(n, {0, 1});
+
     while(q--) {
         int type;
         std::cin >> type;
 
         if(type == 0) {
             int s, t;
-            Type x;
+            int x;
             std::cin >> s >> t >> x;
             --s;
 
