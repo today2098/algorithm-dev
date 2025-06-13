@@ -146,7 +146,7 @@ template <typename S>
 constexpr auto identity = [](const S &val) -> S { return val; };
 
 template <typename S>
-constexpr auto minus = [](const S &val) -> S { return -val; };
+constexpr auto negate = [](const S &val) -> S { return -val; };
 
 }  // namespace uoperator
 
@@ -215,7 +215,7 @@ using bit_xor = Monoid<S, boperator::bit_xor<S>, element::zero<S>>;
 namespace group {
 
 template <typename S>
-using addition = Group<S, boperator::plus<S>, element::zero<S>, uoperator::minus<S>>;
+using addition = Group<S, boperator::plus<S>, element::zero<S>, uoperator::negate<S>>;
 
 template <typename S>
 using bit_xor = Group<S, boperator::bit_xor<S>, element::zero<S>, uoperator::identity<S>>;

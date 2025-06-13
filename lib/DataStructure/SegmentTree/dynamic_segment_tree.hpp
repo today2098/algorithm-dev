@@ -170,7 +170,7 @@ public:
     // pred(prod(l,r))==true となる区間の最左位値lを二分探索する．
     // ただし，区間[0,r)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
     template <bool (*pred)(value_type)>
-    int most_left(int r) const {
+    size_type most_left(int r) const {
         return most_left(r, [](const value_type &x) -> bool { return pred(x); });
     }
     template <typename Pred>
