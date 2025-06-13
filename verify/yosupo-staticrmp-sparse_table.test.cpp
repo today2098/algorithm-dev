@@ -1,32 +1,25 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
 
-#include <algorithm>
 #include <iostream>
-#include <utility>
 #include <vector>
 
 #include "../lib/DataStructure/SegmentTree/sparse_table.hpp"
-#include "../lib/Utils/debug.hpp"
 
 int main() {
     int n;
     int q;
     std::cin >> n >> q;
 
-    using S = int;
-    std::vector<S> a(n);
+    std::vector<int> a(n);
     for(auto &elem : a) std::cin >> elem;
 
-    auto op = [](S a, S b) -> S { return std::min(a, b); };
-    algorithm::SparseTable<S, op> sparse_table(std::move(a));
-    debug(sparse_table);
-    debug(a);
+    algorithm::sparse_table::range_minimum_sparse_table<int> table(a.cbegin(), a.cend());
 
     while(q--) {
         int l, r;
         std::cin >> l >> r;
 
-        auto &&ans = sparse_table.prod(l, r);
+        auto &&ans = table.prod(l, r);
         std::cout << ans << "\n";
     }
 }

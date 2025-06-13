@@ -13,7 +13,8 @@ int main() {
     std::vector<long long> a(n);
     for(auto &elem : a) std::cin >> elem;
 
-    auto &&segtree = algorithm::segmenttree::range_sum_query(a);
+    algorithm::segment_tree::range_sum_segment_tree<long long> segtree(a.cbegin(), a.cend());
+
     while(q--) {
         int t;
         std::cin >> t;

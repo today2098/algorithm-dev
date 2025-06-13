@@ -1,6 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
 
 #include <iostream>
+#include <vector>
 
 #include "../lib/DataStructure/SegmentTree/lazy_segment_tree.hpp"
 #include "../lib/Math/ModularArithmetic/modint.hpp"
@@ -10,14 +11,10 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using Type = algorithm::mint998244353;
-    auto &&segtree = algorithm::lazysegmenttree::range_sum_query_and_range_affine_query<Type>(n);
-    for(int i = 0; i < n; ++i) {
-        Type a;
-        std::cin >> a;
+    std::vector<algorithm::mint998244353> a(n);
+    for(auto &elem : a) std::cin >> elem;
 
-        segtree.set(i, {a, 1});
-    }
+    algorithm::lazy_segment_tree::range_sum_range_affine_lazy_segment_tree<algorithm::mint998244353> segtree(a.cbegin(), a.cend());
 
     while(q--) {
         int type;
@@ -25,7 +22,7 @@ int main() {
         std::cin >> type >> l >> r;
 
         if(type == 0) {
-            Type b, c;
+            algorithm::mint998244353 b, c;
             std::cin >> b >> c;
 
             segtree.apply(l, r, {b, c});

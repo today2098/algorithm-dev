@@ -1,7 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F"
 
 #include <iostream>
-#include <vector>
 
 #include "../lib/DataStructure/SegmentTree/lazy_segment_tree.hpp"
 
@@ -10,15 +9,15 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using Type = long long;
-    auto &&segtree = algorithm::lazysegmenttree::range_minimum_query_and_range_update_query(std::vector<Type>(n, (1LL << 31) - 1));
+    algorithm::lazy_segment_tree::range_minimum_range_update_lazy_segment_tree<unsigned> segtree(n, (1U << 31) - 1);
+
     while(q--) {
         int type;
         std::cin >> type;
 
         if(type == 0) {
             int s, t;
-            Type x;
+            unsigned x;
             std::cin >> s >> t >> x;
             ++t;
 
