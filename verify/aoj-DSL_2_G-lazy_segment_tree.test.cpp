@@ -9,7 +9,7 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    algorithm::lazy_segment_tree::range_sum_range_add_lazy_segment_tree<long long, int> segtree(n, {0, 1});
+    algorithm::lazy_segment_tree::range_sum_range_add_lazy_segment_tree<long long> segtree(n, {0, 1});
 
     while(q--) {
         int type;
@@ -17,7 +17,7 @@ int main() {
 
         if(type == 0) {
             int s, t;
-            int x;
+            long long x;
             std::cin >> s >> t >> x;
             --s;
 
