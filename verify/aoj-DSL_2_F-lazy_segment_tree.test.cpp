@@ -17,7 +17,7 @@ int main() {
 
         if(type == 0) {
             int s, t;
-            uint32_t x;
+            unsigned x;
             std::cin >> s >> t >> x;
             ++t;
 
