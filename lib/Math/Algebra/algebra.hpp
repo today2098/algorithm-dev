@@ -65,8 +65,28 @@ public:
 
     friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.val, rhs.val)); }
 
-    static constexpr Monoid one() { return Monoid(e()); }  // return identity element.
     static constexpr auto get_e() { return e; }
+    static constexpr Monoid one() { return Monoid(e()); }  // return identity element.
+};
+
+template <typename S, auto op, auto e, auto inverse>
+class Group : public Monoid<S, op, e> {
+    static_assert(std::is_invocable_r<S, decltype(inverse), S>::value);
+
+    using base_type = Monoid<S, op, e>;
+
+public:
+    using value_type = typename base_type::value_type;
+
+    constexpr Group() : base_type() {}
+    constexpr Group(const value_type &val) : base_type(val) {}
+    constexpr Group(value_type &&val) : base_type(std::move(val)) {}
+
+    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return Group(op(lhs.val, rhs.val)); }
+
+    static constexpr auto get_inverse() { return inverse; }
+    static constexpr Group one() { return Group(e()); }                // return identity element.
+    constexpr Group inv() const { return Group(inverse(this->val)); }  // return inverse element.
 };
 
 template <typename F, auto compose, auto id, typename X, auto mapping>
@@ -85,6 +105,7 @@ public:
 
     friend constexpr OperatorMonoid operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val, rhs.val)); }
 
+    static constexpr auto get_mapping() { return mapping; }
     static constexpr OperatorMonoid one() { return OperatorMonoid(id()); }  // return identity mapping.
     constexpr acted_value_type act(const acted_value_type &x) const { return mapping(this->val, x); }
     template <class S>
@@ -118,6 +139,16 @@ template <typename S>
 constexpr auto one_above_lowest = []() -> S { return std::numeric_limits<S>::lowest() + 1; };
 
 }  // namespace element
+
+namespace uoperator {
+
+template <typename S>
+constexpr auto identity = [](const S &val) -> S { return val; };
+
+template <typename S>
+constexpr auto minus = [](const S &val) -> S { return -val; };
+
+}  // namespace uoperator
 
 namespace boperator {
 
@@ -179,7 +210,19 @@ using multiplication = Monoid<S, boperator::mul<S>, element::one<S>>;
 template <typename S>
 using bit_xor = Monoid<S, boperator::bit_xor<S>, element::zero<S>>;
 
-namespace action {
+}  // namespace monoid
+
+namespace group {
+
+template <typename S>
+using addition = Group<S, boperator::plus<S>, element::zero<S>, uoperator::minus<S>>;
+
+template <typename S>
+using bit_xor = Group<S, boperator::bit_xor<S>, element::zero<S>, uoperator::identity<S>>;
+
+}  // namespace group
+
+namespace operator_monoid {
 
 template <typename F, typename X = F>
 using assign_for_minimum = OperatorMonoid<
@@ -194,9 +237,7 @@ using assign_for_maximum = OperatorMonoid<
 template <typename F, typename X = F>
 using addition = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F, X>>;
 
-}  // namespace action
-
-}  // namespace monoid
+}  // namespace operator_monoid
 
 }  // namespace algebra
 

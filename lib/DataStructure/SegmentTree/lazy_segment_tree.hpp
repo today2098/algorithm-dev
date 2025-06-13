@@ -327,16 +327,16 @@ using operator_monoid = algebra::OperatorMonoid<F<U>, compose<U>, id<U>, S<T>, m
 }  // namespace internal
 
 template <typename S, typename F = S>
-using range_minimum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum_safe<S>, algebra::monoid::action::assign_for_minimum<F, S>>;
+using range_minimum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum_safe<S>, algebra::operator_monoid::assign_for_minimum<F, S>>;
 
 template <typename S, typename F = S>
-using range_minimum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum<S>, algebra::monoid::action::addition<F, S>>;
+using range_minimum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum<S>, algebra::operator_monoid::addition<F, S>>;
 
 template <typename S, typename F = S>
-using range_maximum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum_safe<S>, algebra::monoid::action::assign_for_maximum<F, S>>;
+using range_maximum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum_safe<S>, algebra::operator_monoid::assign_for_maximum<F, S>>;
 
 template <typename S, typename F = S>
-using range_maximum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum<S>, algebra::monoid::action::addition<F, S>>;
+using range_maximum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum<S>, algebra::operator_monoid::addition<F, S>>;
 
 template <typename T, typename F = T>
 using range_sum_range_update_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_update::acted_monoid<T>, internal::range_sum_range_update::operator_monoid<F, T>>;
