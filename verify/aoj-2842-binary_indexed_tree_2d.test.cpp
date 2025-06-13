@@ -12,7 +12,7 @@ int main() {
     int q;
     std::cin >> y >> x >> t >> q;
 
-    algorithm::BIT2D<int> raw(y, x), baked(y, x);
+    algorithm::binary_indexed_tree_2d::range_sum_binary_indexed_tree_2d<int> raw(y, x), baked(y, x);
     std::queue<std::tuple<int, int, int> > que;
     while(q--) {
         int time;
