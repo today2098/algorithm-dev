@@ -39,9 +39,7 @@ private:
         apply_with_lazy(k << 1 | 1, m_lazy[k]);
         m_lazy[k] = operator_monoid_type::one();
     }
-    void update(int k) {
-        m_tree[k] = m_tree[k << 1] * m_tree[k << 1 | 1];
-    }
+    void update(int k) { m_tree[k] = m_tree[k << 1] * m_tree[k << 1 | 1]; }
     void build() {
         for(int i = 1; i <= m_depth; ++i) {
             int l = m_n >> i, r = (m_n + m_sz - 1) >> i;
@@ -79,9 +77,7 @@ public:
     // 要素数を取得する．
     int size() const { return m_sz; }
     // k番目の要素をaに置き換える．O(log N).
-    void set(int k, const acted_value_type &a) {
-        set(k, acted_monoid_type(a));
-    }
+    void set(int k, const acted_value_type &a) { set(k, acted_monoid_type(a)); }
     void set(int k, const acted_monoid_type &a) {
         assert(0 <= k and k < size());
         k += m_n;
@@ -90,9 +86,7 @@ public:
         for(int i = 1; i <= m_depth; ++i) update(k >> i);
     }
     // k番目の要素を作用素fを用いて更新する．O(log N).
-    void apply(int k, const operator_value_type &f) {
-        apply(k, operator_monoid_type(f));
-    }
+    void apply(int k, const operator_value_type &f) { apply(k, operator_monoid_type(f)); }
     void apply(int k, const operator_monoid_type &f) {
         assert(0 <= k and k < size());
         k += m_n;
@@ -101,9 +95,7 @@ public:
         for(int i = 1; i <= m_depth; ++i) update(k >> i);
     }
     // 区間[l,r)の要素を作用素fを用いて更新する．O(log N).
-    void apply(int l, int r, const operator_value_type &f) {
-        apply(l, r, operator_monoid_type(f));
-    }
+    void apply(int l, int r, const operator_value_type &f) { apply(l, r, operator_monoid_type(f)); }
     void apply(int l, int r, const operator_monoid_type &f) {
         assert(0 <= l and l <= r and r <= size());
         if(l == r) return;

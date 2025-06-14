@@ -26,9 +26,7 @@ private:
     int m_n;                          // m_n:=(完全二分木の葉数).
     std::vector<monoid_type> m_tree;  // m_tree(2n)[]:=(完全二分木). 1-based index.
 
-    void update(int k) {
-        m_tree[k] = m_tree[k << 1] * m_tree[k << 1 | 1];
-    }
+    void update(int k) { m_tree[k] = m_tree[k << 1] * m_tree[k << 1 | 1]; }
     void build() {
         for(int l = m_n >> 1, r = (m_n + m_sz - 1) >> 1; l >= 1; l >>= 1, r >>= 1) {
             for(int i = r; i >= l; --i) update(i);
@@ -63,9 +61,7 @@ public:
     // 要素数を取得する．
     int size() const { return m_sz; }
     // k番目の要素をaに置き換える．O(log N).
-    void set(int k, const value_type &a) {
-        set(k, monoid_type(a));
-    }
+    void set(int k, const value_type &a) { set(k, monoid_type(a)); }
     void set(int k, const monoid_type &a) {
         assert(0 <= k and k < size());
         k += m_n;
@@ -148,9 +144,7 @@ public:
         } while((r & -r) != r);
         return 0;
     }
-    void reset() {
-        std::fill(m_tree.begin() + 1, m_tree.begin() + m_n + m_sz, monoid_type::one());
-    }
+    void reset() { std::fill(m_tree.begin() + 1, m_tree.begin() + m_n + m_sz, monoid_type::one()); }
 
     friend std::ostream &operator<<(std::ostream &os, const SegmentTree &rhs) {
         os << "[\n";

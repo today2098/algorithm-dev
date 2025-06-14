@@ -58,7 +58,7 @@ public:
     }
 
     friend std::ostream &operator<<(std::ostream &os, const SparseTable &rhs) {
-        if(rhs.size() == 0) return os << "[\n]";
+        if(rhs.m_sz == 0) return os << "[\n]";
         os << "[\n";
         for(size_type k = 0; k <= rhs.m_lg.back(); ++k) {
             for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i) os << (i == 0 ? "  [" : " ") << rhs.m_table[k][i];
