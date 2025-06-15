@@ -1,6 +1,6 @@
 ---
 title: Binary Indexed Tree
-documentation_of: //lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
+documentation_of: //lib/DataStructure/BIT/binary_indexed_tree.hpp
 ---
 
 
@@ -9,44 +9,48 @@ documentation_of: //lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
 「Binary Indexed Tree (BIT)」とは，1994年に Peter Fenwick により提案された木構造をしたデータ構造．
 別名「Fenwick Tree（フェニック木）」．
 
-長さ $N$ の数列 $\lbrace a_0, a_1, \ldots, a_{N-1} \rbrace$ に対して，次のクエリ処理 (RSM: Range Sum Query) を $\mathcal{O}(\log N)$ で行う．
+あるアーベル群 $(S, *: S \times S \rightarrow S, e \in S)$ において，長さ $N$ の数列 $\lbrace a_0, a_1, \ldots, a_{N-1} \rbrace$ に対する次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
 
-- **一点更新** $\operatorname{add}(i,x)$：要素 $a_i$ に $x$ を加算する．
-- **区間取得** $\operatorname{sum}(r)$：区間 $[0,r)$ の要素の総和を求める．
+- **一点更新** $\operatorname{add}(i,x)$：要素 $a_i$ を $a_i * x$ に更新する
+- **区間取得** $\operatorname{sum}(r)$：区間 $[0,r)$ の要素の総積を求める
 
-任意の区間 $[l,r)$ の要素の総和を取得したい場合は，$\operatorname{sum}(r)-\operatorname{sum}(l)$ と求めればよい．
+任意の区間 $[l,r)$ の要素の総積を知りたい場合は，$\operatorname{sum}(r)-\operatorname{sum}(l)$ から求められる．
 
-必要なメモリサイズは，対象の配列サイズと同じ（Segment Tree では2倍程度必要となる）．
+ここで「アーベル群 (abelian group)」とは，次の性質を満たす組 $(S, *：S \times S \rightarrow S, e \in S)$ による代数的構造のことをいう（交換法則を有する群である）．
 
-本実装では，数の加算のみをサポートしているが，拡張すればアーベル群（可換群）を成す他の演算もサポートすることができる．
+1. 結合法則：$a \ast (b \ast c) = (a \ast b) \ast c \quad (\forall a, \forall b, \forall c \in S)$
+1. 単位元の存在：$e \ast a = a \ast e = a \quad (\exists e, \forall a \in S)$
+1. **逆元の存在**：$a \ast a^{-1} = a^{-1} \ast a = e \quad (\exists e, \forall a, \exists a^{-1} \in S)$
+1. **交換法則**：$a \ast b = b \ast a \quad (\forall a, \forall b \in S)$
 
-ここで「アーベル群」とは，集合 $G$ と二項演算 $\ast : S \times S \rightarrow S$ の組 $(G, \ast)$ で，以下の条件を満たす代数構造のことを指す．
-
-1. 結合法則：$a \ast (b \ast c) = (a \ast b) \ast c \quad (\forall a, \forall b, \forall c \in G)$
-1. 単位元の存在：$e \ast a = a \ast e = a \quad (\exists e, \forall a \in G)$
-1. **逆元の存在**：$a \ast a^{-1} = a^{-1} \ast a = e \quad (\exists e, \forall a, \exists a^{-1} \in G)$
-1. **交換法則**：$a \ast b = b \ast a \quad (\forall a, \forall b \in G)$
-
-Segment Tree が扱うのは「モノイド」であり，モノイドは上記条件の (1), (2) のみを満たせばよい．
-それに対し，BIT は条件 (3), (4) が加わり制約が厳しい．
+必要なメモリサイズは対象の配列サイズと同じであり，Segment tree より軽い（Segment tree は2倍程度）．
 
 
 ## 説明
 
-### algorithm::BIT
+### `algorithm::binary_indexed_tree::BIT<AbelianGroup>`
+
+|テンプレート引数|説明|
+|---|---|
+|`AbelianGroup`|アーベル群の型．`algorithm::algebra::Group` を想定している．|
+
+|コンストラクタ|説明|計算量|
+|---|---|---|
+|`BIT()`|デフォルトコンストラクタ．サイズゼロの `BIT` オブジェクトを構築する．|-|
+|`BIT(n)`|コンストラクタ．`n` 個の単位元 `Group::one()` で初期化された要素をもつ `BIT` オブジェクトを構築する．|$\Theta(N)$|
+|`BIT(n,a)`|コンストラクタ．`n` 個の `a` で初期化された要素をもつ `BIT` オブジェクトを構築する．|$\Theta(N)$|
+|`BIT(first,last)`|コンストラクタ．イテレータ範囲 `[first,last)` の要素を用いて `BIT` オブジェクトを構築する．|$\Theta(N)$|
+|`BIT(il)`|初期化子リスト `il` を受け取るコンストラクタ．`BIT(il.begin(),il.end())` と等価．|$\Theta(N)$|
 
 |メンバ関数|説明|計算量|
 |---|---|---|
-|`BIT<T>()`|デフォルトコンストラクタ．サイズゼロの `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
-|`BIT<T>(n)`|コンストラクタ．`n` 個の `T()` で初期化された要素をもつ `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
-|`BIT<T>(n,a)`|コンストラクタ．`n` 個の `a` で初期化された要素をもつ `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
-|`BIT<T>(first,last)`|コンストラクタ．イテレータ範囲 `[first,last)` の要素で `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
-|`BIT<T>(il)`|コンストラクタ．初期化子リストの要素で `BIT` オブジェクトを構築する．|$\mathcal{O}(N)$|
 |`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
-|`add(k,a)`|`k` 番目の要素に `a` を加算する．|$\mathcal{O}(\log N)$|
-|`x=sum(r)`|区間 `[0,r)` の要素の総和 `x` を求める．|$\mathcal{O}(\log N)$|
-|`x=sum(l,r)`|区間 `[l,r)` の要素の総和 `x` を求める．|$\mathcal{O}(\log N)$|
-|`reset()`|全要素を `T()` で初期化する．|$\mathcal{O}(N)$|
+|`add(k,a)`|`k` 番目の要素を `a` との積の結果に置き換える．|$\mathcal{O}(\log N)$|
+|`x=sum(r)`|区間 `[0,r)` の要素の総積 `x` を求める．|$\mathcal{O}(\log N)$|
+|`x=sum(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\mathcal{O}(\log N)$|
+|`x=sum_all()`|全要素の総積 `x` を求める．|$\mathcal{O}(\log N)$|
+|`r=most_right(pred)`|`pred(sum(r))==true` となる区間の最右位置 `r` を二分探索する．ただし，区間 $[0,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\mathcal{O}(\log N)$|
+|`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(N)$|
 
 
 ## 参考
