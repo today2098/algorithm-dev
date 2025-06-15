@@ -9,9 +9,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-ITP1_1_A-popcount.test.cpp
     title: verify/aoj-ITP1_1_A-popcount.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: verify/yosupo-staticrmp-sparse_table.test.cpp
-    title: verify/yosupo-staticrmp-sparse_table.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -128,9 +125,8 @@ data:
   timestamp: '2025-05-17 16:51:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/aoj-2880-interval_set.test.cpp
   - verify/aoj-ITP1_1_A-popcount.test.cpp
-  - verify/yosupo-staticrmp-sparse_table.test.cpp
+  - verify/aoj-2880-interval_set.test.cpp
 documentation_of: lib/Utils/debug.hpp
 layout: document
 title: "\u30C7\u30D0\u30C3\u30B0\u7528\u95A2\u6570\u5F62\u5F0F\u30DE\u30AF\u30ED"
