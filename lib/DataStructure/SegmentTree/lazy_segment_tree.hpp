@@ -3,45 +3,43 @@
 
 #include <algorithm>
 #include <cassert>
-#include <functional>
-#include <limits>
+#include <initializer_list>
+#include <iostream>
+#include <iterator>
 #include <type_traits>
 #include <vector>
 
+#include "../../Math/Algebra/algebra.hpp"
+
 namespace algorithm {
 
-namespace lazysegmenttree {
+namespace lazy_segment_tree {
 
-// Lazy Segment Tree（遅延評価セグメント木）.
-template <class S, auto op, auto e, class F, auto map, auto compose, auto id>
+template <class ActedMonoid, class OperatorMonoid>
 class LazySegmentTree {
-    static_assert(std::is_convertible_v<decltype(op), std::function<S(S, S)>>);
-    static_assert(std::is_convertible_v<decltype(e), std::function<S()>>);
-    static_assert(std::is_convertible_v<decltype(map), std::function<S(F, S)>>);
-    static_assert(std::is_convertible_v<decltype(compose), std::function<F(F, F)>>);
-    static_assert(std::is_convertible_v<decltype(id), std::function<F()>>);
-
 public:
-    using value_type = S;    // モノイドの型．
-    using mapping_type = F;  // 写像の型．
+    using acted_monoid_type = ActedMonoid;
+    using operator_monoid_type = OperatorMonoid;
+    using acted_value_type = acted_monoid_type::value_type;
+    using operator_value_type = operator_monoid_type::value_type;
 
 private:
-    int m_sz;                          // m_sz:=(要素数).
-    int m_n;                           // m_n:=(完全二分木の葉数).
-    int m_depth;                       // m_depth:=(完全二分木の深さ).
-    std::vector<value_type> m_tree;    // m_tree(2n)[]:=(完全二分木). 1-based index.
-    std::vector<mapping_type> m_lazy;  // m_lazy(n)[k]:=(m_tree[k]の子 (m_tree[2k], m_tree[2k+1]) に対する遅延評価).
+    int m_sz;                                  // m_sz:=(要素数).
+    int m_n;                                   // m_n:=(完全二分木の葉数).
+    int m_depth;                               // m_depth:=(完全二分木の深さ).
+    std::vector<acted_monoid_type> m_tree;     // m_tree(2n)[]:=(完全二分木). 1-based index.
+    std::vector<operator_monoid_type> m_lazy;  // m_lazy(n)[k]:=(m_tree[k]の子 (m_tree[2k], m_tree[2k+1]) に対する遅延評価).
 
-    void apply_with_lazy(int k, const mapping_type &f) {
-        m_tree[k] = map(f, m_tree[k]);
-        if(k < m_n) m_lazy[k] = compose(f, m_lazy[k]);
+    void apply_with_lazy(int k, const operator_monoid_type &f) {
+        m_tree[k] = f.act(m_tree[k]);
+        if(k < m_n) m_lazy[k] = f * m_lazy[k];
     }
     void push(int k) {
         apply_with_lazy(k << 1, m_lazy[k]);
         apply_with_lazy(k << 1 | 1, m_lazy[k]);
-        m_lazy[k] = id();
+        m_lazy[k] = operator_monoid_type::one();
     }
-    void update(int k) { m_tree[k] = op(m_tree[k << 1], m_tree[k << 1 | 1]); }
+    void update(int k) { m_tree[k] = m_tree[k << 1] * m_tree[k << 1 | 1]; }
     void build() {
         for(int i = 1; i <= m_depth; ++i) {
             int l = m_n >> i, r = (m_n + m_sz - 1) >> i;
@@ -55,48 +53,50 @@ public:
     explicit LazySegmentTree(int n) : m_sz(n), m_n(1), m_depth(0) {
         assert(n >= 0);
         while(m_n < m_sz) m_n <<= 1, ++m_depth;
-        m_tree.assign(2 * m_n, e());
-        m_lazy.assign(m_n, id());
+        m_tree.assign(2 * m_n, acted_monoid_type::one());
+        m_lazy.assign(m_n, operator_monoid_type::one());
     }
-    explicit LazySegmentTree(int n, const value_type &a) : LazySegmentTree(n) {
-        std::fill(m_tree.begin() + m_n, m_tree.begin() + m_n + m_sz, a);
+    explicit LazySegmentTree(int n, const acted_value_type &a) : LazySegmentTree(n, acted_monoid_type(a)) {}
+    explicit LazySegmentTree(int n, const acted_monoid_type &a) : LazySegmentTree(n) {
+        std::fill_n(m_tree.begin() + m_n, n, a);
         build();
     }
-    explicit LazySegmentTree(const std::vector<value_type> &v) : LazySegmentTree(v.size()) {
-        std::copy(v.cbegin(), v.cend(), m_tree.begin() + m_n);
+    template <std::input_iterator InputIter>
+    explicit LazySegmentTree(InputIter first, InputIter last) : m_n(1), m_depth(0), m_tree(first, last) {
+        m_sz = m_tree.size();
+        while(m_n < m_sz) m_n <<= 1, ++m_depth;
+        m_tree.reserve(2 * m_n);
+        m_tree.insert(m_tree.begin(), m_n, acted_monoid_type::one());
+        m_tree.resize(2 * m_n, acted_monoid_type::one());
+        m_lazy.resize(m_n, operator_monoid_type::one());
         build();
     }
+    template <typename T>
+    explicit LazySegmentTree(std::initializer_list<T> il) : LazySegmentTree(il.begin(), il.end()) {}
 
-    // 二項演算関数を取得する．
-    static constexpr auto operation() { return op; }
-    // モノイドの単位元を取得する．
-    static constexpr auto identity() { return e; }
-    // 写像を取得する．
-    static constexpr auto mapping() { return map; }
-    // 写像の合成関数を取得する．
-    static constexpr auto composition() { return compose; }
-    // 恒等写像を取得する．
-    static constexpr auto identity_mapping() { return id; }
     // 要素数を取得する．
     int size() const { return m_sz; }
-    // k番目の要素をaに置き換える．O(logN).
-    void set(int k, const value_type &a) {
+    // k番目の要素をaに置き換える．O(log N).
+    void set(int k, const acted_value_type &a) { set(k, acted_monoid_type(a)); }
+    void set(int k, const acted_monoid_type &a) {
         assert(0 <= k and k < size());
         k += m_n;
         for(int i = m_depth; i >= 1; --i) push(k >> i);
         m_tree[k] = a;
         for(int i = 1; i <= m_depth; ++i) update(k >> i);
     }
-    // k番目の要素を写像fを用いて更新する．O(logN).
-    void apply(int k, const mapping_type &f) {
+    // k番目の要素を作用素fを用いて更新する．O(log N).
+    void apply(int k, const operator_value_type &f) { apply(k, operator_monoid_type(f)); }
+    void apply(int k, const operator_monoid_type &f) {
         assert(0 <= k and k < size());
         k += m_n;
         for(int i = m_depth; i >= 1; --i) push(k >> i);
-        m_tree[k] = map(f, m_tree[k]);
+        m_tree[k] = f.act(m_tree[k]);
         for(int i = 1; i <= m_depth; ++i) update(k >> i);
     }
-    // 区間[l,r)の要素を写像fを用いて更新する．O(logN).
-    void apply(int l, int r, const mapping_type &f) {
+    // 区間[l,r)の要素を作用素fを用いて更新する．O(log N).
+    void apply(int l, int r, const operator_value_type &f) { apply(l, r, operator_monoid_type(f)); }
+    void apply(int l, int r, const operator_monoid_type &f) {
         assert(0 <= l and l <= r and r <= size());
         if(l == r) return;
         l += m_n, r += m_n;
@@ -113,244 +113,233 @@ public:
             if((r >> i) << i != r) update((r - 1) >> i);
         }
     }
-    // k番目の要素を求める．O(logN).
-    value_type prod(int k) {
+    // k番目の要素を求める．O(log N).
+    acted_value_type prod(int k) {
         assert(0 <= k and k < size());
         k += m_n;
         for(int i = m_depth; i >= 1; --i) push(k >> i);
-        return m_tree[k];
+        return m_tree[k].value();
     }
-    // 区間[l,r)の要素の総積 v[l]•v[l+1]•....•v[r-1] を求める．O(logN).
-    value_type prod(int l, int r) {
+    // 区間[l,r)の要素の総積を求める．O(log N).
+    acted_value_type prod(int l, int r) {
         assert(0 <= l and l <= r and r <= size());
-        if(l == r) return e();
+        if(l == r) return acted_monoid_type::one().value();
         l += m_n, r += m_n;
         for(int i = m_depth; i >= 1; --i) {
             if((l >> i) << i != l) push(l >> i);
             if((r >> i) << i != r) push((r - 1) >> i);
         }
-        value_type &&val_l = e(), &&val_r = e();
+        acted_monoid_type &&val_l = acted_monoid_type::one(), &&val_r = acted_monoid_type::one();
         for(; l < r; l >>= 1, r >>= 1) {
-            if(l & 1) val_l = op(val_l, m_tree[l++]);
-            if(r & 1) val_r = op(m_tree[--r], val_r);
+            if(l & 1) val_l = val_l * m_tree[l++];
+            if(r & 1) val_r = m_tree[--r] * val_r;
         }
-        return op(val_l, val_r);
+        return (val_l * val_r).value();
     }
     // 区間全体の要素の総積を取得する．O(1).
-    value_type prod_all() const { return m_tree[1]; }
-    // eval(prod(l,-))==true となる区間の最右位値を二分探索する．
-    // ただし，要素列の区間積には単調性があり，また eval(e)==true であること．O(logN).
-    template <class Eval>
-    int most_right(int l, Eval eval) const {
-        static_assert(std::is_convertible_v<Eval, std::function<bool(value_type)>>);
+    acted_value_type prod_all() const { return m_tree[1].value(); }
+    // pred(prod(l,r))==true となる区間の最右位値rを二分探索する．
+    // ただし，区間[l,n)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
+    template <bool (*pred)(acted_value_type)>
+    int most_right(int l) const {
+        return most_right(l, [](const acted_value_type &x) -> bool { return pred(x); });
+    }
+    template <class Pred>
+    int most_right(int l, Pred pred) const {
+        static_assert(std::is_invocable_r<bool, Pred, acted_value_type>::value);
         assert(0 <= l and l <= size());
-        assert(eval(e()));
-        if(l == size()) return size();
+        assert(pred(acted_monoid_type::one().value()));
+        if(l == m_sz) return m_sz;
         l += m_n;
         for(int i = m_depth; i >= 1; --i) push(l >> i);
-        value_type &&val = e();
+        acted_monoid_type &&val = acted_monoid_type::one();
         do {
             while(!(l & 1)) l >>= 1;
-            value_type &&tmp = op(val, m_tree[l]);
-            if(!eval(tmp)) {
+            acted_monoid_type &&tmp = val * m_tree[l];
+            if(!pred(tmp.value())) {
                 while(l < m_n) {
                     push(l);
                     l <<= 1;
-                    tmp = op(val, m_tree[l]);
-                    if(eval(tmp)) val = tmp, ++l;
+                    tmp = val * m_tree[l];
+                    if(pred(tmp.value())) val = tmp, ++l;
                 }
                 return l - m_n;
             }
             val = tmp, ++l;
-        } while((l & -l) != l);  // (x&-x)==x のとき，xは2の階乗数．
-        return size();
+        } while((l & -l) != l);
+        return m_sz;
     }
-    // eval(prod(-,r))==true となる区間の最左位値を二分探索する．
-    // ただし，要素列の区間積には単調性があり，また eval(e)==true であること．O(logN).
-    template <class Eval>
-    int most_left(int r, Eval eval) const {
-        static_assert(std::is_convertible_v<Eval, std::function<bool(value_type)>>);
+    // pred(prod(l,r))==true となる区間の最左位値lを二分探索する．
+    // ただし，区間[0,r)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
+    template <bool (*pred)(acted_value_type)>
+    int most_left(int r) const {
+        return most_left(r, [](const acted_value_type &x) -> bool { return pred(x); });
+    }
+    template <class Pred>
+    int most_left(int r, Pred pred) const {
+        static_assert(std::is_invocable_r<bool, Pred, acted_value_type>::value);
         assert(0 <= r and r <= size());
-        assert(eval(e()));
+        assert(pred(acted_monoid_type::one().value()));
         if(r == 0) return 0;
         r += m_n;
         for(int i = m_depth; i >= 1; --i) push((r - 1) >> i);
-        value_type &&val = e();
+        acted_monoid_type &&val = acted_monoid_type::one();
         do {
             --r;
-            while(r > 1 and r & 1) r >>= 1;
-            value_type &&tmp = m_op(m_tree[r], val);
-            if(!eval(tmp)) {
+            while(r > 1 and (r & 1)) r >>= 1;
+            acted_monoid_type &&tmp = m_tree[r] * val;
+            if(!pred(tmp.value())) {
                 while(r < m_n) {
                     push(r);
                     r = r << 1 | 1;
-                    tmp = op(m_tree[r], val);
-                    if(eval(tmp)) val = tmp, --r;
+                    tmp = m_tree[r] * val;
+                    if(pred(tmp.value())) val = tmp, --r;
                 }
                 return r - m_n + 1;
             }
             val = tmp;
-        } while((r & -r) != r);  // (x&-x)==x のとき，xは2の階乗数．
+        } while((r & -r) != r);
         return 0;
     }
     void reset() {
-        std::fill(m_tree.begin() + 1, m_tree.begin() + m_n + m_sz, e());
-        std::fill(m_lazy.begin() + 1, m_lazy.end(), id());
+        std::fill(m_tree.begin() + 1, m_tree.end(), acted_monoid_type::one());
+        std::fill(m_lazy.begin() + 1, m_lazy.end(), operator_monoid_type::one());
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const LazySegmentTree &rhs) {
+        os << "{\n  [\n";
+        for(int i = 0; i <= rhs.m_depth; ++i) {
+            int l = 1 << i, r = 2 << i;
+            for(int j = l; j < r; ++j) os << (j == l ? "    [" : " ") << rhs.m_tree[j].value();
+            os << "]\n";
+        }
+        os << "  ],\n  [\n";
+        for(int i = 0; i < rhs.m_depth; ++i) {
+            int l = 1 << i, r = 2 << i;
+            for(int j = l; j < r; ++j) os << (j == l ? "    [" : " ") << rhs.m_lazy[j].value();
+            os << "]\n";
+        }
+        return os << "  ]\n}";
     }
 };
 
-template <typename Type>
-auto range_minimum_query_and_range_update_query(int n) {
-    assert(n >= 0);
-    using S = Type;
-    using F = Type;
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::max() - 1; };
-    constexpr auto id = []() -> F { return std::numeric_limits<F>::max(); };
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::min(lhs, rhs); };
-    constexpr auto mapping = [id](F f, S x) -> S { return (f == id() ? x : f); };
-    constexpr auto composition = [id](F f, F g) -> F { return (f == id() ? g : f); };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n);
-}
+namespace internal {
 
-template <typename Type>
-auto range_minimum_query_and_range_update_query(const std::vector<Type> &v) {
-    using S = Type;
-    using F = Type;
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::max() - 1; };
-    constexpr auto id = []() -> F { return std::numeric_limits<F>::max(); };
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::min(lhs, rhs); };
-    constexpr auto mapping = [id](F f, S x) -> F { return (f == id() ? x : f); };
-    constexpr auto composition = [id](F f, F g) -> F { return (f == id() ? g : f); };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(v);
-}
+namespace range_sum_range_update {
 
-template <typename Type>
-auto range_minimum_query_and_range_add_query(int n) {
-    assert(n >= 0);
-    using S = Type;
-    using F = Type;
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::max(); };
-    constexpr auto id = []() -> F { return 0; };
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::min(lhs, rhs); };
-    constexpr auto mapping = [](F f, S x) -> F { return x + f; };
-    constexpr auto composition = [](F f, F g) -> F { return g + f; };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n);
-}
+template <typename T>
+struct S {
+    T val;
+    int size;
 
-template <typename Type>
-auto range_minimum_query_and_range_add_query(const std::vector<Type> &v) {
-    using S = Type;
-    using F = Type;
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::max(); };
-    constexpr auto id = []() -> F { return 0; };
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::min(lhs, rhs); };
-    constexpr auto mapping = [](F f, S x) -> S { return x + f; };
-    constexpr auto composition = [](F f, F g) -> F { return g + f; };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(v);
-}
+    constexpr S() : S(T(), 0) {}
+    constexpr S(const T &val) : S(val, 1) {}
+    constexpr S(const T &val, int size) : val(val), size(size) {}
 
-template <typename Type>
-auto range_maximum_query_and_range_update_query(int n) {
-    assert(n >= 0);
-    using S = Type;
-    using F = Type;
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::lowest() + 1; };
-    constexpr auto id = []() -> F { return std::numeric_limits<F>::lowest(); };
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::max(lhs, rhs); };
-    constexpr auto mapping = [id](F f, S x) -> S { return (f == id() ? x : f); };
-    constexpr auto composition = [id](F f, F g) -> F { return (f == id() ? g : f); };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n);
-}
+    friend constexpr S operator+(const S &lhs, const S &rhs) { return {lhs.val + rhs.val, lhs.size + rhs.size}; }
+    friend std::ostream &operator<<(std::ostream &os, const S &rhs) { return os << "{" << rhs.val << ", " << rhs.size << "}"; }
+};
 
-template <typename Type>
-auto range_maximum_query_and_range_update_query(const std::vector<Type> &v) {
-    using S = Type;
-    using F = Type;
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::lowest() + 1; };
-    constexpr auto id = []() -> F { return std::numeric_limits<F>::lowest(); };
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::max(lhs, rhs); };
-    constexpr auto mapping = [id](F f, S x) -> S { return (f == id() ? x : f); };
-    constexpr auto composition = [id](F f, F g) -> F { return (f == id() ? g : f); };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(v);
-}
+template <typename T>
+using acted_monoid = algebra::Monoid<S<T>, algebra::boperator::plus<S<T>>, algebra::element::zero<S<T>>>;
 
-template <typename Type>
-auto range_maximum_query_and_range_add_query(int n) {
-    assert(n >= 0);
-    using S = Type;
-    using F = Type;
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::lowest(); };
-    constexpr auto id = []() -> F { return 0; };
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::max(lhs, rhs); };
-    constexpr auto mapping = [](F f, S x) -> S { return x + f; };
-    constexpr auto composition = [](F f, F g) -> F { return g + f; };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n);
-}
+template <typename F>
+constexpr auto id = algebra::element::max<F>;
 
-template <typename Type>
-auto range_maximum_query_and_range_add_query(const std::vector<Type> &v) {
-    using S = Type;
-    using F = Type;
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::lowest(); };
-    constexpr auto id = []() -> F { return 0; };
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::max(lhs, rhs); };
-    constexpr auto mapping = [](F f, S x) -> S { return x + f; };
-    constexpr auto composition = [](F f, F g) -> F { return g + f; };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(v);
-}
+template <typename F>
+constexpr auto compose = algebra::boperator::assign_if_not_id<F, id<F>>;
 
-template <typename Type>
-auto range_sum_query_and_range_update_query(int n) {
-    assert(n >= 0);
-    using S = struct {
-        Type val;
-        int size;
-    };
-    using F = Type;
-    constexpr auto e = []() -> S { return {0, 0}; };
-    constexpr auto id = []() -> F { return std::numeric_limits<F>::max(); };
-    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.val + rhs.val, lhs.size + rhs.size}; };
-    constexpr auto mapping = [id](F f, const S &x) -> S { return {(f == id() ? x.val : f * x.size), x.size}; };
-    constexpr auto composition = [id](F f, F g) -> F { return (f == id() ? g : f); };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, {0, 1});
-}
+template <typename F, typename T = F>
+constexpr auto mapping = [](const F &f, const S<T> &x) -> S<T> {
+    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);
+    return {(f == id<F>() ? x.val : f * x.size), x.size};
+};
 
-template <typename Type>
-auto range_sum_query_and_range_add_query(int n) {
-    assert(n >= 0);
-    using S = struct {
-        Type val;
-        int size;
-    };
-    using F = Type;
-    constexpr auto e = []() -> S { return {0, 0}; };
-    constexpr auto id = []() -> F { return 0; };
-    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.val + rhs.val, lhs.size + rhs.size}; };
-    constexpr auto mapping = [](F f, const S &x) -> S { return {x.val + f * x.size, x.size}; };
-    constexpr auto composition = [](F f, F g) -> F { return g + f; };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, {0, 1});
-}
+template <typename F, typename T = F>
+using operator_monoid = algebra::OperatorMonoid<F, compose<F>, id<F>, S<T>, mapping<F, T>>;
 
-template <typename Type>
-auto range_sum_query_and_range_affine_query(int n) {
-    assert(n >= 0);
-    using S = struct {
-        Type val;
-        int size;
-    };
-    using F = struct {
-        Type a;
-        Type b;
-    };
-    constexpr auto e = []() -> S { return {0, 0}; };
-    constexpr auto id = []() -> F { return {1, 0}; };
-    constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.val + rhs.val, lhs.size + rhs.size}; };
-    constexpr auto mapping = [](const F &f, const S &x) -> S { return {x.val * f.a + f.b * x.size, x.size}; };
-    constexpr auto composition = [](const F &f, const F &g) -> F { return {g.a * f.a, g.b * f.a + f.b}; };
-    return LazySegmentTree<S, op, e, F, mapping, composition, id>(n, {0, 1});
-}
+}  // namespace range_sum_range_update
 
-}  // namespace lazysegmenttree
+namespace range_sum_range_add {
+
+template <typename T>
+using S = range_sum_range_update::S<T>;
+
+template <typename T>
+using acted_monoid = range_sum_range_update::acted_monoid<T>;
+
+template <typename F>
+constexpr auto id = algebra::element::zero<F>;
+
+template <typename F>
+constexpr auto compose = algebra::boperator::plus<F>;
+
+template <typename F, typename T = F>
+constexpr auto mapping = [](const F &f, const S<T> &x) -> S<T> { return {x.val + f * x.size, x.size}; };
+
+template <typename F, typename T = F>
+using operator_monoid = algebra::OperatorMonoid<F, compose<F>, id<F>, S<T>, mapping<F, T>>;
+
+}  // namespace range_sum_range_add
+
+namespace range_sum_range_affine {
+
+template <typename T>
+using S = range_sum_range_update::S<T>;
+
+template <typename T>
+using acted_monoid = range_sum_range_update::acted_monoid<T>;
+
+template <typename U>
+struct F {
+    U a;
+    U b;
+
+    constexpr F() : F(U(), U()) {}
+    constexpr F(const U &a, const U &b) : a(a), b(b) {}
+
+    friend constexpr F operator*(const F &lhs, const F &rhs) { return {lhs.a * rhs.a, lhs.a * rhs.b + lhs.b}; }
+    friend std::ostream &operator<<(std::ostream &os, const F &rhs) { return os << "{" << rhs.a << ", " << rhs.b << "}"; }
+};
+
+template <typename U>
+constexpr auto id = []() -> F<U> { return {1, 0}; };
+
+template <typename U>
+constexpr auto compose = algebra::boperator::mul<F<U>>;
+
+template <typename U, typename T = U>
+constexpr auto mapping = [](const F<U> &f, const S<T> &x) -> S<T> { return {f.a * x.val + f.b * x.size, x.size}; };
+
+template <typename U, typename T = U>
+using operator_monoid = algebra::OperatorMonoid<F<U>, compose<U>, id<U>, S<T>, mapping<U, T>>;
+
+}  // namespace range_sum_range_affine
+
+}  // namespace internal
+
+template <typename S, typename F = S>
+using range_minimum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum_safe<S>, algebra::operator_monoid::assign_for_minimum<F, S>>;
+
+template <typename S, typename F = S>
+using range_minimum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum<S>, algebra::operator_monoid::addition<F, S>>;
+
+template <typename S, typename F = S>
+using range_maximum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum_safe<S>, algebra::operator_monoid::assign_for_maximum<F, S>>;
+
+template <typename S, typename F = S>
+using range_maximum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum<S>, algebra::operator_monoid::addition<F, S>>;
+
+template <typename T, typename F = T>
+using range_sum_range_update_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_update::acted_monoid<T>, internal::range_sum_range_update::operator_monoid<F, T>>;
+
+template <typename T, typename F = T>
+using range_sum_range_add_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_add::acted_monoid<T>, internal::range_sum_range_add::operator_monoid<F, T>>;
+
+template <typename T, typename U = T>
+using range_sum_range_affine_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_affine::acted_monoid<T>, internal::range_sum_range_affine::operator_monoid<U, T>>;
+
+}  // namespace lazy_segment_tree
 
 }  // namespace algorithm
 

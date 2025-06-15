@@ -3,30 +3,30 @@
 
 #include <algorithm>
 #include <cassert>
-#include <functional>
+#include <initializer_list>
 #include <iostream>
-#include <limits>
+#include <iterator>
 #include <type_traits>
 #include <vector>
 
+#include "../../Math/Algebra/algebra.hpp"
+
 namespace algorithm {
 
-namespace segmenttree {
+namespace segment_tree {
 
-template <typename S, auto op, auto e>
+template <class Monoid>
 class SegmentTree {
-    static_assert(std::is_convertible_v<decltype(op), std::function<S(S, S)>>);
-    static_assert(std::is_convertible_v<decltype(e), std::function<S()>>);
-
 public:
-    using value_type = S;
+    using monoid_type = Monoid;
+    using value_type = monoid_type::value_type;
 
 private:
-    int m_sz;                        // m_sz:=(要素数).
-    int m_n;                         // m_n:=(完全二分木の葉数).
-    std::vector<value_type> m_tree;  // m_tree(2n)[]:=(完全二分木). 1-based index.
+    int m_sz;                         // m_sz:=(要素数).
+    int m_n;                          // m_n:=(完全二分木の葉数).
+    std::vector<monoid_type> m_tree;  // m_tree(2n)[]:=(完全二分木). 1-based index.
 
-    void update(int k) { m_tree[k] = op(m_tree[k << 1], m_tree[k << 1 | 1]); }
+    void update(int k) { m_tree[k] = m_tree[k << 1] * m_tree[k << 1 | 1]; }
     void build() {
         for(int l = m_n >> 1, r = (m_n + m_sz - 1) >> 1; l >= 1; l >>= 1, r >>= 1) {
             for(int i = r; i >= l; --i) update(i);
@@ -39,25 +39,30 @@ public:
     explicit SegmentTree(int n) : m_sz(n), m_n(1) {
         assert(n >= 0);
         while(m_n < m_sz) m_n <<= 1;
-        m_tree.assign(2 * m_n, e());
+        m_tree.assign(2 * m_n, monoid_type::one());
     }
-    explicit SegmentTree(int n, const value_type &a) : SegmentTree(n) {
-        std::fill(m_tree.begin() + m_n, m_tree.begin() + m_n + m_sz, a);
-        if(a != e()) build();
-    }
-    explicit SegmentTree(const std::vector<value_type> &v) : SegmentTree(v.size()) {
-        std::copy(v.cbegin(), v.cend(), m_tree.begin() + m_n);
+    explicit SegmentTree(int n, const value_type &a) : SegmentTree(n, monoid_type(a)) {}
+    explicit SegmentTree(int n, const monoid_type &a) : SegmentTree(n) {
+        std::fill_n(m_tree.begin() + m_n, n, a);
         build();
     }
+    template <std::input_iterator InputIter>
+    explicit SegmentTree(InputIter first, InputIter last) : m_n(1), m_tree(first, last) {
+        m_sz = m_tree.size();
+        while(m_n < m_sz) m_n <<= 1;
+        m_tree.reserve(2 * m_n);
+        m_tree.insert(m_tree.begin(), m_n, monoid_type::one());
+        m_tree.resize(2 * m_n, monoid_type::one());
+        build();
+    }
+    template <typename T>
+    explicit SegmentTree(std::initializer_list<T> il) : SegmentTree(il.begin(), il.end()) {}
 
-    // 二項演算関数を取得する．
-    static constexpr auto operation() { return op; }
-    // 単位元を取得する．
-    static constexpr auto identity() { return e; }
     // 要素数を取得する．
     int size() const { return m_sz; }
-    // k番目の要素をaに置き換える．O(logN).
-    void set(int k, const value_type &a) {
+    // k番目の要素をaに置き換える．O(log N).
+    void set(int k, const value_type &a) { set(k, monoid_type(a)); }
+    void set(int k, const monoid_type &a) {
         assert(0 <= k and k < size());
         k += m_n;
         m_tree[k] = a;
@@ -66,135 +71,101 @@ public:
     // k番目の要素を取得する．O(1).
     value_type prod(int k) const {
         assert(0 <= k and k < size());
-        return m_tree[k + m_n];
+        return m_tree[k + m_n].value();
     }
-    // 区間[l,r)の要素の総積 a[l]•a[l+1]•...•a[r-1] を求める．O(logN).
+    // 区間[l,r)の要素の総積を求める．O(log N).
     value_type prod(int l, int r) const {
         assert(0 <= l and l <= r and r <= size());
-        value_type &&val_l = e(), &&val_r = e();
+        monoid_type &&val_l = monoid_type::one(), &&val_r = monoid_type::one();
         for(l += m_n, r += m_n; l < r; l >>= 1, r >>= 1) {
-            if(l & 1) val_l = op(val_l, m_tree[l++]);
-            if(r & 1) val_r = op(m_tree[--r], val_r);
+            if(l & 1) val_l = val_l * m_tree[l++];
+            if(r & 1) val_r = m_tree[--r] * val_r;
         }
-        return op(val_l, val_r);
+        return (val_l * val_r).value();
     }
     // 区間全体の要素の総積を取得する．O(1).
-    value_type prod_all() const { return m_tree[1]; }
-    // eval(prod(l,-))==true となる区間の最右位値を二分探索する．
-    // ただし，要素列の区間積には単調性があり，また eval(e)==true であること．O(logN).
-    template <class Eval>
-    int most_right(int l, Eval eval) const {
-        static_assert(std::is_convertible_v<Eval, std::function<bool(value_type)>>);
+    value_type prod_all() const { return m_tree[1].value(); }
+    // pred(prod(l,r))==true となる区間の最右位値rを二分探索する．
+    // ただし，区間[l,n)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
+    template <bool (*pred)(value_type)>
+    int most_right(int l) const {
+        return most_right(l, [](const value_type &x) -> bool { return pred(x); });
+    }
+    template <typename Pred>
+    int most_right(int l, Pred pred) const {
+        static_assert(std::is_invocable_r<bool, Pred, value_type>::value);
         assert(0 <= l and l <= size());
-        assert(eval(e()));
-        if(l == size()) return size();
-        value_type &&val = e();
+        assert(pred(monoid_type::one().value()));
+        if(l == m_sz) return m_sz;
         l += m_n;
+        monoid_type &&val = monoid_type::one();
         do {
             while(!(l & 1)) l >>= 1;
-            value_type &&tmp = op(val, m_tree[l]);
-            if(!eval(tmp)) {
+            monoid_type &&tmp = val * m_tree[l];
+            if(!pred(tmp.value())) {
                 while(l < m_n) {
                     l <<= 1;
-                    tmp = op(val, m_tree[l]);
-                    if(eval(tmp)) val = tmp, ++l;
+                    tmp = val * m_tree[l];
+                    if(pred(tmp.value())) val = tmp, ++l;
                 }
                 return l - m_n;
             }
             val = tmp, ++l;
-        } while((l & -l) != l);  // (x&-x)==x のとき，xは2の階乗数．
-        return size();
+        } while((l & -l) != l);
+        return m_sz;
     }
-    // eval(prod(-,r))==true となる区間の最左位値を二分探索する．
-    // ただし，要素列の区間積には単調性があり，また eval(e)==true であること．O(logN).
-    template <class Eval>
-    int most_left(int r, Eval eval) const {
-        static_assert(std::is_convertible_v<Eval, std::function<bool(value_type)>>);
+    // pred(prod(l,r))==true となる区間の最左位値lを二分探索する．
+    // ただし，区間[0,r)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
+    template <bool (*pred)(value_type)>
+    int most_left(int r) const {
+        return most_left(r, [](const value_type &x) -> bool { return pred(x); });
+    }
+    template <typename Pred>
+    int most_left(int r, Pred pred) const {
+        static_assert(std::is_invocable_r<bool, Pred, value_type>::value);
         assert(0 <= r and r <= size());
-        assert(eval(e()));
+        assert(pred(monoid_type::one().value()));
         if(r == 0) return 0;
-        value_type &&val = e();
         r += m_n;
+        monoid_type &&val = monoid_type::one();
         do {
             --r;
-            while(r > 1 and r & 1) r >>= 1;
-            value_type &&tmp = op(m_tree[r], val);
-            if(eval(tmp)) {
+            while(r > 1 and (r & 1)) r >>= 1;
+            monoid_type &&tmp = m_tree[r] * val;
+            if(!pred(tmp.value())) {
                 while(r < m_n) {
                     r = r << 1 | 1;
-                    tmp = op(m_tree[r], val);
-                    if(eval(tmp)) val = tmp, --r;
+                    tmp = m_tree[r] * val;
+                    if(pred(tmp.value())) val = tmp, --r;
                 }
                 return r + 1 - m_n;
             }
             val = tmp;
-        } while((r & -r) != r);  // (x&-x)==x のとき，xは2の階乗数．
+        } while((r & -r) != r);
         return 0;
     }
-    void reset() { std::fill(m_tree.begin() + 1, m_tree.begin() + m_n + m_sz, e()); }
+    void reset() { std::fill(m_tree.begin() + 1, m_tree.begin() + m_n + m_sz, monoid_type::one()); }
 
     friend std::ostream &operator<<(std::ostream &os, const SegmentTree &rhs) {
         os << "[\n";
         for(int l = 1, r = 2; r <= 2 * rhs.m_n; l <<= 1, r <<= 1) {
-            for(int i = l; i < r; ++i) os << (i == l ? "  [" : " ") << rhs.m_tree[i];
+            for(int i = l; i < r; ++i) os << (i == l ? "  [" : " ") << rhs.m_tree[i].value();
             os << "]\n";
         }
         return os << "]";
     }
 };
 
-template <typename Type>
-auto range_minimum_query(int n) {
-    assert(n >= 0);
-    using S = Type;
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::min(lhs, rhs); };
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::max(); };
-    return SegmentTree<S, op, e>(n);
-}
+template <typename S>
+using range_minimum_segment_tree = SegmentTree<algebra::monoid::minimum<S>>;
 
-template <typename Type>
-auto range_minimum_query(const std::vector<Type> &v) {
-    using S = Type;
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::min(lhs, rhs); };
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::max(); };
-    return SegmentTree<S, op, e>(v);
-}
+template <typename S>
+using range_maximum_segment_tree = SegmentTree<algebra::monoid::maximum<S>>;
 
-template <typename Type>
-auto range_maximum_query(int n) {
-    assert(n >= 0);
-    using S = Type;
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::max(lhs, rhs); };
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::lowest(); };
-    return SegmentTree<S, op, e>(n);
-}
+template <typename S>
+using range_sum_segment_tree = SegmentTree<algebra::monoid::addition<S>>;
 
-template <typename Type>
-auto range_maximum_query(const std::vector<Type> &v) {
-    using S = Type;
-    constexpr auto op = [](S lhs, S rhs) -> S { return std::max(lhs, rhs); };
-    constexpr auto e = []() -> S { return std::numeric_limits<S>::lowest(); };
-    return SegmentTree<S, op, e>(v);
-}
-
-template <typename Type>
-auto range_sum_query(int n) {
-    assert(n >= 0);
-    using S = Type;
-    constexpr auto op = [](S lhs, S rhs) -> S { return lhs + rhs; };
-    constexpr auto e = []() -> S { return 0; };
-    return SegmentTree<S, op, e>(n);
-}
-
-template <typename Type>
-auto range_sum_query(const std::vector<Type> &v) {
-    using S = Type;
-    constexpr auto op = [](S lhs, S rhs) -> S { return lhs + rhs; };
-    constexpr auto e = []() -> S { return 0; };
-    return SegmentTree<S, op, e>(v);
-}
-
-}  // namespace segmenttree
+}  // namespace segment_tree
 
 }  // namespace algorithm
 
