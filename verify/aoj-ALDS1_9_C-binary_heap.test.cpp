@@ -6,16 +6,14 @@
 #include "../lib/DataStructure/Others/binary_heap.hpp"
 
 int main() {
-    using Type = int;
-    auto comp = [](Type a, Type b) -> bool { return a < b; };
-    algorithm::BinaryHeap<Type, comp> heap;
+    algorithm::binary_heap::max_heap<int> heap;
 
     while(true) {
         std::string op;
         std::cin >> op;
 
         if(op == "insert") {
-            Type k;
+            int k;
             std::cin >> k;
 
             heap.push(k);
