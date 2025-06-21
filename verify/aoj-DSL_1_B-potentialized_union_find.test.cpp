@@ -10,6 +10,7 @@ int main() {
     std::cin >> n >> q;
 
     algorithm::PotentializedUnionFind<int> uf(n);
+
     while(q--) {
         int t;
         std::cin >> t;

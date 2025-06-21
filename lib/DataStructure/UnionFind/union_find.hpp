@@ -1,11 +1,6 @@
 #ifndef ALGORITHM_UNION_FIND_HPP
 #define ALGORITHM_UNION_FIND_HPP 1
 
-/**
- * @brief Union-Find（素集合データ構造）
- * @docs docs/DataStructure/UnionFind/union_find.md
- */
-
 #include <algorithm>
 #include <cassert>
 #include <utility>
@@ -15,49 +10,55 @@ namespace algorithm {
 
 class UnionFind {
     int m_vn;  // m_vn:=(要素数).
-    int m_gn;  // m_gn:=(グループ数).
-    // m_par[x]:=(要素xの親). 0未満の場合，xは根であり，値の絶対値は属するグループのサイズを表す．
+    int m_gn;  // m_gn:=(集合の数).
+    // m_par[x]:=(要素xの親). 0未満の場合，xは代表元であり，値の絶対値は属する集合のサイズを表す．
     std::vector<int> m_par;
+
+    int root_internal(int x) {
+        if(m_par[x] < 0) return x;
+        return m_par[x] = root_internal(m_par[x]);  // 経路圧縮．
+    }
 
 public:
     UnionFind() : UnionFind(0) {}
-    explicit UnionFind(size_t vn) : m_vn(vn), m_gn(vn), m_par(vn, -1) {}
+    explicit UnionFind(int n) : m_vn(n), m_gn(n), m_par(n, -1) {
+        assert(n >= 0);
+    }
 
-    // 要素の総数を返す．
+    // 要素数を取得する．
     int vn() const { return m_vn; };
-    // グループ数を返す．
+    // 集合の数を取得する．
     int gn() const { return m_gn; };
-    // 要素xが属するグループ（根付き木）の根を返す．O(α(N)).
+    // 要素xが属する集合の代表元を取得する．
     int root(int x) {
         assert(0 <= x and x < vn());
-        if(m_par[x] < 0) return x;
-        return m_par[x] = root(m_par[x]);  // 経路圧縮．
+        return root_internal(x);
     }
-    // 要素xが属するグループのサイズを返す．
+    // 要素xが属する集合のサイズを取得する．
     int size(int x) {
         assert(0 <= x and x < vn());
-        return -m_par[root(x)];
+        return -m_par[root_internal(x)];
     }
-    // 要素x, yが同じグループに属するか判定する．
+    // 要素x, yが同じ集合に属するか判定する．
     bool is_same(int x, int y) {
         assert(0 <= x and x < vn());
         assert(0 <= y and y < vn());
-        return root(x) == root(y);
+        return root_internal(x) == root_internal(y);
     }
-    // 要素x, yが属するそれぞれのグループを併合する．
+    // 要素x, yが属するそれぞれの集合を合併する．
     bool unite(int x, int y) {
         assert(0 <= x and x < vn());
         assert(0 <= y and y < vn());
-        x = root(x), y = root(y);
+        x = root_internal(x), y = root_internal(y);
         if(x == y) return false;                    // Do nothing.
         if(-m_par[x] < -m_par[y]) std::swap(x, y);  // Merge technique (union by size).
         m_par[x] += m_par[y];
         m_par[y] = x;
-        m_gn--;
+        --m_gn;
         return true;
     }
     void reset() {
-        m_gn = vn();
+        m_gn = m_vn;
         std::fill(m_par.begin(), m_par.end(), -1);
     }
 };

@@ -12,7 +12,7 @@ int main() {
     std::cin >> n >> q;
 
     // queries[k]:=(k番目のグラフに対するクエリ). tuple of (type, u, v, index).
-    std::vector<std::vector<std::tuple<int, int, int, int> > > queries(q + 1);
+    std::vector<std::vector<std::tuple<int, int, int, int>>> queries(q + 1);
     for(int i = 1; i <= q; ++i) {
         int t;
         int k;
@@ -27,9 +27,9 @@ int main() {
     algorithm::RollbackUnionFind uf(n);
     auto dfs = [&](auto self, int t, int u, int v, int i) -> void {
         if(t == 0) {
-            bool flag = uf.unite(u, v);
+            uf.unite(u, v);
             for(const auto &[nt, nu, nv, ni] : queries[i]) self(self, nt, nu, nv, ni);
-            if(flag) uf.rollback();
+            uf.rollback();
         } else {
             ans[i] = uf.is_same(u, v);
         }
