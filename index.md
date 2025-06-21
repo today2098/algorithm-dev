@@ -33,7 +33,7 @@ data:
     pages:
     - icon: ':warning:'
       path: lib/DataStructure/UnionFind/partially_persistent_union_find.hpp
-      title: "Partially Persistent Union-Find\uFF08\u90E8\u5206\u6C38\u7D9AUnionf-Find\uFF09"
+      title: lib/DataStructure/UnionFind/partially_persistent_union_find.hpp
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/UnionFind/potentialized_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304DUnion-Find"
