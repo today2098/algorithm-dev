@@ -8,8 +8,7 @@ data:
       title: "Binary Heap\uFF08\u4E8C\u5206\u30D2\u30FC\u30D7\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/Others/binary_trie.hpp
-      title: "Binary Trie\uFF08\u975E\u8CA0\u6574\u6570\u5024\u3092\u8981\u7D20\u3068\
-        \u3059\u308B\u591A\u91CD\u96C6\u5408\uFF09"
+      title: "Binary Trie\uFF08\u4E8C\u5206\u30C8\u30E9\u30A4\u6728\uFF09"
   - name: lib/DataStructure/SegmentTree
     pages:
     - icon: ':heavy_check_mark:'
