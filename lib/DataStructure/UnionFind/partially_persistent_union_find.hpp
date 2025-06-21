@@ -1,14 +1,8 @@
 #ifndef ALGORITHM_PARTIALLY_PERSISTENT_UNION_FIND_HPP
 #define ALGORITHM_PARTIALLY_PERSISTENT_UNION_FIND_HPP 1
 
-/**
- * @brief Partially Persistent Union-Find（部分永続Unionf-Find）
- * @docs docs/DataStructure/UnionFind/partially_persistent_union_find.md
- */
-
 #include <algorithm>
 #include <cassert>
-#include <limits>
 #include <utility>
 #include <vector>
 
@@ -16,89 +10,80 @@ namespace algorithm {
 
 // 部分永続Union-Find．
 class PartiallyPersistentUnionFind {
-    using pii = std::pair<int, int>;
-
     int m_now;  // m_now:=(現在時刻).
     int m_vn;   // m_vn:=(要素数).
-    int m_gn;   // m_gn:=(グループ数).
+    int m_gn;   // m_gn:=(集合の数).
     // m_par[x][]:=(要素xについて時刻tとその時刻における親parの情報リスト). pair of (t, par).
-    // 値idが0未満の場合，xは根であり，値parの絶対値は属するグループのサイズを表す．
-    std::vector<std::vector<pii> > m_par;
+    // 値parが0未満の場合，xは代表元であり，値parの絶対値は属する集合のサイズを表す．
+    std::vector<std::vector<std::pair<int, int>>> m_par;
 
-    static constexpr int infinity() { return std::numeric_limits<int>::max(); }
+    std::tuple<int, int, int> root_internal(int x) const {
+        if(m_par[x].back().second < 0) return {m_par[x].back().first, x, -m_par[x].back().second};  // return tuple of (t, root, size).
+        return root_internal(m_par[x].back().second);
+    }
+    std::tuple<int, int, int> root_internal(int x, int t) const {
+        auto iter = std::lower_bound(m_par[x].cbegin(), m_par[x].cend(), std::pair<int, int>(t, -m_vn));
+        if(iter == m_par[x].cend() or iter->first > t) --iter;
+        if(iter->second < 0) return {iter->first, x, -iter->second};  // return tuple of (t, root, size).
+        return root_internal(iter->second, t);
+    }
 
 public:
     PartiallyPersistentUnionFind() : PartiallyPersistentUnionFind(0) {}
-    explicit PartiallyPersistentUnionFind(size_t vn)
-        : m_now(0), m_vn(vn), m_gn(vn), m_par(vn, std::vector<pii>({{0, -1}})) {}
+    explicit PartiallyPersistentUnionFind(int n)
+        : m_now(0), m_vn(n), m_gn(n), m_par(n, std::vector<std::pair<int, int>>({{0, -1}})) {
+        assert(n >= 0);
+    }
 
-    // 現在の時刻を返す．
+    // 現在の時刻を取得する．
     int now() const { return m_now; }
-    // 要素の総数を返す．
+    // 要素数を取得する．
     int vn() const { return m_vn; };
-    // グループ数を返す．
+    // 要素数を取得する．
     int gn() const { return m_gn; };
-    // 現時刻において要素xが属するグループ（根付き木）の根を返す．O(logN).
+    // 現時刻において要素xが属する集合の代表元を取得する．O(log N).
     int root(int x) const {
         assert(0 <= x and x < vn());
-        while(m_par[x].back().second >= 0) x = m_par[x].back().second;
-        return x;
+        return std::get<1>(root_internal(x));
     }
-    // 時刻tにおいて要素xが属するグループ（根付き木）の根を返す．O(logN).
+    // 時刻tにおいて要素xが属する集合の代表元を返す．O(log N).
     int root(int x, int t) const {
         assert(0 <= x and x < vn());
         assert(0 <= t and t <= now());
-        auto itr = std::lower_bound(m_par[x].cbegin(), m_par[x].cend(), pii(t, -infinity()));
-        if(itr == m_par[x].cend() or itr->first > t) itr--;
-        if(itr->second < 0) return x;
-        return root(itr->second, t);
+        return std::get<1>(root_internal(x, t));
     }
-    // 現時刻において要素xが属するグループのサイズを返す．O(logN).
+    // 現時刻において要素xが属する集合のサイズを取得する．O(log N).
     int size(int x) const {
         assert(0 <= x and x < vn());
-        return -m_par[root(x)].back().second;
+        return std::get<2>(root_internal(x));
     }
-    // 時刻tにおいて要素xが属するグループのサイズを返す．O(logN).
+    // 時刻tにおいて要素xが属する集合のサイズを取得する．O(log N).
     int size(int x, int t) const {
         assert(0 <= x and x < vn());
         assert(0 <= t and t <= now());
-        auto itr = std::lower_bound(m_par[x].cbegin(), m_par[x].cend(), pii(t, -infinity()));
-        if(itr == m_par[x].cend() or itr->first > t) itr--;
-        if(itr->second < 0) return -itr->second;
-        return size(itr->second, t);
+        return std::get<2>(root_internal(x, t));
     }
-    // 現在において要素x, yが同じグループに属するか判定する．O(logN).
-    bool is_same(int x, int y) const {
-        assert(0 <= x and x < vn());
-        assert(0 <= y and y < vn());
-        return root(x) == root(y);
-    }
-    // 時刻tにおいて要素x, yが同じグループに属するか判定する．O(logN).
-    bool is_same(int x, int y, int t) const {
-        assert(0 <= x and x < vn());
-        assert(0 <= y and y < vn());
-        assert(0 <= t and t <= now());
-        return root(x, t) == root(y, t);
-    }
-    // 要素x, yが属するそれぞれのグループを併合し，時間を+1進める．O(logN).
+    // 現在において要素x, yが同じ集合に属するか判定する．O(log N).
+    bool is_same(int x, int y) const { return root(x) == root(y); }
+    // 時刻tにおいて要素x, yが同じ集合に属するか判定する．O(log N).
+    bool is_same(int x, int y, int t) const { return root(x, t) == root(y, t); }
+    // 要素x, yが属するそれぞれの集合を合併し，時間を+1進める．O(log N).
     bool unite(int x, int y) {
         assert(0 <= x and x < vn());
         assert(0 <= y and y < vn());
-        m_now++;
-        x = root(x), y = root(y);
-        if(x == y) return false;
-        int sz_x = -m_par[x].back().second;
-        int sz_y = -m_par[y].back().second;
-        if(sz_x < sz_y) std::swap(x, y);  // Merge technique (unite by size).
-        m_par[x].emplace_back(now(), -sz_x - sz_y);
-        m_par[y].emplace_back(now(), x);
-        m_gn--;
+        ++m_now;
+        auto [_, xr, sz_x] = root_internal(x);
+        auto [__, yr, sz_y] = root_internal(y);
+        if(xr == yr) return false;
+        if(sz_x < sz_y) std::swap(xr, yr);  // Merge technique (union by size).
+        m_par[xr].emplace_back(m_now, -sz_x - sz_y);
+        m_par[yr].emplace_back(m_now, xr);
+        --m_gn;
         return true;
     }
     void reset() {
-        m_now = 0;
-        m_gn = vn();
-        for(std::vector<pii> &history : m_par) history.resize(1);
+        m_now = 0, m_gn = m_vn;
+        for(auto &history : m_par) history.resize(1);
     }
 };
 

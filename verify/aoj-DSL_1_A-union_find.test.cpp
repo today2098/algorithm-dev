@@ -10,6 +10,7 @@ int main() {
     std::cin >> n >> q;
 
     algorithm::UnionFind uf(n);
+
     while(q--) {
         int com;
         int x, y;

@@ -1,3 +1,9 @@
+---
+title: Partially Persistent Union-Find（部分永続Unionf-Find）
+documentation_of: //lib/DataStructureUnionFind/partially_persistent_union_find.hpp
+---
+
+
 ## 概要
 
 「部分永続 Union-Find」では，通常の Union-Find の機能に加え，過去の状態に対してクエリを求めることができる．
@@ -6,7 +12,7 @@
 本実装では「union by size」の工夫のみ行い，各クエリの計算量は $\mathcal{O}(\log N)$ となる．
 
 
-## 参考文献
+## 参考
 
 1. "Union-Find木". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/union_find_tree>.
 1. "やぶについて書きます". <https://camypaper.bitbucket.io/2016/12/18/adc2016/>.
