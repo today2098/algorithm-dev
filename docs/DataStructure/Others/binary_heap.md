@@ -29,7 +29,7 @@ documentation_of: //lib/DataStructure/Others/binary_heap.hpp
 ## 参考
 
 1. 渡邉 敏正. "第4章 ヒープ". データ構造と基本アルゴリズム. 共立出版, 2000, pp.109-126.
-1. "6 ヒープソート". アルゴリズムイントロダクション 第4版 総合版. 近代科学社, 2024, pp.136.
+1. "6 ヒープソート". アルゴリズムイントロダクション 第4版 総合版. 近代科学社, 2024, pp.136-152.
 1. "ヒープ". Wikipedia. <https://ja.wikipedia.org/wiki/ヒープ>.
 1. "二分ヒープ". Wikipedia. <https://ja.wikipedia.org/wiki/二分ヒープ>.
 1. "優先度付きキュー". Wikipedia. <https://ja.wikipedia.org/wiki/優先度付きキュー>.

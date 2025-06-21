@@ -9,7 +9,7 @@ int main() {
     int r;
     std::cin >> n >> m >> r;
 
-    algorithm::BellmanFord<int> bellman_ford(n, m);
+    algorithm::bellman_ford::default_bellman_ford<int> bellman_ford(n, m);
     for(int i = 0; i < m; ++i) {
         int s, t;
         int d;
@@ -26,7 +26,6 @@ int main() {
 
     for(int i = 0; i < n; ++i) {
         auto ans = bellman_ford.distance(i);
-
         if(ans == bellman_ford.infinity()) std::cout << "INF" << "\n";
         else std::cout << ans << "\n";
     }
