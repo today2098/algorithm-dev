@@ -9,6 +9,7 @@ int main() {
     std::cin >> q;
 
     algorithm::BinaryTrie<30> trie;
+
     while(q--) {
         int t;
         unsigned x;

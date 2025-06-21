@@ -10,6 +10,7 @@ int main() {
     std::cin >> n >> q;
 
     algorithm::BinaryTrie<20> trie;
+
     while(q--) {
         int com;
         std::cin >> com;
@@ -24,7 +25,9 @@ int main() {
             int x, y;
             std::cin >> x >> y;
 
-            int l = trie.lower_bound(x), r = trie.upper_bound(y);
+            int l = trie.lower_bound(x);
+            int r = trie.upper_bound(y);
+
             int ans = r - l;
             std::cout << ans << "\n";
         }

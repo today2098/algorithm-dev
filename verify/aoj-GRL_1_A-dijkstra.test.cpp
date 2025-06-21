@@ -9,7 +9,7 @@ int main() {
     int r;
     std::cin >> n >> m >> r;
 
-    algorithm::Dijkstra<int> dijkstra(n);
+    algorithm::dijkstra::default_dijkstra<int> dijkstra(n);
     for(int i = 0; i < m; ++i) {
         int s, t;
         int d;
@@ -21,7 +21,6 @@ int main() {
 
     for(int i = 0; i < n; ++i) {
         auto ans = dijkstra.distance(i);
-
         if(ans == dijkstra.infinity()) std::cout << "INF" << "\n";
         else std::cout << ans << "\n";
     }
