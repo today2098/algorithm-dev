@@ -1,184 +1,170 @@
 #ifndef ALGORITHM_INTERVAL_SET_HPP
 #define ALGORITHM_INTERVAL_SET_HPP 1
 
+#include <algorithm>
 #include <cassert>
+#include <compare>
 #include <initializer_list>
 #include <iostream>
 #include <iterator>
 #include <limits>
 #include <set>
-#include <type_traits>
 #include <utility>
 
 namespace algorithm {
 
-template <typename T, typename std::enable_if_t<std::is_arithmetic<T>::value, bool> = false>
-class Interval {
-    T l, u;
+namespace interval_set {
 
+template <typename T>
+class Interval : public std::pair<T, T> {
 public:
     using value_type = T;
+    using base_type = std::pair<value_type, value_type>;
 
-    Interval() : Interval(0, 0) {}
-    explicit constexpr Interval(T l, T u) : l(l), u(u) {
+    constexpr Interval() : Interval(0, 0) {}
+    constexpr Interval(const value_type &l, const value_type &u) : base_type(l, u) {
         assert(l <= u);
     }
-
-    constexpr Interval operator+=(T rhs) {
-        l += rhs, u += rhs;
-        return *this;
+    constexpr Interval(value_type &&l, value_type &&u) : base_type(std::move(l), std::move(u)) {
+        assert(lower() <= upper());
     }
-    constexpr Interval operator-=(T rhs) {
-        l -= rhs, u -= rhs;
-        return *this;
-    }
-    constexpr Interval operator*=(T rhs) {
-        l *= rhs, u *= rhs;
-        return *this;
-    }
-    constexpr Interval operator+=(const Interval &rhs) {
-        l += rhs.lower(), u += rhs.upper();
-        return *this;
-    }
-    constexpr Interval operator-=(const Interval &rhs) {
-        l -= rhs.lower(), u -= rhs.upper();
-        return *this;
-    }
-    constexpr Interval operator*=(const Interval &rhs) { return *this = *this * rhs; }
 
     friend constexpr auto operator<=>(const Interval &lhs, const Interval &rhs) = default;
-    friend constexpr Interval operator+(const Interval &lhs, T rhs) { return Interval(lhs) += rhs; }
-    friend constexpr Interval operator-(const Interval &lhs, T rhs) { return Interval(lhs) -= rhs; }
-    friend constexpr Interval operator*(const Interval &lhs, T rhs) { return Interval(lhs) *= rhs; }
-    friend constexpr Interval operator+(const Interval &lhs, const Interval &rhs) { return Interval(lhs) += rhs; }
-    friend constexpr Interval operator-(const Interval &lhs, const Interval &rhs) { return Interval(lhs) -= rhs; }
-    friend constexpr Interval operator*(const Interval &lhs, const Interval &rhs) {
-        return Interval(std::min({lhs.lower() * rhs.lower(), lhs.lower() * rhs.upper(), lhs.upper() * rhs.lower(), lhs.upper() * rhs.upper()}),
-                        std::max({lhs.lower() * rhs.lower(), lhs.lower() * rhs.upper(), lhs.upper() * rhs.lower(), lhs.upper() * rhs.upper()}));
-    }
-    friend std::ostream &operator<<(std::ostream &os, const Interval &a) { return os << "[" << a.lower() << ", " << a.upper() << ")"; }
+    friend std::ostream &operator<<(std::ostream &os, const Interval &interval) { return os << "[" << interval.lower() << ", " << interval.upper() << ")"; }
 
-    constexpr T lower() const { return l; }
-    constexpr T upper() const { return u; }
-    constexpr T width() const { return upper() - lower(); }
-    constexpr bool contains(T x) const { return lower() <= x and x < upper(); }
+    static constexpr Interval all() { return {std::numeric_limits<value_type>::lowest(), std::numeric_limits<value_type>::max()}; }
+    constexpr value_type lower() const { return this->first; }
+    constexpr value_type upper() const { return this->second; }
+    constexpr value_type width() const { return upper() - lower(); }
+    constexpr bool contains(const value_type &x) const { return lower() <= x and x < upper(); }
     constexpr int contains(const Interval &a) const { return contains(a.lower(), a.upper()); }
-    constexpr int contains(T l, T u) const {
-        if(l <= lower() and upper() <= u) return 2;  // 区間全体を含む場合．
-        if(upper() < l or u < lower()) return 0;     // 含まない場合．
-        return 1;                                    // 区間の一部のみ含む場合．
+    constexpr int contains(const value_type &l, const value_type &u) const {
+        if(lower() <= l and u <= upper()) return 2;  // 区間[l,u)の全体を含む場合．
+        if(u <= lower() or upper() <= l) return 0;   // 区間[l,u)を含まない場合．
+        return 1;                                    // 区間[l,u)の一部のみ含む場合．
     }
-
-    friend constexpr Interval overlap(const Interval &a, const Interval &b) {
-        T l = std::max(a.lower(), b.lower());
-        T u = std::min(a.upper(), b.upper());
+    constexpr Interval overlap(const Interval &a) const { return overlap(a.lower(), a.upper()); }
+    constexpr Interval overlap(const value_type &l, const value_type &u) const {
+        l = std::max(l, lower()), u = std::min(u, upper());
         return (l <= u ? Interval(l, u) : Interval(u, u));
     }
 };
 
 template <typename Type>
-constexpr Interval<Type> overlap(std::initializer_list<Interval<Type> > list) {
-    Interval<Type> res(std::numeric_limits<Type>::min(), std::numeric_limits<Type>::max());
-    for(const auto &elem : list) res = overlap(res, elem);
+constexpr Interval<Type> overlap(const Interval<Type> &a, const Interval<Type> &b) { return a.overlap(b); }
+
+template <typename Type>
+constexpr Interval<Type> overlap(std::initializer_list<Interval<Type>> il) {
+    Interval<Type> res = Interval<Type>::all();
+    for(const auto &elem : il) res = res.overlap(elem);
     return res;
 }
 
-// Interval Set（連続していない区間を管理するクラス）
-template <typename T, typename std::enable_if_t<std::is_arithmetic<T>::value, bool> = false>
+// Interval Set（区間をsetで管理するデータ構造）.
+template <typename T>
 class IntervalSet {
 public:
-    using interval = Interval<T>;
+    using value_type = T;
+    using size_type = std::size_t;
+    using interval_type = Interval<value_type>;
+    using iterator = std::set<interval_type>::const_iterator;
+    using const_iterator = std::set<interval_type>::const_iterator;
+    using reverse_iterator = std::set<interval_type>::const_reverse_iterator;
+    using const_reverse_iterator = std::set<interval_type>::const_reverse_iterator;
 
 private:
-    std::set<interval> m_st;  // m_st:=(区間の集合).
+    std::set<interval_type> m_st;
+
+    iterator lower_bound_internal(const value_type &l) const {
+        auto iter = upper_bound_internal(l);
+        return (l < std::prev(iter)->upper() ? std::prev(iter) : iter);
+    }
+    iterator upper_bound_internal(const value_type &u) const { return m_st.lower_bound(interval_type(u, u)); }
 
 public:
-    using iterator = std::set<interval>::iterator;
-    using const_iterator = std::set<interval>::const_iterator;
-    using reverse_iterator = std::set<interval>::reverse_iterator;
-    using const_reverse_iterator = std::set<interval>::const_reverse_iterator;
-
     IntervalSet() {
-        static_assert(min_limit() < max_limit());
+        static_assert(lower_limit() < upper_limit());
         // 番兵を配置．
-        m_st.emplace(std::numeric_limits<T>::lowest(), std::numeric_limits<T>::lowest());
-        m_st.emplace(std::numeric_limits<T>::max(), std::numeric_limits<T>::max());
+        m_st.emplace(lower_limit(), lower_limit());
+        m_st.emplace(upper_limit(), upper_limit());
     }
 
-    static constexpr T min_limit() { return std::numeric_limits<T>::lowest() + 1; }
-    static constexpr T max_limit() { return std::numeric_limits<T>::max() - 1; }
-    // 区間追加．O(logN).
-    iterator insert(const interval &interval) { return insert(interval.lower(), interval.upper()); }
-    iterator insert(T l, T r) {
-        assert(min_limit() <= l and l < r and r <= max_limit());
-        auto left = lower_bound(l);
-        auto right = upper_bound(r);
-        if(std::prev(left)->upper() == l) {
-            left--;
-            l = left->lower();
-        } else if(left->lower() <= l) {
-            if(r <= left->upper()) return left;
-            l = left->lower();
-        }
-        if(r <= std::prev(right)->upper()) r = std::prev(right)->upper();
-        return m_st.emplace_hint(m_st.erase(left, right), l, r);
+    static constexpr value_type lower_limit() { return std::numeric_limits<value_type>::lowest(); }
+    static constexpr value_type upper_limit() { return std::numeric_limits<value_type>::max(); }
+
+    bool empty() const { return size() == 0; }
+    size_type size() const { return m_st.size() - 2; }
+
+    iterator insert(const interval_type &interval) { return insert(interval.lower(), interval.upper()); }
+    iterator insert(value_type l, value_type u) {
+        assert(lower_limit() < l and l <= u and u < upper_limit());
+        if(l == u) return lower_bound_internal(l);
+        iterator left = lower_bound_internal(l);
+        if(std::prev(left)->upper() == l) --left;
+        if(left->lower() < l) l = left->lower();
+        iterator right = upper_bound_internal(u);
+        if(right->lower() == u) ++right;
+        if(u < std::prev(right)->upper()) u = std::prev(right)->upper();
+        return m_st.emplace_hint(m_st.erase(left, right), l, u);
     }
-    // 区間削除．O(logN).
-    iterator erase(const interval &interval) { return erase(interval.lower(), interval.upper()); }
-    iterator erase(T l, T r) {
-        assert(min_limit() <= l and l < r and r <= max_limit());
-        auto left = lower_bound(l);
-        auto right = upper_bound(r);
-        T ll = left->lower(), rr = std::prev(right)->upper();
+    iterator erase(const interval_type &interval) { return erase(interval.lower(), interval.upper()); }
+    iterator erase(const value_type &l, const value_type &u) {
+        assert(lower_limit() < l and l <= u and u < upper_limit());
+        if(l == u) return lower_bound_internal(l);
+        iterator left = lower_bound_internal(l);
+        iterator right = upper_bound_internal(u);
+        value_type ll = left->lower();
+        value_type uu = std::prev(right)->upper();
         auto iter = m_st.erase(left, right);
-        if(r < rr) iter = m_st.emplace_hint(iter, r, rr);
+        if(u < uu) iter = m_st.emplace_hint(iter, u, uu);
         if(ll < l) m_st.emplace_hint(iter, ll, l);
         return iter;
     }
-    // 集合に含まれているか判定する．O(logN).
-    bool contains(T x) const {
-        assert(min_limit() <= x and x < max_limit());
-        auto iter = std::prev(upper_bound(x));
-        return iter->lower() <= x and x < iter->upper();
-    }
-    // 集合に含まれているか判定する．O(logN).
-    int contains(const interval &interval) const { return contains(interval.lower(), interval.upper()); }
-    int contains(T l, T r) const {
-        assert(min_limit() <= l and l < r and r <= max_limit());
-        auto left = lower_bound(l);
-        auto right = upper_bound(r);
-        if(left == right) return 0;                                                           // 含まない場合．
-        if(left == std::prev(right) and left->lower() <= l and r <= left->upper()) return 2;  // 区間全体を含む場合．
-        return 1;                                                                             // 区間の一部のみ含む場合．
-    }
-    // x以上で集合に含まれない最小の値 (mex: Minimum EXcluded value) を求める．O(logN).
-    T mex(T x) const {
-        auto iter = lower_bound(x);
-        return (x < iter->upper() ? iter->upper() : x);
-    }
+    iterator erase(iterator iter) { return m_st.erase(iter); }
+    iterator erase(iterator left, iterator right) { return m_st.erase(left, right); }
     void clear() { m_st.erase(begin(), end()); }
 
-    const_iterator begin() const { return std::next(m_st.begin()); }
-    const_iterator cbegin() const { return std::next(m_st.cbegin()); }
-    const_iterator end() const { return std::prev(m_st.end()); }
-    const_iterator cend() const { return std::prev(m_st.cend()); }
-    const_reverse_iterator rbegin() const { return std::next(m_st.rbegin()); }
-    const_reverse_iterator crbegin() const { return std::next(m_st.crbegin()); }
-    const_reverse_iterator rend() const { return std::prev(m_st.rend()); }
-    const_reverse_iterator crend() const { return std::prev(m_st.crend()); }
-    const_iterator lower_bound(T x) const {
-        assert(min_limit() <= x and x < max_limit());
-        auto iter = m_st.lower_bound(interval(x + 1, x + 1));
-        auto pre = std::prev(iter);
-        return (x < pre->upper() ? pre : iter);
+    iterator lower_bound(const value_type &l) const {
+        assert(lower_limit() < l and l < upper_limit());
+        return lower_bound_internal(l);
     }
-    const_iterator upper_bound(T x) const {
-        assert(min_limit() <= x and x < max_limit());
-        return m_st.lower_bound(interval(x + 1, x + 1));
+    iterator upper_bound(const value_type &u) const {
+        assert(lower_limit() < u and u < upper_limit());
+        return upper_bound_internal(u);
     }
-    iterator erase(const_iterator iter) { return m_st.erase(iter); }
-    iterator erase(const_iterator l, const_iterator r) { return m_st.erase(l, r); }
+    iterator find(const value_type &x) const {
+        auto iter = lower_bound(x);
+        return (iter->contains(x) ? iter : end());
+    }
+    std::pair<iterator, iterator> overlap_range(const interval_type &interval) const { return overlap_range(interval.lower(), interval.upper()); }
+    std::pair<iterator, iterator> overlap_range(const value_type &l, const value_type &u) const {
+        assert(lower_limit() < l and l <= u and u < upper_limit());
+        return {lower_bound_internal(l), upper_bound_internal(u)};
+    }
+    bool contains(const value_type &x) const { return find(x) != end(); }
+    int contains(const interval_type &interval) const { return contains(interval.lower(), interval.upper()); }
+    int contains(const value_type &l, const value_type &u) const {
+        assert(lower_limit() < l and l <= u and u < upper_limit());
+        if(l == u) return 0;
+        return lower_bound_internal(l)->contains(l, u);
+    }
+    // x以上で集合に含まれない最小の値 (mex: Minimum EXcluded value) を求める．O(log N).
+    value_type mex(const value_type &x) const {
+        auto iter = lower_bound(x);
+        return (iter->contains(x) ? iter->upper() : x);
+    }
+
+    iterator begin() const { return std::next(m_st.begin()); }
+    iterator end() const { return std::prev(m_st.end()); }
+    iterator cbegin() const { return std::next(m_st.cbegin()); }
+    iterator cend() const { return std::prev(m_st.cend()); }
+    reverse_iterator rbegin() const { return std::next(m_st.rbegin()); }
+    reverse_iterator rend() const { return std::prev(m_st.rend()); }
+    reverse_iterator crbegin() const { return std::next(m_st.crbegin()); }
+    reverse_iterator crend() const { return std::prev(m_st.crend()); }
 };
+
+}  // namespace interval_set
 
 }  // namespace algorithm
 
