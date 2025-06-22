@@ -207,8 +207,8 @@ data:
       title: "\u4E8C\u6B21\u5143\u3044\u3082\u3059\u6CD5"
     - icon: ':heavy_check_mark:'
       path: lib/Others/interval_set.hpp
-      title: "Interval Set\uFF08\u9023\u7D9A\u3057\u3066\u3044\u306A\u3044\u533A\u9593\
-        \u3092\u7BA1\u7406\u3059\u308B\u30AF\u30E9\u30B9\uFF09"
+      title: "Interval Set\uFF08\u533A\u9593\u3092set\u3067\u7BA1\u7406\u3059\u308B\
+        \u30C7\u30FC\u30BF\u69CB\u9020\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/Others/largest_rectangle.hpp
       title: "\u6700\u5927\u9577\u65B9\u5F62\u554F\u984C"

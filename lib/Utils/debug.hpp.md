@@ -4,9 +4,6 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: verify/aoj-2880-interval_set.test.cpp
-    title: verify/aoj-2880-interval_set.test.cpp
-  - icon: ':heavy_check_mark:'
     path: verify/aoj-ITP1_1_A-popcount.test.cpp
     title: verify/aoj-ITP1_1_A-popcount.test.cpp
   _isVerificationFailed: false
@@ -126,7 +123,6 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-ITP1_1_A-popcount.test.cpp
-  - verify/aoj-2880-interval_set.test.cpp
 documentation_of: lib/Utils/debug.hpp
 layout: document
 title: "\u30C7\u30D0\u30C3\u30B0\u7528\u95A2\u6570\u5F62\u5F0F\u30DE\u30AF\u30ED"
