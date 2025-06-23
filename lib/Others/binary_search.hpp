@@ -3,7 +3,6 @@
 
 #include <cassert>
 #include <concepts>
-#include <functional>
 #include <numeric>
 #include <type_traits>
 
@@ -11,7 +10,7 @@ namespace algorithm {
 
 template <std::integral Type, class Pred>
 constexpr Type bisearch(Type ok, Type ng, Pred pred) {
-    static_assert(std::is_convertible_v<Pred, std::function<bool(Type)>>);
+    static_assert(std::is_invocable_r<bool, Pred, Type>::value);
     assert(ok <= ng);
     if(!pred(ok)) return ok;
     while(ng - ok > 1) {
@@ -23,7 +22,7 @@ constexpr Type bisearch(Type ok, Type ng, Pred pred) {
 
 template <std::floating_point Type, class Pred>
 constexpr Type bisearch(Type ok, Type ng, Type eps, Pred pred) {
-    static_assert(std::is_convertible_v<Pred, std::function<bool(Type)>>);
+    static_assert(std::is_invocable_r<bool, Pred, Type>::value);
     assert(ok <= ng);
     if(!pred(ok)) return ok;
     while(ng - ok > eps) {

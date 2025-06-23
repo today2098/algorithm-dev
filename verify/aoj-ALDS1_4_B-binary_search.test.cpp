@@ -20,10 +20,9 @@ int main() {
         int t;
         std::cin >> t;
 
-        auto pred = [&](int i) -> bool {
+        auto itr = algorithm::bisearch(0, n, [&](int i) -> bool {
             return s[i] < t;
-        };
-        auto itr = algorithm::bisearch(0, n, pred);
+        });
 
         if(itr < n and s[itr] == t) ++ans;
     }
