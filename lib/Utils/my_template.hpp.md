@@ -9,9 +9,9 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/Utils/my_template.hpp\"\n\n\n\n#include <bits/stdc++.h>\n\
-    #define REP(i, n) for(int i = 0; i < (int)(n); ++i)\n#define FOR(i, l, r) for(int\
-    \ i = (int)(l); i < (int)(r); ++i)\n#define RREP(i, n) for(int i = (int)(n); i--\
-    \ > 0;)\n#define RFOR(i, r, l) for(int i = (int)(r); i-- > (int)(l);)\n#define\
+    #define REP(i, n) for(int i = 0; i < (int)(n); ++i)\n#define RREP(i, n) for(int\
+    \ i = (int)(n); i-- > 0;)\n#define FOR(i, l, r) for(int i = (int)(l); i < (int)(r);\
+    \ ++i)\n#define RFOR(i, l, r) for(int i = (int)(r); i-- > (int)(l);)\n#define\
     \ ALL(v) std::begin(v), std::end(v)\nusing llong = long long;\nusing vi = std::vector<int>;\n\
     using vvi = std::vector<vi>;\nusing pii = std::pair<int, int>;\nusing namespace\
     \ std;\nconstexpr int INF = 1e9;\nconstexpr long long LINF = 1e18;\nconstexpr\
@@ -24,8 +24,8 @@ data:
     \ os;\n}\n\n\n"
   code: "#ifndef ALGORITHM_MY_TEMPLATE_HPP\n#define ALGORITHM_MY_TEMPLATE_HPP 1\n\n\
     #include <bits/stdc++.h>\n#define REP(i, n) for(int i = 0; i < (int)(n); ++i)\n\
-    #define FOR(i, l, r) for(int i = (int)(l); i < (int)(r); ++i)\n#define RREP(i,\
-    \ n) for(int i = (int)(n); i-- > 0;)\n#define RFOR(i, r, l) for(int i = (int)(r);\
+    #define RREP(i, n) for(int i = (int)(n); i-- > 0;)\n#define FOR(i, l, r) for(int\
+    \ i = (int)(l); i < (int)(r); ++i)\n#define RFOR(i, l, r) for(int i = (int)(r);\
     \ i-- > (int)(l);)\n#define ALL(v) std::begin(v), std::end(v)\nusing llong = long\
     \ long;\nusing vi = std::vector<int>;\nusing vvi = std::vector<vi>;\nusing pii\
     \ = std::pair<int, int>;\nusing namespace std;\nconstexpr int INF = 1e9;\nconstexpr\
@@ -40,7 +40,7 @@ data:
   isVerificationFile: false
   path: lib/Utils/my_template.hpp
   requiredBy: []
-  timestamp: '2025-05-17 16:51:41+09:00'
+  timestamp: '2025-06-24 00:56:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/Utils/my_template.hpp
