@@ -24,7 +24,7 @@ documentation_of: //lib/DataStructure/UnionFind/union_find.hpp
 ## 参考
 
 1. Bernard A. Galler and Michael J. Fisher. 1964. An improved equivalence algorithm. Commun. ACM 7, 5 (May 1964), 301–303. <https://doi.org/10.1145/364099.364331>.
-1. 大槻 兼資. "第11章 データ構造 (4)：Union-Find". 問題解決力を鍛える！ アルゴリズムとデータ構造. 秋葉 拓哉監修. 講談社, 2020, p.181-190.
+1. 大槻兼資著. "第11章 データ構造 (4)：Union-Find". 問題解決力を鍛える！ アルゴリズムとデータ構造. 秋葉拓哉監修. 講談社, 2020, pp.181-190.
 1. "19 互いに素な集合族のためのデータ構造". アルゴリズムイントロダクション 第4版 総合版. 近代科学社, 2024, pp.439-460.
 1. "素集合データ構造". Wikipedia. <https://ja.wikipedia.org/wiki/素集合データ構造>.
 1. rsk0315. "α(n) とお近づきになりたい人のための記事". HatenaBlog. <https://rsk0315.hatenablog.com/entry/2020/11/14/170423>.
