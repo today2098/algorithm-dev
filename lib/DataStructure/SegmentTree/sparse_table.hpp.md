@@ -235,7 +235,7 @@ title: Sparse Table
 
 ## 説明
 
-### `algorithm::sparse_table::SparseTable<IdempotentSemigroup>`
+### algorithm::sparse_table::SparseTable<IdempotentSemigroup>
 
 |テンプレート引数|説明|
 |---|---|

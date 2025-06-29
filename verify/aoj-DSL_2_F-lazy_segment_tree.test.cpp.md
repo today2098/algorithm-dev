@@ -3,7 +3,8 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
-    title: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
+    title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\
+      \u30C8\u6728\uFF09"
   - icon: ':heavy_check_mark:'
     path: lib/Math/Algebra/algebra.hpp
     title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"

@@ -307,10 +307,10 @@ data:
   timestamp: '2025-06-14 20:38:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
   - verify/yosupo-point_add_range_sum-segment_tree.test.cpp
   - verify/aoj-DSL_2_B-segment_tree.test.cpp
   - verify/aoj-DSL_2_A-segment_tree.test.cpp
+  - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
 documentation_of: lib/DataStructure/SegmentTree/segment_tree.hpp
 layout: document
 title: Segment Tree
@@ -336,7 +336,7 @@ title: Segment Tree
 
 ## 説明
 
-### `algorithm::segment_tree::SegmentTree<Monoid>`
+### algorithm::segment_tree::SegmentTree<Monoid>
 
 |テンプレート引数|説明|
 |---|---|

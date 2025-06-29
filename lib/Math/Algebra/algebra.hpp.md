@@ -4,16 +4,18 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
-    title: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
+    title: Binary Indexed Tree
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
     title: "\u4E8C\u6B21\u5143Binary Indexed Tree"
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
-    title: lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
+    title: "Dynamic Segment Tree\uFF08\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\
+      \uFF09"
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
-    title: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
+    title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\
+      \u30C8\u6728\uFF09"
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/SegmentTree/segment_tree.hpp
     title: Segment Tree
@@ -288,32 +290,32 @@ data:
   isVerificationFile: false
   path: lib/Math/Algebra/algebra.hpp
   requiredBy:
-  - lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
   - lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
-  - lib/DataStructure/SegmentTree/sparse_table.hpp
-  - lib/DataStructure/SegmentTree/segment_tree.hpp
   - lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
   - lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
+  - lib/DataStructure/SegmentTree/sparse_table.hpp
+  - lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
+  - lib/DataStructure/SegmentTree/segment_tree.hpp
   timestamp: '2025-06-13 20:00:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
-  - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
-  - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
-  - verify/yosupo-point_add_range_sum-segment_tree.test.cpp
-  - verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp
-  - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
   - verify/aoj-2842-binary_indexed_tree_2d.test.cpp
   - verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
-  - verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp
-  - verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
-  - verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
-  - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+  - verify/yosupo-point_add_range_sum-segment_tree.test.cpp
+  - verify/aoj-DSL_2_I-lazy_segment_tree.test.cpp
   - verify/aoj-DSL_2_B-segment_tree.test.cpp
   - verify/yosupo-staticrmp-sparse_table.test.cpp
-  - verify/aoj-DSL_2_I-lazy_segment_tree.test.cpp
   - verify/aoj-DSL_2_H-lazy_segment_tree.test.cpp
+  - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+  - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
   - verify/aoj-DSL_2_A-segment_tree.test.cpp
+  - verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+  - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+  - verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp
+  - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
+  - verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
+  - verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
+  - verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp
 documentation_of: lib/Math/Algebra/algebra.hpp
 layout: document
 title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"

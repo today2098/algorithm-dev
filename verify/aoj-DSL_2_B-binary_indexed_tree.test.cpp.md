@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
-    title: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
+    title: Binary Indexed Tree
   - icon: ':heavy_check_mark:'
     path: lib/Math/Algebra/algebra.hpp
     title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"

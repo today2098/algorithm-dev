@@ -83,8 +83,8 @@ data:
   timestamp: '2025-04-13 14:58:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/aoj-1276-linear_sieve.test.cpp
   - verify/aoj-ALDS1_1_C-linear_sieve.test.cpp
+  - verify/aoj-1276-linear_sieve.test.cpp
 documentation_of: lib/Math/NumberTheory/linear_sieve.hpp
 layout: document
 title: "\u7DDA\u5F62\u7BE9"

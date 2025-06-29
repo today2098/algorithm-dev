@@ -13,16 +13,18 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
-      title: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
+      title: Binary Indexed Tree
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
       title: "\u4E8C\u6B21\u5143Binary Indexed Tree"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
-      title: lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
+      title: "Dynamic Segment Tree\uFF08\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\
+        \u6728\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
-      title: lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
+      title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\
+        \u30C8\u6728\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/SegmentTree/segment_tree.hpp
       title: Segment Tree
@@ -33,7 +35,7 @@ data:
     pages:
     - icon: ':warning:'
       path: lib/DataStructure/UnionFind/partially_persistent_union_find.hpp
-      title: lib/DataStructure/UnionFind/partially_persistent_union_find.hpp
+      title: "Partially Persistent Union-Find\uFF08\u90E8\u5206\u6C38\u7D9AUnionf-Find\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/DataStructure/UnionFind/potentialized_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304DUnion-Find"

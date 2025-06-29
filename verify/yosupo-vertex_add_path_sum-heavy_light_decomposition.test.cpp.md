@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
-    title: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
+    title: Binary Indexed Tree
   - icon: ':heavy_check_mark:'
     path: lib/Graph/Tree/heavy_light_decomposition.hpp
     title: "Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\u91CD\u8EFD\u5206\u89E3\
