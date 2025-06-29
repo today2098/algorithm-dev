@@ -8,7 +8,7 @@ int main() {
     int n, m;
     std::cin >> n >> m;
 
-    algorithm::Dinic<int> dinic(n);
+    algorithm::Dinic<int> dinic(n, m);
     for(int i = 0; i < m; ++i) {
         int u, v;
         int c;

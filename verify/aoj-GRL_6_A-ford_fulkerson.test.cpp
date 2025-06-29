@@ -8,7 +8,7 @@ int main() {
     int n, m;
     std::cin >> n >> m;
 
-    algorithm::FordFulkerson<int> ford_fulkerson(n);
+    algorithm::FordFulkerson<int> ford_fulkerson(n, m);
     for(int i = 0; i < m; ++i) {
         int u, v;
         int c;
