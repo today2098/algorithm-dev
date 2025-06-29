@@ -1,11 +1,6 @@
 #ifndef ALGORITHM_DINIC_HPP
 #define ALGORITHM_DINIC_HPP 1
 
-/**
- * @brief Dinic's Algorithm（最大流問題）
- * @docs docs/Graph/Flow/dinic.md
- */
-
 #include <algorithm>
 #include <cassert>
 #include <limits>
@@ -16,113 +11,114 @@
 
 namespace algorithm {
 
-template <typename T>  // T:容量の型.
+template <typename Flow>
 class Dinic {
+public:
+    using flow_type = Flow;
+
+private:
     struct Edge {
-        int to;   // to:=(行き先ノード).
-        T cap;    // cap:=(容量).
-        int rev;  // rev:=(逆辺イテレータ).
-        explicit Edge(int to_, T cap_, int rev_) : to(to_), cap(cap_), rev(rev_) {}
+        int to;         // to:=(行き先ノード).
+        flow_type cap;  // cap:=(容量).
+        int rev;        // rev:=(逆辺の位置). m_g[to][rev]が逆辺となる．
+
+        explicit Edge(int to, flow_type cap, int rev) : to(to), cap(cap), rev(rev) {}
     };
 
-    std::vector<std::vector<Edge> > m_g;      // m_g[v][]:=(ノードvの隣接リスト).
-    std::vector<std::pair<int, int> > m_pos;  // m_pos[i]:=(i番目の辺情報). pair of (from, index).
-
-    T dfs(int v, int t, T flow, const std::vector<int> &d, std::vector<int> &iter) {
-        if(v == t) return flow;
-        for(int &i = iter[v], n = m_g[v].size(); i < n; ++i) {
-            Edge &e = m_g[v][i];
-            if(e.cap > 0 and d[e.to] > d[v]) {
-                T &&res = dfs(e.to, t, std::min(flow, e.cap), d, iter);
-                if(res > 0) {
-                    e.cap -= res;
-                    m_g[e.to][e.rev].cap += res;
-                    return res;
-                }
-            }
-        }
-        return 0;
-    }
+    int m_vn;                                // m_vn:=(ノード数).
+    std::vector<std::vector<Edge>> m_g;      // m_g[v][]:=(ノードvの隣接リスト).
+    std::vector<std::pair<int, int>> m_pos;  // m_pos[i]:=(i番目の辺の情報). pair of (from, index).
 
 public:
     Dinic() : Dinic(0) {}
-    explicit Dinic(size_t vn) : m_g(vn) {}
-    explicit Dinic(size_t vn, size_t en) : Dinic(vn) {
+    explicit Dinic(int n) : m_vn(n), m_g(n) {
+        assert(n >= 0);
+    }
+    explicit Dinic(int vn, int en) : Dinic(vn) {
+        assert(en >= 0);
         m_pos.reserve(en);
     }
 
-    static constexpr T infinity() { return std::numeric_limits<T>::max(); }
-    // ノード数を返す．
-    int order() const { return m_g.size(); }
-    // 辺数を返す.
+    static constexpr flow_type infinity() { return std::numeric_limits<flow_type>::max(); }
+    // ノード数を取得する．
+    int order() const { return m_vn; }
+    // 辺数を取得する.
     int size() const { return m_pos.size(); }
     // 容量capの有向辺を追加する．
-    int add_edge(int from, int to, T cap) {
+    int add_edge(int from, int to, flow_type cap) {
         assert(0 <= from and from < order());
         assert(0 <= to and to < order());
         assert(cap >= 0);
-        int idx_from = m_g[from].size(), idx_to = m_g[to].size();
-        if(from == to) idx_to++;
-        m_g[from].emplace_back(to, cap, idx_to);
-        m_g[to].emplace_back(from, 0, idx_from);
-        m_pos.emplace_back(from, idx_from);
+        int i = m_g[from].size(), j = m_g[to].size();
+        if(from == to) ++j;
+        m_g[from].emplace_back(to, cap, j);
+        m_g[to].emplace_back(from, 0, i);
+        m_pos.emplace_back(from, i);
         return size() - 1;
     }
     // ノードsからtへの最大流を求める．O((|V|^2)*|E|).
-    T max_flow(int s, int t) { return max_flow(s, t, infinity()); }
-    T max_flow(int s, int t, T flow) {
+    flow_type max_flow(int s, int t) { return max_flow(s, t, infinity()); }
+    flow_type max_flow(int s, int t, flow_type flow) {
         assert(0 <= s and s < order());
         assert(0 <= t and t < order());
-        T res = 0;
-        std::vector<int> d(order());     // d[v]:=(ノードs-v間の増加パスの長さ).
-        std::vector<int> iter(order());  // iter[v]:=(m_g[v][]の次に調べるべきイテレータ).
+        flow_type res = 0;
         while(res < flow) {
             // (1) BFS: ノードsと各ノード間の増加パスの長さを求める．
-            std::fill(d.begin(), d.end(), -1);
+            std::vector<int> d(m_vn, -1);  // d[v]:=(ノードs-v間の増加パスの長さ).
             d[s] = 0;
-            std::queue<int> que;
-            que.push(s);
+            std::queue<int> que({s});
             while(!que.empty()) {
                 int v = que.front();
                 que.pop();
                 for(const Edge &e : m_g[v]) {
-                    if(e.cap > 0 and d[e.to] == -1) {
-                        d[e.to] = d[v] + 1;
-                        que.push(e.to);
-                    }
+                    if(d[e.to] != -1 or e.cap == 0) continue;
+                    d[e.to] = d[v] + 1;
+                    que.push(e.to);
                 }
             }
             if(d[t] == -1) break;
-            // (2) DFS: 増加パスを探す．
-            std::fill(iter.begin(), iter.end(), 0);
+            // (2) DFS: ノードs-t間の増加パスを探す．
+            std::vector<int> next(m_vn, 0);  // next[v]:=(m_g[v][]における次に調べるべき位置).
+            auto dfs = [&](auto self, int v, flow_type flow) -> flow_type {
+                if(v == t) return flow;
+                for(int &i = next[v], end = m_g[v].size(); i < end; ++i) {
+                    Edge &e = m_g[v][i];
+                    if(d[e.to] <= d[v] or e.cap == 0) continue;
+                    flow_type res = self(self, e.to, std::min(flow, e.cap));
+                    if(res == 0) continue;
+                    e.cap -= res;
+                    m_g[e.to][e.rev].cap += res;
+                    return res;
+                }
+                return 0;
+            };
             while(res < flow) {
-                T &&tmp = dfs(s, t, flow - res, d, iter);
+                flow_type tmp = dfs(dfs, s, flow - res);
                 if(tmp == 0) break;
                 res += tmp;
             }
         }
         return res;
     }
-    // i番目の辺情報を返す．
-    std::tuple<int, int, T, T> get_edge(int i) const {
+    // i番目の辺の情報を取得する．
+    std::tuple<int, int, flow_type, flow_type> get_edge(int i) const {
         assert(0 <= i and i < size());
         const auto &[from, idx] = m_pos[i];
         const Edge &e = m_g[from][idx];
-        return {from, e.to, e.cap + m_g[e.to][e.rev].cap, m_g[e.to][e.rev].cap};  // tuple of (from, to, cap, flow).
+        return {from, e.to, e.cap + m_g[e.to][e.rev].cap, m_g[e.to][e.rev].cap};  // tuple of (from, to, capacity, flow).
     }
     // 最小カットにより，グラフ上のノードを分割する．
     std::vector<bool> min_cut(int s) const {
         assert(0 <= s and s < order());
-        std::vector<bool> res(order(), false);
-        std::queue<int> que;
-        que.push(s);
+        std::vector<bool> res(m_vn, false);
+        std::queue<int> que({s});
         while(!que.empty()) {
             int v = que.front();
             que.pop();
             if(res[v]) continue;
             res[v] = true;
             for(const Edge &e : m_g[v]) {
-                if(e.cap > 0 and !res[e.to]) que.push(e.to);
+                if(!res[e.to] and e.cap > 0) que.push(e.to);
             }
         }
         return res;
@@ -130,7 +126,7 @@ public:
     void reset() {
         for(const auto &[from, idx] : m_pos) {
             Edge &e = m_g[from][idx];
-            e.cap = e.cap + m_g[e.to][e.rev].cap;
+            e.cap += m_g[e.to][e.rev].cap;
             m_g[e.to][e.rev].cap = 0;
         }
     }

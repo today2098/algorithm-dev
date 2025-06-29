@@ -1,6 +1,6 @@
 ---
 title: Partially Persistent Union-Find（部分永続Unionf-Find）
-documentation_of: //lib/DataStructureUnionFind/partially_persistent_union_find.hpp
+documentation_of: //lib/DataStructure/UnionFind/partially_persistent_union_find.hpp
 ---
 
 

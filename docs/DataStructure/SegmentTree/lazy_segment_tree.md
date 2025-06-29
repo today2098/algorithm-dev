@@ -1,6 +1,6 @@
 ---
 title: Lazy Segment Tree（遅延評価セグメント木）
-documentation_of: //lib/DataStructure/LazySegmentTree/lazy_segment_tree.hpp
+documentation_of: //lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
 ---
 
 
@@ -26,7 +26,7 @@ Lazy segment tree にのせるモノイドと作用素モノイドは次の条�
 
 ## 説明
 
-### `algorithm::lazy_segment_tree::LazySegmentTree<Monoid,OperatorMonoid>`
+### algorithm::lazy_segment_tree::LazySegmentTree<Monoid,OperatorMonoid>
 
 |テンプレート引数|説明|
 |---|---|

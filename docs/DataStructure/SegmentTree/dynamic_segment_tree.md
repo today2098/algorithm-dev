@@ -1,6 +1,6 @@
 ---
 title: Dynamic Segment Tree（動的セグメント木）
-documentation_of: //lib/DataStructure/DynamicSegmentTree/dynamic_segment_tree.hpp
+documentation_of: //lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
 ---
 
 
@@ -19,7 +19,7 @@ documentation_of: //lib/DataStructure/DynamicSegmentTree/dynamic_segment_tree.hp
 
 ## 説明
 
-### `algorithm::dynamic_segment_tree::DynamicSegmentTree<Monoid>`
+### algorithm::dynamic_segment_tree::DynamicSegmentTree<Monoid>
 
 |テンプレート引数|説明|
 |---|---|
