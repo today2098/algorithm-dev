@@ -1,6 +1,6 @@
 ---
 title: Binary Indexed Tree
-documentation_of: //lib/DataStructure/BIT/binary_indexed_tree.hpp
+documentation_of: //lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
 ---
 
 
@@ -28,7 +28,7 @@ documentation_of: //lib/DataStructure/BIT/binary_indexed_tree.hpp
 
 ## 説明
 
-### `algorithm::binary_indexed_tree::BIT<AbelianGroup>`
+### algorithm::binary_indexed_tree::BIT<AbelianGroup>
 
 |テンプレート引数|説明|
 |---|---|
