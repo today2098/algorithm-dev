@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Graph/ShortestPath/bellman_ford.hpp"
+#include "../algorithm/Graph/ShortestPath/bellman_ford.hpp"
 
 int main() {
     int n, m;

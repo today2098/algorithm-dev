@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Graph/Flow/dinic.hpp"
+#include "../algorithm/Graph/Flow/dinic.hpp"
 
 int main() {
     int n, m;

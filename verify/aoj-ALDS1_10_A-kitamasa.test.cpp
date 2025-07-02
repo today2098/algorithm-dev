@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/Algebra/kitamasa.hpp"
+#include "../algorithm/Math/Algebra/kitamasa.hpp"
 
 int main() {
     int n;

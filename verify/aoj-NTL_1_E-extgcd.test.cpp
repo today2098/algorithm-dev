@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/NumberTheory/extgcd.hpp"
+#include "../algorithm/Math/NumberTheory/extgcd.hpp"
 
 int main() {
     int a, b;

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "../lib/String/longest_common_subsequence.hpp"
+#include "../algorithm/String/longest_common_subsequence.hpp"
 
 int main() {
     int q;

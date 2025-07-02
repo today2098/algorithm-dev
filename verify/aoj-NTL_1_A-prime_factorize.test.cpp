@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/NumberTheory/prime_factorize.hpp"
+#include "../algorithm/Math/NumberTheory/prime_factorize.hpp"
 
 int main() {
     int n;

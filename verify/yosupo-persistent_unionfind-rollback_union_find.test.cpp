@@ -4,7 +4,7 @@
 #include <tuple>
 #include <vector>
 
-#include "../lib/DataStructure/UnionFind/rollback_union_find.hpp"
+#include "../algorithm/DataStructure/UnionFind/rollback_union_find.hpp"
 
 int main() {
     int n;

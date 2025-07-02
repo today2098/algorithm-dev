@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/Combinatorics/combination.hpp"
+#include "../algorithm/Math/Combinatorics/combination.hpp"
 
 int main() {
     int t;

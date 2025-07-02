@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp"
+#include "../algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp"
 
 int main() {
     int n;

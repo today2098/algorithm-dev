@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "../lib/DataStructure/SegmentTree/segment_tree.hpp"
-#include "../lib/Math/ModularArithmetic/modint.hpp"
+#include "../algorithm/DataStructure/SegmentTree/segment_tree.hpp"
+#include "../algorithm/Math/ModularArithmetic/modint.hpp"
 
 int main() {
     int n;

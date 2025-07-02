@@ -4,8 +4,8 @@
 #include <utility>
 #include <vector>
 
-#include "../lib/DataStructure/SegmentTree/binary_indexed_tree.hpp"
-#include "../lib/Graph/Tree/heavy_light_decomposition.hpp"
+#include "../algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp"
+#include "../algorithm/Graph/Tree/heavy_light_decomposition.hpp"
 
 int main() {
     int n;

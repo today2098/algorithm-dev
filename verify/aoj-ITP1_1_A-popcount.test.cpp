@@ -6,8 +6,8 @@
 #include <limits>
 #include <random>
 
-#include "../lib/Others/popcount.hpp"
-#include "../lib/Utils/debug.hpp"
+#include "../algorithm/Others/popcount.hpp"
+#include "../algorithm/Utils/debug.hpp"
 
 constexpr int naive_popcount(uint64_t bit) {
     int res = 0;

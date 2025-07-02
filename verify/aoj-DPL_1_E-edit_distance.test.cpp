@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "../lib/String/edit_distance.hpp"
+#include "../algorithm/String/edit_distance.hpp"
 
 int main() {
     std::string s, t;

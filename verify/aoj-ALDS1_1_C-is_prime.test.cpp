@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/NumberTheory/is_prime.hpp"
+#include "../algorithm/Math/NumberTheory/is_prime.hpp"
 
 int main() {
     int n;

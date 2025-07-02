@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "../lib/Graph/Others/strongly_connected_components.hpp"
-#include "../lib/Graph/Others/topological_sort.hpp"
+#include "../algorithm/Graph/Others/strongly_connected_components.hpp"
+#include "../algorithm/Graph/Others/topological_sort.hpp"
 
 int main() {
     int n;

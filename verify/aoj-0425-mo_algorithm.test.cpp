@@ -5,7 +5,7 @@
 #include <utility>
 #include <vector>
 
-#include "../lib/Others/mo_algorithm.hpp"
+#include "../algorithm/Others/mo_algorithm.hpp"
 
 int main() {
     int n;

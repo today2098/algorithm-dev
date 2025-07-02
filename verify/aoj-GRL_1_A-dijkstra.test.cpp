@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Graph/ShortestPath/dijkstra.hpp"
+#include "../algorithm/Graph/ShortestPath/dijkstra.hpp"
 
 int main() {
     int n, m;

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/DataStructure/SegmentTree/lazy_segment_tree.hpp"
+#include "../algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp"
 
 int main() {
     int n;

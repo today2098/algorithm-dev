@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Graph/Others/prim.hpp"
+#include "../algorithm/Graph/Others/prim.hpp"
 
 int main() {
     int n;

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "../lib/String/manacher.hpp"
+#include "../algorithm/String/manacher.hpp"
 
 int main() {
     std::string s;
