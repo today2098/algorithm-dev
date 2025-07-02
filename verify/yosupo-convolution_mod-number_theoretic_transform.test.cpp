@@ -3,8 +3,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../lib/Math/Convolution/number_theoretic_transform.hpp"
-#include "../lib/Math/ModularArithmetic/modint.hpp"
+#include "../algorithm/Math/Convolution/number_theoretic_transform.hpp"
+#include "../algorithm/Math/ModularArithmetic/modint.hpp"
 
 int main() {
     int n, m;

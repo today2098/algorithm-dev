@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../lib/Others/largest_rectangle.hpp"
+#include "../algorithm/Others/largest_rectangle.hpp"
 
 int main() {
     int h, w;

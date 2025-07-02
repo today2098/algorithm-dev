@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Graph/Flow/ford_fulkerson.hpp"
+#include "../algorithm/Graph/Flow/ford_fulkerson.hpp"
 
 int main() {
     int n, m;

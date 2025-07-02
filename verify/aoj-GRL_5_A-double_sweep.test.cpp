@@ -4,7 +4,7 @@
 #include <utility>
 #include <vector>
 
-#include "../lib/Graph/Tree/double_sweep.hpp"
+#include "../algorithm/Graph/Tree/double_sweep.hpp"
 
 int main() {
     int n;

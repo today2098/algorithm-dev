@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/DataStructure/Others/binary_trie.hpp"
+#include "../algorithm/DataStructure/Others/binary_trie.hpp"
 
 int main() {
     int n;

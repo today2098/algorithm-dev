@@ -6,8 +6,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../lib/Math/Algebra/nth_root.hpp"
-#include "../lib/Math/Algebra/power.hpp"
+#include "../algorithm/Math/Algebra/nth_root.hpp"
+#include "../algorithm/Math/Algebra/power.hpp"
 
 int main() {
     int n;

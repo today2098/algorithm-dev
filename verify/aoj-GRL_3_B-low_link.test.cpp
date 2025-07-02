@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Graph/Others/low_link.hpp"
+#include "../algorithm/Graph/Others/low_link.hpp"
 
 int main() {
     int n, m;

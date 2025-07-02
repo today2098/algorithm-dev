@@ -6,7 +6,7 @@
 #include <random>
 #include <vector>
 
-#include "../lib/Math/Convolution/fast_fourier_transform.hpp"
+#include "../algorithm/Math/Convolution/fast_fourier_transform.hpp"
 
 int main() {
     constexpr int t = 100;

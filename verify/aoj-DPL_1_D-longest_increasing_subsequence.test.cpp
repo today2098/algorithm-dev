@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../lib/Others/longest_increasing_subsequence.hpp"
+#include "../algorithm/Others/longest_increasing_subsequence.hpp"
 
 int main() {
     int n;

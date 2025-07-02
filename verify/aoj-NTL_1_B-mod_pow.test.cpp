@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/ModularArithmetic/mod_pow.hpp"
+#include "../algorithm/Math/ModularArithmetic/mod_pow.hpp"
 
 int main() {
     constexpr int MOD = 1e9 + 7;

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Graph/Others/strongly_connected_components.hpp"
+#include "../algorithm/Graph/Others/strongly_connected_components.hpp"
 
 int main() {
     int n, m;

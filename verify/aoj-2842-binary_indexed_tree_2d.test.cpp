@@ -4,7 +4,7 @@
 #include <queue>
 #include <tuple>
 
-#include "../lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp"
+#include "../algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp"
 
 int main() {
     int y, x;

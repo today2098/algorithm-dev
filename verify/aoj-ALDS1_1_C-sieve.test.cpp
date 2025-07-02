@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/NumberTheory/sieve.hpp"
+#include "../algorithm/Math/NumberTheory/sieve.hpp"
 
 int main() {
     constexpr int mx = 1e8;

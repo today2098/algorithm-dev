@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include "../lib/Math/NumberTheory/divisors.hpp"
+#include "../algorithm/Math/NumberTheory/divisors.hpp"
 
 int main() {
     int a, b, c;

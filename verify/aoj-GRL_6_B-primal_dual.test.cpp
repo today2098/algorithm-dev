@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Graph/Flow/primal_dual.hpp"
+#include "../algorithm/Graph/Flow/primal_dual.hpp"
 
 int main() {
     int n, m;

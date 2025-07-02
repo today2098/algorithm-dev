@@ -5,7 +5,7 @@
 #include <tuple>
 #include <vector>
 
-#include "../lib/Others/interval_set.hpp"
+#include "../algorithm/Others/interval_set.hpp"
 
 int main() {
     int n;

@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/Algebra/square_root.hpp"
+#include "../algorithm/Math/Algebra/square_root.hpp"
 
 int main() {
     double x1, y1, x2, y2;

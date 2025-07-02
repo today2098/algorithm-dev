@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "../lib/Others/compress.hpp"
-#include "../lib/Others/imos_2d.hpp"
+#include "../algorithm/Others/compress.hpp"
+#include "../algorithm/Others/imos_2d.hpp"
 
 int main() {
     int n;

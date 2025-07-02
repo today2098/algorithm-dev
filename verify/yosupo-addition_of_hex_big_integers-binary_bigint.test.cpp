@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/Math/NumberTheory/binary_bigint.hpp"
+#include "../algorithm/Math/NumberTheory/binary_bigint.hpp"
 
 int main() {
     int t;

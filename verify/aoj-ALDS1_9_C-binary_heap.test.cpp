@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "../lib/DataStructure/Others/binary_heap.hpp"
+#include "../algorithm/DataStructure/Others/binary_heap.hpp"
 
 int main() {
     algorithm::binary_heap::max_heap<int> heap;

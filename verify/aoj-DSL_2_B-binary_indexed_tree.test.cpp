@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../lib/DataStructure/SegmentTree/binary_indexed_tree.hpp"
+#include "../algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp"
 
 int main() {
     int n;

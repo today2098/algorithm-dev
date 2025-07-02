@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../lib/DataStructure/SegmentTree/sparse_table.hpp"
+#include "../algorithm/DataStructure/SegmentTree/sparse_table.hpp"
 
 int main() {
     int n;
