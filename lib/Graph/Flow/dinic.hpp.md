@@ -181,13 +181,13 @@ Dinic's algorithm では，この増加パスを探す部分に対して規則�
 4. 候補の経路が無くなるまで手順2, 3を繰り返す
 5. source から sink への増加パスが無くなるまで手順1~4を繰り返す
 
-計算量は，グラフのノード数と辺数をそれぞれ $|V|, |E|$ とすると，$\mathcal{O}(|V|^2 |E|)$ となる．
+計算量は，グラフのノード数と辺数をそれぞれ $\lvert V \rvert, \lvert E \rvert$ とすると，$\mathcal{O}(\lvert V \rvert ^2 \lvert E \rvert)$ となる．
 しかし，大抵の場合は見積りより高速であるとされる．
 
 
 ## 参考
 
-1. 秋葉拓哉ほか. "高速な最大流アルゴリズム". プログラミングコンテストチャレンジブック 第2版. マイナビ出版, 2012, p.194-195.
+1. 秋葉拓哉ほか. "高速な最大流アルゴリズム". プログラミングコンテストチャレンジブック 第2版. マイナビ出版, 2012, pp.194-195.
 1. "Dinic's algorithm". Wikipedia. <https://en.wikipedia.org/wiki/Dinic's_algorithm>.
 1. "ディニッツ法". Wikipedia. <https://ja.wikipedia.org/wiki/ディニッツ法>.
 1. tanaka-a. "燃やす埋める問題とProject Selection Problemの整理". Qiita. <https://qiita.com/tanaka-a/items/fb8d84c44190c7098047>.
