@@ -20,7 +20,7 @@ $G$ における「フロー (flow)」は，次の2条件を満たす関数 $f: 
 1. 容量制限：$0 \leq f(u,v) \leq c(u,v) \ (\forall u, \forall v \in V)$
 1. フロー保存則：$\sum_{v \in V} f(u,v) = \sum_{v \in V} f(v,u) \ (\forall u \in V-\{s,t\})$
 
-そして，フロー $f$ の値 $|f|$ は次のように定義される（ここでの $|\cdot|$ の表記は絶対値や要素数を表していない）．
+そして，フロー $f$ の値 $\lvert f \rvert$ は次のように定義される（ここでの $\lvert \cdot \rvert$ の表記は絶対値や要素数を表していない）．
 
 $$
 |f| = \sum_{v \in V} f(s,v) - \sum_{v \in V} f(v,s)
@@ -37,8 +37,8 @@ Ford-Fulkerson algorithm では，次の手続きを反復し，徐々にフロ�
 1. 発見した増加可能パス上の辺に対してフローを増減させ，残余ネットワークを更新する
 1. 残余ネットワーク上から増加可能パスがなくなるまで繰り返す
 
-求める最大のフローを $f^*$ とすると，上記手続きの反復回数は高々 $|f^*|$ 回である．
-各反復時の DFS に $\mathcal{O}(|E|)$ の計算量を要し，全体の計算量は $\mathcal{O}(|f^*||E|)$ となる．
+求める最大のフローを $f^*$ とすると，上記手続きの反復回数は高々 $\lvert f^* \rvert$ 回である．
+各反復時の DFS に $\mathcal{O}(\lvert E \rvert)$ の計算量を要し，全体の計算量は $\mathcal{O}(\lvert f^* \rvert \lvert E \rvert)$ となる．
 
 
 ## 参考
