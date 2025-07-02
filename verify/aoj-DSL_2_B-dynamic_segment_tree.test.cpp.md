@@ -2,12 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
-    title: "Dynamic Segment Tree\uFF08\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\
-      \uFF09"
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/Algebra/algebra.hpp
-    title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"
+    path: algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
+    title: algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
+  - icon: ':question:'
+    path: algorithm/Math/Algebra/algebra.hpp
+    title: algorithm/Math/Algebra/algebra.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -20,60 +19,60 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
   bundledCode: "#line 1 \"verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp\"\n#define\
     \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\
-    \n\n#include <iostream>\n\n#line 1 \"lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
-    \n\n\n\n#include <algorithm>\n#include <cassert>\n#line 7 \"lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
+    \n\n#include <iostream>\n\n#line 1 \"algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
+    \n\n\n\n#include <algorithm>\n#include <cassert>\n#line 7 \"algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
     \n#include <limits>\n#include <memory>\n#include <type_traits>\n#include <utility>\n\
-    \n#line 1 \"lib/Math/Algebra/algebra.hpp\"\n\n\n\n#line 7 \"lib/Math/Algebra/algebra.hpp\"\
-    \n#include <numeric>\n#line 10 \"lib/Math/Algebra/algebra.hpp\"\n\nnamespace algorithm\
-    \ {\n\nnamespace algebra {\n\ntemplate <typename S>\nclass Set {\npublic:\n  \
-    \  using value_type = S;\n\nprotected:\n    value_type val;\n\npublic:\n    constexpr\
-    \ Set() : val() {}\n    constexpr Set(const value_type &val) : val(val) {}\n \
-    \   constexpr Set(value_type &&val) : val(std::move(val)) {}\n\n    friend constexpr\
-    \ bool operator==(const Set &lhs, const Set &rhs) { return lhs.val == rhs.val;\
-    \ }\n    friend std::istream &operator>>(std::istream &is, Set &rhs) { return\
-    \ is >> rhs.val; }\n    friend std::ostream &operator<<(std::ostream &os, const\
-    \ Set &rhs) { return os << rhs.val; }\n\n    constexpr value_type value() const\
-    \ { return val; }\n};\n\ntemplate <typename S, auto op>\nclass Semigroup : public\
-    \ Set<S> {\n    static_assert(std::is_invocable_r<S, decltype(op), S, S>::value);\n\
-    \n    using base_type = Set<S>;\n\npublic:\n    using value_type = typename base_type::value_type;\n\
-    \n    constexpr Semigroup() : base_type() {}\n    constexpr Semigroup(const value_type\
-    \ &val) : base_type(val) {}\n    constexpr Semigroup(value_type &&val) : base_type(std::move(val))\
-    \ {}\n\n    friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup\
-    \ &rhs) { return Semigroup(op(lhs.val, rhs.val)); }\n\n    static constexpr auto\
-    \ get_op() { return op; }\n};\n\ntemplate <typename S, auto op, auto e>\nclass\
-    \ Monoid : public Semigroup<S, op> {\n    static_assert(std::is_invocable_r<S,\
-    \ decltype(e)>::value);\n\n    using base_type = Semigroup<S, op>;\n\npublic:\n\
-    \    using value_type = typename base_type::value_type;\n\n    constexpr Monoid()\
-    \ : base_type() {}\n    constexpr Monoid(const value_type &val) : base_type(val)\
-    \ {}\n    constexpr Monoid(value_type &&val) : base_type(std::move(val)) {}\n\n\
-    \    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) {\
-    \ return Monoid(op(lhs.val, rhs.val)); }\n\n    static constexpr auto get_e()\
-    \ { return e; }\n    static constexpr Monoid one() { return Monoid(e()); }  //\
-    \ return identity element.\n};\n\ntemplate <typename S, auto op, auto e, auto\
-    \ inverse>\nclass Group : public Monoid<S, op, e> {\n    static_assert(std::is_invocable_r<S,\
-    \ decltype(inverse), S>::value);\n\n    using base_type = Monoid<S, op, e>;\n\n\
-    public:\n    using value_type = typename base_type::value_type;\n\n    constexpr\
-    \ Group() : base_type() {}\n    constexpr Group(const value_type &val) : base_type(val)\
-    \ {}\n    constexpr Group(value_type &&val) : base_type(std::move(val)) {}\n\n\
-    \    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return\
-    \ Group(op(lhs.val, rhs.val)); }\n\n    static constexpr auto get_inverse() {\
-    \ return inverse; }\n    static constexpr Group one() { return Group(e()); } \
-    \               // return identity element.\n    constexpr Group inv() const {\
-    \ return Group(inverse(this->val)); }  // return inverse element.\n};\n\ntemplate\
-    \ <typename F, auto compose, auto id, typename X, auto mapping>\nclass OperatorMonoid\
-    \ : public Monoid<F, compose, id> {\n    static_assert(std::is_invocable_r<X,\
-    \ decltype(mapping), F, X>::value);\n\n    using base_type = Monoid<F, compose,\
-    \ id>;\n\npublic:\n    using value_type = typename base_type::value_type;\n  \
-    \  using acted_value_type = X;\n\n    constexpr OperatorMonoid() : base_type()\
-    \ {}\n    constexpr OperatorMonoid(const value_type &val) : base_type(val) {}\n\
-    \    constexpr OperatorMonoid(value_type &&val) : base_type(std::move(val)) {}\n\
-    \n    friend constexpr OperatorMonoid operator*(const OperatorMonoid &lhs, const\
-    \ OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val, rhs.val)); }\n\
-    \n    static constexpr auto get_mapping() { return mapping; }\n    static constexpr\
-    \ OperatorMonoid one() { return OperatorMonoid(id()); }  // return identity mapping.\n\
-    \    constexpr acted_value_type act(const acted_value_type &x) const { return\
-    \ mapping(this->val, x); }\n    template <class S>\n    constexpr S act(const\
-    \ S &x) const {\n        static_assert(std::is_base_of<Set<acted_value_type>,\
+    \n#line 1 \"algorithm/Math/Algebra/algebra.hpp\"\n\n\n\n#line 7 \"algorithm/Math/Algebra/algebra.hpp\"\
+    \n#include <numeric>\n#line 10 \"algorithm/Math/Algebra/algebra.hpp\"\n\nnamespace\
+    \ algorithm {\n\nnamespace algebra {\n\ntemplate <typename S>\nclass Set {\npublic:\n\
+    \    using value_type = S;\n\nprotected:\n    value_type val;\n\npublic:\n   \
+    \ constexpr Set() : val() {}\n    constexpr Set(const value_type &val) : val(val)\
+    \ {}\n    constexpr Set(value_type &&val) : val(std::move(val)) {}\n\n    friend\
+    \ constexpr bool operator==(const Set &lhs, const Set &rhs) { return lhs.val ==\
+    \ rhs.val; }\n    friend std::istream &operator>>(std::istream &is, Set &rhs)\
+    \ { return is >> rhs.val; }\n    friend std::ostream &operator<<(std::ostream\
+    \ &os, const Set &rhs) { return os << rhs.val; }\n\n    constexpr value_type value()\
+    \ const { return val; }\n};\n\ntemplate <typename S, auto op>\nclass Semigroup\
+    \ : public Set<S> {\n    static_assert(std::is_invocable_r<S, decltype(op), S,\
+    \ S>::value);\n\n    using base_type = Set<S>;\n\npublic:\n    using value_type\
+    \ = typename base_type::value_type;\n\n    constexpr Semigroup() : base_type()\
+    \ {}\n    constexpr Semigroup(const value_type &val) : base_type(val) {}\n   \
+    \ constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}\n\n   \
+    \ friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs)\
+    \ { return Semigroup(op(lhs.val, rhs.val)); }\n\n    static constexpr auto get_op()\
+    \ { return op; }\n};\n\ntemplate <typename S, auto op, auto e>\nclass Monoid :\
+    \ public Semigroup<S, op> {\n    static_assert(std::is_invocable_r<S, decltype(e)>::value);\n\
+    \n    using base_type = Semigroup<S, op>;\n\npublic:\n    using value_type = typename\
+    \ base_type::value_type;\n\n    constexpr Monoid() : base_type() {}\n    constexpr\
+    \ Monoid(const value_type &val) : base_type(val) {}\n    constexpr Monoid(value_type\
+    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr Monoid operator*(const\
+    \ Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.val, rhs.val)); }\n\n\
+    \    static constexpr auto get_e() { return e; }\n    static constexpr Monoid\
+    \ one() { return Monoid(e()); }  // return identity element.\n};\n\ntemplate <typename\
+    \ S, auto op, auto e, auto inverse>\nclass Group : public Monoid<S, op, e> {\n\
+    \    static_assert(std::is_invocable_r<S, decltype(inverse), S>::value);\n\n \
+    \   using base_type = Monoid<S, op, e>;\n\npublic:\n    using value_type = typename\
+    \ base_type::value_type;\n\n    constexpr Group() : base_type() {}\n    constexpr\
+    \ Group(const value_type &val) : base_type(val) {}\n    constexpr Group(value_type\
+    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr Group operator*(const\
+    \ Group &lhs, const Group &rhs) { return Group(op(lhs.val, rhs.val)); }\n\n  \
+    \  static constexpr auto get_inverse() { return inverse; }\n    static constexpr\
+    \ Group one() { return Group(e()); }                // return identity element.\n\
+    \    constexpr Group inv() const { return Group(inverse(this->val)); }  // return\
+    \ inverse element.\n};\n\ntemplate <typename F, auto compose, auto id, typename\
+    \ X, auto mapping>\nclass OperatorMonoid : public Monoid<F, compose, id> {\n \
+    \   static_assert(std::is_invocable_r<X, decltype(mapping), F, X>::value);\n\n\
+    \    using base_type = Monoid<F, compose, id>;\n\npublic:\n    using value_type\
+    \ = typename base_type::value_type;\n    using acted_value_type = X;\n\n    constexpr\
+    \ OperatorMonoid() : base_type() {}\n    constexpr OperatorMonoid(const value_type\
+    \ &val) : base_type(val) {}\n    constexpr OperatorMonoid(value_type &&val) :\
+    \ base_type(std::move(val)) {}\n\n    friend constexpr OperatorMonoid operator*(const\
+    \ OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val,\
+    \ rhs.val)); }\n\n    static constexpr auto get_mapping() { return mapping; }\n\
+    \    static constexpr OperatorMonoid one() { return OperatorMonoid(id()); }  //\
+    \ return identity mapping.\n    constexpr acted_value_type act(const acted_value_type\
+    \ &x) const { return mapping(this->val, x); }\n    template <class S>\n    constexpr\
+    \ S act(const S &x) const {\n        static_assert(std::is_base_of<Set<acted_value_type>,\
     \ S>::value);\n        return S(mapping(this->val, x.value()));\n    }\n};\n\n\
     namespace element {\n\ntemplate <typename S>\nconstexpr auto zero = []() -> S\
     \ { return S(); };\n\ntemplate <typename S>\nconstexpr auto one = []() -> S {\
@@ -125,7 +124,7 @@ data:
     \ element::lowest<F>, X>>;\n\ntemplate <typename F, typename X = F>\nusing addition\
     \ = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F,\
     \ X>>;\n\n}  // namespace operator_monoid\n\n}  // namespace algebra\n\n}  //\
-    \ namespace algorithm\n\n\n#line 13 \"lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
+    \ namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace dynamic_segment_tree {\n\ntemplate <class\
     \ Monoid>\nclass DynamicSegmentTree {\npublic:\n    using monoid_type = Monoid;\n\
     \    using value_type = monoid_type::value_type;\n    using size_type = std::size_t;\n\
@@ -244,7 +243,7 @@ data:
     \ segtree.prod(x, y);\n            std::cout << ans << \"\\n\";\n        }\n \
     \   }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\
-    \n\n#include <iostream>\n\n#include \"../lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::dynamic_segment_tree::range_sum_dynamic_segment_tree<int>\
     \ segtree(n);\n\n    while(q--) {\n        int com;\n        std::cin >> com;\n\
     \n        if(com == 0) {\n            int x;\n            int y;\n           \
@@ -254,12 +253,12 @@ data:
     \ segtree.prod(x, y);\n            std::cout << ans << \"\\n\";\n        }\n \
     \   }\n}\n"
   dependsOn:
-  - lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
-  - lib/Math/Algebra/algebra.hpp
+  - algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
+  - algorithm/Math/Algebra/algebra.hpp
   isVerificationFile: true
   path: verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-06-14 17:50:57+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp

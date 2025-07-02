@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/String/edit_distance.hpp
+    path: algorithm/String/edit_distance.hpp
     title: "Edit Distance\uFF08\u7DE8\u96C6\u8DDD\u96E2\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
@@ -16,8 +16,8 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_E
   bundledCode: "#line 1 \"verify/aoj-DPL_1_E-edit_distance.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_E\"\n\n#include\
-    \ <iostream>\n#include <string>\n\n#line 1 \"lib/String/edit_distance.hpp\"\n\n\
-    \n\n/**\n * @brief Edit Distance\uFF08\u7DE8\u96C6\u8DDD\u96E2\uFF09\n * @docs\
+    \ <iostream>\n#include <string>\n\n#line 1 \"algorithm/String/edit_distance.hpp\"\
+    \n\n\n\n/**\n * @brief Edit Distance\uFF08\u7DE8\u96C6\u8DDD\u96E2\uFF09\n * @docs\
     \ docs/String/edit_distance.md\n */\n\n#include <algorithm>\n#include <vector>\n\
     \nnamespace algorithm {\n\n// 2\u3064\u306E\u914D\u5217\u306B\u5BFE\u3057\u3066\
     \uFF0C\u7DE8\u96C6\u8DDD\u96E2 (Edit Distance) \u3092\u6C42\u3081\u308B\uFF0E\n\
@@ -35,15 +35,15 @@ data:
     \n\nint main() {\n    std::string s, t;\n    std::cin >> s >> t;\n\n    auto ans\
     \ = algorithm::edit_distance(s, t);\n    std::cout << ans << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_E\"\
-    \n\n#include <iostream>\n#include <string>\n\n#include \"../lib/String/edit_distance.hpp\"\
+    \n\n#include <iostream>\n#include <string>\n\n#include \"../algorithm/String/edit_distance.hpp\"\
     \n\nint main() {\n    std::string s, t;\n    std::cin >> s >> t;\n\n    auto ans\
     \ = algorithm::edit_distance(s, t);\n    std::cout << ans << std::endl;\n}\n"
   dependsOn:
-  - lib/String/edit_distance.hpp
+  - algorithm/String/edit_distance.hpp
   isVerificationFile: true
   path: verify/aoj-DPL_1_E-edit_distance.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DPL_1_E-edit_distance.test.cpp

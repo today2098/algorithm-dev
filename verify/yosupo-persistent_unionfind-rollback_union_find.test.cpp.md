@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/UnionFind/rollback_union_find.hpp
-    title: "Rollback\u4ED8\u304DUnion-Find"
+  - icon: ':x:'
+    path: algorithm/DataStructure/UnionFind/rollback_union_find.hpp
+    title: algorithm/DataStructure/UnionFind/rollback_union_find.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/persistent_unionfind
@@ -16,16 +16,16 @@ data:
     - https://judge.yosupo.jp/problem/persistent_unionfind
   bundledCode: "#line 1 \"verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp\"\
     \n#define PROBLEM \"https://judge.yosupo.jp/problem/persistent_unionfind\"\n\n\
-    #include <iostream>\n#include <tuple>\n#include <vector>\n\n#line 1 \"lib/DataStructure/UnionFind/rollback_union_find.hpp\"\
+    #include <iostream>\n#include <tuple>\n#include <vector>\n\n#line 1 \"algorithm/DataStructure/UnionFind/rollback_union_find.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <stack>\n#line 8 \"\
-    lib/DataStructure/UnionFind/rollback_union_find.hpp\"\n#include <utility>\n#line\
-    \ 10 \"lib/DataStructure/UnionFind/rollback_union_find.hpp\"\n\nnamespace algorithm\
-    \ {\n\n// Rollback\u4ED8\u304DUnion-Find\uFF0E\nclass RollbackUnionFind {\n  \
-    \  int m_vn;  // m_vn:=(\u8981\u7D20\u6570).\n    int m_gn;  // m_gn:=(\u96C6\u5408\
-    \u306E\u6570).\n    // m_par[x]:=(\u8981\u7D20x\u306E\u89AA). 0\u672A\u6E80\u306E\
-    \u5834\u5408\uFF0Cx\u306F\u4EE3\u8868\u5143\u3067\u3042\u308A\uFF0C\u5024\u306E\
-    \u7D76\u5BFE\u5024\u306F\u5C5E\u3059\u308B\u96C6\u5408\u306E\u30B5\u30A4\u30BA\
-    \u3092\u8868\u3059\uFF0E\n    std::vector<int> m_par;\n    std::stack<std::tuple<int,\
+    algorithm/DataStructure/UnionFind/rollback_union_find.hpp\"\n#include <utility>\n\
+    #line 10 \"algorithm/DataStructure/UnionFind/rollback_union_find.hpp\"\n\nnamespace\
+    \ algorithm {\n\n// Rollback\u4ED8\u304DUnion-Find\uFF0E\nclass RollbackUnionFind\
+    \ {\n    int m_vn;  // m_vn:=(\u8981\u7D20\u6570).\n    int m_gn;  // m_gn:=(\u96C6\
+    \u5408\u306E\u6570).\n    // m_par[x]:=(\u8981\u7D20x\u306E\u89AA). 0\u672A\u6E80\
+    \u306E\u5834\u5408\uFF0Cx\u306F\u4EE3\u8868\u5143\u3067\u3042\u308A\uFF0C\u5024\
+    \u306E\u7D76\u5BFE\u5024\u306F\u5C5E\u3059\u308B\u96C6\u5408\u306E\u30B5\u30A4\
+    \u30BA\u3092\u8868\u3059\uFF0E\n    std::vector<int> m_par;\n    std::stack<std::tuple<int,\
     \ int, int, int>> m_history;  // tuple of (x, m_par[x], y, m_par[y]).\n\n    int\
     \ root_internal(int x) const {\n        if(m_par[x] < 0) return x;\n        return\
     \ root_internal(m_par[x]);\n    }\n\npublic:\n    RollbackUnionFind() : RollbackUnionFind(0)\
@@ -71,7 +71,7 @@ data:
     \ &[t, u, v, i] : queries[0]) dfs(dfs, t, u, v, i);\n\n    for(auto elem : ans)\
     \ {\n        if(elem != -1) std::cout << elem << \"\\n\";\n    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/persistent_unionfind\"\n\
-    \n#include <iostream>\n#include <tuple>\n#include <vector>\n\n#include \"../lib/DataStructure/UnionFind/rollback_union_find.hpp\"\
+    \n#include <iostream>\n#include <tuple>\n#include <vector>\n\n#include \"../algorithm/DataStructure/UnionFind/rollback_union_find.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    // queries[k]:=(k\u756A\
     \u76EE\u306E\u30B0\u30E9\u30D5\u306B\u5BFE\u3059\u308B\u30AF\u30A8\u30EA). tuple\
     \ of (type, u, v, index).\n    std::vector<std::vector<std::tuple<int, int, int,\
@@ -86,12 +86,12 @@ data:
     \ &[t, u, v, i] : queries[0]) dfs(dfs, t, u, v, i);\n\n    for(auto elem : ans)\
     \ {\n        if(elem != -1) std::cout << elem << \"\\n\";\n    }\n}\n"
   dependsOn:
-  - lib/DataStructure/UnionFind/rollback_union_find.hpp
+  - algorithm/DataStructure/UnionFind/rollback_union_find.hpp
   isVerificationFile: true
   path: verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp
   requiredBy: []
-  timestamp: '2025-06-22 02:23:33+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp
 layout: document

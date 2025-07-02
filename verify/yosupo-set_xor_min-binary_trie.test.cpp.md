@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/Others/binary_trie.hpp
-    title: "Binary Trie\uFF08\u4E8C\u5206\u30C8\u30E9\u30A4\u6728\uFF09"
+  - icon: ':question:'
+    path: algorithm/DataStructure/Others/binary_trie.hpp
+    title: algorithm/DataStructure/Others/binary_trie.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/set_xor_min
@@ -16,7 +16,7 @@ data:
     - https://judge.yosupo.jp/problem/set_xor_min
   bundledCode: "#line 1 \"verify/yosupo-set_xor_min-binary_trie.test.cpp\"\n#define\
     \ PROBLEM \"https://judge.yosupo.jp/problem/set_xor_min\"\n\n#include <iostream>\n\
-    \n#line 1 \"lib/DataStructure/Others/binary_trie.hpp\"\n\n\n\n#include <bitset>\n\
+    \n#line 1 \"algorithm/DataStructure/Others/binary_trie.hpp\"\n\n\n\n#include <bitset>\n\
     #include <cassert>\n\nnamespace algorithm {\n\ntemplate <std::size_t w = 32>\n\
     class BinaryTrie {\npublic:\n    using size_type = std::size_t;\n\nprivate:\n\
     \    struct Node {\n        size_type cnt;  // cnt:=(\u81EA\u8EAB\u3092\u6839\u3068\
@@ -108,21 +108,21 @@ data:
     \            trie.xor_all(x);\n\n            std::cout << ans << \"\\n\";\n  \
     \      }\n    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/set_xor_min\"\n\n#include\
-    \ <iostream>\n\n#include \"../lib/DataStructure/Others/binary_trie.hpp\"\n\nint\
-    \ main() {\n    int q;\n    std::cin >> q;\n\n    algorithm::BinaryTrie<30> trie;\n\
-    \n    while(q--) {\n        int t;\n        unsigned x;\n        std::cin >> t\
-    \ >> x;\n\n        if(t == 0) {\n            if(!trie.contains(x)) trie.insert(x);\n\
+    \ <iostream>\n\n#include \"../algorithm/DataStructure/Others/binary_trie.hpp\"\
+    \n\nint main() {\n    int q;\n    std::cin >> q;\n\n    algorithm::BinaryTrie<30>\
+    \ trie;\n\n    while(q--) {\n        int t;\n        unsigned x;\n        std::cin\
+    \ >> t >> x;\n\n        if(t == 0) {\n            if(!trie.contains(x)) trie.insert(x);\n\
     \        } else if(t == 1) {\n            if(trie.contains(x)) trie.erase(x, 1);\n\
     \        } else {\n            trie.xor_all(x);\n            auto ans = trie.min_element().to_ulong();\n\
     \            trie.xor_all(x);\n\n            std::cout << ans << \"\\n\";\n  \
     \      }\n    }\n}\n"
   dependsOn:
-  - lib/DataStructure/Others/binary_trie.hpp
+  - algorithm/DataStructure/Others/binary_trie.hpp
   isVerificationFile: true
   path: verify/yosupo-set_xor_min-binary_trie.test.cpp
   requiredBy: []
-  timestamp: '2025-06-16 01:20:59+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-set_xor_min-binary_trie.test.cpp
 layout: document

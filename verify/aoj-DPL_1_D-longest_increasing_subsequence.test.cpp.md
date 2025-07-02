@@ -1,8 +1,8 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/Others/longest_increasing_subsequence.hpp
+  - icon: ':question:'
+    path: algorithm/Others/longest_increasing_subsequence.hpp
     title: "Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\u5206\
       \u5217\uFF09"
   _extendedRequiredBy: []
@@ -17,10 +17,10 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D
   bundledCode: "#line 1 \"verify/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp\"\
     \n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D\"\
-    \n\n#include <iostream>\n#include <vector>\n\n#line 1 \"lib/Others/longest_increasing_subsequence.hpp\"\
+    \n\n#include <iostream>\n#include <vector>\n\n#line 1 \"algorithm/Others/longest_increasing_subsequence.hpp\"\
     \n\n\n\n/**\n * @brief Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\
     \u90E8\u5206\u5217\uFF09\n * @docs docs/Others/longest_increasing_subsequence.md\n\
-    \ */\n\n#include <algorithm>\n#include <functional>\n#line 12 \"lib/Others/longest_increasing_subsequence.hpp\"\
+    \ */\n\n#include <algorithm>\n#include <functional>\n#line 12 \"algorithm/Others/longest_increasing_subsequence.hpp\"\
     \n\nnamespace algorithm {\n\n// \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217 (LIS:\
     \ Longest Increasing Subsequence) \u306E\u9577\u3055\u3092\u6C42\u3081\u308B\uFF0E\
     O(N*logN).\ntemplate <typename Type, class Compare = std::function<bool(const\
@@ -51,16 +51,16 @@ data:
     \    for(auto &in : a) std::cin >> in;\n\n    auto ans = algorithm::lis2(a).back();\n\
     \    std::cout << ans << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D\"\
-    \n\n#include <iostream>\n#include <vector>\n\n#include \"../lib/Others/longest_increasing_subsequence.hpp\"\
+    \n\n#include <iostream>\n#include <vector>\n\n#include \"../algorithm/Others/longest_increasing_subsequence.hpp\"\
     \n\nint main() {\n    int n;\n    std::cin >> n;\n\n    std::vector<int> a(n);\n\
     \    for(auto &in : a) std::cin >> in;\n\n    auto ans = algorithm::lis2(a).back();\n\
     \    std::cout << ans << std::endl;\n}\n"
   dependsOn:
-  - lib/Others/longest_increasing_subsequence.hpp
+  - algorithm/Others/longest_increasing_subsequence.hpp
   isVerificationFile: true
   path: verify/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp

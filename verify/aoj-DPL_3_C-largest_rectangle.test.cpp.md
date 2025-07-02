@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Others/largest_rectangle.hpp
+    path: algorithm/Others/largest_rectangle.hpp
     title: "\u6700\u5927\u9577\u65B9\u5F62\u554F\u984C"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
@@ -17,9 +17,9 @@ data:
   bundledCode: "#line 1 \"verify/aoj-DPL_3_C-largest_rectangle.test.cpp\"\n#define\
     \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/3/DPL_3_C\"\
     \n\n#include <algorithm>\n#include <iostream>\n#include <vector>\n\n#line 1 \"\
-    lib/Others/largest_rectangle.hpp\"\n\n\n\n/**\n * @brief \u6700\u5927\u9577\u65B9\
-    \u5F62\u554F\u984C\n * @docs docs/Others/largest_rectangle.md\n */\n\n#include\
-    \ <functional>\n#include <stack>\n#include <utility>\n#line 13 \"lib/Others/largest_rectangle.hpp\"\
+    algorithm/Others/largest_rectangle.hpp\"\n\n\n\n/**\n * @brief \u6700\u5927\u9577\
+    \u65B9\u5F62\u554F\u984C\n * @docs docs/Others/largest_rectangle.md\n */\n\n#include\
+    \ <functional>\n#include <stack>\n#include <utility>\n#line 13 \"algorithm/Others/largest_rectangle.hpp\"\
     \n\nnamespace algorithm {\n\n// \u6700\u5927\u9577\u65B9\u5F62\u554F\u984C\uFF0E\
     \n// \u5404i\u306B\u304A\u3044\u3066\uFF0Ccomp(H[i], H[] within [l,r))==true \u3068\
     \u306A\u308Bi\u3092\u542B\u3080\u6700\u5927\u533A\u9593[l,r)\u3092\u6C42\u3081\
@@ -44,18 +44,18 @@ data:
     }\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/3/DPL_3_C\"\
     \n\n#include <algorithm>\n#include <iostream>\n#include <vector>\n\n#include \"\
-    ../lib/Others/largest_rectangle.hpp\"\n\nint main() {\n    int n;\n    std::cin\
+    ../algorithm/Others/largest_rectangle.hpp\"\n\nint main() {\n    int n;\n    std::cin\
     \ >> n;\n\n    std::vector<int> h(n);\n    for(auto &in : h) std::cin >> in;\n\
     \n    auto &&ranges = algorithm::largest_rectangle(h);\n\n    long long ans =\
     \ 0;\n    for(int i = 0; i < n; ++i) {\n        const auto &[l, r] = ranges[i];\n\
     \        long long tmp = (long long)h[i] * (r - l);\n        ans = std::max(ans,\
     \ tmp);\n    }\n\n    std::cout << ans << std::endl;\n}\n"
   dependsOn:
-  - lib/Others/largest_rectangle.hpp
+  - algorithm/Others/largest_rectangle.hpp
   isVerificationFile: true
   path: verify/aoj-DPL_3_C-largest_rectangle.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DPL_3_C-largest_rectangle.test.cpp

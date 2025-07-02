@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Others/binary_search.hpp
-    title: "Binary Search\uFF08\u4E8C\u5206\u63A2\u7D22\uFF09"
+    path: algorithm/Others/binary_search.hpp
+    title: algorithm/Others/binary_search.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -16,7 +16,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/4/ALDS1_4_B
   bundledCode: "#line 1 \"verify/aoj-ALDS1_4_B-binary_search.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/4/ALDS1_4_B\"\n\n\
-    #include <iostream>\n#include <vector>\n\n#line 1 \"lib/Others/binary_search.hpp\"\
+    #include <iostream>\n#include <vector>\n\n#line 1 \"algorithm/Others/binary_search.hpp\"\
     \n\n\n\n#include <cassert>\n#include <concepts>\n#include <numeric>\n#include\
     \ <type_traits>\n\nnamespace algorithm {\n\ntemplate <std::integral Type, class\
     \ Pred>\nconstexpr Type bisearch(Type ok, Type ng, Pred pred) {\n    static_assert(std::is_invocable_r<bool,\
@@ -36,7 +36,7 @@ data:
     \   if(itr < n and s[itr] == t) ++ans;\n    }\n\n    std::cout << ans << std::endl;\n\
     }\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/4/ALDS1_4_B\"\
-    \n\n#include <iostream>\n#include <vector>\n\n#include \"../lib/Others/binary_search.hpp\"\
+    \n\n#include <iostream>\n#include <vector>\n\n#include \"../algorithm/Others/binary_search.hpp\"\
     \n\nint main() {\n    int n;\n    std::cin >> n;\n\n    std::vector<int> s(n);\n\
     \    for(auto &elem : s) std::cin >> elem;\n\n    int q;\n    std::cin >> q;\n\
     \n    int ans = 0;\n    while(q--) {\n        int t;\n        std::cin >> t;\n\
@@ -44,11 +44,11 @@ data:
     \    return s[i] < t;\n        });\n\n        if(itr < n and s[itr] == t) ++ans;\n\
     \    }\n\n    std::cout << ans << std::endl;\n}\n"
   dependsOn:
-  - lib/Others/binary_search.hpp
+  - algorithm/Others/binary_search.hpp
   isVerificationFile: true
   path: verify/aoj-ALDS1_4_B-binary_search.test.cpp
   requiredBy: []
-  timestamp: '2025-06-24 00:52:24+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-ALDS1_4_B-binary_search.test.cpp

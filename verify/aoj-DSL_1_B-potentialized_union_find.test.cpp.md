@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/UnionFind/potentialized_union_find.hpp
-    title: "\u91CD\u307F\u4ED8\u304DUnion-Find"
+    path: algorithm/DataStructure/UnionFind/potentialized_union_find.hpp
+    title: algorithm/DataStructure/UnionFind/potentialized_union_find.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -16,7 +16,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_B
   bundledCode: "#line 1 \"verify/aoj-DSL_1_B-potentialized_union_find.test.cpp\"\n\
     #define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_B\"\
-    \n\n#include <iostream>\n\n#line 1 \"lib/DataStructure/UnionFind/potentialized_union_find.hpp\"\
+    \n\n#include <iostream>\n\n#line 1 \"algorithm/DataStructure/UnionFind/potentialized_union_find.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include\
     \ <vector>\n\nnamespace algorithm {\n\n// \u91CD\u307F\u4ED8\u304DUnion-Find\uFF0E\
     \ntemplate <typename T>\nclass PotentializedUnionFind {\npublic:\n    using value_type\
@@ -68,7 +68,7 @@ data:
     \ y)) std::cout << uf.diff(x, y) << \"\\n\";\n            else std::cout << \"\
     ?\" << \"\\n\";\n        }\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_B\"\
-    \n\n#include <iostream>\n\n#include \"../lib/DataStructure/UnionFind/potentialized_union_find.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/DataStructure/UnionFind/potentialized_union_find.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::PotentializedUnionFind<int>\
     \ uf(n);\n\n    while(q--) {\n        int t;\n        std::cin >> t;\n\n     \
     \   if(t == 0) {\n            int x, y;\n            int z;\n            std::cin\
@@ -77,11 +77,11 @@ data:
     \ y)) std::cout << uf.diff(x, y) << \"\\n\";\n            else std::cout << \"\
     ?\" << \"\\n\";\n        }\n    }\n}\n"
   dependsOn:
-  - lib/DataStructure/UnionFind/potentialized_union_find.hpp
+  - algorithm/DataStructure/UnionFind/potentialized_union_find.hpp
   isVerificationFile: true
   path: verify/aoj-DSL_1_B-potentialized_union_find.test.cpp
   requiredBy: []
-  timestamp: '2025-06-22 02:23:33+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_1_B-potentialized_union_find.test.cpp

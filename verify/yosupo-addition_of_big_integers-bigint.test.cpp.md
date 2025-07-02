@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/NumberTheory/bigint.hpp
-    title: "\u591A\u500D\u9577\u6574\u6570"
+  - icon: ':question:'
+    path: algorithm/Math/NumberTheory/bigint.hpp
+    title: algorithm/Math/NumberTheory/bigint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/addition_of_big_integers
@@ -16,8 +16,8 @@ data:
     - https://judge.yosupo.jp/problem/addition_of_big_integers
   bundledCode: "#line 1 \"verify/yosupo-addition_of_big_integers-bigint.test.cpp\"\
     \n#define PROBLEM \"https://judge.yosupo.jp/problem/addition_of_big_integers\"\
-    \n\n#include <iostream>\n\n#line 1 \"lib/Math/NumberTheory/bigint.hpp\"\n\n\n\n\
-    #include <algorithm>\n#include <cassert>\n#include <cmath>\n#include <cstdint>\n\
+    \n\n#include <iostream>\n\n#line 1 \"algorithm/Math/NumberTheory/bigint.hpp\"\n\
+    \n\n\n#include <algorithm>\n#include <cassert>\n#include <cmath>\n#include <cstdint>\n\
     #include <iomanip>\n#include <sstream>\n#include <string>\n#include <string_view>\n\
     #include <utility>\n#include <vector>\n\nnamespace algorithm {\n\n// \u591A\u500D\
     \u9577\u6574\u6570\uFF0E\nclass Bigint {\n    static constexpr int32_t BASE =\
@@ -167,17 +167,17 @@ data:
     \ ++i) {\n        algorithm::Bigint a, b;\n        std::cin >> a >> b;\n\n   \
     \     a += b;\n        std::cout << a << \"\\n\";\n    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/addition_of_big_integers\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Math/NumberTheory/bigint.hpp\"\n\n\
-    int main() {\n    int t;\n    std::cin >> t;\n\n    for(int i = 0; i < t; ++i)\
-    \ {\n        algorithm::Bigint a, b;\n        std::cin >> a >> b;\n\n        a\
-    \ += b;\n        std::cout << a << \"\\n\";\n    }\n}\n"
+    \n\n#include <iostream>\n\n#include \"../algorithm/Math/NumberTheory/bigint.hpp\"\
+    \n\nint main() {\n    int t;\n    std::cin >> t;\n\n    for(int i = 0; i < t;\
+    \ ++i) {\n        algorithm::Bigint a, b;\n        std::cin >> a >> b;\n\n   \
+    \     a += b;\n        std::cout << a << \"\\n\";\n    }\n}\n"
   dependsOn:
-  - lib/Math/NumberTheory/bigint.hpp
+  - algorithm/Math/NumberTheory/bigint.hpp
   isVerificationFile: true
   path: verify/yosupo-addition_of_big_integers-bigint.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-addition_of_big_integers-bigint.test.cpp
 layout: document

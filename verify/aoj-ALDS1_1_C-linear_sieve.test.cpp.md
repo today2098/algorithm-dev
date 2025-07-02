@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Math/NumberTheory/linear_sieve.hpp
-    title: "\u7DDA\u5F62\u7BE9"
+    path: algorithm/Math/NumberTheory/linear_sieve.hpp
+    title: algorithm/Math/NumberTheory/linear_sieve.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -16,8 +16,8 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C
   bundledCode: "#line 1 \"verify/aoj-ALDS1_1_C-linear_sieve.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C\"\n\n\
-    #include <iostream>\n\n#line 1 \"lib/Math/NumberTheory/linear_sieve.hpp\"\n\n\n\
-    \n#include <algorithm>\n#include <cassert>\n#include <map>\n#include <ranges>\n\
+    #include <iostream>\n\n#line 1 \"algorithm/Math/NumberTheory/linear_sieve.hpp\"\
+    \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <map>\n#include <ranges>\n\
     #include <vector>\n\nnamespace algorithm {\n\n// \u7DDA\u5F62\u7BE9\uFF0E\nclass\
     \ LinearSieve {\n    int m_sz;\n    // m_lpf[i]:=(\u6B63\u306E\u5947\u65702*i+1\u306E\
     \u6700\u5C0F\u7D20\u56E0\u6570). Least prime factor. m_lpf[i]==2*i+1 \u306E\u3068\
@@ -52,17 +52,17 @@ data:
     \ 0; i < n; ++i) {\n        int a;\n        std::cin >> a;\n\n        if(sieve.is_prime(a))\
     \ ans++;\n    }\n\n    std::cout << ans << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Math/NumberTheory/linear_sieve.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/Math/NumberTheory/linear_sieve.hpp\"\
     \n\nint main() {\n    constexpr int mx = 1e8;\n\n    int n;\n    std::cin >> n;\n\
     \n    int ans = 0;\n    algorithm::LinearSieve sieve(mx + 1);\n    for(int i =\
     \ 0; i < n; ++i) {\n        int a;\n        std::cin >> a;\n\n        if(sieve.is_prime(a))\
     \ ans++;\n    }\n\n    std::cout << ans << std::endl;\n}\n"
   dependsOn:
-  - lib/Math/NumberTheory/linear_sieve.hpp
+  - algorithm/Math/NumberTheory/linear_sieve.hpp
   isVerificationFile: true
   path: verify/aoj-ALDS1_1_C-linear_sieve.test.cpp
   requiredBy: []
-  timestamp: '2025-04-13 14:58:09+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-ALDS1_1_C-linear_sieve.test.cpp

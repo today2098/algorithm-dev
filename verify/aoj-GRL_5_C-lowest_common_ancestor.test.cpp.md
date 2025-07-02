@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Graph/Tree/lowest_common_ancestor.hpp
+    path: algorithm/Graph/Tree/lowest_common_ancestor.hpp
     title: "Lowest Common Ancestor\uFF08\u6700\u8FD1\u5171\u901A\u7956\u5148\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
@@ -16,7 +16,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C
   bundledCode: "#line 1 \"verify/aoj-GRL_5_C-lowest_common_ancestor.test.cpp\"\n#define\
     \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C\"\
-    \n\n#include <iostream>\n\n#line 1 \"lib/Graph/Tree/lowest_common_ancestor.hpp\"\
+    \n\n#include <iostream>\n\n#line 1 \"algorithm/Graph/Tree/lowest_common_ancestor.hpp\"\
     \n\n\n\n/**\n * @brief Lowest Common Ancestor\uFF08\u6700\u8FD1\u5171\u901A\u7956\
     \u5148\uFF09\n * @docs docs/Graph/Tree/lowest_common_ancestor.md\n */\n\n#include\
     \ <algorithm>\n#include <cassert>\n#include <limits>\n#include <map>\n#include\
@@ -147,7 +147,7 @@ data:
     \    std::cin >> u >> v;\n\n        auto ans = lca.lca(u, v);\n        std::cout\
     \ << ans << \"\\n\";\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Graph/Tree/lowest_common_ancestor.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/Graph/Tree/lowest_common_ancestor.hpp\"\
     \n\nint main() {\n    int n;\n    std::cin >> n;\n\n    algorithm::LCA lca(n);\n\
     \    for(int i = 0; i < n; ++i) {\n        int k;\n        std::cin >> k;\n\n\
     \        for(int j = 0; j < k; ++j) {\n            int c;\n            std::cin\
@@ -156,11 +156,11 @@ data:
     \    std::cin >> u >> v;\n\n        auto ans = lca.lca(u, v);\n        std::cout\
     \ << ans << \"\\n\";\n    }\n}\n"
   dependsOn:
-  - lib/Graph/Tree/lowest_common_ancestor.hpp
+  - algorithm/Graph/Tree/lowest_common_ancestor.hpp
   isVerificationFile: true
   path: verify/aoj-GRL_5_C-lowest_common_ancestor.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-GRL_5_C-lowest_common_ancestor.test.cpp

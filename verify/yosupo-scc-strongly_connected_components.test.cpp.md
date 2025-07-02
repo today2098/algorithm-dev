@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/Graph/Others/strongly_connected_components.hpp
+  - icon: ':question:'
+    path: algorithm/Graph/Others/strongly_connected_components.hpp
     title: "Strongly Connected Components\uFF08\u5F37\u9023\u7D50\u6210\u5206\u5206\
       \u89E3\uFF09"
-  - icon: ':heavy_check_mark:'
-    path: lib/Graph/Others/topological_sort.hpp
+  - icon: ':x:'
+    path: algorithm/Graph/Others/topological_sort.hpp
     title: "Topological Sort\uFF08\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\
       \u30C8\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/scc
@@ -21,10 +21,10 @@ data:
     - https://judge.yosupo.jp/problem/scc
   bundledCode: "#line 1 \"verify/yosupo-scc-strongly_connected_components.test.cpp\"\
     \n#define PROBLEM \"https://judge.yosupo.jp/problem/scc\"\n\n#include <iostream>\n\
-    \n#line 1 \"lib/Graph/Others/strongly_connected_components.hpp\"\n\n\n\n/**\n\
-    \ * @brief Strongly Connected Components\uFF08\u5F37\u9023\u7D50\u6210\u5206\u5206\
-    \u89E3\uFF09\n * @docs docs/Graph/Others/strongly_connected_components.md\n */\n\
-    \n#include <algorithm>\n#include <cassert>\n#include <stack>\n#include <utility>\n\
+    \n#line 1 \"algorithm/Graph/Others/strongly_connected_components.hpp\"\n\n\n\n\
+    /**\n * @brief Strongly Connected Components\uFF08\u5F37\u9023\u7D50\u6210\u5206\
+    \u5206\u89E3\uFF09\n * @docs docs/Graph/Others/strongly_connected_components.md\n\
+    \ */\n\n#include <algorithm>\n#include <cassert>\n#include <stack>\n#include <utility>\n\
     #include <vector>\n\nnamespace algorithm {\n\n// Strongly Connected Components\uFF08\
     \u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3\uFF09.\nclass SCC {\n    int m_vn;\
     \                            // m_vn:=(\u30CE\u30FC\u30C9\u6570).\n    std::vector<std::vector<int>\
@@ -79,12 +79,12 @@ data:
     \       }\n        for(std::vector<int> &edge : dag) {\n            std::sort(edge.begin(),\
     \ edge.end());\n            edge.erase(std::unique(edge.begin(), edge.end()),\
     \ edge.end());\n        }\n        return dag;\n    }\n};\n\n}  // namespace algorithm\n\
-    \n\n#line 1 \"lib/Graph/Others/topological_sort.hpp\"\n\n\n\n/**\n * @brief Topological\
-    \ Sort\uFF08\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8\uFF09\n * @docs\
-    \ docs/Graph/Others/topological_sort.md\n */\n\n#line 10 \"lib/Graph/Others/topological_sort.hpp\"\
-    \n#include <queue>\n#line 12 \"lib/Graph/Others/topological_sort.hpp\"\n\nnamespace\
-    \ algorithm {\n\nclass TopologicalSort {\n    int m_vn;                      \
-    \      // m_vn:=(\u30CE\u30FC\u30C9\u6570).\n    std::vector<std::vector<int>\
+    \n\n#line 1 \"algorithm/Graph/Others/topological_sort.hpp\"\n\n\n\n/**\n * @brief\
+    \ Topological Sort\uFF08\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8\
+    \uFF09\n * @docs docs/Graph/Others/topological_sort.md\n */\n\n#line 10 \"algorithm/Graph/Others/topological_sort.hpp\"\
+    \n#include <queue>\n#line 12 \"algorithm/Graph/Others/topological_sort.hpp\"\n\
+    \nnamespace algorithm {\n\nclass TopologicalSort {\n    int m_vn;            \
+    \                // m_vn:=(\u30CE\u30FC\u30C9\u6570).\n    std::vector<std::vector<int>\
     \ > m_g;  // m_g[v]:=(\u30CE\u30FC\u30C9v\u306E\u96A3\u63A5\u30EA\u30B9\u30C8\
     ).\n\npublic:\n    TopologicalSort() : TopologicalSort(0) {}\n    explicit TopologicalSort(size_t\
     \ vn) : m_vn(vn), m_g(vn) {}\n\n    // \u30CE\u30FC\u30C9\u6570\u3092\u8FD4\u3059\
@@ -128,9 +128,9 @@ data:
     \ : v) {\n        std::cout << sccs[id].size() << \" \";\n        for(auto v :\
     \ sccs[id]) std::cout << v << \" \";\n        std::cout << \"\\n\";\n    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/scc\"\n\n#include <iostream>\n\
-    \n#include \"../lib/Graph/Others/strongly_connected_components.hpp\"\n#include\
-    \ \"../lib/Graph/Others/topological_sort.hpp\"\n\nint main() {\n    int n;\n \
-    \   int m;\n    std::cin >> n >> m;\n\n    algorithm::SCC scc(n);\n    for(int\
+    \n#include \"../algorithm/Graph/Others/strongly_connected_components.hpp\"\n#include\
+    \ \"../algorithm/Graph/Others/topological_sort.hpp\"\n\nint main() {\n    int\
+    \ n;\n    int m;\n    std::cin >> n >> m;\n\n    algorithm::SCC scc(n);\n    for(int\
     \ i = 0; i < m; ++i) {\n        int a, b;\n        std::cin >> a >> b;\n\n   \
     \     scc.add_edge(a, b);\n    }\n\n    auto &&[num, ids] = scc.decompose();\n\
     \    auto &&sccs = scc.scc(num, ids);\n    auto &&dag = scc.directed_acyclic_graph(num,\
@@ -140,13 +140,13 @@ data:
     \ : v) {\n        std::cout << sccs[id].size() << \" \";\n        for(auto v :\
     \ sccs[id]) std::cout << v << \" \";\n        std::cout << \"\\n\";\n    }\n}\n"
   dependsOn:
-  - lib/Graph/Others/strongly_connected_components.hpp
-  - lib/Graph/Others/topological_sort.hpp
+  - algorithm/Graph/Others/strongly_connected_components.hpp
+  - algorithm/Graph/Others/topological_sort.hpp
   isVerificationFile: true
   path: verify/yosupo-scc-strongly_connected_components.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-scc-strongly_connected_components.test.cpp
 layout: document

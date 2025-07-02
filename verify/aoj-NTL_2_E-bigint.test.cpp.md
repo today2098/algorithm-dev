@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/NumberTheory/bigint.hpp
-    title: "\u591A\u500D\u9577\u6574\u6570"
+  - icon: ':question:'
+    path: algorithm/Math/NumberTheory/bigint.hpp
+    title: algorithm/Math/NumberTheory/bigint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/2/NTL_2_E
@@ -16,12 +16,12 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/2/NTL_2_E
   bundledCode: "#line 1 \"verify/aoj-NTL_2_E-bigint.test.cpp\"\n#define PROBLEM \"\
     https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/2/NTL_2_E\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/Math/NumberTheory/bigint.hpp\"\n\n\n\n#include <algorithm>\n\
-    #include <cassert>\n#include <cmath>\n#include <cstdint>\n#include <iomanip>\n\
-    #include <sstream>\n#include <string>\n#include <string_view>\n#include <utility>\n\
-    #include <vector>\n\nnamespace algorithm {\n\n// \u591A\u500D\u9577\u6574\u6570\
-    \uFF0E\nclass Bigint {\n    static constexpr int32_t BASE = 1'000'000'000;\n \
-    \   static constexpr size_t BASE_DIGIT = 9;\n\n    std::vector<int32_t> m_words;\n\
+    \ <iostream>\n\n#line 1 \"algorithm/Math/NumberTheory/bigint.hpp\"\n\n\n\n#include\
+    \ <algorithm>\n#include <cassert>\n#include <cmath>\n#include <cstdint>\n#include\
+    \ <iomanip>\n#include <sstream>\n#include <string>\n#include <string_view>\n#include\
+    \ <utility>\n#include <vector>\n\nnamespace algorithm {\n\n// \u591A\u500D\u9577\
+    \u6574\u6570\uFF0E\nclass Bigint {\n    static constexpr int32_t BASE = 1'000'000'000;\n\
+    \    static constexpr size_t BASE_DIGIT = 9;\n\n    std::vector<int32_t> m_words;\n\
     \    bool m_neg;\n\n    explicit Bigint(const std::vector<int32_t> &words, bool\
     \ neg) : m_words(words), m_neg(neg) {}\n    explicit Bigint(std::vector<int32_t>\
     \ &&words, bool neg) : m_words(std::move(words)), m_neg(neg) {}\n\n    static\
@@ -166,16 +166,16 @@ data:
     \n\nint main() {\n    algorithm::Bigint a, b;\n    std::cin >> a >> b;\n\n   \
     \ a %= b;\n    std::cout << a << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/2/NTL_2_E\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Math/NumberTheory/bigint.hpp\"\n\n\
-    int main() {\n    algorithm::Bigint a, b;\n    std::cin >> a >> b;\n\n    a %=\
-    \ b;\n    std::cout << a << std::endl;\n}\n"
+    \n\n#include <iostream>\n\n#include \"../algorithm/Math/NumberTheory/bigint.hpp\"\
+    \n\nint main() {\n    algorithm::Bigint a, b;\n    std::cin >> a >> b;\n\n   \
+    \ a %= b;\n    std::cout << a << std::endl;\n}\n"
   dependsOn:
-  - lib/Math/NumberTheory/bigint.hpp
+  - algorithm/Math/NumberTheory/bigint.hpp
   isVerificationFile: true
   path: verify/aoj-NTL_2_E-bigint.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/aoj-NTL_2_E-bigint.test.cpp
 layout: document

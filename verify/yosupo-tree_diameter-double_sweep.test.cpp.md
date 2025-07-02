@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/Graph/Tree/double_sweep.hpp
+  - icon: ':question:'
+    path: algorithm/Graph/Tree/double_sweep.hpp
     title: "Double Sweep\uFF08\u6728\u306E\u76F4\u5F84\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/tree_diameter
@@ -16,12 +16,12 @@ data:
     - https://judge.yosupo.jp/problem/tree_diameter
   bundledCode: "#line 1 \"verify/yosupo-tree_diameter-double_sweep.test.cpp\"\n#define\
     \ PROBLEM \"https://judge.yosupo.jp/problem/tree_diameter\"\n\n#include <iostream>\n\
-    #include <utility>\n#include <vector>\n\n#line 1 \"lib/Graph/Tree/double_sweep.hpp\"\
+    #include <utility>\n#include <vector>\n\n#line 1 \"algorithm/Graph/Tree/double_sweep.hpp\"\
     \n\n\n\n/**\n * @brief Double Sweep\uFF08\u6728\u306E\u76F4\u5F84\uFF09\n * @docs\
     \ docs/Graph/Tree/double_sweep.md\n */\n\n#include <algorithm>\n#include <cassert>\n\
-    #include <queue>\n#line 14 \"lib/Graph/Tree/double_sweep.hpp\"\n\nnamespace algorithm\
-    \ {\n\n// \u6728\u306E\u76F4\u5F84\u3092\u6C42\u3081\u308B\uFF0E\u8FD4\u308A\u5024\
-    \u306F\u76F4\u5F84\u3068\u305D\u306E\u7D4C\u8DEF\uFF0EO(|V|).\nstd::pair<int,\
+    #include <queue>\n#line 14 \"algorithm/Graph/Tree/double_sweep.hpp\"\n\nnamespace\
+    \ algorithm {\n\n// \u6728\u306E\u76F4\u5F84\u3092\u6C42\u3081\u308B\uFF0E\u8FD4\
+    \u308A\u5024\u306F\u76F4\u5F84\u3068\u305D\u306E\u7D4C\u8DEF\uFF0EO(|V|).\nstd::pair<int,\
     \ std::vector<int> > double_sweep(const std::vector<std::vector<int> > &g, int\
     \ s = 0) {\n    const int vn = g.size();\n    assert(0 <= s and s < vn);\n   \
     \ int furthest_node;\n    std::vector<int> d(vn);\n    std::vector<int> pre(vn);\n\
@@ -59,7 +59,7 @@ data:
     \n    std::cout << d << \" \" << path.size() << \"\\n\";\n    for(auto v : path)\
     \ std::cout << v << \" \";\n    std::cout << std::endl;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/tree_diameter\"\n\n#include\
-    \ <iostream>\n#include <utility>\n#include <vector>\n\n#include \"../lib/Graph/Tree/double_sweep.hpp\"\
+    \ <iostream>\n#include <utility>\n#include <vector>\n\n#include \"../algorithm/Graph/Tree/double_sweep.hpp\"\
     \n\nint main() {\n    int n;\n    std::cin >> n;\n\n    std::vector<std::vector<std::pair<int,\
     \ long long> > > g(n);\n    for(int i = 0; i < n - 1; ++i) {\n        int a, b;\n\
     \        long long c;\n        std::cin >> a >> b >> c;\n\n        g[a].emplace_back(b,\
@@ -67,12 +67,12 @@ data:
     \n    std::cout << d << \" \" << path.size() << \"\\n\";\n    for(auto v : path)\
     \ std::cout << v << \" \";\n    std::cout << std::endl;\n}\n"
   dependsOn:
-  - lib/Graph/Tree/double_sweep.hpp
+  - algorithm/Graph/Tree/double_sweep.hpp
   isVerificationFile: true
   path: verify/yosupo-tree_diameter-double_sweep.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-tree_diameter-double_sweep.test.cpp
 layout: document

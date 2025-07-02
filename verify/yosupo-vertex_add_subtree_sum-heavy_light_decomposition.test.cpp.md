@@ -1,21 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
-    title: Binary Indexed Tree
-  - icon: ':heavy_check_mark:'
-    path: lib/Graph/Tree/heavy_light_decomposition.hpp
-    title: "Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\u91CD\u8EFD\u5206\u89E3\
-      \uFF09"
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/Algebra/algebra.hpp
-    title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"
+  - icon: ':question:'
+    path: algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
+    title: algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
+  - icon: ':x:'
+    path: algorithm/Graph/Tree/heavy_light_decomposition.hpp
+    title: algorithm/Graph/Tree/heavy_light_decomposition.hpp
+  - icon: ':question:'
+    path: algorithm/Math/Algebra/algebra.hpp
+    title: algorithm/Math/Algebra/algebra.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/vertex_add_subtree_sum
@@ -23,11 +22,11 @@ data:
     - https://judge.yosupo.jp/problem/vertex_add_subtree_sum
   bundledCode: "#line 1 \"verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp\"\
     \n#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_add_subtree_sum\"\n\
-    \n#include <iostream>\n#include <utility>\n#include <vector>\n\n#line 1 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
+    \n#include <iostream>\n#include <utility>\n#include <vector>\n\n#line 1 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <initializer_list>\n\
-    #include <iterator>\n#include <type_traits>\n#line 11 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
-    \n\n#line 1 \"lib/Math/Algebra/algebra.hpp\"\n\n\n\n#line 6 \"lib/Math/Algebra/algebra.hpp\"\
-    \n#include <limits>\n#include <numeric>\n#line 10 \"lib/Math/Algebra/algebra.hpp\"\
+    #include <iterator>\n#include <type_traits>\n#line 11 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
+    \n\n#line 1 \"algorithm/Math/Algebra/algebra.hpp\"\n\n\n\n#line 6 \"algorithm/Math/Algebra/algebra.hpp\"\
+    \n#include <limits>\n#include <numeric>\n#line 10 \"algorithm/Math/Algebra/algebra.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace algebra {\n\ntemplate <typename S>\nclass\
     \ Set {\npublic:\n    using value_type = S;\n\nprotected:\n    value_type val;\n\
     \npublic:\n    constexpr Set() : val() {}\n    constexpr Set(const value_type\
@@ -128,7 +127,7 @@ data:
     \ element::lowest<F>, X>>;\n\ntemplate <typename F, typename X = F>\nusing addition\
     \ = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F,\
     \ X>>;\n\n}  // namespace operator_monoid\n\n}  // namespace algebra\n\n}  //\
-    \ namespace algorithm\n\n\n#line 13 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
+    \ namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace binary_indexed_tree {\n\ntemplate <class\
     \ AbelianGroup>\nclass BIT {\npublic:\n    using group_type = AbelianGroup;\n\
     \    using value_type = group_type::value_type;\n\nprivate:\n    int m_sz;  //\
@@ -182,7 +181,7 @@ data:
     \ }\n};\n\ntemplate <typename S>\nusing range_sum_binary_indexed_tree = BIT<algebra::group::addition<S>>;\n\
     \ntemplate <typename S>\nusing range_xor_binary_indexed_tree = BIT<algebra::group::bit_xor<S>>;\n\
     \n}  // namespace binary_indexed_tree\n\n}  // namespace algorithm\n\n\n#line\
-    \ 1 \"lib/Graph/Tree/heavy_light_decomposition.hpp\"\n\n\n\n#line 8 \"lib/Graph/Tree/heavy_light_decomposition.hpp\"\
+    \ 1 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\n\n\n\n#line 8 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\
     \n\nnamespace algorithm {\n\n// Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\
     \u91CD\u8EFD\u5206\u89E3\uFF09.\nclass HLD {\n    int m_vn;                  \
     \         // m_vn:=(\u30CE\u30FC\u30C9\u6570).\n    std::vector<std::vector<int>>\
@@ -260,13 +259,13 @@ data:
     n\";\n        }\n    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_add_subtree_sum\"\
     \n\n#include <iostream>\n#include <utility>\n#include <vector>\n\n#include \"\
-    ../lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\n#include \"../lib/Graph/Tree/heavy_light_decomposition.hpp\"\
-    \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    std::vector<int>\
-    \ a(n);\n    for(auto &elem : a) std::cin >> elem;\n\n    algorithm::HLD hld(n);\n\
-    \    for(int i = 1; i < n; ++i) {\n        int p;\n        std::cin >> p;\n\n\
-    \        hld.add_edge(p, i);\n    }\n    hld.build();\n\n    using binary_indexed_tree\
-    \ = algorithm::binary_indexed_tree::range_sum_binary_indexed_tree<long long>;\n\
-    \    using group = binary_indexed_tree::group_type;\n\n    std::vector<group>\
+    ../algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\n#include \"\
+    ../algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\n\nint main() {\n    int\
+    \ n;\n    int q;\n    std::cin >> n >> q;\n\n    std::vector<int> a(n);\n    for(auto\
+    \ &elem : a) std::cin >> elem;\n\n    algorithm::HLD hld(n);\n    for(int i =\
+    \ 1; i < n; ++i) {\n        int p;\n        std::cin >> p;\n\n        hld.add_edge(p,\
+    \ i);\n    }\n    hld.build();\n\n    using binary_indexed_tree = algorithm::binary_indexed_tree::range_sum_binary_indexed_tree<long\
+    \ long>;\n    using group = binary_indexed_tree::group_type;\n\n    std::vector<group>\
     \ b(n);\n    for(int i = 0; i < n; ++i) b[hld.vertex_index()[i]] = a[i];\n\n \
     \   binary_indexed_tree bit(std::move(b));\n\n    while(q--) {\n        int t;\n\
     \        int u;\n        std::cin >> t >> u;\n\n        if(t == 0) {\n       \
@@ -275,14 +274,14 @@ data:
     \            auto &&ans = bit.sum(l, r);\n            std::cout << ans << \"\\\
     n\";\n        }\n    }\n}\n"
   dependsOn:
-  - lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
-  - lib/Math/Algebra/algebra.hpp
-  - lib/Graph/Tree/heavy_light_decomposition.hpp
+  - algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
+  - algorithm/Math/Algebra/algebra.hpp
+  - algorithm/Graph/Tree/heavy_light_decomposition.hpp
   isVerificationFile: true
   path: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
   requiredBy: []
-  timestamp: '2025-06-14 20:16:26+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
 layout: document

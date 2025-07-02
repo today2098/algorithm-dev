@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/SegmentTree/sparse_table.hpp
-    title: Sparse Table
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/Algebra/algebra.hpp
-    title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"
+  - icon: ':x:'
+    path: algorithm/DataStructure/SegmentTree/sparse_table.hpp
+    title: algorithm/DataStructure/SegmentTree/sparse_table.hpp
+  - icon: ':question:'
+    path: algorithm/Math/Algebra/algebra.hpp
+    title: algorithm/Math/Algebra/algebra.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/staticrmq
@@ -19,11 +19,11 @@ data:
     - https://judge.yosupo.jp/problem/staticrmq
   bundledCode: "#line 1 \"verify/yosupo-staticrmp-sparse_table.test.cpp\"\n#define\
     \ PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n\n#include <iostream>\n\
-    #include <vector>\n\n#line 1 \"lib/DataStructure/SegmentTree/sparse_table.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <initializer_list>\n#line 7 \"lib/DataStructure/SegmentTree/sparse_table.hpp\"\
-    \n#include <iterator>\n#line 9 \"lib/DataStructure/SegmentTree/sparse_table.hpp\"\
-    \n\n#line 1 \"lib/Math/Algebra/algebra.hpp\"\n\n\n\n#include <algorithm>\n#line\
-    \ 6 \"lib/Math/Algebra/algebra.hpp\"\n#include <limits>\n#include <numeric>\n\
+    #include <vector>\n\n#line 1 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <initializer_list>\n#line 7 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
+    \n#include <iterator>\n#line 9 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
+    \n\n#line 1 \"algorithm/Math/Algebra/algebra.hpp\"\n\n\n\n#include <algorithm>\n\
+    #line 6 \"algorithm/Math/Algebra/algebra.hpp\"\n#include <limits>\n#include <numeric>\n\
     #include <type_traits>\n#include <utility>\n\nnamespace algorithm {\n\nnamespace\
     \ algebra {\n\ntemplate <typename S>\nclass Set {\npublic:\n    using value_type\
     \ = S;\n\nprotected:\n    value_type val;\n\npublic:\n    constexpr Set() : val()\
@@ -125,7 +125,7 @@ data:
     \ element::lowest<F>, X>>;\n\ntemplate <typename F, typename X = F>\nusing addition\
     \ = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F,\
     \ X>>;\n\n}  // namespace operator_monoid\n\n}  // namespace algebra\n\n}  //\
-    \ namespace algorithm\n\n\n#line 11 \"lib/DataStructure/SegmentTree/sparse_table.hpp\"\
+    \ namespace algorithm\n\n\n#line 11 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace sparse_table {\n\ntemplate <class IdempotentSemigroup>\n\
     class SparseTable {\npublic:\n    using semigroup_type = IdempotentSemigroup;\n\
     \    using value_type = semigroup_type::value_type;\n    using size_type = std::size_t;\n\
@@ -171,20 +171,20 @@ data:
     \  std::cin >> l >> r;\n\n        auto &&ans = table.prod(l, r);\n        std::cout\
     \ << ans << \"\\n\";\n    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n\n#include\
-    \ <iostream>\n#include <vector>\n\n#include \"../lib/DataStructure/SegmentTree/sparse_table.hpp\"\
+    \ <iostream>\n#include <vector>\n\n#include \"../algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    std::vector<int>\
     \ a(n);\n    for(auto &elem : a) std::cin >> elem;\n\n    algorithm::sparse_table::range_minimum_sparse_table<int>\
     \ table(a.cbegin(), a.cend());\n\n    while(q--) {\n        int l, r;\n      \
     \  std::cin >> l >> r;\n\n        auto &&ans = table.prod(l, r);\n        std::cout\
     \ << ans << \"\\n\";\n    }\n}\n"
   dependsOn:
-  - lib/DataStructure/SegmentTree/sparse_table.hpp
-  - lib/Math/Algebra/algebra.hpp
+  - algorithm/DataStructure/SegmentTree/sparse_table.hpp
+  - algorithm/Math/Algebra/algebra.hpp
   isVerificationFile: true
   path: verify/yosupo-staticrmp-sparse_table.test.cpp
   requiredBy: []
-  timestamp: '2025-06-15 15:13:44+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-staticrmp-sparse_table.test.cpp
 layout: document

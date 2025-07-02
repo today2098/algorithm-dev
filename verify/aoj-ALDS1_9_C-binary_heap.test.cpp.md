@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/Others/binary_heap.hpp
-    title: "Binary Heap\uFF08\u4E8C\u5206\u30D2\u30FC\u30D7\uFF09"
+    path: algorithm/DataStructure/Others/binary_heap.hpp
+    title: algorithm/DataStructure/Others/binary_heap.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -16,8 +16,8 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/9/ALDS1_9_C
   bundledCode: "#line 1 \"verify/aoj-ALDS1_9_C-binary_heap.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/9/ALDS1_9_C\"\n\n\
-    #include <iostream>\n#include <string>\n\n#line 1 \"lib/DataStructure/Others/binary_heap.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <initializer_list>\n#line 7 \"lib/DataStructure/Others/binary_heap.hpp\"\
+    #include <iostream>\n#include <string>\n\n#line 1 \"algorithm/DataStructure/Others/binary_heap.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <initializer_list>\n#line 7 \"algorithm/DataStructure/Others/binary_heap.hpp\"\
     \n#include <iterator>\n#include <type_traits>\n#include <utility>\n#include <vector>\n\
     \nnamespace algorithm {\n\nnamespace binary_heap {\n\ntemplate <typename T, auto\
     \ comp>\nclass BinaryHeap {\n    static_assert(std::is_invocable_r<bool, decltype(comp),\
@@ -77,7 +77,7 @@ data:
     \            std::cout << ans << \"\\n\";\n        } else {\n            break;\n\
     \        }\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/9/ALDS1_9_C\"\
-    \n\n#include <iostream>\n#include <string>\n\n#include \"../lib/DataStructure/Others/binary_heap.hpp\"\
+    \n\n#include <iostream>\n#include <string>\n\n#include \"../algorithm/DataStructure/Others/binary_heap.hpp\"\
     \n\nint main() {\n    algorithm::binary_heap::max_heap<int> heap;\n\n    while(true)\
     \ {\n        std::string op;\n        std::cin >> op;\n\n        if(op == \"insert\"\
     ) {\n            int k;\n            std::cin >> k;\n\n            heap.push(k);\n\
@@ -85,11 +85,11 @@ data:
     \            std::cout << ans << \"\\n\";\n        } else {\n            break;\n\
     \        }\n    }\n}\n"
   dependsOn:
-  - lib/DataStructure/Others/binary_heap.hpp
+  - algorithm/DataStructure/Others/binary_heap.hpp
   isVerificationFile: true
   path: verify/aoj-ALDS1_9_C-binary_heap.test.cpp
   requiredBy: []
-  timestamp: '2025-06-17 08:20:33+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-ALDS1_9_C-binary_heap.test.cpp

@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Graph/Flow/primal_dual.hpp
+    path: algorithm/Graph/Flow/primal_dual.hpp
     title: "\u6700\u5C0F\u8CBB\u7528\u6D41\u554F\u984C"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
@@ -16,8 +16,8 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B
   bundledCode: "#line 1 \"verify/aoj-GRL_6_B-primal_dual.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/Graph/Flow/primal_dual.hpp\"\n\n\n\n/**\n * @brief\
-    \ \u6700\u5C0F\u8CBB\u7528\u6D41\u554F\u984C\n * @docs docs/Graph/Flow/primal_dual.md\n\
+    \ <iostream>\n\n#line 1 \"algorithm/Graph/Flow/primal_dual.hpp\"\n\n\n\n/**\n\
+    \ * @brief \u6700\u5C0F\u8CBB\u7528\u6D41\u554F\u984C\n * @docs docs/Graph/Flow/primal_dual.md\n\
     \ */\n\n#include <algorithm>\n#include <cassert>\n#include <functional>\n#include\
     \ <limits>\n#include <queue>\n#include <tuple>\n#include <utility>\n#include <vector>\n\
     \nnamespace algorithm {\n\ntemplate <typename Flow, typename Cost>  // Flow:\u5BB9\
@@ -110,19 +110,20 @@ data:
     \ n - 1, f);\n    if(flow < f) std::cout << -1 << std::endl;\n    else std::cout\
     \ << cost << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Graph/Flow/primal_dual.hpp\"\n\n\
-    int main() {\n    int n, m;\n    int f;\n    std::cin >> n >> m >> f;\n\n    algorithm::PrimalDual<int,\
-    \ int> primal_dual(n, m);\n    for(int i = 0; i < m; ++i) {\n        int u, v;\n\
-    \        int c;\n        int d;\n        std::cin >> u >> v >> c >> d;\n\n   \
-    \     primal_dual.add_edge(u, v, c, d);\n    }\n\n    auto &&[flow, cost] = primal_dual.min_cost_flow(0,\
-    \ n - 1, f);\n    if(flow < f) std::cout << -1 << std::endl;\n    else std::cout\
-    \ << cost << std::endl;\n}\n"
+    \n\n#include <iostream>\n\n#include \"../algorithm/Graph/Flow/primal_dual.hpp\"\
+    \n\nint main() {\n    int n, m;\n    int f;\n    std::cin >> n >> m >> f;\n\n\
+    \    algorithm::PrimalDual<int, int> primal_dual(n, m);\n    for(int i = 0; i\
+    \ < m; ++i) {\n        int u, v;\n        int c;\n        int d;\n        std::cin\
+    \ >> u >> v >> c >> d;\n\n        primal_dual.add_edge(u, v, c, d);\n    }\n\n\
+    \    auto &&[flow, cost] = primal_dual.min_cost_flow(0, n - 1, f);\n    if(flow\
+    \ < f) std::cout << -1 << std::endl;\n    else std::cout << cost << std::endl;\n\
+    }\n"
   dependsOn:
-  - lib/Graph/Flow/primal_dual.hpp
+  - algorithm/Graph/Flow/primal_dual.hpp
   isVerificationFile: true
   path: verify/aoj-GRL_6_B-primal_dual.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-GRL_6_B-primal_dual.test.cpp

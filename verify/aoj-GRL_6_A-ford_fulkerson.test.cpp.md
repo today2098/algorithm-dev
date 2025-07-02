@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Graph/Flow/ford_fulkerson.hpp
-    title: "Ford-Fulkerson Algorithm\uFF08\u6700\u5927\u6D41\u554F\u984C\uFF09"
+    path: algorithm/Graph/Flow/ford_fulkerson.hpp
+    title: algorithm/Graph/Flow/ford_fulkerson.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -16,7 +16,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A
   bundledCode: "#line 1 \"verify/aoj-GRL_6_A-ford_fulkerson.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/Graph/Flow/ford_fulkerson.hpp\"\n\n\n\n#include\
+    \ <iostream>\n\n#line 1 \"algorithm/Graph/Flow/ford_fulkerson.hpp\"\n\n\n\n#include\
     \ <algorithm>\n#include <cassert>\n#include <limits>\n#include <queue>\n#include\
     \ <tuple>\n#include <utility>\n#include <vector>\n\nnamespace algorithm {\n\n\
     template <typename Flow>\nclass FordFulkerson {\npublic:\n    using flow_type\
@@ -79,18 +79,18 @@ data:
     \ v, c);\n    }\n\n    auto &&ans = ford_fulkerson.max_flow(0, n - 1);\n    std::cout\
     \ << ans << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Graph/Flow/ford_fulkerson.hpp\"\n\
-    \nint main() {\n    int n, m;\n    std::cin >> n >> m;\n\n    algorithm::FordFulkerson<int>\
+    \n\n#include <iostream>\n\n#include \"../algorithm/Graph/Flow/ford_fulkerson.hpp\"\
+    \n\nint main() {\n    int n, m;\n    std::cin >> n >> m;\n\n    algorithm::FordFulkerson<int>\
     \ ford_fulkerson(n, m);\n    for(int i = 0; i < m; ++i) {\n        int u, v;\n\
     \        int c;\n        std::cin >> u >> v >> c;\n\n        ford_fulkerson.add_edge(u,\
     \ v, c);\n    }\n\n    auto &&ans = ford_fulkerson.max_flow(0, n - 1);\n    std::cout\
     \ << ans << std::endl;\n}\n"
   dependsOn:
-  - lib/Graph/Flow/ford_fulkerson.hpp
+  - algorithm/Graph/Flow/ford_fulkerson.hpp
   isVerificationFile: true
   path: verify/aoj-GRL_6_A-ford_fulkerson.test.cpp
   requiredBy: []
-  timestamp: '2025-06-29 17:18:06+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-GRL_6_A-ford_fulkerson.test.cpp

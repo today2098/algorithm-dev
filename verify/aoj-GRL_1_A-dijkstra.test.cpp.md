@@ -2,9 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Graph/ShortestPath/dijkstra.hpp
-    title: "Dijkstra's Algorithm\uFF08\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\
-      \uFF09"
+    path: algorithm/Graph/ShortestPath/dijkstra.hpp
+    title: algorithm/Graph/ShortestPath/dijkstra.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,9 +16,9 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
   bundledCode: "#line 1 \"verify/aoj-GRL_1_A-dijkstra.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/Graph/ShortestPath/dijkstra.hpp\"\n\n\n\n#include\
-    \ <algorithm>\n#include <cassert>\n#include <limits>\n#include <queue>\n#include\
-    \ <type_traits>\n#include <utility>\n#include <vector>\n\nnamespace algorithm\
+    \ <iostream>\n\n#line 1 \"algorithm/Graph/ShortestPath/dijkstra.hpp\"\n\n\n\n\
+    #include <algorithm>\n#include <cassert>\n#include <limits>\n#include <queue>\n\
+    #include <type_traits>\n#include <utility>\n#include <vector>\n\nnamespace algorithm\
     \ {\n\nnamespace dijkstra {\n\ntemplate <typename T, auto inf>\nclass Dijkstra\
     \ {\n    static_assert(std::is_invocable_r<T, decltype(inf)>::value);\n\npublic:\n\
     \    using value_type = T;\n    using weighted_graph_type = std::vector<std::vector<std::pair<int,\
@@ -67,7 +66,7 @@ data:
     \        if(ans == dijkstra.infinity()) std::cout << \"INF\" << \"\\n\";\n   \
     \     else std::cout << ans << \"\\n\";\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Graph/ShortestPath/dijkstra.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/Graph/ShortestPath/dijkstra.hpp\"\
     \n\nint main() {\n    int n, m;\n    int r;\n    std::cin >> n >> m >> r;\n\n\
     \    algorithm::dijkstra::default_dijkstra<int> dijkstra(n);\n    for(int i =\
     \ 0; i < m; ++i) {\n        int s, t;\n        int d;\n        std::cin >> s >>\
@@ -76,11 +75,11 @@ data:
     \        if(ans == dijkstra.infinity()) std::cout << \"INF\" << \"\\n\";\n   \
     \     else std::cout << ans << \"\\n\";\n    }\n}\n"
   dependsOn:
-  - lib/Graph/ShortestPath/dijkstra.hpp
+  - algorithm/Graph/ShortestPath/dijkstra.hpp
   isVerificationFile: true
   path: verify/aoj-GRL_1_A-dijkstra.test.cpp
   requiredBy: []
-  timestamp: '2025-06-21 17:21:37+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-GRL_1_A-dijkstra.test.cpp

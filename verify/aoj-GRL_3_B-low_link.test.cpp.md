@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Graph/Others/low_link.hpp
+    path: algorithm/Graph/Others/low_link.hpp
     title: "Low-Link\uFF08\u6A4B\uFF0C\u95A2\u7BC0\u70B9\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
@@ -16,8 +16,8 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_B
   bundledCode: "#line 1 \"verify/aoj-GRL_3_B-low_link.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_B\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/Graph/Others/low_link.hpp\"\n\n\n\n/**\n * @brief\
-    \ Low-Link\uFF08\u6A4B\uFF0C\u95A2\u7BC0\u70B9\uFF09\n * @docs docs/Graph/Others/low_link.md\n\
+    \ <iostream>\n\n#line 1 \"algorithm/Graph/Others/low_link.hpp\"\n\n\n\n/**\n *\
+    \ @brief Low-Link\uFF08\u6A4B\uFF0C\u95A2\u7BC0\u70B9\uFF09\n * @docs docs/Graph/Others/low_link.md\n\
     \ */\n\n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include\
     \ <vector>\n\nnamespace algorithm {\n\nclass LowLink {\n    int m_vn;        \
     \                         // m_vn:=(\u9802\u70B9\u6570).\n    std::vector<std::vector<int>\
@@ -70,18 +70,18 @@ data:
     \n    for(const auto &[s, t] : lowlink.bridges()) std::cout << s << \" \" << t\
     \ << \"\\n\";\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_B\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Graph/Others/low_link.hpp\"\n\nint\
-    \ main() {\n    int n, m;\n    std::cin >> n >> m;\n\n    algorithm::LowLink lowlink(n);\n\
-    \    for(int i = 0; i < m; ++i) {\n        int s, t;\n        std::cin >> s >>\
-    \ t;\n\n        lowlink.add_edge(s, t);\n    }\n    lowlink.lowlink();\n\n   \
-    \ for(const auto &[s, t] : lowlink.bridges()) std::cout << s << \" \" << t <<\
-    \ \"\\n\";\n}\n"
+    \n\n#include <iostream>\n\n#include \"../algorithm/Graph/Others/low_link.hpp\"\
+    \n\nint main() {\n    int n, m;\n    std::cin >> n >> m;\n\n    algorithm::LowLink\
+    \ lowlink(n);\n    for(int i = 0; i < m; ++i) {\n        int s, t;\n        std::cin\
+    \ >> s >> t;\n\n        lowlink.add_edge(s, t);\n    }\n    lowlink.lowlink();\n\
+    \n    for(const auto &[s, t] : lowlink.bridges()) std::cout << s << \" \" << t\
+    \ << \"\\n\";\n}\n"
   dependsOn:
-  - lib/Graph/Others/low_link.hpp
+  - algorithm/Graph/Others/low_link.hpp
   isVerificationFile: true
   path: verify/aoj-GRL_3_B-low_link.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-GRL_3_B-low_link.test.cpp

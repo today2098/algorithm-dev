@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Others/mo_algorithm.hpp
+    path: algorithm/Others/mo_algorithm.hpp
     title: "Mo's Algorithm\uFF08\u30AF\u30A8\u30EA\u5E73\u65B9\u5206\u5272\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
@@ -17,18 +17,18 @@ data:
   bundledCode: "#line 1 \"verify/aoj-0425-mo_algorithm.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/challenges/sources/PCK/Final/0425\"\n\n#include\
     \ <iostream>\n#include <numeric>\n#include <utility>\n#include <vector>\n\n#line\
-    \ 1 \"lib/Others/mo_algorithm.hpp\"\n\n\n\n/**\n * @brief Mo's Algorithm\uFF08\
+    \ 1 \"algorithm/Others/mo_algorithm.hpp\"\n\n\n\n/**\n * @brief Mo's Algorithm\uFF08\
     \u30AF\u30A8\u30EA\u5E73\u65B9\u5206\u5272\uFF09\n * @docs docs/Others/mo_algorithm.md\n\
     \ */\n\n#include <algorithm>\n#include <cassert>\n#include <cmath>\n#include <tuple>\n\
-    #line 14 \"lib/Others/mo_algorithm.hpp\"\n\nnamespace algorithm {\n\n// Mo's Algorithm\uFF08\
-    \u30AF\u30A8\u30EA\u5E73\u65B9\u5206\u5272\uFF09.\nclass Mo {\n    int m_len;\
-    \                                          // m_len:=(\u533A\u9593\u306E\u9577\
-    \u3055).\n    int m_q;                                            // m_q:=(\u30AF\
-    \u30A8\u30EA\u6570).\n    std::vector<std::tuple<int, int, int> > m_queries; \
-    \ // m_queries[i]:=(i\u756A\u76EE\u306E\u533A\u9593\u30AF\u30A8\u30EA). tuple\
-    \ of (left, right, index).\n\n    void sort_queries() {\n        if(m_q == 0)\
-    \ return;\n        const int width = std::max(m_len / (int)std::sqrt(m_q), 1);\
-    \  // width:=N/\u221AQ.\n        std::sort(m_queries.begin(), m_queries.end(),\
+    #line 14 \"algorithm/Others/mo_algorithm.hpp\"\n\nnamespace algorithm {\n\n//\
+    \ Mo's Algorithm\uFF08\u30AF\u30A8\u30EA\u5E73\u65B9\u5206\u5272\uFF09.\nclass\
+    \ Mo {\n    int m_len;                                          // m_len:=(\u533A\
+    \u9593\u306E\u9577\u3055).\n    int m_q;                                     \
+    \       // m_q:=(\u30AF\u30A8\u30EA\u6570).\n    std::vector<std::tuple<int, int,\
+    \ int> > m_queries;  // m_queries[i]:=(i\u756A\u76EE\u306E\u533A\u9593\u30AF\u30A8\
+    \u30EA). tuple of (left, right, index).\n\n    void sort_queries() {\n       \
+    \ if(m_q == 0) return;\n        const int width = std::max(m_len / (int)std::sqrt(m_q),\
+    \ 1);  // width:=N/\u221AQ.\n        std::sort(m_queries.begin(), m_queries.end(),\
     \ [&width](const std::tuple<int, int, int> &a, const std::tuple<int, int, int>\
     \ &b) -> bool {\n            const auto &[al, ar, _] = a;\n            const auto\
     \ &[bl, br, __] = b;\n            int a_block = al / width, b_block = bl / width;\n\
@@ -69,8 +69,8 @@ data:
     \ << \"\\n\";\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/challenges/sources/PCK/Final/0425\"\
     \n\n#include <iostream>\n#include <numeric>\n#include <utility>\n#include <vector>\n\
-    \n#include \"../lib/Others/mo_algorithm.hpp\"\n\nint main() {\n    int n;\n  \
-    \  int k;\n    int q;\n    std::cin >> n >> k >> q;\n\n    std::vector<std::pair<int,\
+    \n#include \"../algorithm/Others/mo_algorithm.hpp\"\n\nint main() {\n    int n;\n\
+    \    int k;\n    int q;\n    std::cin >> n >> k >> q;\n\n    std::vector<std::pair<int,\
     \ int> > vp(k);\n    for(auto &[a, b] : vp) {\n        std::cin >> a >> b;\n \
     \       a--, b--;\n    }\n\n    std::vector<std::pair<int, int> > queries(q);\n\
     \    algorithm::Mo mo(k, q);\n    for(int i = 0; i < q; ++i) {\n        int type;\n\
@@ -88,11 +88,11 @@ data:
     \ swap_r, swap_r, solve);\n\n    for(auto elem : ans) std::cout << elem << \"\\\
     n\";\n}\n"
   dependsOn:
-  - lib/Others/mo_algorithm.hpp
+  - algorithm/Others/mo_algorithm.hpp
   isVerificationFile: true
   path: verify/aoj-0425-mo_algorithm.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-0425-mo_algorithm.test.cpp

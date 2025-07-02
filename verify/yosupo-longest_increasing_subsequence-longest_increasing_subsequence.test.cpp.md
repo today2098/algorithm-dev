@@ -1,15 +1,15 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/Others/longest_increasing_subsequence.hpp
+  - icon: ':question:'
+    path: algorithm/Others/longest_increasing_subsequence.hpp
     title: "Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\u5206\
       \u5217\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/longest_increasing_subsequence
@@ -18,10 +18,10 @@ data:
   bundledCode: "#line 1 \"verify/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp\"\
     \n#define PROBLEM \"https://judge.yosupo.jp/problem/longest_increasing_subsequence\"\
     \n\n#include <algorithm>\n#include <iostream>\n#include <vector>\n\n#line 1 \"\
-    lib/Others/longest_increasing_subsequence.hpp\"\n\n\n\n/**\n * @brief Longest\
+    algorithm/Others/longest_increasing_subsequence.hpp\"\n\n\n\n/**\n * @brief Longest\
     \ Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217\uFF09\
-    \n * @docs docs/Others/longest_increasing_subsequence.md\n */\n\n#line 10 \"lib/Others/longest_increasing_subsequence.hpp\"\
-    \n#include <functional>\n#line 12 \"lib/Others/longest_increasing_subsequence.hpp\"\
+    \n * @docs docs/Others/longest_increasing_subsequence.md\n */\n\n#line 10 \"algorithm/Others/longest_increasing_subsequence.hpp\"\
+    \n#include <functional>\n#line 12 \"algorithm/Others/longest_increasing_subsequence.hpp\"\
     \n\nnamespace algorithm {\n\n// \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217 (LIS:\
     \ Longest Increasing Subsequence) \u306E\u9577\u3055\u3092\u6C42\u3081\u308B\uFF0E\
     O(N*logN).\ntemplate <typename Type, class Compare = std::function<bool(const\
@@ -57,21 +57,21 @@ data:
     \ ans) std::cout << elem << \" \";\n    std::cout << std::endl;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/longest_increasing_subsequence\"\
     \n\n#include <algorithm>\n#include <iostream>\n#include <vector>\n\n#include \"\
-    ../lib/Others/longest_increasing_subsequence.hpp\"\n\nint main() {\n    int n;\n\
-    \    std::cin >> n;\n\n    std::vector<int> a(n);\n    for(auto &in : a) std::cin\
-    \ >> in;\n\n    auto &&dp = algorithm::lis(a);\n    auto itr = std::max_element(dp.begin(),\
+    ../algorithm/Others/longest_increasing_subsequence.hpp\"\n\nint main() {\n   \
+    \ int n;\n    std::cin >> n;\n\n    std::vector<int> a(n);\n    for(auto &in :\
+    \ a) std::cin >> in;\n\n    auto &&dp = algorithm::lis(a);\n    auto itr = std::max_element(dp.begin(),\
     \ dp.end()) - dp.begin();\n\n    std::vector<int> ans;\n    ans.push_back(itr);\n\
     \    for(int i = itr - 1; i >= 0; --i) {\n        if(dp[i] == dp[ans.back()] -\
     \ 1) ans.push_back(i);\n    }\n    std::reverse(ans.begin(), ans.end());\n\n \
     \   std::cout << ans.size() << \"\\n\";\n    for(auto elem : ans) std::cout <<\
     \ elem << \" \";\n    std::cout << std::endl;\n}\n"
   dependsOn:
-  - lib/Others/longest_increasing_subsequence.hpp
+  - algorithm/Others/longest_increasing_subsequence.hpp
   isVerificationFile: true
   path: verify/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
 layout: document

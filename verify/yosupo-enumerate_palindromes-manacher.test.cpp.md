@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/String/manacher.hpp
+  - icon: ':x:'
+    path: algorithm/String/manacher.hpp
     title: "Manacher's Algorithm\uFF08\u6700\u9577\u56DE\u6587\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/enumerate_palindromes
@@ -16,9 +16,9 @@ data:
     - https://judge.yosupo.jp/problem/enumerate_palindromes
   bundledCode: "#line 1 \"verify/yosupo-enumerate_palindromes-manacher.test.cpp\"\n\
     #define PROBLEM \"https://judge.yosupo.jp/problem/enumerate_palindromes\"\n\n\
-    #include <iostream>\n#include <string>\n\n#line 1 \"lib/String/manacher.hpp\"\n\
-    \n\n\n/**\n * @brief Manacher's Algorithm\uFF08\u6700\u9577\u56DE\u6587\uFF09\n\
-    \ * @docs docs/String/manacher.md\n */\n\n#include <cassert>\n#include <vector>\n\
+    #include <iostream>\n#include <string>\n\n#line 1 \"algorithm/String/manacher.hpp\"\
+    \n\n\n\n/**\n * @brief Manacher's Algorithm\uFF08\u6700\u9577\u56DE\u6587\uFF09\
+    \n * @docs docs/String/manacher.md\n */\n\n#include <cassert>\n#include <vector>\n\
     \nnamespace algorithm {\n\n// Manacher's Algorithm\uFF08\u6700\u9577\u56DE\u6587\
     \uFF09.\ntemplate <class Sequence>\nclass Manacher {\n    int m_sz;  // m_sz:=(\u914D\
     \u5217\u30B5\u30A4\u30BA).\n    // m_radius[2*k]:=(k\u6587\u5B57\u76EE\u3092\u4E2D\
@@ -57,19 +57,19 @@ data:
     \ << 2 * manacher.even_radius(i) << \" \";\n    }\n    std::cout << std::endl;\n\
     }\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/enumerate_palindromes\"\
-    \n\n#include <iostream>\n#include <string>\n\n#include \"../lib/String/manacher.hpp\"\
+    \n\n#include <iostream>\n#include <string>\n\n#include \"../algorithm/String/manacher.hpp\"\
     \n\nint main() {\n    std::string s;\n    std::cin >> s;\n\n    algorithm::Manacher\
     \ manacher(s);\n\n    const int n = s.size();\n    for(int i = 0; i < n; ++i)\
     \ {\n        std::cout << 2 * manacher.odd_radius(i) - 1 << \" \";\n        if(i\
     \ < n - 1) std::cout << 2 * manacher.even_radius(i) << \" \";\n    }\n    std::cout\
     \ << std::endl;\n}\n"
   dependsOn:
-  - lib/String/manacher.hpp
+  - algorithm/String/manacher.hpp
   isVerificationFile: true
   path: verify/yosupo-enumerate_palindromes-manacher.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-enumerate_palindromes-manacher.test.cpp
 layout: document

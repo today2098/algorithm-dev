@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
-    title: "\u4E8C\u6B21\u5143Binary Indexed Tree"
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/Algebra/algebra.hpp
-    title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"
+    path: algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
+    title: algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
+  - icon: ':question:'
+    path: algorithm/Math/Algebra/algebra.hpp
+    title: algorithm/Math/Algebra/algebra.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -19,9 +19,9 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/2842
   bundledCode: "#line 1 \"verify/aoj-2842-binary_indexed_tree_2d.test.cpp\"\n#define\
     \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2842\"\n\n#include <iostream>\n\
-    #include <queue>\n#include <tuple>\n\n#line 1 \"lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"\
+    #include <queue>\n#include <tuple>\n\n#line 1 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <vector>\n\n#line 1\
-    \ \"lib/Math/Algebra/algebra.hpp\"\n\n\n\n#line 6 \"lib/Math/Algebra/algebra.hpp\"\
+    \ \"algorithm/Math/Algebra/algebra.hpp\"\n\n\n\n#line 6 \"algorithm/Math/Algebra/algebra.hpp\"\
     \n#include <limits>\n#include <numeric>\n#include <type_traits>\n#include <utility>\n\
     \nnamespace algorithm {\n\nnamespace algebra {\n\ntemplate <typename S>\nclass\
     \ Set {\npublic:\n    using value_type = S;\n\nprotected:\n    value_type val;\n\
@@ -123,7 +123,7 @@ data:
     \ element::lowest<F>, X>>;\n\ntemplate <typename F, typename X = F>\nusing addition\
     \ = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F,\
     \ X>>;\n\n}  // namespace operator_monoid\n\n}  // namespace algebra\n\n}  //\
-    \ namespace algorithm\n\n\n#line 9 \"lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"\
+    \ namespace algorithm\n\n\n#line 9 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace binary_indexed_tree_2d {\n\ntemplate <class\
     \ AbelianGroup>\nclass BIT2D {\npublic:\n    using group_type = AbelianGroup;\n\
     \    using value_type = group_type::value_type;\n\nprivate:\n    int m_h, m_w;\n\
@@ -186,7 +186,7 @@ data:
     \ yy, xx);\n            std::cout << a << \" \" << b << \"\\n\";\n        }\n\
     \    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2842\"\n\n#include\
-    \ <iostream>\n#include <queue>\n#include <tuple>\n\n#include \"../lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"\
+    \ <iostream>\n#include <queue>\n#include <tuple>\n\n#include \"../algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"\
     \n\nint main() {\n    int y, x;\n    int t;\n    int q;\n    std::cin >> y >>\
     \ x >> t >> q;\n\n    algorithm::binary_indexed_tree_2d::range_sum_binary_indexed_tree_2d<int>\
     \ raw(y, x), baked(y, x);\n    std::queue<std::tuple<int, int, int> > que;\n \
@@ -204,12 +204,12 @@ data:
     \ yy, xx);\n            std::cout << a << \" \" << b << \"\\n\";\n        }\n\
     \    }\n}\n"
   dependsOn:
-  - lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
-  - lib/Math/Algebra/algebra.hpp
+  - algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
+  - algorithm/Math/Algebra/algebra.hpp
   isVerificationFile: true
   path: verify/aoj-2842-binary_indexed_tree_2d.test.cpp
   requiredBy: []
-  timestamp: '2025-06-14 20:16:26+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-2842-binary_indexed_tree_2d.test.cpp

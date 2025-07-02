@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/Others/binary_trie.hpp
-    title: "Binary Trie\uFF08\u4E8C\u5206\u30C8\u30E9\u30A4\u6728\uFF09"
+  - icon: ':question:'
+    path: algorithm/DataStructure/Others/binary_trie.hpp
+    title: algorithm/DataStructure/Others/binary_trie.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -16,10 +16,10 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
   bundledCode: "#line 1 \"verify/aoj-DSL_2_B-binary_trie.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/DataStructure/Others/binary_trie.hpp\"\n\n\n\n#include\
-    \ <bitset>\n#include <cassert>\n\nnamespace algorithm {\n\ntemplate <std::size_t\
-    \ w = 32>\nclass BinaryTrie {\npublic:\n    using size_type = std::size_t;\n\n\
-    private:\n    struct Node {\n        size_type cnt;  // cnt:=(\u81EA\u8EAB\u3092\
+    \ <iostream>\n\n#line 1 \"algorithm/DataStructure/Others/binary_trie.hpp\"\n\n\
+    \n\n#include <bitset>\n#include <cassert>\n\nnamespace algorithm {\n\ntemplate\
+    \ <std::size_t w = 32>\nclass BinaryTrie {\npublic:\n    using size_type = std::size_t;\n\
+    \nprivate:\n    struct Node {\n        size_type cnt;  // cnt:=(\u81EA\u8EAB\u3092\
     \u6839\u3068\u3059\u308B\u90E8\u5206\u6728\u306B\u542B\u307E\u308C\u308B\u8981\
     \u7D20\u306E\u6570).\n        Node *ch[2];    // ch[]:=(\u5B50\u306E\u30DD\u30A4\
     \u30F3\u30BF).\n        Node() : cnt(0), ch{nullptr, nullptr} {}\n    };\n\n \
@@ -108,7 +108,7 @@ data:
     \            int r = trie.upper_bound(y);\n\n            int ans = r - l;\n  \
     \          std::cout << ans << \"\\n\";\n        }\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\
-    \n\n#include <iostream>\n\n#include \"../lib/DataStructure/Others/binary_trie.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/DataStructure/Others/binary_trie.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::BinaryTrie<20>\
     \ trie;\n\n    while(q--) {\n        int com;\n        std::cin >> com;\n\n  \
     \      if(com == 0) {\n            int x;\n            int y;\n            std::cin\
@@ -117,11 +117,11 @@ data:
     \            int r = trie.upper_bound(y);\n\n            int ans = r - l;\n  \
     \          std::cout << ans << \"\\n\";\n        }\n    }\n}\n"
   dependsOn:
-  - lib/DataStructure/Others/binary_trie.hpp
+  - algorithm/DataStructure/Others/binary_trie.hpp
   isVerificationFile: true
   path: verify/aoj-DSL_2_B-binary_trie.test.cpp
   requiredBy: []
-  timestamp: '2025-06-16 01:20:59+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_2_B-binary_trie.test.cpp

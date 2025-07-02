@@ -2,9 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Others/interval_set.hpp
-    title: "Interval Set\uFF08\u533A\u9593\u3092set\u3067\u7BA1\u7406\u3059\u308B\u30C7\
-      \u30FC\u30BF\u69CB\u9020\uFF09"
+    path: algorithm/Others/interval_set.hpp
+    title: algorithm/Others/interval_set.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,9 +16,9 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/2880
   bundledCode: "#line 1 \"verify/aoj-2880-interval_set.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/problems/2880\"\n\n#include <algorithm>\n\
-    #include <iostream>\n#include <tuple>\n#include <vector>\n\n#line 1 \"lib/Others/interval_set.hpp\"\
-    \n\n\n\n#line 5 \"lib/Others/interval_set.hpp\"\n#include <cassert>\n#include\
-    \ <compare>\n#include <initializer_list>\n#line 9 \"lib/Others/interval_set.hpp\"\
+    #include <iostream>\n#include <tuple>\n#include <vector>\n\n#line 1 \"algorithm/Others/interval_set.hpp\"\
+    \n\n\n\n#line 5 \"algorithm/Others/interval_set.hpp\"\n#include <cassert>\n#include\
+    \ <compare>\n#include <initializer_list>\n#line 9 \"algorithm/Others/interval_set.hpp\"\
     \n#include <iterator>\n#include <limits>\n#include <set>\n#include <utility>\n\
     \nnamespace algorithm {\n\nnamespace interval_set {\n\ntemplate <typename T>\n\
     class Interval : public std::pair<T, T> {\npublic:\n    using value_type = T;\n\
@@ -130,25 +129,25 @@ data:
     }\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2880\"\n\n#include\
     \ <algorithm>\n#include <iostream>\n#include <tuple>\n#include <vector>\n\n#include\
-    \ \"../lib/Others/interval_set.hpp\"\n\nint main() {\n    int n;\n    int m;\n\
-    \    int q;\n    std::cin >> n >> m >> q;\n\n    std::vector<std::tuple<int, int,\
-    \ int>> vt(m);\n    for(auto &[d, a, b] : vt) std::cin >> d >> a >> b;\n    std::sort(vt.begin(),\
-    \ vt.end());\n\n    std::vector<std::tuple<int, int, int, int>> query(q);\n  \
-    \  for(int i = 0; i < q; ++i) {\n        auto &[e, s, t, idx] = query[i];\n  \
-    \      std::cin >> e >> s >> t;\n        idx = i;\n    }\n    std::sort(query.begin(),\
-    \ query.end());\n\n    std::vector<bool> ans(q);\n    algorithm::interval_set::IntervalSet<int>\
-    \ st;\n    int next = 0;\n    for(const auto &[e, s, t, idx] : query) {\n    \
-    \    while(next < m) {\n            const auto &[d, a, b] = vt[next];\n      \
-    \      if(e <= d) break;\n            st.insert(a, b);\n            ++next;\n\
-    \        }\n\n        ans[idx] = (s >= t or st.contains(s, t) == 2);\n    }\n\n\
-    \    for(auto elem : ans) std::cout << (elem ? \"Yes\" : \"No\") << \"\\n\";\n\
-    }\n"
+    \ \"../algorithm/Others/interval_set.hpp\"\n\nint main() {\n    int n;\n    int\
+    \ m;\n    int q;\n    std::cin >> n >> m >> q;\n\n    std::vector<std::tuple<int,\
+    \ int, int>> vt(m);\n    for(auto &[d, a, b] : vt) std::cin >> d >> a >> b;\n\
+    \    std::sort(vt.begin(), vt.end());\n\n    std::vector<std::tuple<int, int,\
+    \ int, int>> query(q);\n    for(int i = 0; i < q; ++i) {\n        auto &[e, s,\
+    \ t, idx] = query[i];\n        std::cin >> e >> s >> t;\n        idx = i;\n  \
+    \  }\n    std::sort(query.begin(), query.end());\n\n    std::vector<bool> ans(q);\n\
+    \    algorithm::interval_set::IntervalSet<int> st;\n    int next = 0;\n    for(const\
+    \ auto &[e, s, t, idx] : query) {\n        while(next < m) {\n            const\
+    \ auto &[d, a, b] = vt[next];\n            if(e <= d) break;\n            st.insert(a,\
+    \ b);\n            ++next;\n        }\n\n        ans[idx] = (s >= t or st.contains(s,\
+    \ t) == 2);\n    }\n\n    for(auto elem : ans) std::cout << (elem ? \"Yes\" :\
+    \ \"No\") << \"\\n\";\n}\n"
   dependsOn:
-  - lib/Others/interval_set.hpp
+  - algorithm/Others/interval_set.hpp
   isVerificationFile: true
   path: verify/aoj-2880-interval_set.test.cpp
   requiredBy: []
-  timestamp: '2025-06-23 01:07:56+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-2880-interval_set.test.cpp

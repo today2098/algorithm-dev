@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/UnionFind/union_find.hpp
-    title: "Union-Find\uFF08\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020\uFF09"
+    path: algorithm/DataStructure/UnionFind/union_find.hpp
+    title: algorithm/DataStructure/UnionFind/union_find.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -16,8 +16,8 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_A
   bundledCode: "#line 1 \"verify/aoj-DSL_1_A-union_find.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_A\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/DataStructure/UnionFind/union_find.hpp\"\n\n\n\n\
-    #include <algorithm>\n#include <cassert>\n#include <utility>\n#include <vector>\n\
+    \ <iostream>\n\n#line 1 \"algorithm/DataStructure/UnionFind/union_find.hpp\"\n\
+    \n\n\n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include <vector>\n\
     \nnamespace algorithm {\n\nclass UnionFind {\n    int m_vn;  // m_vn:=(\u8981\u7D20\
     \u6570).\n    int m_gn;  // m_gn:=(\u96C6\u5408\u306E\u6570).\n    // m_par[x]:=(\u8981\
     \u7D20x\u306E\u89AA). 0\u672A\u6E80\u306E\u5834\u5408\uFF0Cx\u306F\u4EE3\u8868\
@@ -53,17 +53,17 @@ data:
     \ >> com >> x >> y;\n\n        if(com == 0) uf.unite(x, y);\n        else std::cout\
     \ << uf.is_same(x, y) << \"\\n\";\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_A\"\
-    \n\n#include <iostream>\n\n#include \"../lib/DataStructure/UnionFind/union_find.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/DataStructure/UnionFind/union_find.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::UnionFind\
     \ uf(n);\n\n    while(q--) {\n        int com;\n        int x, y;\n        std::cin\
     \ >> com >> x >> y;\n\n        if(com == 0) uf.unite(x, y);\n        else std::cout\
     \ << uf.is_same(x, y) << \"\\n\";\n    }\n}\n"
   dependsOn:
-  - lib/DataStructure/UnionFind/union_find.hpp
+  - algorithm/DataStructure/UnionFind/union_find.hpp
   isVerificationFile: true
   path: verify/aoj-DSL_1_A-union_find.test.cpp
   requiredBy: []
-  timestamp: '2025-06-22 02:23:33+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_1_A-union_find.test.cpp

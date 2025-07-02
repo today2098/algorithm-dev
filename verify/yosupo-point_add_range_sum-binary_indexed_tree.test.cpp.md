@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
-    title: Binary Indexed Tree
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/Algebra/algebra.hpp
-    title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"
+  - icon: ':question:'
+    path: algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
+    title: algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
+  - icon: ':question:'
+    path: algorithm/Math/Algebra/algebra.hpp
+    title: algorithm/Math/Algebra/algebra.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/point_add_range_sum
@@ -19,11 +19,11 @@ data:
     - https://judge.yosupo.jp/problem/point_add_range_sum
   bundledCode: "#line 1 \"verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp\"\
     \n#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_range_sum\"\n\n\
-    #include <iostream>\n#include <utility>\n#include <vector>\n\n#line 1 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
+    #include <iostream>\n#include <utility>\n#include <vector>\n\n#line 1 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <initializer_list>\n\
-    #include <iterator>\n#include <type_traits>\n#line 11 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
-    \n\n#line 1 \"lib/Math/Algebra/algebra.hpp\"\n\n\n\n#line 6 \"lib/Math/Algebra/algebra.hpp\"\
-    \n#include <limits>\n#include <numeric>\n#line 10 \"lib/Math/Algebra/algebra.hpp\"\
+    #include <iterator>\n#include <type_traits>\n#line 11 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
+    \n\n#line 1 \"algorithm/Math/Algebra/algebra.hpp\"\n\n\n\n#line 6 \"algorithm/Math/Algebra/algebra.hpp\"\
+    \n#include <limits>\n#include <numeric>\n#line 10 \"algorithm/Math/Algebra/algebra.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace algebra {\n\ntemplate <typename S>\nclass\
     \ Set {\npublic:\n    using value_type = S;\n\nprotected:\n    value_type val;\n\
     \npublic:\n    constexpr Set() : val() {}\n    constexpr Set(const value_type\
@@ -124,7 +124,7 @@ data:
     \ element::lowest<F>, X>>;\n\ntemplate <typename F, typename X = F>\nusing addition\
     \ = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F,\
     \ X>>;\n\n}  // namespace operator_monoid\n\n}  // namespace algebra\n\n}  //\
-    \ namespace algorithm\n\n\n#line 13 \"lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
+    \ namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace binary_indexed_tree {\n\ntemplate <class\
     \ AbelianGroup>\nclass BIT {\npublic:\n    using group_type = AbelianGroup;\n\
     \    using value_type = group_type::value_type;\n\nprivate:\n    int m_sz;  //\
@@ -190,7 +190,7 @@ data:
     \ &&ans = bit.sum(l, r);\n            std::cout << ans << \"\\n\";\n        }\n\
     \    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_range_sum\"\n\
-    \n#include <iostream>\n#include <utility>\n#include <vector>\n\n#include \"../lib/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
+    \n#include <iostream>\n#include <utility>\n#include <vector>\n\n#include \"../algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    using\
     \ binary_indexed_tree = algorithm::binary_indexed_tree::range_sum_binary_indexed_tree<long\
     \ long>;\n    using group = binary_indexed_tree::group_type;\n\n    std::vector<group>\
@@ -202,13 +202,13 @@ data:
     \ &&ans = bit.sum(l, r);\n            std::cout << ans << \"\\n\";\n        }\n\
     \    }\n}\n"
   dependsOn:
-  - lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
-  - lib/Math/Algebra/algebra.hpp
+  - algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
+  - algorithm/Math/Algebra/algebra.hpp
   isVerificationFile: true
   path: verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-06-14 20:16:26+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
 layout: document

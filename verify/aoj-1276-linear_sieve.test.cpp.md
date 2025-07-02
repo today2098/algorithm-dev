@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Math/NumberTheory/linear_sieve.hpp
-    title: "\u7DDA\u5F62\u7BE9"
+    path: algorithm/Math/NumberTheory/linear_sieve.hpp
+    title: algorithm/Math/NumberTheory/linear_sieve.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,7 +17,7 @@ data:
   bundledCode: "#line 1 \"verify/aoj-1276-linear_sieve.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/challenges/sources/ICPC/Regional/1276\"\n\
     \n#include <algorithm>\n#include <iostream>\n#include <iterator>\n\n#line 1 \"\
-    lib/Math/NumberTheory/linear_sieve.hpp\"\n\n\n\n#line 5 \"lib/Math/NumberTheory/linear_sieve.hpp\"\
+    algorithm/Math/NumberTheory/linear_sieve.hpp\"\n\n\n\n#line 5 \"algorithm/Math/NumberTheory/linear_sieve.hpp\"\
     \n#include <cassert>\n#include <map>\n#include <ranges>\n#include <vector>\n\n\
     namespace algorithm {\n\n// \u7DDA\u5F62\u7BE9\uFF0E\nclass LinearSieve {\n  \
     \  int m_sz;\n    // m_lpf[i]:=(\u6B63\u306E\u5947\u65702*i+1\u306E\u6700\u5C0F\
@@ -55,18 +55,18 @@ data:
     \        std::cout << ans << \"\\n\";\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/challenges/sources/ICPC/Regional/1276\"\
     \n\n#include <algorithm>\n#include <iostream>\n#include <iterator>\n\n#include\
-    \ \"../lib/Math/NumberTheory/linear_sieve.hpp\"\n\nint main() {\n    constexpr\
+    \ \"../algorithm/Math/NumberTheory/linear_sieve.hpp\"\n\nint main() {\n    constexpr\
     \ int mx = 1299709;\n    algorithm::LinearSieve sieve(mx + 1);\n\n    while(1)\
     \ {\n        int a;\n        std::cin >> a;\n        if(a == 0) break;\n\n   \
     \     auto itr = std::lower_bound(sieve.primes().cbegin(), sieve.primes().cend(),\
     \ a);\n        auto ans = (*itr == a ? 0 : *itr - *prev(itr));\n        std::cout\
     \ << ans << \"\\n\";\n    }\n}\n"
   dependsOn:
-  - lib/Math/NumberTheory/linear_sieve.hpp
+  - algorithm/Math/NumberTheory/linear_sieve.hpp
   isVerificationFile: true
   path: verify/aoj-1276-linear_sieve.test.cpp
   requiredBy: []
-  timestamp: '2025-04-13 14:58:09+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-1276-linear_sieve.test.cpp

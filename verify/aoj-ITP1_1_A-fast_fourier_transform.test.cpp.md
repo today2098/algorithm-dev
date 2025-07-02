@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Math/Convolution/fast_fourier_transform.hpp
+    path: algorithm/Math/Convolution/fast_fourier_transform.hpp
     title: "Fast Fourier Transform\uFF08\u9AD8\u901F\u30D5\u30FC\u30EA\u30A8\u5909\
       \u63DB\uFF09"
   _extendedRequiredBy: []
@@ -18,16 +18,16 @@ data:
   bundledCode: "#line 1 \"verify/aoj-ITP1_1_A-fast_fourier_transform.test.cpp\"\n\
     #define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\"\
     \n\n#include <cassert>\n#include <cmath>\n#include <iostream>\n#include <random>\n\
-    #include <vector>\n\n#line 1 \"lib/Math/Convolution/fast_fourier_transform.hpp\"\
+    #include <vector>\n\n#line 1 \"algorithm/Math/Convolution/fast_fourier_transform.hpp\"\
     \n\n\n\n/**\n * @brief Fast Fourier Transform\uFF08\u9AD8\u901F\u30D5\u30FC\u30EA\
     \u30A8\u5909\u63DB\uFF09\n * @docs docs/Math/Convolution/fast_fourier_transform.md\n\
-    \ */\n\n#include <algorithm>\n#line 12 \"lib/Math/Convolution/fast_fourier_transform.hpp\"\
+    \ */\n\n#include <algorithm>\n#line 12 \"algorithm/Math/Convolution/fast_fourier_transform.hpp\"\
     \n#include <complex>\n#include <type_traits>\n#include <utility>\n#line 16 \"\
-    lib/Math/Convolution/fast_fourier_transform.hpp\"\n\nnamespace algorithm {\n\n\
-    namespace fft {\n\nusing D = double;\n\nconst D PI = std::acos(-1.0);\n\n// Fast\
-    \ Fourier Transform\uFF08\u9AD8\u901F\u30D5\u30FC\u30EA\u30A8\u5909\u63DB\uFF09\
-    .\n// \u5F15\u6570\u306E\u6570\u5217\u306E\u9577\u3055\u306F2\u306E\u3079\u304D\
-    \u4E57\u3067\u3042\u308B\u3053\u3068\uFF0EO(N*logN).\nvoid transform(std::vector<std::complex<D>\
+    algorithm/Math/Convolution/fast_fourier_transform.hpp\"\n\nnamespace algorithm\
+    \ {\n\nnamespace fft {\n\nusing D = double;\n\nconst D PI = std::acos(-1.0);\n\
+    \n// Fast Fourier Transform\uFF08\u9AD8\u901F\u30D5\u30FC\u30EA\u30A8\u5909\u63DB\
+    \uFF09.\n// \u5F15\u6570\u306E\u6570\u5217\u306E\u9577\u3055\u306F2\u306E\u3079\
+    \u304D\u4E57\u3067\u3042\u308B\u3053\u3068\uFF0EO(N*logN).\nvoid transform(std::vector<std::complex<D>\
     \ > &a, bool inv = false) {\n    const int n = a.size();\n    if(n == 0) return;\n\
     \    int lb = 0;  // lb:=log2(n).\n    while(1 << lb < n) lb++;\n    assert(n\
     \ == 1 << lb);\n    for(int i = 0; i < n; ++i) {\n        int j = 0;\n       \
@@ -82,7 +82,7 @@ data:
     \  }\n\n    std::cout << \"Hello World\" << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\"\
     \n\n#include <cassert>\n#include <cmath>\n#include <iostream>\n#include <random>\n\
-    #include <vector>\n\n#include \"../lib/Math/Convolution/fast_fourier_transform.hpp\"\
+    #include <vector>\n\n#include \"../algorithm/Math/Convolution/fast_fourier_transform.hpp\"\
     \n\nint main() {\n    constexpr int t = 100;\n    std::random_device seed;\n \
     \   std::mt19937_64 rng(seed());\n\n    constexpr double eps = 1e-6;\n    std::uniform_int_distribution<int>\
     \ uniform_n(1, 200);\n    std::uniform_real_distribution<double> uniform(-1e3,\
@@ -95,11 +95,11 @@ data:
     \ j = 0; j < n + m - 1; ++j) assert(std::abs(target[j] - want[j]) < eps);\n  \
     \  }\n\n    std::cout << \"Hello World\" << std::endl;\n}\n"
   dependsOn:
-  - lib/Math/Convolution/fast_fourier_transform.hpp
+  - algorithm/Math/Convolution/fast_fourier_transform.hpp
   isVerificationFile: true
   path: verify/aoj-ITP1_1_A-fast_fourier_transform.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-ITP1_1_A-fast_fourier_transform.test.cpp

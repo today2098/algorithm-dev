@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/DataStructure/SegmentTree/segment_tree.hpp
-    title: Segment Tree
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/Algebra/algebra.hpp
-    title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"
+  - icon: ':question:'
+    path: algorithm/DataStructure/SegmentTree/segment_tree.hpp
+    title: algorithm/DataStructure/SegmentTree/segment_tree.hpp
+  - icon: ':question:'
+    path: algorithm/Math/Algebra/algebra.hpp
+    title: algorithm/Math/Algebra/algebra.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -19,19 +19,19 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
   bundledCode: "#line 1 \"verify/aoj-DSL_2_B-segment_tree.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\n\n#include\
-    \ <iostream>\n\n#line 1 \"lib/DataStructure/SegmentTree/segment_tree.hpp\"\n\n\
-    \n\n#include <algorithm>\n#include <cassert>\n#include <initializer_list>\n#line\
-    \ 8 \"lib/DataStructure/SegmentTree/segment_tree.hpp\"\n#include <iterator>\n\
-    #include <type_traits>\n#include <vector>\n\n#line 1 \"lib/Math/Algebra/algebra.hpp\"\
-    \n\n\n\n#line 6 \"lib/Math/Algebra/algebra.hpp\"\n#include <limits>\n#include\
-    \ <numeric>\n#line 9 \"lib/Math/Algebra/algebra.hpp\"\n#include <utility>\n\n\
-    namespace algorithm {\n\nnamespace algebra {\n\ntemplate <typename S>\nclass Set\
-    \ {\npublic:\n    using value_type = S;\n\nprotected:\n    value_type val;\n\n\
-    public:\n    constexpr Set() : val() {}\n    constexpr Set(const value_type &val)\
-    \ : val(val) {}\n    constexpr Set(value_type &&val) : val(std::move(val)) {}\n\
-    \n    friend constexpr bool operator==(const Set &lhs, const Set &rhs) { return\
-    \ lhs.val == rhs.val; }\n    friend std::istream &operator>>(std::istream &is,\
-    \ Set &rhs) { return is >> rhs.val; }\n    friend std::ostream &operator<<(std::ostream\
+    \ <iostream>\n\n#line 1 \"algorithm/DataStructure/SegmentTree/segment_tree.hpp\"\
+    \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <initializer_list>\n\
+    #line 8 \"algorithm/DataStructure/SegmentTree/segment_tree.hpp\"\n#include <iterator>\n\
+    #include <type_traits>\n#include <vector>\n\n#line 1 \"algorithm/Math/Algebra/algebra.hpp\"\
+    \n\n\n\n#line 6 \"algorithm/Math/Algebra/algebra.hpp\"\n#include <limits>\n#include\
+    \ <numeric>\n#line 9 \"algorithm/Math/Algebra/algebra.hpp\"\n#include <utility>\n\
+    \nnamespace algorithm {\n\nnamespace algebra {\n\ntemplate <typename S>\nclass\
+    \ Set {\npublic:\n    using value_type = S;\n\nprotected:\n    value_type val;\n\
+    \npublic:\n    constexpr Set() : val() {}\n    constexpr Set(const value_type\
+    \ &val) : val(val) {}\n    constexpr Set(value_type &&val) : val(std::move(val))\
+    \ {}\n\n    friend constexpr bool operator==(const Set &lhs, const Set &rhs) {\
+    \ return lhs.val == rhs.val; }\n    friend std::istream &operator>>(std::istream\
+    \ &is, Set &rhs) { return is >> rhs.val; }\n    friend std::ostream &operator<<(std::ostream\
     \ &os, const Set &rhs) { return os << rhs.val; }\n\n    constexpr value_type value()\
     \ const { return val; }\n};\n\ntemplate <typename S, auto op>\nclass Semigroup\
     \ : public Set<S> {\n    static_assert(std::is_invocable_r<S, decltype(op), S,\
@@ -125,7 +125,7 @@ data:
     \ element::lowest<F>, X>>;\n\ntemplate <typename F, typename X = F>\nusing addition\
     \ = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F,\
     \ X>>;\n\n}  // namespace operator_monoid\n\n}  // namespace algebra\n\n}  //\
-    \ namespace algorithm\n\n\n#line 13 \"lib/DataStructure/SegmentTree/segment_tree.hpp\"\
+    \ namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/segment_tree.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace segment_tree {\n\ntemplate <class Monoid>\n\
     class SegmentTree {\npublic:\n    using monoid_type = Monoid;\n    using value_type\
     \ = monoid_type::value_type;\n\nprivate:\n    int m_sz;                      \
@@ -218,7 +218,7 @@ data:
     \ segtree.prod(x, y);\n            std::cout << ans << \"\\n\";\n        }\n \
     \   }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\
-    \n\n#include <iostream>\n\n#include \"../lib/DataStructure/SegmentTree/segment_tree.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/DataStructure/SegmentTree/segment_tree.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::segment_tree::range_sum_segment_tree<int>\
     \ segtree(n);\n\n    while(q--) {\n        int com;\n        std::cin >> com;\n\
     \n        if(com == 0) {\n            int x;\n            int y;\n           \
@@ -228,12 +228,12 @@ data:
     \ segtree.prod(x, y);\n            std::cout << ans << \"\\n\";\n        }\n \
     \   }\n}\n"
   dependsOn:
-  - lib/DataStructure/SegmentTree/segment_tree.hpp
-  - lib/Math/Algebra/algebra.hpp
+  - algorithm/DataStructure/SegmentTree/segment_tree.hpp
+  - algorithm/Math/Algebra/algebra.hpp
   isVerificationFile: true
   path: verify/aoj-DSL_2_B-segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-06-14 20:38:20+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_2_B-segment_tree.test.cpp

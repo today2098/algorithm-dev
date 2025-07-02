@@ -1,8 +1,8 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/Graph/Others/strongly_connected_components.hpp
+  - icon: ':question:'
+    path: algorithm/Graph/Others/strongly_connected_components.hpp
     title: "Strongly Connected Components\uFF08\u5F37\u9023\u7D50\u6210\u5206\u5206\
       \u89E3\uFF09"
   _extendedRequiredBy: []
@@ -17,7 +17,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C
   bundledCode: "#line 1 \"verify/aoj-GRL_3_C-strongly_connected_components.test.cpp\"\
     \n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C\"\
-    \n\n#include <iostream>\n\n#line 1 \"lib/Graph/Others/strongly_connected_components.hpp\"\
+    \n\n#include <iostream>\n\n#line 1 \"algorithm/Graph/Others/strongly_connected_components.hpp\"\
     \n\n\n\n/**\n * @brief Strongly Connected Components\uFF08\u5F37\u9023\u7D50\u6210\
     \u5206\u5206\u89E3\uFF09\n * @docs docs/Graph/Others/strongly_connected_components.md\n\
     \ */\n\n#include <algorithm>\n#include <cassert>\n#include <stack>\n#include <utility>\n\
@@ -83,7 +83,7 @@ data:
     \    std::cin >> u >> v;\n\n        std::cout << (ids[u] == ids[v]) << \"\\n\"\
     ;\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Graph/Others/strongly_connected_components.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/Graph/Others/strongly_connected_components.hpp\"\
     \n\nint main() {\n    int n, m;\n    std::cin >> n >> m;\n\n    algorithm::SCC\
     \ scc(n);\n    for(int i = 0; i < m; ++i) {\n        int s, t;\n        std::cin\
     \ >> s >> t;\n\n        scc.add_edge(s, t);\n    }\n    auto &&[_, ids] = scc.decompose();\n\
@@ -91,11 +91,11 @@ data:
     \    std::cin >> u >> v;\n\n        std::cout << (ids[u] == ids[v]) << \"\\n\"\
     ;\n    }\n}\n"
   dependsOn:
-  - lib/Graph/Others/strongly_connected_components.hpp
+  - algorithm/Graph/Others/strongly_connected_components.hpp
   isVerificationFile: true
   path: verify/aoj-GRL_3_C-strongly_connected_components.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-GRL_3_C-strongly_connected_components.test.cpp

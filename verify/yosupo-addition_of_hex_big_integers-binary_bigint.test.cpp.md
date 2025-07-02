@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/Math/NumberTheory/binary_bigint.hpp
-    title: "\u591A\u500D\u9577\u6574\u6570\uFF0816\u9032\u6570\uFF09"
+  - icon: ':x:'
+    path: algorithm/Math/NumberTheory/binary_bigint.hpp
+    title: algorithm/Math/NumberTheory/binary_bigint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/addition_of_hex_big_integers
@@ -16,9 +16,9 @@ data:
     - https://judge.yosupo.jp/problem/addition_of_hex_big_integers
   bundledCode: "#line 1 \"verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp\"\
     \n#define PROBLEM \"https://judge.yosupo.jp/problem/addition_of_hex_big_integers\"\
-    \n\n#include <iostream>\n\n#line 1 \"lib/Math/NumberTheory/binary_bigint.hpp\"\
+    \n\n#include <iostream>\n\n#line 1 \"algorithm/Math/NumberTheory/binary_bigint.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <cstdint>\n#include\
-    \ <deque>\n#include <iomanip>\n#line 10 \"lib/Math/NumberTheory/binary_bigint.hpp\"\
+    \ <deque>\n#include <iomanip>\n#line 10 \"algorithm/Math/NumberTheory/binary_bigint.hpp\"\
     \n#include <sstream>\n#include <string>\n#include <string_view>\n#include <utility>\n\
     \nnamespace algorithm {\n\nclass BinaryBigint {\n    static constexpr uint64_t\
     \ BASE = 0x0000000100000000ULL;\n    static constexpr size_t BASE_DIGIT = 32;\n\
@@ -263,18 +263,18 @@ data:
     \      a += b;\n        std::cout << std::uppercase << a << \"\\n\";\n    }\n\
     }\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/addition_of_hex_big_integers\"\
-    \n\n#include <iostream>\n\n#include \"../lib/Math/NumberTheory/binary_bigint.hpp\"\
+    \n\n#include <iostream>\n\n#include \"../algorithm/Math/NumberTheory/binary_bigint.hpp\"\
     \n\nint main() {\n    int t;\n    std::cin >> t;\n\n    for(int i = 0; i < t;\
     \ ++i) {\n        algorithm::BinaryBigint a, b;\n        std::cin >> a >> b;\n\
     \n        a += b;\n        std::cout << std::uppercase << a << \"\\n\";\n    }\n\
     }\n"
   dependsOn:
-  - lib/Math/NumberTheory/binary_bigint.hpp
+  - algorithm/Math/NumberTheory/binary_bigint.hpp
   isVerificationFile: true
   path: verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-07-03 00:41:25+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
 layout: document

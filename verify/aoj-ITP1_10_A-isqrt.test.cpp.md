@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Math/Algebra/square_root.hpp
-    title: "\u5E73\u65B9\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
+    path: algorithm/Math/Algebra/square_root.hpp
+    title: algorithm/Math/Algebra/square_root.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,7 +17,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/10/ITP1_10_A
   bundledCode: "#line 1 \"verify/aoj-ITP1_10_A-isqrt.test.cpp\"\n#define PROBLEM \"\
     https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/10/ITP1_10_A\"\n\n#define\
-    \ ERROR 1e-4\n\n#include <iostream>\n\n#line 1 \"lib/Math/Algebra/square_root.hpp\"\
+    \ ERROR 1e-4\n\n#include <iostream>\n\n#line 1 \"algorithm/Math/Algebra/square_root.hpp\"\
     \n\n\n\n#include <cassert>\n#include <cmath>\n\nnamespace algorithm {\n\n// \u5E73\
     \u65B9\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09\uFF0E\nconstexpr\
     \ double sqrt(double x, double eps = 1e-10) {\n    assert(x >= 0.0);\n    double\
@@ -28,16 +28,16 @@ data:
     \ y2;\n\n    auto tmp = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);\n    auto\
     \ &&ans = algorithm::sqrt(tmp, 1e-8);\n    printf(\"%.6f\\n\", ans);\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/10/ITP1_10_A\"\
-    \n\n#define ERROR 1e-4\n\n#include <iostream>\n\n#include \"../lib/Math/Algebra/square_root.hpp\"\
+    \n\n#define ERROR 1e-4\n\n#include <iostream>\n\n#include \"../algorithm/Math/Algebra/square_root.hpp\"\
     \n\nint main() {\n    double x1, y1, x2, y2;\n    std::cin >> x1 >> y1 >> x2 >>\
     \ y2;\n\n    auto tmp = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);\n    auto\
     \ &&ans = algorithm::sqrt(tmp, 1e-8);\n    printf(\"%.6f\\n\", ans);\n}\n"
   dependsOn:
-  - lib/Math/Algebra/square_root.hpp
+  - algorithm/Math/Algebra/square_root.hpp
   isVerificationFile: true
   path: verify/aoj-ITP1_10_A-isqrt.test.cpp
   requiredBy: []
-  timestamp: '2025-04-06 12:52:21+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-ITP1_10_A-isqrt.test.cpp

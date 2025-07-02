@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/Math/Convolution/discrete_fourier_transform.hpp
+    path: algorithm/Math/Convolution/discrete_fourier_transform.hpp
     title: "Discrete Fourier Transform\uFF08\u96E2\u6563\u30D5\u30FC\u30EA\u30A8\u5909\
       \u63DB\uFF09"
   _extendedRequiredBy: []
@@ -18,11 +18,11 @@ data:
   bundledCode: "#line 1 \"verify/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp\"\
     \n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\"\
     \n\n#include <cassert>\n#include <cmath>\n#include <iostream>\n#include <random>\n\
-    #include <vector>\n\n#line 1 \"lib/Math/Convolution/discrete_fourier_transform.hpp\"\
+    #include <vector>\n\n#line 1 \"algorithm/Math/Convolution/discrete_fourier_transform.hpp\"\
     \n\n\n\n/**\n * @brief Discrete Fourier Transform\uFF08\u96E2\u6563\u30D5\u30FC\
     \u30EA\u30A8\u5909\u63DB\uFF09\n * @docs docs/Math/Convolution/discrete_fourier_transform.md\n\
-    \ */\n\n#include <algorithm>\n#line 11 \"lib/Math/Convolution/discrete_fourier_transform.hpp\"\
-    \n#include <complex>\n#include <type_traits>\n#line 14 \"lib/Math/Convolution/discrete_fourier_transform.hpp\"\
+    \ */\n\n#include <algorithm>\n#line 11 \"algorithm/Math/Convolution/discrete_fourier_transform.hpp\"\
+    \n#include <complex>\n#include <type_traits>\n#line 14 \"algorithm/Math/Convolution/discrete_fourier_transform.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace dft {\n\nusing D = double;\n\nconst D PI\
     \ = std::acos(-1.0);\n\n// Discrete Fourier Transform\uFF08\u96E2\u6563\u30D5\u30FC\
     \u30EA\u30A8\u5909\u63DB\uFF09. O(N^2).\nvoid transform(std::vector<std::complex<D>\
@@ -75,7 +75,7 @@ data:
     \  }\n\n    std::cout << \"Hello World\" << std::endl;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\"\
     \n\n#include <cassert>\n#include <cmath>\n#include <iostream>\n#include <random>\n\
-    #include <vector>\n\n#include \"../lib/Math/Convolution/discrete_fourier_transform.hpp\"\
+    #include <vector>\n\n#include \"../algorithm/Math/Convolution/discrete_fourier_transform.hpp\"\
     \n\nint main() {\n    constexpr int t = 100;\n    std::random_device seed;\n \
     \   std::mt19937_64 rng(seed());\n\n    constexpr double eps = 1e-6;\n    std::uniform_int_distribution<int>\
     \ uniform_n(1, 200);\n    std::uniform_real_distribution<double> uniform(-1e3,\
@@ -88,11 +88,11 @@ data:
     \ j = 0; j < n + m - 1; ++j) assert(std::abs(target[j] - want[j]) < eps);\n  \
     \  }\n\n    std::cout << \"Hello World\" << std::endl;\n}\n"
   dependsOn:
-  - lib/Math/Convolution/discrete_fourier_transform.hpp
+  - algorithm/Math/Convolution/discrete_fourier_transform.hpp
   isVerificationFile: true
   path: verify/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp
   requiredBy: []
-  timestamp: '2025-03-24 18:16:36+09:00'
+  timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-ITP1_1_A-discrete_fourier_transform.test.cpp
