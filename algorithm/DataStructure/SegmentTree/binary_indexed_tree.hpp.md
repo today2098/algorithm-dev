@@ -271,7 +271,7 @@ title: Binary Indexed Tree
 
 任意の区間 $[l,r)$ の要素の総積を知りたい場合は，$\operatorname{sum}(r) + (-\operatorname{sum}(l))$ から求められる．
 
-ここで「アーベル群 (abelian group)」とは，次の性質を満たす組 $(G, \ +：G \times G \rightarrow G, \ 0 \in G)$ による代数的構造のことをいう（可換律を有する群といえる）．
+ここで「アーベル群 (abelian group)」とは，次の性質を満たす組 $(G, +：G \times G \rightarrow G, 0 \in G)$ による代数的構造のことをいう（可換律を有する群といえる）．
 
 1. 結合律：$\forall a, b, c \in G, \ a + (b + c) = (a + b) + c$
 1. 零元（単位元）の存在：$\exists 0 \in G \ \mathrm{s.t.} \ \forall a \in G, \ a + 0 = 0 + a = a$

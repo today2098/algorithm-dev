@@ -126,9 +126,9 @@ data:
     \ <typename F, typename X = F>\nusing addition = OperatorMonoid<\n    F, binary_operator::plus<F>,\
     \ element::zero<F>,\n    X, binary_operator::plus<F, X>>;\n\n}  // namespace operator_monoid\n\
     \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 11 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
-    \n\nnamespace algorithm {\n\nnamespace sparse_table {\n\ntemplate <class IdempotentSemigroup>\n\
-    class SparseTable {\npublic:\n    using semigroup_type = IdempotentSemigroup;\n\
-    \    using value_type = semigroup_type::value_type;\n    using size_type = std::size_t;\n\
+    \n\nnamespace algorithm {\n\ntemplate <class IdempotentSemigroup>\nclass SparseTable\
+    \ {\npublic:\n    using semigroup_type = IdempotentSemigroup;\n    using value_type\
+    \ = typename semigroup_type::value_type;\n    using size_type = std::size_t;\n\
     \nprivate:\n    size_type m_sz;                                    // m_sz:=(\u8981\
     \u7D20\u6570).\n    std::vector<size_type> m_lg;                       // m_lg[x]:=floor(log2(x)).\n\
     \    std::vector<std::vector<semigroup_type>> m_table;  // m_table[k][l]:=(\u533A\
@@ -154,17 +154,18 @@ data:
     \u6C42\u3081\u308B\uFF0EO(1).\n    value_type prod_all() const {\n        assert(size()\
     \ > 0);\n        return (m_table.back().front() * m_table.back().back()).value();\n\
     \    }\n\n    friend std::ostream &operator<<(std::ostream &os, const SparseTable\
-    \ &rhs) {\n        os << \"[\\n\";\n        for(size_type k = 0; k <= rhs.m_lg.back();\
-    \ ++k) {\n            for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i)\
-    \ os << (i == 0 ? \"  [\" : \" \") << rhs.m_table[k][i];\n            os << \"\
-    ]\\n\";\n        }\n        return os << \"]\";\n    }\n};\n\ntemplate <typename\
-    \ S>\nusing range_minimum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::min<S>>>;\n\
-    \ntemplate <typename S>\nusing range_maximum_sparse_table = SparseTable<algebra::Semigroup<S,\
-    \ algebra::binary_operator::max<S>>>;\n\ntemplate <typename S>\nusing range_gcd_sparse_table\
-    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::gcd<S>>>;\n\n\
-    template <typename S>\nusing range_lcm_sparse_table = SparseTable<algebra::Semigroup<S,\
-    \ algebra::binary_operator::lcm<S>>>;\n\n}  // namespace sparse_table\n\n}  //\
-    \ namespace algorithm\n\n\n#line 7 \"verify/yosupo-staticrmp-sparse_table.test.cpp\"\
+    \ &rhs) {\n        if(rhs.m_sz == 0) return os << \"[\\n]\";\n        os << \"\
+    [\\n\";\n        for(size_type k = 0; k <= rhs.m_lg.back(); ++k) {\n         \
+    \   for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i) os << (i == 0 ?\
+    \ \"  [\" : \" \") << rhs.m_table[k][i];\n            os << \"]\\n\";\n      \
+    \  }\n        return os << \"]\";\n    }\n};\n\nnamespace sparse_table {\n\ntemplate\
+    \ <typename S>\nusing range_minimum_sparse_table = SparseTable<algebra::Semigroup<S,\
+    \ algebra::binary_operator::min<S>>>;\n\ntemplate <typename S>\nusing range_maximum_sparse_table\
+    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::max<S>>>;\n\n\
+    template <typename S>\nusing range_gcd_sparse_table = SparseTable<algebra::Semigroup<S,\
+    \ algebra::binary_operator::gcd<S>>>;\n\ntemplate <typename S>\nusing range_lcm_sparse_table\
+    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::lcm<S>>>;\n\n\
+    }  // namespace sparse_table\n\n}  // namespace algorithm\n\n\n#line 7 \"verify/yosupo-staticrmp-sparse_table.test.cpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    std::vector<int>\
     \ a(n);\n    for(auto &elem : a) std::cin >> elem;\n\n    algorithm::sparse_table::range_minimum_sparse_table<int>\
     \ table(a.cbegin(), a.cend());\n\n    while(q--) {\n        int l, r;\n      \
@@ -183,7 +184,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-staticrmp-sparse_table.test.cpp
   requiredBy: []
-  timestamp: '2025-07-06 12:46:03+09:00'
+  timestamp: '2025-07-06 14:03:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-staticrmp-sparse_table.test.cpp

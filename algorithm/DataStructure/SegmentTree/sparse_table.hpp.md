@@ -121,9 +121,9 @@ data:
     \ <typename F, typename X = F>\nusing addition = OperatorMonoid<\n    F, binary_operator::plus<F>,\
     \ element::zero<F>,\n    X, binary_operator::plus<F, X>>;\n\n}  // namespace operator_monoid\n\
     \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 11 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
-    \n\nnamespace algorithm {\n\nnamespace sparse_table {\n\ntemplate <class IdempotentSemigroup>\n\
-    class SparseTable {\npublic:\n    using semigroup_type = IdempotentSemigroup;\n\
-    \    using value_type = semigroup_type::value_type;\n    using size_type = std::size_t;\n\
+    \n\nnamespace algorithm {\n\ntemplate <class IdempotentSemigroup>\nclass SparseTable\
+    \ {\npublic:\n    using semigroup_type = IdempotentSemigroup;\n    using value_type\
+    \ = typename semigroup_type::value_type;\n    using size_type = std::size_t;\n\
     \nprivate:\n    size_type m_sz;                                    // m_sz:=(\u8981\
     \u7D20\u6570).\n    std::vector<size_type> m_lg;                       // m_lg[x]:=floor(log2(x)).\n\
     \    std::vector<std::vector<semigroup_type>> m_table;  // m_table[k][l]:=(\u533A\
@@ -149,23 +149,24 @@ data:
     \u6C42\u3081\u308B\uFF0EO(1).\n    value_type prod_all() const {\n        assert(size()\
     \ > 0);\n        return (m_table.back().front() * m_table.back().back()).value();\n\
     \    }\n\n    friend std::ostream &operator<<(std::ostream &os, const SparseTable\
-    \ &rhs) {\n        os << \"[\\n\";\n        for(size_type k = 0; k <= rhs.m_lg.back();\
-    \ ++k) {\n            for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i)\
-    \ os << (i == 0 ? \"  [\" : \" \") << rhs.m_table[k][i];\n            os << \"\
-    ]\\n\";\n        }\n        return os << \"]\";\n    }\n};\n\ntemplate <typename\
-    \ S>\nusing range_minimum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::min<S>>>;\n\
-    \ntemplate <typename S>\nusing range_maximum_sparse_table = SparseTable<algebra::Semigroup<S,\
-    \ algebra::binary_operator::max<S>>>;\n\ntemplate <typename S>\nusing range_gcd_sparse_table\
-    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::gcd<S>>>;\n\n\
-    template <typename S>\nusing range_lcm_sparse_table = SparseTable<algebra::Semigroup<S,\
-    \ algebra::binary_operator::lcm<S>>>;\n\n}  // namespace sparse_table\n\n}  //\
-    \ namespace algorithm\n\n\n"
+    \ &rhs) {\n        if(rhs.m_sz == 0) return os << \"[\\n]\";\n        os << \"\
+    [\\n\";\n        for(size_type k = 0; k <= rhs.m_lg.back(); ++k) {\n         \
+    \   for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i) os << (i == 0 ?\
+    \ \"  [\" : \" \") << rhs.m_table[k][i];\n            os << \"]\\n\";\n      \
+    \  }\n        return os << \"]\";\n    }\n};\n\nnamespace sparse_table {\n\ntemplate\
+    \ <typename S>\nusing range_minimum_sparse_table = SparseTable<algebra::Semigroup<S,\
+    \ algebra::binary_operator::min<S>>>;\n\ntemplate <typename S>\nusing range_maximum_sparse_table\
+    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::max<S>>>;\n\n\
+    template <typename S>\nusing range_gcd_sparse_table = SparseTable<algebra::Semigroup<S,\
+    \ algebra::binary_operator::gcd<S>>>;\n\ntemplate <typename S>\nusing range_lcm_sparse_table\
+    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::lcm<S>>>;\n\n\
+    }  // namespace sparse_table\n\n}  // namespace algorithm\n\n\n"
   code: "#ifndef ALGORITHM_SPARSE_TABLE_HPP\n#define ALGORITHM_SPARSE_TABLE_HPP 1\n\
     \n#include <cassert>\n#include <initializer_list>\n#include <iostream>\n#include\
     \ <iterator>\n#include <vector>\n\n#include \"../../Math/Algebra/algebra.hpp\"\
-    \n\nnamespace algorithm {\n\nnamespace sparse_table {\n\ntemplate <class IdempotentSemigroup>\n\
-    class SparseTable {\npublic:\n    using semigroup_type = IdempotentSemigroup;\n\
-    \    using value_type = semigroup_type::value_type;\n    using size_type = std::size_t;\n\
+    \n\nnamespace algorithm {\n\ntemplate <class IdempotentSemigroup>\nclass SparseTable\
+    \ {\npublic:\n    using semigroup_type = IdempotentSemigroup;\n    using value_type\
+    \ = typename semigroup_type::value_type;\n    using size_type = std::size_t;\n\
     \nprivate:\n    size_type m_sz;                                    // m_sz:=(\u8981\
     \u7D20\u6570).\n    std::vector<size_type> m_lg;                       // m_lg[x]:=floor(log2(x)).\n\
     \    std::vector<std::vector<semigroup_type>> m_table;  // m_table[k][l]:=(\u533A\
@@ -191,23 +192,24 @@ data:
     \u6C42\u3081\u308B\uFF0EO(1).\n    value_type prod_all() const {\n        assert(size()\
     \ > 0);\n        return (m_table.back().front() * m_table.back().back()).value();\n\
     \    }\n\n    friend std::ostream &operator<<(std::ostream &os, const SparseTable\
-    \ &rhs) {\n        os << \"[\\n\";\n        for(size_type k = 0; k <= rhs.m_lg.back();\
-    \ ++k) {\n            for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i)\
-    \ os << (i == 0 ? \"  [\" : \" \") << rhs.m_table[k][i];\n            os << \"\
-    ]\\n\";\n        }\n        return os << \"]\";\n    }\n};\n\ntemplate <typename\
-    \ S>\nusing range_minimum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::min<S>>>;\n\
-    \ntemplate <typename S>\nusing range_maximum_sparse_table = SparseTable<algebra::Semigroup<S,\
-    \ algebra::binary_operator::max<S>>>;\n\ntemplate <typename S>\nusing range_gcd_sparse_table\
-    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::gcd<S>>>;\n\n\
-    template <typename S>\nusing range_lcm_sparse_table = SparseTable<algebra::Semigroup<S,\
-    \ algebra::binary_operator::lcm<S>>>;\n\n}  // namespace sparse_table\n\n}  //\
-    \ namespace algorithm\n\n#endif\n"
+    \ &rhs) {\n        if(rhs.m_sz == 0) return os << \"[\\n]\";\n        os << \"\
+    [\\n\";\n        for(size_type k = 0; k <= rhs.m_lg.back(); ++k) {\n         \
+    \   for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i) os << (i == 0 ?\
+    \ \"  [\" : \" \") << rhs.m_table[k][i];\n            os << \"]\\n\";\n      \
+    \  }\n        return os << \"]\";\n    }\n};\n\nnamespace sparse_table {\n\ntemplate\
+    \ <typename S>\nusing range_minimum_sparse_table = SparseTable<algebra::Semigroup<S,\
+    \ algebra::binary_operator::min<S>>>;\n\ntemplate <typename S>\nusing range_maximum_sparse_table\
+    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::max<S>>>;\n\n\
+    template <typename S>\nusing range_gcd_sparse_table = SparseTable<algebra::Semigroup<S,\
+    \ algebra::binary_operator::gcd<S>>>;\n\ntemplate <typename S>\nusing range_lcm_sparse_table\
+    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::lcm<S>>>;\n\n\
+    }  // namespace sparse_table\n\n}  // namespace algorithm\n\n#endif\n"
   dependsOn:
   - algorithm/Math/Algebra/algebra.hpp
   isVerificationFile: false
   path: algorithm/DataStructure/SegmentTree/sparse_table.hpp
   requiredBy: []
-  timestamp: '2025-07-06 12:46:03+09:00'
+  timestamp: '2025-07-06 14:03:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-staticrmp-sparse_table.test.cpp
@@ -223,8 +225,8 @@ title: Sparse Table
 
 ここで「帯 (band)」とは，次の性質を満たす組 $(S, \oplus: S \times S \rightarrow S)$ による代数的構造を指す（「冪等半群 (idempotent semigroup)」ともいう）．
 
-1. 結合律：$(a \oplus b) \oplus c = a \oplus (b \oplus c) \quad (\forall a, \forall b, \forall c \in S)$
-1. 冪等律：$a \oplus a = a \quad (\forall a \in S)$
+1. 結合律：$\forall a, b, c \in S, \ a \oplus (b \oplus c) = (a \oplus b) \oplus c$
+1. 冪等律：$\forall a \in S, \ a \oplus a = a$
 
 アルゴリズムの計算量は，クエリ処理が $\mathcal{O}(1)$ と速い．
 一方で，要素列の長さを $N$ とすると，テーブル構築の時間計算量および空間計算量に $\mathcal{O}(N \log N)$ を要する．
@@ -236,7 +238,7 @@ title: Sparse Table
 
 ## 説明
 
-### algorithm::sparse_table::SparseTable<IdempotentSemigroup>
+### algorithm::SparseTable\<IdempotentSemigroup\>
 
 |テンプレート引数|説明|
 |---|---|
@@ -250,10 +252,10 @@ title: Sparse Table
 
 |メンバ関数|説明|計算量|
 |---|---|---|
-|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
-|`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\mathcal{O}(1)$|
-|`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\mathcal{O}(1)$|
-|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\mathcal{O}(1)$|
+|`x=size()`|要素数 `x` を取得する．|$\Theta(1)$|
+|`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\Theta(1)$|
+|`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\Theta(1)$|
+|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\Theta(1)$|
 
 
 ## 参考
@@ -264,3 +266,8 @@ title: Sparse Table
 1. tookunn. "Sparse Tableを知ったので、忘れないように。". Hatena Blog. <https://tookunn.hatenablog.com/entry/2016/07/13/211148>.
 1. "Sparse Table". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/sparse_table>.
 1. "特殊な半群". 数学好きのすずめ. <https://suzume-world.com/2021/05/02/特殊な半群/>.
+
+
+## 問題
+
+- "C - Mandarin Orange". AtCoder Beginner Contest 189. <https://atcoder.jp/contests/abc189/tasks/abc189_c>.
