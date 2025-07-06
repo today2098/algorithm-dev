@@ -1,6 +1,6 @@
 ---
 title: 約数列挙
-documentation_of: //lib/Math/NumberTheory/divisors.hpp
+documentation_of: //algorithm/Math/NumberTheory/divisors.hpp
 ---
 
 

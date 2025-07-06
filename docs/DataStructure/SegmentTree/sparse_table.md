@@ -1,6 +1,6 @@
 ---
 title: Sparse Table
-documentation_of: //lib/DataStructure/SegmentTree/sparse_table.hpp
+documentation_of: //algorithm/DataStructure/SegmentTree/sparse_table.hpp
 ---
 
 

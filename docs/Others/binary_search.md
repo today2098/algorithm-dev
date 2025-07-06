@@ -1,6 +1,6 @@
 ---
 title: Binary Search（二分探索）
-documentation_of: //lib/Others/binary_search.hpp
+documentation_of: //algorithm/Others/binary_search.hpp
 ---
 
 

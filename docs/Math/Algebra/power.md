@@ -1,6 +1,6 @@
 ---
 title: 繰り返し二乗法
-documentation_of: //lib/Math/Algebra/power.hpp
+documentation_of: //algorithm/Math/Algebra/power.hpp
 ---
 
 

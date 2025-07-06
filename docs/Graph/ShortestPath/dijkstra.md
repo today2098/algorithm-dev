@@ -1,6 +1,6 @@
 ---
 title: Dijkstra's Algorithm（単一始点最短経路）
-documentation_of: //lib/Graph/ShortestPath/dijkstra.hpp
+documentation_of: //algorithm/Graph/ShortestPath/dijkstra.hpp
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 title: Pascal's Triangle（パスカルの三角形）
-documentation_of: //lib/Math/Combinatorics/pascal_triangle.hpp
+documentation_of: //algorithm/Math/Combinatorics/pascal_triangle.hpp
 ---
 
 

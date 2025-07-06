@@ -1,6 +1,6 @@
 ---
 title: Ford-Fulkerson Algorithm（最大流問題）
-documentation_of: //lib/Graph/Flow/ford_fulkerson.hpp
+documentation_of: //algorithm/Graph/Flow/ford_fulkerson.hpp
 ---
 
 

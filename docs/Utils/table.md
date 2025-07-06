@@ -1,6 +1,6 @@
 ---
 title: 多次元配列生成
-documentation_of: //lib/Utils/table.hpp
+documentation_of: //algorithm/Utils/table.hpp
 ---
 
 

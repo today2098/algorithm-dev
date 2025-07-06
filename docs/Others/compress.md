@@ -1,6 +1,6 @@
 ---
 title: 座標圧縮
-documentation_of: //lib/Others/compress.hpp
+documentation_of: //algorithm/Others/compress.hpp
 ---
 
 

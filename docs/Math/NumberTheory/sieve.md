@@ -1,6 +1,6 @@
 ---
 title: Sieve of Eratosthenes（エラトステネスの篩）
-documentation_of: //lib/Math/NumberTheory/sieve.hpp
+documentation_of: //algorithm/Math/NumberTheory/sieve.hpp
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 title: 数え上げ（mod付き）
-documentation_of: //lib/Math/Combinatorics/combination.hpp
+documentation_of: //algorithm/Math/Combinatorics/combination.hpp
 ---
 
 

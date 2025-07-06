@@ -1,6 +1,6 @@
 ---
 title: 多倍長整数（16進数）
-documentation_of: //lib/Math/NumberTheory/binary_bigint.hpp
+documentation_of: //algorithm/Math/NumberTheory/binary_bigint.hpp
 ---
 
 

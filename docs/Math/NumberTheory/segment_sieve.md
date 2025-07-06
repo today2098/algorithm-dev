@@ -1,6 +1,6 @@
 ---
 title: 区間篩
-documentation_of: //lib/Math/NumberTheory/segment_sieve.hpp
+documentation_of: //algorithm/Math/NumberTheory/segment_sieve.hpp
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 title: 処理時間計測クラス
-documentation_of: //lib/Utils/timer.hpp
+documentation_of: //algorithm/Utils/timer.hpp
 ---
 
 

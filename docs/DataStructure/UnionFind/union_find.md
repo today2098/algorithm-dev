@@ -1,6 +1,6 @@
 ---
 title: Union-Find（素集合データ構造）
-documentation_of: //lib/DataStructure/UnionFind/union_find.hpp
+documentation_of: //algorithm/DataStructure/UnionFind/union_find.hpp
 ---
 
 

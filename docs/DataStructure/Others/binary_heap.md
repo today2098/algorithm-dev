@@ -1,6 +1,6 @@
 ---
 title: Binary Heap（二分ヒープ）
-documentation_of: //lib/DataStructure/Others/binary_heap.hpp
+documentation_of: //algorithm/DataStructure/Others/binary_heap.hpp
 ---
 
 

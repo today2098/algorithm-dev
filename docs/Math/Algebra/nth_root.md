@@ -1,6 +1,6 @@
 ---
 title: 累乗根（ニュートン法）
-documentation_of: //lib/Math/Algebra/nth_root.hpp
+documentation_of: //algorithm/Math/Algebra/nth_root.hpp
 ---
 
 

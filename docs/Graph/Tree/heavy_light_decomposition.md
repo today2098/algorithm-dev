@@ -1,6 +1,6 @@
 ---
 title: Heavy-Light Decomposition（HL分解，重軽分解）
-documentation_of: //lib/Graph/Tree/heavy_light_decomposition.hpp
+documentation_of: //algorithm/Graph/Tree/heavy_light_decomposition.hpp
 ---
 
 

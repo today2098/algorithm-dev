@@ -1,6 +1,6 @@
 ---
 title: 動的Modint構造体
-documentation_of: //lib/Math/ModularArithmetic/dynamic_modint.hpp
+documentation_of: //algorithm/Math/ModularArithmetic/dynamic_modint.hpp
 ---
 
 

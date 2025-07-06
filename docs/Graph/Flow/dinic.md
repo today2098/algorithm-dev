@@ -1,6 +1,6 @@
 ---
 title: Dinic's Algorithm（最大流問題）
-documentation_of: //lib/Graph/Flow/dinic.hpp
+documentation_of: //algorithm/Graph/Flow/dinic.hpp
 ---
 
 

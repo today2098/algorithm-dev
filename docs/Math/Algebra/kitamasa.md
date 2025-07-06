@@ -1,6 +1,6 @@
 ---
 title: きたまさ法
-documentation_of: //lib/Math/Algebra/kitamasa.hpp
+documentation_of: //algorithm/Math/Algebra/kitamasa.hpp
 ---
 
 

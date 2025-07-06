@@ -1,6 +1,6 @@
 ---
 title: 完全順列の総数，モンモール数
-documentation_of: //lib/Math/Combinatorics/montmort.hpp
+documentation_of: //algorithm/Math/Combinatorics/montmort.hpp
 ---
 
 

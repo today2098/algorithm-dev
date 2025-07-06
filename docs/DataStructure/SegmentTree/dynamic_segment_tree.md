@@ -1,6 +1,6 @@
 ---
 title: Dynamic Segment Tree（動的セグメント木）
-documentation_of: //lib/DataStructure/SegmentTree/dynamic_segment_tree.hpp
+documentation_of: //algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
 ---
 
 
