@@ -23,8 +23,8 @@ int main() {
 
     constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.a * rhs.a, lhs.b * rhs.a + rhs.b}; };
     constexpr auto e = []() -> S { return {1, 0}; };
-    using monoid = algorithm::algebra::Monoid<S, op, e>;
-    algorithm::segment_tree::SegmentTree<monoid> segtree(v.cbegin(), v.cend());
+    using monoid_type = algorithm::algebra::Monoid<S, op, e>;
+    algorithm::SegmentTree<monoid_type> segtree(v.cbegin(), v.cend());
 
     while(q--) {
         int t;

@@ -10,8 +10,8 @@ documentation_of: //algorithm/DataStructure/SegmentTree/sparse_table.hpp
 
 ここで「帯 (band)」とは，次の性質を満たす組 $(S, \oplus: S \times S \rightarrow S)$ による代数的構造を指す（「冪等半群 (idempotent semigroup)」ともいう）．
 
-1. 結合律：$(a \oplus b) \oplus c = a \oplus (b \oplus c) \quad (\forall a, \forall b, \forall c \in S)$
-1. 冪等律：$a \oplus a = a \quad (\forall a \in S)$
+1. 結合律：$\forall a, b, c \in S, \ a \oplus (b \oplus c) = (a \oplus b) \oplus c$
+1. 冪等律：$\forall a \in S, \ a \oplus a = a$
 
 アルゴリズムの計算量は，クエリ処理が $\mathcal{O}(1)$ と速い．
 一方で，要素列の長さを $N$ とすると，テーブル構築の時間計算量および空間計算量に $\mathcal{O}(N \log N)$ を要する．
@@ -23,7 +23,7 @@ documentation_of: //algorithm/DataStructure/SegmentTree/sparse_table.hpp
 
 ## 説明
 
-### algorithm::sparse_table::SparseTable<IdempotentSemigroup>
+### algorithm::SparseTable\<IdempotentSemigroup\>
 
 |テンプレート引数|説明|
 |---|---|
@@ -37,10 +37,10 @@ documentation_of: //algorithm/DataStructure/SegmentTree/sparse_table.hpp
 
 |メンバ関数|説明|計算量|
 |---|---|---|
-|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
-|`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\mathcal{O}(1)$|
-|`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\mathcal{O}(1)$|
-|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\mathcal{O}(1)$|
+|`x=size()`|要素数 `x` を取得する．|$\Theta(1)$|
+|`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\Theta(1)$|
+|`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\Theta(1)$|
+|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\Theta(1)$|
 
 
 ## 参考
@@ -51,3 +51,8 @@ documentation_of: //algorithm/DataStructure/SegmentTree/sparse_table.hpp
 1. tookunn. "Sparse Tableを知ったので、忘れないように。". Hatena Blog. <https://tookunn.hatenablog.com/entry/2016/07/13/211148>.
 1. "Sparse Table". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/sparse_table>.
 1. "特殊な半群". 数学好きのすずめ. <https://suzume-world.com/2021/05/02/特殊な半群/>.
+
+
+## 問題
+
+- "C - Mandarin Orange". AtCoder Beginner Contest 189. <https://atcoder.jp/contests/abc189/tasks/abc189_c>.

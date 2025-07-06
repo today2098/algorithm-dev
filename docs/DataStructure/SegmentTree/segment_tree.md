@@ -11,19 +11,19 @@ documentation_of: //algorithm/DataStructure/SegmentTree/segment_tree.hpp
 あるモノイド $(S, \bullet: S \times S \rightarrow S, e \in S)$ において，長さ $N$ の要素列 $\lbrace a_0, a_1, \ldots, a_{n-1} \rbrace$ に対する次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
 
 - **一点更新**：要素 $a_i$ を $x$ で更新する
-- **区間取得**：区間 $[l, r)$ の要素の総積 $a_l \bullet a_{l+1} \bullet \cdots \bullet a_{r-1}$ を取得する
+- **区間取得**：区間 $[l,r)$ の要素の総積 $a_l \bullet a_{l+1} \bullet \cdots \bullet a_{r-1}$ を取得する
 
 ここで「モノイド (monoid)」とは，次の性質を満たす組 $(S, \bullet : S \times S \rightarrow S, e \in S)$ による代数的構造のことをいう．
 
-1. 結合律：$(a \bullet b) \bullet c = a \bullet (b \bullet c) \quad (\forall a, \forall b, \forall c \in S)$
-1. 単位元の存在：$e \bullet a = a \bullet e = a \quad (e \in S, \forall a \in S)$
+1. 結合律：$\forall a, b, c \in S, \ a \bullet (b \bullet c) = (a \bullet b) \bullet c$
+1. 単位元の存在：$\exists e \in S \ \mathrm{s.t.} \ \forall a \in S, \ a \bullet e = e \bullet a = a$
 
 例えば，自然数全体 $\mathbb{N}$ は加法に関して $0$ を単位元にもつモノイドを成す．
 
 
 ## 説明
 
-### algorithm::segment_tree::SegmentTree<Monoid>
+### algorithm::SegmentTree\<Monoid\>
 
 |テンプレート引数|説明|
 |---|---|
@@ -39,11 +39,11 @@ documentation_of: //algorithm/DataStructure/SegmentTree/segment_tree.hpp
 
 |メンバ関数|説明|計算量|
 |---|---|---|
-|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
+|`x=size()`|要素数 `x` を取得する．|$\Theta(1)$|
 |`set(k,a)`|`k` 番目の要素を `a` に置き換える．|$\Theta(\log N)$|
-|`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\mathcal{O}(1)$|
+|`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\Theta(1)$|
 |`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\mathcal{O}(\log N)$|
-|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\mathcal{O}(1)$|
+|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\Theta(1)$|
 |`r=most_right(l,pred)`|`pred(prod(l,r))==true` となる区間の最右位置 `r` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\mathcal{O}(\log N)$|
 |`l=most_left(r,pred)`|`pred(prod(l,r))==true` となる区間の最左位置 `l` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\mathcal{O}(\log N)$|
 |`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(N)$|

@@ -13,13 +13,11 @@
 
 namespace algorithm {
 
-namespace segment_tree {
-
 template <class Monoid>
 class SegmentTree {
 public:
     using monoid_type = Monoid;
-    using value_type = monoid_type::value_type;
+    using value_type = typename monoid_type::value_type;
 
 private:
     int m_sz;                         // m_sz:=(要素数).
@@ -156,6 +154,8 @@ public:
     }
 };
 
+namespace segment_tree {
+
 template <typename S>
 using range_minimum_segment_tree = SegmentTree<algebra::monoid::minimum<S>>;
 
@@ -164,6 +164,9 @@ using range_maximum_segment_tree = SegmentTree<algebra::monoid::maximum<S>>;
 
 template <typename S>
 using range_sum_segment_tree = SegmentTree<algebra::monoid::addition<S>>;
+
+template <typename S>
+using range_product_segment_tree = SegmentTree<algebra::monoid::multiplication<S>>;
 
 }  // namespace segment_tree
 

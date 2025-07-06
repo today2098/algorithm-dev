@@ -11,13 +11,11 @@
 
 namespace algorithm {
 
-namespace sparse_table {
-
 template <class IdempotentSemigroup>
 class SparseTable {
 public:
     using semigroup_type = IdempotentSemigroup;
-    using value_type = semigroup_type::value_type;
+    using value_type = typename semigroup_type::value_type;
     using size_type = std::size_t;
 
 private:
@@ -63,6 +61,7 @@ public:
     }
 
     friend std::ostream &operator<<(std::ostream &os, const SparseTable &rhs) {
+        if(rhs.m_sz == 0) return os << "[\n]";
         os << "[\n";
         for(size_type k = 0; k <= rhs.m_lg.back(); ++k) {
             for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i) os << (i == 0 ? "  [" : " ") << rhs.m_table[k][i];
@@ -71,6 +70,8 @@ public:
         return os << "]";
     }
 };
+
+namespace sparse_table {
 
 template <typename S>
 using range_minimum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::min<S>>>;
