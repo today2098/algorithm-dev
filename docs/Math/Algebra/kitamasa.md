@@ -25,7 +25,7 @@ $$
 a_n = D(n,0) \cdot a_0 + D(n,1) \cdot a_1 + \cdots + D(n,k-1) \cdot a_{k-1} = \sum_{i=0}^{k-1} D(n,i) \cdot a_{i}
 $$
 
-となる $D(n,*)$ を定義する（ただし，$n \geq 0$ ）．
+となる $D(n,\ast)$ を定義する（ただし，$n \geq 0$ ）．
 
 このとき，
 
@@ -33,7 +33,7 @@ $$
 \begin{equation}
 D(0,i) = 
     \begin{cases}
-    1 &\text{if \ $i=0$,} \\
+    1 &\text{if \ $i=0$ ,} \\
     0 &\text{otherwise}
     \end{cases} \notag
 \end{equation}
@@ -41,12 +41,12 @@ $$
 
 である．
 
-きたまさ法の方針は，$D(n,*) \rightarrow D(n+1,*), D(n,*) \rightarrow D(2n,*)$ を計算することにより，繰り返し二乗法と同じ要領で $D(0,*)$ から $D(N,*)$ を求めることである．
+きたまさ法の方針は，$D(n,\ast) \rightarrow D(n+1,\ast)$ と $D(n,\ast) \rightarrow D(2n,\ast)$ を計算することにより，繰り返し二乗法と同じ要領で $D(0,\ast)$ から $D(N,\ast)$ を求めることである．
 
 
-#### $D(n,*) \rightarrow D(n+1,*)$ の計算
+#### $D(n,\ast) \rightarrow D(n+1,\ast)$ の計算
 
-まず，前提として $D(n,*)$ が分かっていると仮定する．
+まず，前提として $D(n,\ast)$ が分かっていると仮定する．
 このとき，
 
 $$
@@ -63,8 +63,8 @@ $$
 \begin{equation}
 D(n+1,i) = 
     \begin{cases}
-    D(n,k-1) \cdot d_0 &\text{if \ $i=0$,} \\
-    D(n,i-1) + D(n,k-1)  \cdot d_i &\text{otherwise}
+    D(n,k-1) \cdot d_0 &\text{if \ $i=0$ ,} \\
+    D(n,i-1) + D(n,k-1) \cdot d_i &\text{otherwise}
     \end{cases} \notag
 \end{equation}
 $$
@@ -73,9 +73,9 @@ $$
 これは $\mathcal{O}(k)$ で計算できる．
 
 
-#### $D(n,*) \rightarrow D(2n,*)$ の計算
+#### $D(n,\ast) \rightarrow D(2n,\ast)$ の計算
 
-先の方法で $D(n,*), D(n+1,*), \ldots, D(n+k-1,*)$ が $\mathcal{O}(k^2)$ で列挙できるとする．
+先の方法で $D(n,\ast), D(n+1,\ast), \ldots, D(n+k-1,\ast)$ が $\mathcal{O}(k^2)$ で列挙できるとする．
 このとき，
 
 $$
@@ -101,10 +101,10 @@ $$
 と求まる．
 これは $\mathcal{O}(k^2)$ で計算できる．
 
-よって，繰り返し二乗法と同じ要領で $D(0,*)$ から $D(N,*)$ を $\mathcal{O}(k^2 \log N)$ で求めることができる．
+よって，繰り返し二乗法と同じ要領で $D(0,\ast)$ から $D(N,\ast)$ を $\mathcal{O}(k^2 \log N)$ で求めることができる．
 
 
-## 参考文献
+## 参考
 
 1. "漸化式". Wikipedia. <https://ja.wikipedia.org/wiki/漸化式>.
 1. yosupo. "きたまさ法メモ". HatenaBlog. <https://yosupo.hatenablog.com/entry/2015/03/27/025132>.
