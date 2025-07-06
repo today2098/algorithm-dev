@@ -13,16 +13,14 @@
 
 namespace algorithm {
 
-namespace binary_indexed_tree {
-
 template <class AbelianGroup>
 class BIT {
 public:
     using group_type = AbelianGroup;
-    using value_type = group_type::value_type;
+    using value_type = typename group_type::value_type;
 
 private:
-    int m_sz;  // m_sz:=(要素数).
+    int m_sz;
     std::vector<group_type> m_tree;
 
     static constexpr int lsb(int bit) { return bit & -bit; }
@@ -107,6 +105,8 @@ public:
     }
     void reset() { std::fill(m_tree.begin(), m_tree.end(), group_type::one()); }
 };
+
+namespace binary_indexed_tree {
 
 template <typename S>
 using range_sum_binary_indexed_tree = BIT<algebra::group::addition<S>>;

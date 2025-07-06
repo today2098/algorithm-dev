@@ -1,34 +1,35 @@
 ---
 title: Binary Indexed Tree
-documentation_of: //lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
+documentation_of: //algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
 ---
 
 
 ## 概要
 
-「Binary Indexed Tree (BIT)」とは，1994年に Peter Fenwick により提案された木構造をしたデータ構造．
+区間和などの計算や要素更新を効率的に行う木構造．
+1994年に Peter Fenwick により提案された．
 別名「Fenwick Tree（フェニック木）」．
 
-あるアーベル群 $(S, *: S \times S \rightarrow S, e \in S)$ において，長さ $N$ の数列 $\lbrace a_0, a_1, \ldots, a_{N-1} \rbrace$ に対する次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
+あるアーベル群 $(G, +: G \times G \rightarrow G, 0 \in G)$ において，長さ $N$ の数列 $\lbrace a_0, a_1, \ldots, a_{N-1} \rbrace$ に対する次の操作を $\mathcal{O}(\log N)$ で行う．
 
-- **一点更新** $\operatorname{add}(i,x)$：要素 $a_i$ を $a_i * x$ に更新する
+- **一点更新** $\operatorname{add}(i,x)$：要素 $a_i$ を $a_i + x$ に更新する
 - **区間取得** $\operatorname{sum}(r)$：区間 $[0,r)$ の要素の総積を求める
 
-任意の区間 $[l,r)$ の要素の総積を知りたい場合は，$\operatorname{sum}(r)-\operatorname{sum}(l)$ から求められる．
+任意の区間 $[l,r)$ の要素の総積を知りたい場合は，$\operatorname{sum}(r) + (-\operatorname{sum}(l))$ から求められる．
 
-ここで「アーベル群 (abelian group)」とは，次の性質を満たす組 $(S, *：S \times S \rightarrow S, e \in S)$ による代数的構造のことをいう（交換法則を有する群である）．
+ここで「アーベル群 (abelian group)」とは，次の性質を満たす組 $(G, \ +：G \times G \rightarrow G, \ 0 \in G)$ による代数的構造のことをいう（可換律を有する群といえる）．
 
-1. 結合法則：$a \ast (b \ast c) = (a \ast b) \ast c \quad (\forall a, \forall b, \forall c \in S)$
-1. 単位元の存在：$e \ast a = a \ast e = a \quad (\exists e, \forall a \in S)$
-1. **逆元の存在**：$a \ast a^{-1} = a^{-1} \ast a = e \quad (\exists e, \forall a, \exists a^{-1} \in S)$
-1. **交換法則**：$a \ast b = b \ast a \quad (\forall a, \forall b \in S)$
+1. 結合律：$\forall a, b, c \in G, \ a + (b + c) = (a + b) + c$
+1. 零元（単位元）の存在：$\exists 0 \in G \ \mathrm{s.t.} \ \forall a \in G, \ a + 0 = 0 + a = a$
+1. **逆元の存在**：$\forall a \in G, \ \exists -a, \ a + (-a) = (-a) + a = 0$
+1. **可換律**：$\forall a, b \in G, \ a + b = b + a$
 
-必要なメモリサイズは対象の配列サイズと同じであり，Segment tree より軽い（Segment tree は2倍程度）．
+必要なメモリ領域は対象の配列サイズと同じであり，Segment tree より軽い（Segment tree は2倍程度）．
 
 
 ## 説明
 
-### algorithm::binary_indexed_tree::BIT<AbelianGroup>
+### algorithm::BIT\<AbelianGroup\>
 
 |テンプレート引数|説明|
 |---|---|
@@ -44,7 +45,7 @@ documentation_of: //lib/DataStructure/SegmentTree/binary_indexed_tree.hpp
 
 |メンバ関数|説明|計算量|
 |---|---|---|
-|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
+|`x=size()`|要素数 `x` を取得する．|$\Theta(1)$|
 |`add(k,a)`|`k` 番目の要素を `a` との積の結果に置き換える．|$\mathcal{O}(\log N)$|
 |`x=sum(r)`|区間 `[0,r)` の要素の総積 `x` を求める．|$\mathcal{O}(\log N)$|
 |`x=sum(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\mathcal{O}(\log N)$|
