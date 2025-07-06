@@ -9,13 +9,11 @@
 
 namespace algorithm {
 
-namespace binary_indexed_tree_2d {
-
 template <class AbelianGroup>
 class BIT2D {
 public:
     using group_type = AbelianGroup;
-    using value_type = group_type::value_type;
+    using value_type = typename group_type::value_type;
 
 private:
     int m_h, m_w;
@@ -57,7 +55,7 @@ public:
 
     int height() const { return m_h; }
     int width() const { return m_w; }
-    // (y,x)にある要素をaとの積の結果に置き換える．O((log H) log W).
+    // (y,x)にある要素をaとの積の結果に置き換える．O((log H)*log W).
     void add(int y, int x, const value_type &a) { add(y, x, group_type(a)); }
     void add(int y, int x, const group_type &a) {
         assert(0 <= y and y < height());
@@ -66,24 +64,26 @@ public:
             for(int j = x + 1; j <= m_w; j += lsb(j)) m_tree[i - 1][j - 1] = m_tree[i - 1][j - 1] * a;
         }
     }
-    // [0,y)かつ[0,x)の範囲にある要素の総積を求める．O((log H) log W).
+    // [0,y)かつ[0,x)の範囲にある要素の総積を求める．O((log H)*log W).
     value_type sum(int y, int x) const {
         assert(0 <= y and y <= height());
         assert(0 <= x and x <= width());
         return sum_internal(y, x).value();
     }
-    // [y,yy)かつ[x,xx)の範囲にある要素の総積を求める．O((log H) log W).
+    // [y,yy)かつ[x,xx)の範囲にある要素の総積を求める．O((log H)*log W).
     value_type sum(int y, int x, int yy, int xx) const {
         assert(0 <= y and y <= yy and yy <= height());
         assert(0 <= x and x <= xx and xx <= width());
         return (sum_internal(yy, xx) * sum_internal(yy, x).inv() * sum_internal(y, xx).inv() * sum_internal(y, x)).value();
     }
-    // 全要素の総積を求める．O((log H) log W).
+    // 全要素の総積を求める．O((log H)*log W).
     value_type sum_all() const { return sum_internal(m_h, m_w).value(); }
     void reset() {
         for(auto &v : m_tree) std::fill(v.begin(), v.end(), group_type::one());
     }
 };
+
+namespace binary_indexed_tree_2d {
 
 template <typename S>
 using range_sum_binary_indexed_tree_2d = BIT2D<algebra::group::addition<S>>;

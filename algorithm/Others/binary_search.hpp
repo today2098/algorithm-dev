@@ -8,7 +8,7 @@
 
 namespace algorithm {
 
-template <std::integral Type, class Pred>
+template <std::integral Type, typename Pred>
 constexpr Type bisearch(Type ok, Type ng, Pred pred) {
     static_assert(std::is_invocable_r<bool, Pred, Type>::value);
     assert(ok <= ng);
@@ -20,7 +20,7 @@ constexpr Type bisearch(Type ok, Type ng, Pred pred) {
     return ng;
 }
 
-template <std::floating_point Type, class Pred>
+template <std::floating_point Type, typename Pred>
 constexpr Type bisearch(Type ok, Type ng, Type eps, Pred pred) {
     static_assert(std::is_invocable_r<bool, Pred, Type>::value);
     assert(ok <= ng);

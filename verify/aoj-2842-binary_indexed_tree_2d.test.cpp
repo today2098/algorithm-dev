@@ -13,7 +13,7 @@ int main() {
     std::cin >> y >> x >> t >> q;
 
     algorithm::binary_indexed_tree_2d::range_sum_binary_indexed_tree_2d<int> raw(y, x), baked(y, x);
-    std::queue<std::tuple<int, int, int> > que;
+    std::queue<std::tuple<int, int, int>> que;
     while(q--) {
         int time;
         int c;

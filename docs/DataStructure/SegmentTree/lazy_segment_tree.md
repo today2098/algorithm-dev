@@ -10,23 +10,23 @@ documentation_of: //algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
 
 具体的には，あるモノイド $(S, \bullet: S \times S \rightarrow S, e \in S)$ と作用素モノイド $(F, \circ : F \times F \rightarrow F, id \in F, S, . : F \times S \rightarrow S)$ において，長さ $N$ の要素列 $\lbrace a_0, a_1, \ldots, a_{n-1} \rbrace$ に対する次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
 
-- **区間更新**：区間 $[l, r)$ の要素 $a_l, a_{l+1}, \ldots, a_{r-1}$ を作用素 $f$ を用いて更新する ( $x=f.x$ )
-- **区間取得**：区間 $[l, r)$ の要素の総積 $a_l \bullet a_{l+1} \bullet \cdots \bullet a_{r-1}$ を取得する
+- **区間更新**：区間 $[l,r)$ の要素 $a_l, a_{l+1}, \ldots, a_{r-1}$ を作用素 $f$ を用いて更新する ( $x=f.x$ )
+- **区間取得**：区間 $[l,r)$ の要素の総積 $a_l \bullet a_{l+1} \bullet \cdots \bullet a_{r-1}$ を取得する
 
 ここで「作用素モノイド」とは，次の性質を満たす組 $(F, \circ : F \times F \rightarrow F, id \in F, S, . : F \times S \rightarrow S)$ による代数的構造のことをいう．
 
 1. 組 $(F, \circ, id)$ がモノイドを成す
-1. $id.x = x \quad (\forall x \in S)$
-1. $f.(g.x) = (f \circ g).x \quad (\forall f, \forall g \in F, \forall x \in S)$
+1. $\forall x \in S, \ id.x = x$
+1. $\forall f, g \in S, \ \forall x \in S, \ f.(g.x) = (f \circ g).x$
 
 Lazy segment tree にのせるモノイドと作用素モノイドは次の条件を満たす必要がある（準同型）．
 
-- 分配律：$f.(x \bullet y) = f.x \bullet f.y \quad (\forall f \in F, \forall x, \forall y \in S)$
+- 分配律：$\forall f \in F, \ \forall x, y \in S, \ f.(x \bullet y) = f.x \bullet f.y$
 
 
 ## 説明
 
-### algorithm::lazy_segment_tree::LazySegmentTree<Monoid,OperatorMonoid>
+### algorithm::LazySegmentTree\<Monoid,OperatorMonoid\>
 
 |テンプレート引数|説明|
 |---|---|
@@ -43,13 +43,13 @@ Lazy segment tree にのせるモノイドと作用素モノイドは次の条�
 
 |メンバ関数|説明|計算量|
 |---|---|---|
-|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
+|`x=size()`|要素数 `x` を取得する．|$\Theta(1)$|
 |`set(k,a)`|`k` 番目の要素を `a` に置き換える．|$\Theta(\log N)$|
 |`apply(k,f)`|`k` 番目の要素を作用素 `f` を用いて更新する．|$\Theta(\log N)$|
 |`apply(l,r,f)`|区間 `[l,r)` の要素を作用素 `f` を用いて更新する．|$\Theta(\log N)$|
 |`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\Theta(\log N)$|
 |`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\Theta(\log N)$|
-|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\mathcal{O}(1)$|
+|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\Theta(1)$|
 |`r=most_right(l,pred)`|`pred(prod(l,r))==true` となる区間の最右位置 `r` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\Theta(\log N)$|
 |`l=most_left(r,pred)`|`pred(prod(l,r))==true` となる区間の最左位置 `l` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\Theta(\log N)$|
 |`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(N)$|

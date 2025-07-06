@@ -10,6 +10,6 @@ int main() {
 
     algorithm::Kitamasa<int> kitamasa({1, 1}, {1, 1});
 
-    auto ans = kitamasa[n];
+    auto &&ans = kitamasa[n];
     std::cout << ans << std::endl;
 }
