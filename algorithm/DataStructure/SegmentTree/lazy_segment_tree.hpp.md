@@ -133,13 +133,13 @@ data:
     \ <typename F, typename X = F>\nusing addition = OperatorMonoid<\n    F, binary_operator::plus<F>,\
     \ element::zero<F>,\n    X, binary_operator::plus<F, X>>;\n\n}  // namespace operator_monoid\n\
     \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
-    \n\nnamespace algorithm {\n\nnamespace lazy_segment_tree {\n\ntemplate <class\
-    \ ActedMonoid, class OperatorMonoid>\nclass LazySegmentTree {\npublic:\n    using\
-    \ acted_monoid_type = ActedMonoid;\n    using operator_monoid_type = OperatorMonoid;\n\
-    \    using acted_value_type = acted_monoid_type::value_type;\n    using operator_value_type\
-    \ = operator_monoid_type::value_type;\n\nprivate:\n    int m_sz;             \
-    \                     // m_sz:=(\u8981\u7D20\u6570).\n    int m_n;           \
-    \                        // m_n:=(\u5B8C\u5168\u4E8C\u5206\u6728\u306E\u8449\u6570\
+    \n\nnamespace algorithm {\n\ntemplate <class ActedMonoid, class OperatorMonoid>\n\
+    class LazySegmentTree {\npublic:\n    using acted_monoid_type = ActedMonoid;\n\
+    \    using operator_monoid_type = OperatorMonoid;\n    using acted_value_type\
+    \ = typename acted_monoid_type::value_type;\n    using operator_value_type = typename\
+    \ operator_monoid_type::value_type;\n\nprivate:\n    int m_sz;               \
+    \                   // m_sz:=(\u8981\u7D20\u6570).\n    int m_n;             \
+    \                      // m_n:=(\u5B8C\u5168\u4E8C\u5206\u6728\u306E\u8449\u6570\
     ).\n    int m_depth;                               // m_depth:=(\u5B8C\u5168\u4E8C\
     \u5206\u6728\u306E\u6DF1\u3055).\n    std::vector<acted_monoid_type> m_tree; \
     \    // m_tree(2n)[]:=(\u5B8C\u5168\u4E8C\u5206\u6728). 1-based index.\n    std::vector<operator_monoid_type>\
@@ -256,19 +256,20 @@ data:
     \     for(int i = 0; i < rhs.m_depth; ++i) {\n            int l = 1 << i, r =\
     \ 2 << i;\n            for(int j = l; j < r; ++j) os << (j == l ? \"    [\" :\
     \ \" \") << rhs.m_lazy[j].value();\n            os << \"]\\n\";\n        }\n \
-    \       return os << \"  ]\\n}\";\n    }\n};\n\nnamespace internal {\n\nnamespace\
-    \ range_sum_range_update {\n\ntemplate <typename T>\nstruct S {\n    T val;\n\
-    \    int size;\n\n    constexpr S() : S(T(), 0) {}\n    constexpr S(const T &val)\
-    \ : S(val, 1) {}\n    constexpr S(const T &val, int size) : val(val), size(size)\
-    \ {}\n\n    friend constexpr S operator+(const S &lhs, const S &rhs) { return\
-    \ {lhs.val + rhs.val, lhs.size + rhs.size}; }\n    friend std::ostream &operator<<(std::ostream\
-    \ &os, const S &rhs) { return os << \"{\" << rhs.val << \", \" << rhs.size <<\
-    \ \"}\"; }\n};\n\ntemplate <typename T>\nusing acted_monoid = algebra::Monoid<S<T>,\
-    \ algebra::binary_operator::plus<S<T>>, algebra::element::zero<S<T>>>;\n\ntemplate\
-    \ <typename F>\nconstexpr auto id = algebra::element::max<F>;\n\ntemplate <typename\
-    \ F>\nconstexpr auto compose = algebra::binary_operator::assign_if_not_id<F, id<F>>;\n\
-    \ntemplate <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f,\
-    \ const S<T> &x) -> S<T> {\n    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);\n\
+    \       return os << \"  ]\\n}\";\n    }\n};\n\nnamespace lazy_segment_tree {\n\
+    \nnamespace detail {\n\nnamespace range_sum_range_update {\n\ntemplate <typename\
+    \ T>\nstruct S {\n    T val;\n    int size;\n\n    constexpr S() : S(T(), 0) {}\n\
+    \    constexpr S(const T &val) : S(val, 1) {}\n    constexpr S(const T &val, int\
+    \ size) : val(val), size(size) {}\n\n    friend constexpr S operator+(const S\
+    \ &lhs, const S &rhs) { return {lhs.val + rhs.val, lhs.size + rhs.size}; }\n \
+    \   friend std::ostream &operator<<(std::ostream &os, const S &rhs) { return os\
+    \ << \"{\" << rhs.val << \", \" << rhs.size << \"}\"; }\n};\n\ntemplate <typename\
+    \ T>\nusing acted_monoid = algebra::Monoid<S<T>, algebra::binary_operator::plus<S<T>>,\
+    \ algebra::element::zero<S<T>>>;\n\ntemplate <typename F>\nconstexpr auto id =\
+    \ algebra::element::max<F>;\n\ntemplate <typename F>\nconstexpr auto compose =\
+    \ algebra::binary_operator::assign_if_not_id<F, id<F>>;\n\ntemplate <typename\
+    \ F, typename T = F>\nconstexpr auto mapping = [](const F &f, const S<T> &x) ->\
+    \ S<T> {\n    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);\n\
     \    return {(f == id<F>() ? x.val : f * x.size), x.size};\n};\n\ntemplate <typename\
     \ F, typename T = F>\nusing operator_monoid = algebra::OperatorMonoid<F, compose<F>,\
     \ id<F>, S<T>, mapping<F, T>>;\n\n}  // namespace range_sum_range_update\n\nnamespace\
@@ -293,7 +294,7 @@ data:
     \ &f, const S<T> &x) -> S<T> { return {f.a * x.val + f.b * x.size, x.size}; };\n\
     \ntemplate <typename U, typename T = U>\nusing operator_monoid = algebra::OperatorMonoid<F<U>,\
     \ compose<U>, id<U>, S<T>, mapping<U, T>>;\n\n}  // namespace range_sum_range_affine\n\
-    \n}  // namespace internal\n\ntemplate <typename S, typename F = S>\nusing range_minimum_range_update_lazy_segment_tree\
+    \n}  // namespace detail\n\ntemplate <typename S, typename F = S>\nusing range_minimum_range_update_lazy_segment_tree\
     \ = LazySegmentTree<algebra::monoid::minimum_safe<S>, algebra::operator_monoid::assign_for_minimum<F,\
     \ S>>;\n\ntemplate <typename S, typename F = S>\nusing range_minimum_range_add_lazy_segment_tree\
     \ = LazySegmentTree<algebra::monoid::minimum<S>, algebra::operator_monoid::addition<F,\
@@ -302,21 +303,21 @@ data:
     \ S>>;\n\ntemplate <typename S, typename F = S>\nusing range_maximum_range_add_lazy_segment_tree\
     \ = LazySegmentTree<algebra::monoid::maximum<S>, algebra::operator_monoid::addition<F,\
     \ S>>;\n\ntemplate <typename T, typename F = T>\nusing range_sum_range_update_lazy_segment_tree\
-    \ = LazySegmentTree<internal::range_sum_range_update::acted_monoid<T>, internal::range_sum_range_update::operator_monoid<F,\
+    \ = LazySegmentTree<detail::range_sum_range_update::acted_monoid<T>, detail::range_sum_range_update::operator_monoid<F,\
     \ T>>;\n\ntemplate <typename T, typename F = T>\nusing range_sum_range_add_lazy_segment_tree\
-    \ = LazySegmentTree<internal::range_sum_range_add::acted_monoid<T>, internal::range_sum_range_add::operator_monoid<F,\
+    \ = LazySegmentTree<detail::range_sum_range_add::acted_monoid<T>, detail::range_sum_range_add::operator_monoid<F,\
     \ T>>;\n\ntemplate <typename T, typename U = T>\nusing range_sum_range_affine_lazy_segment_tree\
-    \ = LazySegmentTree<internal::range_sum_range_affine::acted_monoid<T>, internal::range_sum_range_affine::operator_monoid<U,\
+    \ = LazySegmentTree<detail::range_sum_range_affine::acted_monoid<T>, detail::range_sum_range_affine::operator_monoid<U,\
     \ T>>;\n\n}  // namespace lazy_segment_tree\n\n}  // namespace algorithm\n\n\n"
   code: "#ifndef ALGORITHM_LAZY_SEGMENT_TREE_HPP\n#define ALGORITHM_LAZY_SEGMENT_TREE_HPP\
     \ 1\n\n#include <algorithm>\n#include <cassert>\n#include <initializer_list>\n\
     #include <iostream>\n#include <iterator>\n#include <type_traits>\n#include <vector>\n\
-    \n#include \"../../Math/Algebra/algebra.hpp\"\n\nnamespace algorithm {\n\nnamespace\
-    \ lazy_segment_tree {\n\ntemplate <class ActedMonoid, class OperatorMonoid>\n\
-    class LazySegmentTree {\npublic:\n    using acted_monoid_type = ActedMonoid;\n\
-    \    using operator_monoid_type = OperatorMonoid;\n    using acted_value_type\
-    \ = acted_monoid_type::value_type;\n    using operator_value_type = operator_monoid_type::value_type;\n\
-    \nprivate:\n    int m_sz;                                  // m_sz:=(\u8981\u7D20\
+    \n#include \"../../Math/Algebra/algebra.hpp\"\n\nnamespace algorithm {\n\ntemplate\
+    \ <class ActedMonoid, class OperatorMonoid>\nclass LazySegmentTree {\npublic:\n\
+    \    using acted_monoid_type = ActedMonoid;\n    using operator_monoid_type =\
+    \ OperatorMonoid;\n    using acted_value_type = typename acted_monoid_type::value_type;\n\
+    \    using operator_value_type = typename operator_monoid_type::value_type;\n\n\
+    private:\n    int m_sz;                                  // m_sz:=(\u8981\u7D20\
     \u6570).\n    int m_n;                                   // m_n:=(\u5B8C\u5168\
     \u4E8C\u5206\u6728\u306E\u8449\u6570).\n    int m_depth;                     \
     \          // m_depth:=(\u5B8C\u5168\u4E8C\u5206\u6728\u306E\u6DF1\u3055).\n \
@@ -435,19 +436,20 @@ data:
     \     for(int i = 0; i < rhs.m_depth; ++i) {\n            int l = 1 << i, r =\
     \ 2 << i;\n            for(int j = l; j < r; ++j) os << (j == l ? \"    [\" :\
     \ \" \") << rhs.m_lazy[j].value();\n            os << \"]\\n\";\n        }\n \
-    \       return os << \"  ]\\n}\";\n    }\n};\n\nnamespace internal {\n\nnamespace\
-    \ range_sum_range_update {\n\ntemplate <typename T>\nstruct S {\n    T val;\n\
-    \    int size;\n\n    constexpr S() : S(T(), 0) {}\n    constexpr S(const T &val)\
-    \ : S(val, 1) {}\n    constexpr S(const T &val, int size) : val(val), size(size)\
-    \ {}\n\n    friend constexpr S operator+(const S &lhs, const S &rhs) { return\
-    \ {lhs.val + rhs.val, lhs.size + rhs.size}; }\n    friend std::ostream &operator<<(std::ostream\
-    \ &os, const S &rhs) { return os << \"{\" << rhs.val << \", \" << rhs.size <<\
-    \ \"}\"; }\n};\n\ntemplate <typename T>\nusing acted_monoid = algebra::Monoid<S<T>,\
-    \ algebra::binary_operator::plus<S<T>>, algebra::element::zero<S<T>>>;\n\ntemplate\
-    \ <typename F>\nconstexpr auto id = algebra::element::max<F>;\n\ntemplate <typename\
-    \ F>\nconstexpr auto compose = algebra::binary_operator::assign_if_not_id<F, id<F>>;\n\
-    \ntemplate <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f,\
-    \ const S<T> &x) -> S<T> {\n    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);\n\
+    \       return os << \"  ]\\n}\";\n    }\n};\n\nnamespace lazy_segment_tree {\n\
+    \nnamespace detail {\n\nnamespace range_sum_range_update {\n\ntemplate <typename\
+    \ T>\nstruct S {\n    T val;\n    int size;\n\n    constexpr S() : S(T(), 0) {}\n\
+    \    constexpr S(const T &val) : S(val, 1) {}\n    constexpr S(const T &val, int\
+    \ size) : val(val), size(size) {}\n\n    friend constexpr S operator+(const S\
+    \ &lhs, const S &rhs) { return {lhs.val + rhs.val, lhs.size + rhs.size}; }\n \
+    \   friend std::ostream &operator<<(std::ostream &os, const S &rhs) { return os\
+    \ << \"{\" << rhs.val << \", \" << rhs.size << \"}\"; }\n};\n\ntemplate <typename\
+    \ T>\nusing acted_monoid = algebra::Monoid<S<T>, algebra::binary_operator::plus<S<T>>,\
+    \ algebra::element::zero<S<T>>>;\n\ntemplate <typename F>\nconstexpr auto id =\
+    \ algebra::element::max<F>;\n\ntemplate <typename F>\nconstexpr auto compose =\
+    \ algebra::binary_operator::assign_if_not_id<F, id<F>>;\n\ntemplate <typename\
+    \ F, typename T = F>\nconstexpr auto mapping = [](const F &f, const S<T> &x) ->\
+    \ S<T> {\n    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);\n\
     \    return {(f == id<F>() ? x.val : f * x.size), x.size};\n};\n\ntemplate <typename\
     \ F, typename T = F>\nusing operator_monoid = algebra::OperatorMonoid<F, compose<F>,\
     \ id<F>, S<T>, mapping<F, T>>;\n\n}  // namespace range_sum_range_update\n\nnamespace\
@@ -472,7 +474,7 @@ data:
     \ &f, const S<T> &x) -> S<T> { return {f.a * x.val + f.b * x.size, x.size}; };\n\
     \ntemplate <typename U, typename T = U>\nusing operator_monoid = algebra::OperatorMonoid<F<U>,\
     \ compose<U>, id<U>, S<T>, mapping<U, T>>;\n\n}  // namespace range_sum_range_affine\n\
-    \n}  // namespace internal\n\ntemplate <typename S, typename F = S>\nusing range_minimum_range_update_lazy_segment_tree\
+    \n}  // namespace detail\n\ntemplate <typename S, typename F = S>\nusing range_minimum_range_update_lazy_segment_tree\
     \ = LazySegmentTree<algebra::monoid::minimum_safe<S>, algebra::operator_monoid::assign_for_minimum<F,\
     \ S>>;\n\ntemplate <typename S, typename F = S>\nusing range_minimum_range_add_lazy_segment_tree\
     \ = LazySegmentTree<algebra::monoid::minimum<S>, algebra::operator_monoid::addition<F,\
@@ -481,18 +483,18 @@ data:
     \ S>>;\n\ntemplate <typename S, typename F = S>\nusing range_maximum_range_add_lazy_segment_tree\
     \ = LazySegmentTree<algebra::monoid::maximum<S>, algebra::operator_monoid::addition<F,\
     \ S>>;\n\ntemplate <typename T, typename F = T>\nusing range_sum_range_update_lazy_segment_tree\
-    \ = LazySegmentTree<internal::range_sum_range_update::acted_monoid<T>, internal::range_sum_range_update::operator_monoid<F,\
+    \ = LazySegmentTree<detail::range_sum_range_update::acted_monoid<T>, detail::range_sum_range_update::operator_monoid<F,\
     \ T>>;\n\ntemplate <typename T, typename F = T>\nusing range_sum_range_add_lazy_segment_tree\
-    \ = LazySegmentTree<internal::range_sum_range_add::acted_monoid<T>, internal::range_sum_range_add::operator_monoid<F,\
+    \ = LazySegmentTree<detail::range_sum_range_add::acted_monoid<T>, detail::range_sum_range_add::operator_monoid<F,\
     \ T>>;\n\ntemplate <typename T, typename U = T>\nusing range_sum_range_affine_lazy_segment_tree\
-    \ = LazySegmentTree<internal::range_sum_range_affine::acted_monoid<T>, internal::range_sum_range_affine::operator_monoid<U,\
+    \ = LazySegmentTree<detail::range_sum_range_affine::acted_monoid<T>, detail::range_sum_range_affine::operator_monoid<U,\
     \ T>>;\n\n}  // namespace lazy_segment_tree\n\n}  // namespace algorithm\n\n#endif\n"
   dependsOn:
   - algorithm/Math/Algebra/algebra.hpp
   isVerificationFile: false
   path: algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
   requiredBy: []
-  timestamp: '2025-07-06 12:46:03+09:00'
+  timestamp: '2025-07-06 14:56:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-DSL_2_I-lazy_segment_tree.test.cpp
@@ -513,23 +515,23 @@ title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\
 
 具体的には，あるモノイド $(S, \bullet: S \times S \rightarrow S, e \in S)$ と作用素モノイド $(F, \circ : F \times F \rightarrow F, id \in F, S, . : F \times S \rightarrow S)$ において，長さ $N$ の要素列 $\lbrace a_0, a_1, \ldots, a_{n-1} \rbrace$ に対する次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
 
-- **区間更新**：区間 $[l, r)$ の要素 $a_l, a_{l+1}, \ldots, a_{r-1}$ を作用素 $f$ を用いて更新する ( $x=f.x$ )
-- **区間取得**：区間 $[l, r)$ の要素の総積 $a_l \bullet a_{l+1} \bullet \cdots \bullet a_{r-1}$ を取得する
+- **区間更新**：区間 $[l,r)$ の要素 $a_l, a_{l+1}, \ldots, a_{r-1}$ を作用素 $f$ を用いて更新する ( $x=f.x$ )
+- **区間取得**：区間 $[l,r)$ の要素の総積 $a_l \bullet a_{l+1} \bullet \cdots \bullet a_{r-1}$ を取得する
 
 ここで「作用素モノイド」とは，次の性質を満たす組 $(F, \circ : F \times F \rightarrow F, id \in F, S, . : F \times S \rightarrow S)$ による代数的構造のことをいう．
 
 1. 組 $(F, \circ, id)$ がモノイドを成す
-1. $id.x = x \quad (\forall x \in S)$
-1. $f.(g.x) = (f \circ g).x \quad (\forall f, \forall g \in F, \forall x \in S)$
+1. $\forall x \in S, \ id.x = x$
+1. $\forall f, g \in S, \ \forall x \in S, \ f.(g.x) = (f \circ g).x$
 
 Lazy segment tree にのせるモノイドと作用素モノイドは次の条件を満たす必要がある（準同型）．
 
-- 分配律：$f.(x \bullet y) = f.x \bullet f.y \quad (\forall f \in F, \forall x, \forall y \in S)$
+- 分配律：$\forall f \in F, \ \forall x, y \in S, \ f.(x \bullet y) = f.x \bullet f.y$
 
 
 ## 説明
 
-### algorithm::lazy_segment_tree::LazySegmentTree<Monoid,OperatorMonoid>
+### algorithm::LazySegmentTree\<Monoid,OperatorMonoid\>
 
 |テンプレート引数|説明|
 |---|---|
@@ -546,13 +548,13 @@ Lazy segment tree にのせるモノイドと作用素モノイドは次の条�
 
 |メンバ関数|説明|計算量|
 |---|---|---|
-|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
+|`x=size()`|要素数 `x` を取得する．|$\Theta(1)$|
 |`set(k,a)`|`k` 番目の要素を `a` に置き換える．|$\Theta(\log N)$|
 |`apply(k,f)`|`k` 番目の要素を作用素 `f` を用いて更新する．|$\Theta(\log N)$|
 |`apply(l,r,f)`|区間 `[l,r)` の要素を作用素 `f` を用いて更新する．|$\Theta(\log N)$|
 |`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\Theta(\log N)$|
 |`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\Theta(\log N)$|
-|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\mathcal{O}(1)$|
+|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\Theta(1)$|
 |`r=most_right(l,pred)`|`pred(prod(l,r))==true` となる区間の最右位置 `r` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\Theta(\log N)$|
 |`l=most_left(r,pred)`|`pred(prod(l,r))==true` となる区間の最左位置 `l` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\Theta(\log N)$|
 |`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(N)$|

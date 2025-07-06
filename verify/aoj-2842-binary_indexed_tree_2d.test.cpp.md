@@ -125,56 +125,55 @@ data:
     \ <typename F, typename X = F>\nusing addition = OperatorMonoid<\n    F, binary_operator::plus<F>,\
     \ element::zero<F>,\n    X, binary_operator::plus<F, X>>;\n\n}  // namespace operator_monoid\n\
     \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 9 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"\
-    \n\nnamespace algorithm {\n\nnamespace binary_indexed_tree_2d {\n\ntemplate <class\
-    \ AbelianGroup>\nclass BIT2D {\npublic:\n    using group_type = AbelianGroup;\n\
-    \    using value_type = group_type::value_type;\n\nprivate:\n    int m_h, m_w;\n\
-    \    std::vector<std::vector<group_type>> m_tree;\n\n    static constexpr int\
-    \ lsb(int bit) { return bit & -bit; }\n    group_type sum_internal(int y, int\
-    \ x) const {\n        group_type &&res = group_type::one();\n        for(int i\
-    \ = y; i >= 1; i -= lsb(i)) {\n            for(int j = x; j >= 1; j -= lsb(j))\
-    \ res = res * m_tree[i - 1][j - 1];\n        }\n        return res;\n    }\n \
-    \   void build() {\n        for(int i = 1; i <= m_h; ++i) {\n            int ni\
-    \ = i + lsb(i);\n            for(int j = 1; j <= m_w; ++j) {\n               \
-    \ int nj = j + lsb(j);\n                if(ni <= m_h) m_tree[ni - 1][j - 1] =\
-    \ m_tree[ni - 1][j - 1] * m_tree[i - 1][j - 1];\n                if(nj <= m_w)\
-    \ {\n                    m_tree[i - 1][nj - 1] = m_tree[i - 1][nj - 1] * m_tree[i\
-    \ - 1][j - 1];\n                    if(ni <= m_h) m_tree[ni - 1][nj - 1] = m_tree[ni\
-    \ - 1][nj - 1] * m_tree[i - 1][j - 1].inv();\n                }\n            }\n\
-    \        }\n    }\n\npublic:\n    // constructor. O(H*W).\n    BIT2D() : BIT2D(0,\
-    \ 0) {}\n    explicit BIT2D(int h, int w) : m_h(h), m_w(w), m_tree(h, std::vector<group_type>(w,\
-    \ group_type::one())) {\n        assert(h >= 0 and w >= 0);\n    }\n    explicit\
-    \ BIT2D(int h, int w, const value_type &a) : BIT2D(h, w, group_type(a)) {}\n \
-    \   explicit BIT2D(int h, int w, const group_type &a) : m_h(h), m_w(w), m_tree(h,\
-    \ std::vector<group_type>(w, a)) {\n        assert(h >= 0 and w >= 0);\n     \
-    \   build();\n    }\n\n    int height() const { return m_h; }\n    int width()\
-    \ const { return m_w; }\n    // (y,x)\u306B\u3042\u308B\u8981\u7D20\u3092a\u3068\
-    \u306E\u7A4D\u306E\u7D50\u679C\u306B\u7F6E\u304D\u63DB\u3048\u308B\uFF0EO((log\
-    \ H) log W).\n    void add(int y, int x, const value_type &a) { add(y, x, group_type(a));\
-    \ }\n    void add(int y, int x, const group_type &a) {\n        assert(0 <= y\
-    \ and y < height());\n        assert(0 <= x and x < width());\n        for(int\
-    \ i = y + 1; i <= m_h; i += lsb(i)) {\n            for(int j = x + 1; j <= m_w;\
-    \ j += lsb(j)) m_tree[i - 1][j - 1] = m_tree[i - 1][j - 1] * a;\n        }\n \
-    \   }\n    // [0,y)\u304B\u3064[0,x)\u306E\u7BC4\u56F2\u306B\u3042\u308B\u8981\
-    \u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO((log H) log W).\n    value_type\
-    \ sum(int y, int x) const {\n        assert(0 <= y and y <= height());\n     \
-    \   assert(0 <= x and x <= width());\n        return sum_internal(y, x).value();\n\
-    \    }\n    // [y,yy)\u304B\u3064[x,xx)\u306E\u7BC4\u56F2\u306B\u3042\u308B\u8981\
-    \u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO((log H) log W).\n    value_type\
-    \ sum(int y, int x, int yy, int xx) const {\n        assert(0 <= y and y <= yy\
-    \ and yy <= height());\n        assert(0 <= x and x <= xx and xx <= width());\n\
-    \        return (sum_internal(yy, xx) * sum_internal(yy, x).inv() * sum_internal(y,\
-    \ xx).inv() * sum_internal(y, x)).value();\n    }\n    // \u5168\u8981\u7D20\u306E\
-    \u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO((log H) log W).\n    value_type sum_all()\
-    \ const { return sum_internal(m_h, m_w).value(); }\n    void reset() {\n     \
-    \   for(auto &v : m_tree) std::fill(v.begin(), v.end(), group_type::one());\n\
-    \    }\n};\n\ntemplate <typename S>\nusing range_sum_binary_indexed_tree_2d =\
-    \ BIT2D<algebra::group::addition<S>>;\n\n}  // namespace binary_indexed_tree_2d\n\
-    \n}  // namespace algorithm\n\n\n#line 8 \"verify/aoj-2842-binary_indexed_tree_2d.test.cpp\"\
-    \n\nint main() {\n    int y, x;\n    int t;\n    int q;\n    std::cin >> y >>\
-    \ x >> t >> q;\n\n    algorithm::binary_indexed_tree_2d::range_sum_binary_indexed_tree_2d<int>\
-    \ raw(y, x), baked(y, x);\n    std::queue<std::tuple<int, int, int> > que;\n \
-    \   while(q--) {\n        int time;\n        int c;\n        std::cin >> time\
-    \ >> c;\n\n        while(!que.empty()) {\n            auto [end, y, x] = que.front();\n\
+    \n\nnamespace algorithm {\n\ntemplate <class AbelianGroup>\nclass BIT2D {\npublic:\n\
+    \    using group_type = AbelianGroup;\n    using value_type = typename group_type::value_type;\n\
+    \nprivate:\n    int m_h, m_w;\n    std::vector<std::vector<group_type>> m_tree;\n\
+    \n    static constexpr int lsb(int bit) { return bit & -bit; }\n    group_type\
+    \ sum_internal(int y, int x) const {\n        group_type &&res = group_type::one();\n\
+    \        for(int i = y; i >= 1; i -= lsb(i)) {\n            for(int j = x; j >=\
+    \ 1; j -= lsb(j)) res = res * m_tree[i - 1][j - 1];\n        }\n        return\
+    \ res;\n    }\n    void build() {\n        for(int i = 1; i <= m_h; ++i) {\n \
+    \           int ni = i + lsb(i);\n            for(int j = 1; j <= m_w; ++j) {\n\
+    \                int nj = j + lsb(j);\n                if(ni <= m_h) m_tree[ni\
+    \ - 1][j - 1] = m_tree[ni - 1][j - 1] * m_tree[i - 1][j - 1];\n              \
+    \  if(nj <= m_w) {\n                    m_tree[i - 1][nj - 1] = m_tree[i - 1][nj\
+    \ - 1] * m_tree[i - 1][j - 1];\n                    if(ni <= m_h) m_tree[ni -\
+    \ 1][nj - 1] = m_tree[ni - 1][nj - 1] * m_tree[i - 1][j - 1].inv();\n        \
+    \        }\n            }\n        }\n    }\n\npublic:\n    // constructor. O(H*W).\n\
+    \    BIT2D() : BIT2D(0, 0) {}\n    explicit BIT2D(int h, int w) : m_h(h), m_w(w),\
+    \ m_tree(h, std::vector<group_type>(w, group_type::one())) {\n        assert(h\
+    \ >= 0 and w >= 0);\n    }\n    explicit BIT2D(int h, int w, const value_type\
+    \ &a) : BIT2D(h, w, group_type(a)) {}\n    explicit BIT2D(int h, int w, const\
+    \ group_type &a) : m_h(h), m_w(w), m_tree(h, std::vector<group_type>(w, a)) {\n\
+    \        assert(h >= 0 and w >= 0);\n        build();\n    }\n\n    int height()\
+    \ const { return m_h; }\n    int width() const { return m_w; }\n    // (y,x)\u306B\
+    \u3042\u308B\u8981\u7D20\u3092a\u3068\u306E\u7A4D\u306E\u7D50\u679C\u306B\u7F6E\
+    \u304D\u63DB\u3048\u308B\uFF0EO((log H)*log W).\n    void add(int y, int x, const\
+    \ value_type &a) { add(y, x, group_type(a)); }\n    void add(int y, int x, const\
+    \ group_type &a) {\n        assert(0 <= y and y < height());\n        assert(0\
+    \ <= x and x < width());\n        for(int i = y + 1; i <= m_h; i += lsb(i)) {\n\
+    \            for(int j = x + 1; j <= m_w; j += lsb(j)) m_tree[i - 1][j - 1] =\
+    \ m_tree[i - 1][j - 1] * a;\n        }\n    }\n    // [0,y)\u304B\u3064[0,x)\u306E\
+    \u7BC4\u56F2\u306B\u3042\u308B\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\
+    \u308B\uFF0EO((log H)*log W).\n    value_type sum(int y, int x) const {\n    \
+    \    assert(0 <= y and y <= height());\n        assert(0 <= x and x <= width());\n\
+    \        return sum_internal(y, x).value();\n    }\n    // [y,yy)\u304B\u3064\
+    [x,xx)\u306E\u7BC4\u56F2\u306B\u3042\u308B\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\
+    \u6C42\u3081\u308B\uFF0EO((log H)*log W).\n    value_type sum(int y, int x, int\
+    \ yy, int xx) const {\n        assert(0 <= y and y <= yy and yy <= height());\n\
+    \        assert(0 <= x and x <= xx and xx <= width());\n        return (sum_internal(yy,\
+    \ xx) * sum_internal(yy, x).inv() * sum_internal(y, xx).inv() * sum_internal(y,\
+    \ x)).value();\n    }\n    // \u5168\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\
+    \u3081\u308B\uFF0EO((log H)*log W).\n    value_type sum_all() const { return sum_internal(m_h,\
+    \ m_w).value(); }\n    void reset() {\n        for(auto &v : m_tree) std::fill(v.begin(),\
+    \ v.end(), group_type::one());\n    }\n};\n\nnamespace binary_indexed_tree_2d\
+    \ {\n\ntemplate <typename S>\nusing range_sum_binary_indexed_tree_2d = BIT2D<algebra::group::addition<S>>;\n\
+    \n}  // namespace binary_indexed_tree_2d\n\n}  // namespace algorithm\n\n\n#line\
+    \ 8 \"verify/aoj-2842-binary_indexed_tree_2d.test.cpp\"\n\nint main() {\n    int\
+    \ y, x;\n    int t;\n    int q;\n    std::cin >> y >> x >> t >> q;\n\n    algorithm::binary_indexed_tree_2d::range_sum_binary_indexed_tree_2d<int>\
+    \ raw(y, x), baked(y, x);\n    std::queue<std::tuple<int, int, int>> que;\n  \
+    \  while(q--) {\n        int time;\n        int c;\n        std::cin >> time >>\
+    \ c;\n\n        while(!que.empty()) {\n            auto [end, y, x] = que.front();\n\
     \            if(time < end) break;\n            que.pop();\n\n            raw.add(y,\
     \ x, -1);\n            baked.add(y, x, 1);\n        }\n\n        if(c == 0) {\n\
     \            int y, x;\n            std::cin >> y >> x;\n            y--, x--;\n\
@@ -190,9 +189,9 @@ data:
     \ <iostream>\n#include <queue>\n#include <tuple>\n\n#include \"../algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"\
     \n\nint main() {\n    int y, x;\n    int t;\n    int q;\n    std::cin >> y >>\
     \ x >> t >> q;\n\n    algorithm::binary_indexed_tree_2d::range_sum_binary_indexed_tree_2d<int>\
-    \ raw(y, x), baked(y, x);\n    std::queue<std::tuple<int, int, int> > que;\n \
-    \   while(q--) {\n        int time;\n        int c;\n        std::cin >> time\
-    \ >> c;\n\n        while(!que.empty()) {\n            auto [end, y, x] = que.front();\n\
+    \ raw(y, x), baked(y, x);\n    std::queue<std::tuple<int, int, int>> que;\n  \
+    \  while(q--) {\n        int time;\n        int c;\n        std::cin >> time >>\
+    \ c;\n\n        while(!que.empty()) {\n            auto [end, y, x] = que.front();\n\
     \            if(time < end) break;\n            que.pop();\n\n            raw.add(y,\
     \ x, -1);\n            baked.add(y, x, 1);\n        }\n\n        if(c == 0) {\n\
     \            int y, x;\n            std::cin >> y >> x;\n            y--, x--;\n\
@@ -210,7 +209,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-2842-binary_indexed_tree_2d.test.cpp
   requiredBy: []
-  timestamp: '2025-07-06 12:46:03+09:00'
+  timestamp: '2025-07-06 15:08:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-2842-binary_indexed_tree_2d.test.cpp

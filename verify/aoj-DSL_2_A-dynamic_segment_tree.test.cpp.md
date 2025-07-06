@@ -127,18 +127,18 @@ data:
     \ <typename F, typename X = F>\nusing addition = OperatorMonoid<\n    F, binary_operator::plus<F>,\
     \ element::zero<F>,\n    X, binary_operator::plus<F, X>>;\n\n}  // namespace operator_monoid\n\
     \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"\
-    \n\nnamespace algorithm {\n\nnamespace dynamic_segment_tree {\n\ntemplate <class\
-    \ Monoid>\nclass DynamicSegmentTree {\npublic:\n    using monoid_type = Monoid;\n\
-    \    using value_type = monoid_type::value_type;\n    using size_type = std::size_t;\n\
-    \nprivate:\n    struct Node;\n    using node_pointer = std::unique_ptr<Node>;\n\
-    \n    struct Node {\n        size_type index;\n        monoid_type value;\n  \
-    \      monoid_type product;\n        node_pointer left, right;\n\n        explicit\
-    \ Node(size_type index, const monoid_type &value) : index(index), value(value),\
-    \ product(value), left(nullptr), right(nullptr) {}\n    };\n\n    size_type m_sz;\
-    \       // m_sz:=(\u8981\u7D20\u6570).\n    node_pointer m_root;  // m_root:=(\u6839\
-    \u306E\u30DD\u30A4\u30F3\u30BF).\n\n    void update(const node_pointer &p) const\
-    \ {\n        const monoid_type &lhs = (p->left ? p->left->product : monoid_type::one());\n\
-    \        const monoid_type &rhs = (p->right ? p->right->product : monoid_type::one());\n\
+    \n\nnamespace algorithm {\n\ntemplate <class Monoid>\nclass DynamicSegmentTree\
+    \ {\npublic:\n    using monoid_type = Monoid;\n    using value_type = typename\
+    \ monoid_type::value_type;\n    using size_type = std::size_t;\n\nprivate:\n \
+    \   struct Node;\n    using node_pointer = std::unique_ptr<Node>;\n\n    struct\
+    \ Node {\n        size_type index;\n        monoid_type value;\n        monoid_type\
+    \ product;\n        node_pointer left, right;\n\n        explicit Node(size_type\
+    \ index, const monoid_type &value) : index(index), value(value), product(value),\
+    \ left(nullptr), right(nullptr) {}\n    };\n\n    size_type m_sz;       // m_sz:=(\u8981\
+    \u7D20\u6570).\n    node_pointer m_root;  // m_root:=(\u6839\u306E\u30DD\u30A4\
+    \u30F3\u30BF).\n\n    void update(const node_pointer &p) const {\n        const\
+    \ monoid_type &lhs = (p->left ? p->left->product : monoid_type::one());\n    \
+    \    const monoid_type &rhs = (p->right ? p->right->product : monoid_type::one());\n\
     \        p->product = lhs * p->value * rhs;\n    }\n    void set(node_pointer\
     \ &p, size_type k, monoid_type a, size_type l, size_type r) {\n        if(!p)\
     \ {\n            p = std::make_unique<Node>(k, a);\n            return;\n    \
@@ -230,10 +230,11 @@ data:
     \ reset() { m_root.reset(); }\n\n    friend std::ostream &operator<<(std::ostream\
     \ &os, const DynamicSegmentTree &rhs) {\n        os << \"[\";\n        bool first\
     \ = true;\n        rhs.print(os, rhs.m_root, first);\n        return os << \"\
-    ]\";\n    }\n};\n\ntemplate <typename S>\nusing range_minimum_dynamic_segment_tree\
-    \ = DynamicSegmentTree<algebra::monoid::minimum<S>>;\n\ntemplate <typename S>\n\
-    using range_maximum_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::maximum<S>>;\n\
+    ]\";\n    }\n};\n\nnamespace dynamic_segment_tree {\n\ntemplate <typename S>\n\
+    using range_minimum_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::minimum<S>>;\n\
+    \ntemplate <typename S>\nusing range_maximum_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::maximum<S>>;\n\
     \ntemplate <typename S>\nusing range_sum_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::addition<S>>;\n\
+    \ntemplate <typename S>\nusing range_product_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::multiplication<S>>;\n\
     \n}  // namespace dynamic_segment_tree\n\n}  // namespace algorithm\n\n\n#line\
     \ 6 \"verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp\"\n\nint main() {\n   \
     \ int n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::dynamic_segment_tree::range_minimum_dynamic_segment_tree<int>\
@@ -258,7 +259,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-07-06 12:46:03+09:00'
+  timestamp: '2025-07-06 15:04:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
