@@ -13,15 +13,13 @@
 
 namespace algorithm {
 
-namespace lazy_segment_tree {
-
 template <class ActedMonoid, class OperatorMonoid>
 class LazySegmentTree {
 public:
     using acted_monoid_type = ActedMonoid;
     using operator_monoid_type = OperatorMonoid;
-    using acted_value_type = acted_monoid_type::value_type;
-    using operator_value_type = operator_monoid_type::value_type;
+    using acted_value_type = typename acted_monoid_type::value_type;
+    using operator_value_type = typename operator_monoid_type::value_type;
 
 private:
     int m_sz;                                  // m_sz:=(要素数).
@@ -223,7 +221,9 @@ public:
     }
 };
 
-namespace internal {
+namespace lazy_segment_tree {
+
+namespace detail {
 
 namespace range_sum_range_update {
 
@@ -316,7 +316,7 @@ using operator_monoid = algebra::OperatorMonoid<F<U>, compose<U>, id<U>, S<T>, m
 
 }  // namespace range_sum_range_affine
 
-}  // namespace internal
+}  // namespace detail
 
 template <typename S, typename F = S>
 using range_minimum_range_update_lazy_segment_tree = LazySegmentTree<algebra::monoid::minimum_safe<S>, algebra::operator_monoid::assign_for_minimum<F, S>>;
@@ -331,13 +331,13 @@ template <typename S, typename F = S>
 using range_maximum_range_add_lazy_segment_tree = LazySegmentTree<algebra::monoid::maximum<S>, algebra::operator_monoid::addition<F, S>>;
 
 template <typename T, typename F = T>
-using range_sum_range_update_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_update::acted_monoid<T>, internal::range_sum_range_update::operator_monoid<F, T>>;
+using range_sum_range_update_lazy_segment_tree = LazySegmentTree<detail::range_sum_range_update::acted_monoid<T>, detail::range_sum_range_update::operator_monoid<F, T>>;
 
 template <typename T, typename F = T>
-using range_sum_range_add_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_add::acted_monoid<T>, internal::range_sum_range_add::operator_monoid<F, T>>;
+using range_sum_range_add_lazy_segment_tree = LazySegmentTree<detail::range_sum_range_add::acted_monoid<T>, detail::range_sum_range_add::operator_monoid<F, T>>;
 
 template <typename T, typename U = T>
-using range_sum_range_affine_lazy_segment_tree = LazySegmentTree<internal::range_sum_range_affine::acted_monoid<T>, internal::range_sum_range_affine::operator_monoid<U, T>>;
+using range_sum_range_affine_lazy_segment_tree = LazySegmentTree<detail::range_sum_range_affine::acted_monoid<T>, detail::range_sum_range_affine::operator_monoid<U, T>>;
 
 }  // namespace lazy_segment_tree
 
