@@ -19,7 +19,7 @@ documentation_of: //algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
 
 ## 説明
 
-### algorithm::dynamic_segment_tree::DynamicSegmentTree<Monoid>
+### algorithm::DynamicSegmentTree\<Monoid\>
 
 |テンプレート引数|説明|
 |---|---|

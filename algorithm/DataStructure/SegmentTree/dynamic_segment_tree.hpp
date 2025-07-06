@@ -13,13 +13,11 @@
 
 namespace algorithm {
 
-namespace dynamic_segment_tree {
-
 template <class Monoid>
 class DynamicSegmentTree {
 public:
     using monoid_type = Monoid;
-    using value_type = monoid_type::value_type;
+    using value_type = typename monoid_type::value_type;
     using size_type = std::size_t;
 
 private:
@@ -200,6 +198,8 @@ public:
     }
 };
 
+namespace dynamic_segment_tree {
+
 template <typename S>
 using range_minimum_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::minimum<S>>;
 
@@ -208,6 +208,9 @@ using range_maximum_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::m
 
 template <typename S>
 using range_sum_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::addition<S>>;
+
+template <typename S>
+using range_product_dynamic_segment_tree = DynamicSegmentTree<algebra::monoid::multiplication<S>>;
 
 }  // namespace dynamic_segment_tree
 
