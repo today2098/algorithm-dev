@@ -1,6 +1,6 @@
 ---
 title: Lazy Segment Tree（遅延評価セグメント木）
-documentation_of: //lib/DataStructure/SegmentTree/lazy_segment_tree.hpp
+documentation_of: //algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
 ---
 
 

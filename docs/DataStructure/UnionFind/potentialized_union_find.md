@@ -1,6 +1,6 @@
 ---
 title: 重み付きUnion-Find
-documentation_of: //lib/DataStructure/UnionFind/potentialized_union_find.hpp
+documentation_of: //algorithm/DataStructure/UnionFind/potentialized_union_find.hpp
 ---
 
 

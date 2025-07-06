@@ -1,6 +1,6 @@
 ---
 title: 繰り返し二乗法（mod付き）
-documentation_of: //lib/Math/ModularArithmetic/mod_pow.hpp
+documentation_of: //algorithm/Math/ModularArithmetic/mod_pow.hpp
 ---
 
 

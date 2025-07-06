@@ -1,6 +1,6 @@
 ---
 title: Binary Trie（二分トライ木）
-documentation_of: //lib/DataStructure/Others/binary_trie.hpp
+documentation_of: //algorithm/DataStructure/Others/binary_trie.hpp
 ---
 
 

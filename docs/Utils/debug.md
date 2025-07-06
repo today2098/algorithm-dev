@@ -1,6 +1,6 @@
 ---
 title: デバッグ用関数形式マクロ
-documentation_of: //lib/Utils/debug.hpp
+documentation_of: //algorithm/Utils/debug.hpp
 ---
 
 

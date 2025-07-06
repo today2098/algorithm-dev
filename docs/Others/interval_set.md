@@ -1,6 +1,6 @@
 ---
 title: Interval Set（区間をsetで管理するデータ構造）
-documentation_of: //lib/Others/interval_set.hpp
+documentation_of: //algorithm/Others/interval_set.hpp
 ---
 
 

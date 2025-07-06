@@ -25,9 +25,9 @@ public:
     constexpr Set(const value_type &val) : val(val) {}
     constexpr Set(value_type &&val) : val(std::move(val)) {}
 
-    friend constexpr bool operator==(const Set &lhs, const Set &rhs) { return lhs.val == rhs.val; }
+    friend constexpr bool operator==(const Set &lhs, const Set &rhs) { return lhs.value() == rhs.value(); }
     friend std::istream &operator>>(std::istream &is, Set &rhs) { return is >> rhs.val; }
-    friend std::ostream &operator<<(std::ostream &os, const Set &rhs) { return os << rhs.val; }
+    friend std::ostream &operator<<(std::ostream &os, const Set &rhs) { return os << rhs.value(); }
 
     constexpr value_type value() const { return val; }
 };
@@ -36,16 +36,15 @@ template <typename S, auto op>
 class Semigroup : public Set<S> {
     static_assert(std::is_invocable_r<S, decltype(op), S, S>::value);
 
-    using base_type = Set<S>;
-
 public:
+    using base_type = Set<S>;
     using value_type = typename base_type::value_type;
 
     constexpr Semigroup() : base_type() {}
     constexpr Semigroup(const value_type &val) : base_type(val) {}
     constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}
 
-    friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs) { return Semigroup(op(lhs.val, rhs.val)); }
+    friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs) { return Semigroup(op(lhs.value(), rhs.value())); }
 
     static constexpr auto get_op() { return op; }
 };
@@ -54,16 +53,15 @@ template <typename S, auto op, auto e>
 class Monoid : public Semigroup<S, op> {
     static_assert(std::is_invocable_r<S, decltype(e)>::value);
 
-    using base_type = Semigroup<S, op>;
-
 public:
+    using base_type = Semigroup<S, op>;
     using value_type = typename base_type::value_type;
 
     constexpr Monoid() : base_type() {}
     constexpr Monoid(const value_type &val) : base_type(val) {}
     constexpr Monoid(value_type &&val) : base_type(std::move(val)) {}
 
-    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.val, rhs.val)); }
+    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.value(), rhs.value())); }
 
     static constexpr auto get_e() { return e; }
     static constexpr Monoid one() { return Monoid(e()); }  // return identity element.
@@ -73,45 +71,43 @@ template <typename S, auto op, auto e, auto inverse>
 class Group : public Monoid<S, op, e> {
     static_assert(std::is_invocable_r<S, decltype(inverse), S>::value);
 
-    using base_type = Monoid<S, op, e>;
-
 public:
+    using base_type = Monoid<S, op, e>;
     using value_type = typename base_type::value_type;
 
     constexpr Group() : base_type() {}
     constexpr Group(const value_type &val) : base_type(val) {}
     constexpr Group(value_type &&val) : base_type(std::move(val)) {}
 
-    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return Group(op(lhs.val, rhs.val)); }
+    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return Group(op(lhs.value(), rhs.value())); }
 
     static constexpr auto get_inverse() { return inverse; }
-    static constexpr Group one() { return Group(e()); }                // return identity element.
-    constexpr Group inv() const { return Group(inverse(this->val)); }  // return inverse element.
+    static constexpr Group one() { return Group(e()); }                    // return identity element.
+    constexpr Group inv() const { return Group(inverse(this->value())); }  // return inverse element.
 };
 
 template <typename F, auto compose, auto id, typename X, auto mapping>
 class OperatorMonoid : public Monoid<F, compose, id> {
     static_assert(std::is_invocable_r<X, decltype(mapping), F, X>::value);
 
-    using base_type = Monoid<F, compose, id>;
-
 public:
+    using base_type = Monoid<F, compose, id>;
     using value_type = typename base_type::value_type;
-    using acted_value_type = X;
+    using acted_type = X;
 
     constexpr OperatorMonoid() : base_type() {}
     constexpr OperatorMonoid(const value_type &val) : base_type(val) {}
     constexpr OperatorMonoid(value_type &&val) : base_type(std::move(val)) {}
 
-    friend constexpr OperatorMonoid operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val, rhs.val)); }
+    friend constexpr OperatorMonoid operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.value(), rhs.value())); }
 
     static constexpr auto get_mapping() { return mapping; }
     static constexpr OperatorMonoid one() { return OperatorMonoid(id()); }  // return identity mapping.
-    constexpr acted_value_type act(const acted_value_type &x) const { return mapping(this->val, x); }
+    constexpr acted_type act(const acted_type &x) const { return mapping(this->value(), x); }
     template <class S>
     constexpr S act(const S &x) const {
-        static_assert(std::is_base_of<Set<acted_value_type>, S>::value);
-        return S(mapping(this->val, x.value()));
+        static_assert(std::is_base_of<Set<acted_type>, S>::value);
+        return S(mapping(this->value(), x.value()));
     }
 };
 
@@ -140,7 +136,7 @@ constexpr auto one_above_lowest = []() -> S { return std::numeric_limits<S>::low
 
 }  // namespace element
 
-namespace uoperator {
+namespace unary_operator {
 
 template <typename S>
 constexpr auto identity = [](const S &val) -> S { return val; };
@@ -148,9 +144,9 @@ constexpr auto identity = [](const S &val) -> S { return val; };
 template <typename S>
 constexpr auto negate = [](const S &val) -> S { return -val; };
 
-}  // namespace uoperator
+}  // namespace unary_operator
 
-namespace boperator {
+namespace binary_operator {
 
 template <typename T, typename S = T>
 constexpr auto plus = [](const T &lhs, const S &rhs) -> S { return lhs + rhs; };
@@ -185,40 +181,40 @@ constexpr auto assign_if_not_id = [](const F &lhs, const X &rhs) -> X {
     return (lhs == id() ? rhs : lhs);
 };
 
-}  // namespace boperator
+}  // namespace binary_operator
 
 namespace monoid {
 
 template <typename S>
-using minimum = Monoid<S, boperator::min<S>, element::max<S>>;
+using minimum = Monoid<S, binary_operator::min<S>, element::max<S>>;
 
 template <typename S>
-using minimum_safe = Monoid<S, boperator::min<S>, element::one_below_max<S>>;
+using minimum_safe = Monoid<S, binary_operator::min<S>, element::one_below_max<S>>;
 
 template <typename S>
-using maximum = Monoid<S, boperator::max<S>, element::lowest<S>>;
+using maximum = Monoid<S, binary_operator::max<S>, element::lowest<S>>;
 
 template <typename S>
-using maximum_safe = Monoid<S, boperator::max<S>, element::one_above_lowest<S>>;
+using maximum_safe = Monoid<S, binary_operator::max<S>, element::one_above_lowest<S>>;
 
 template <typename S>
-using addition = Monoid<S, boperator::plus<S>, element::zero<S>>;
+using addition = Monoid<S, binary_operator::plus<S>, element::zero<S>>;
 
 template <typename S>
-using multiplication = Monoid<S, boperator::mul<S>, element::one<S>>;
+using multiplication = Monoid<S, binary_operator::mul<S>, element::one<S>>;
 
 template <typename S>
-using bit_xor = Monoid<S, boperator::bit_xor<S>, element::zero<S>>;
+using bit_xor = Monoid<S, binary_operator::bit_xor<S>, element::zero<S>>;
 
 }  // namespace monoid
 
 namespace group {
 
 template <typename S>
-using addition = Group<S, boperator::plus<S>, element::zero<S>, uoperator::negate<S>>;
+using addition = Group<S, binary_operator::plus<S>, element::zero<S>, unary_operator::negate<S>>;
 
 template <typename S>
-using bit_xor = Group<S, boperator::bit_xor<S>, element::zero<S>, uoperator::identity<S>>;
+using bit_xor = Group<S, binary_operator::bit_xor<S>, element::zero<S>, unary_operator::identity<S>>;
 
 }  // namespace group
 
@@ -226,16 +222,18 @@ namespace operator_monoid {
 
 template <typename F, typename X = F>
 using assign_for_minimum = OperatorMonoid<
-    F, boperator::assign_if_not_id<F, element::max<F>>, element::max<F>,
-    X, boperator::assign_if_not_id<F, element::max<F>, X>>;
+    F, binary_operator::assign_if_not_id<F, element::max<F>>, element::max<F>,
+    X, binary_operator::assign_if_not_id<F, element::max<F>, X>>;
 
 template <typename F, typename X = F>
 using assign_for_maximum = OperatorMonoid<
-    F, boperator::assign_if_not_id<F, element::lowest<F>>, element::lowest<F>,
-    X, boperator::assign_if_not_id<F, element::lowest<F>, X>>;
+    F, binary_operator::assign_if_not_id<F, element::lowest<F>>, element::lowest<F>,
+    X, binary_operator::assign_if_not_id<F, element::lowest<F>, X>>;
 
 template <typename F, typename X = F>
-using addition = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F, X>>;
+using addition = OperatorMonoid<
+    F, binary_operator::plus<F>, element::zero<F>,
+    X, binary_operator::plus<F, X>>;
 
 }  // namespace operator_monoid
 

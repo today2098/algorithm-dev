@@ -1,6 +1,6 @@
 ---
 title: 平方根（ニュートン法）
-documentation_of: //lib/Math/Algebra/square_root.hpp
+documentation_of: //algorithm/Math/Algebra/square_root.hpp
 ---
 
 

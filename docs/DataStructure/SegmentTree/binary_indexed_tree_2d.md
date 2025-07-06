@@ -1,6 +1,6 @@
 ---
 title: 二次元Binary Indexed Tree
-documentation_of: //lib/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
+documentation_of: //algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
 ---
 
 

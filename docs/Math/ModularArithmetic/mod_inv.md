@@ -1,6 +1,6 @@
 ---
 title: モジュラ逆数（乗法逆元）
-documentation_of: //lib/Math/ModularArithmetic/mod_inv.hpp
+documentation_of: //algorithm/Math/ModularArithmetic/mod_inv.hpp
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 title: Bellman-Ford Algorithm（単一始点最短経路）
-documentation_of: //lib/Graph/ShortestPath/bellman_ford.hpp
+documentation_of: //algorithm/Graph/ShortestPath/bellman_ford.hpp
 ---
 
 

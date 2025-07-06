@@ -1,6 +1,6 @@
 ---
 title: 素因数分解
-documentation_of: //lib/Math/NumberTheory/prime_factorize.hpp
+documentation_of: //algorithm/Math/NumberTheory/prime_factorize.hpp
 ---
 
 

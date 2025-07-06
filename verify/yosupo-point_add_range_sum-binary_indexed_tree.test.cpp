@@ -11,13 +11,13 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    using binary_indexed_tree = algorithm::binary_indexed_tree::range_sum_binary_indexed_tree<long long>;
-    using group = binary_indexed_tree::group_type;
+    using binary_indexed_tree_type = typename algorithm::binary_indexed_tree::range_sum_binary_indexed_tree<long long>;
+    using group_type = typename binary_indexed_tree_type::group_type;
 
-    std::vector<group> a(n);
+    std::vector<group_type> a(n);
     for(auto &elem : a) std::cin >> elem;
 
-    binary_indexed_tree bit(std::move(a));
+    binary_indexed_tree_type bit(std::move(a));
 
     while(q--) {
         int t;

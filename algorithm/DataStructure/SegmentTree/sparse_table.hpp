@@ -73,16 +73,16 @@ public:
 };
 
 template <typename S>
-using range_minimum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::boperator::min<S>>>;
+using range_minimum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::min<S>>>;
 
 template <typename S>
-using range_maximum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::boperator::max<S>>>;
+using range_maximum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::max<S>>>;
 
 template <typename S>
-using range_gcd_sparse_table = SparseTable<algebra::Semigroup<S, algebra::boperator::gcd<S>>>;
+using range_gcd_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::gcd<S>>>;
 
 template <typename S>
-using range_lcm_sparse_table = SparseTable<algebra::Semigroup<S, algebra::boperator::lcm<S>>>;
+using range_lcm_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::lcm<S>>>;
 
 }  // namespace sparse_table
 

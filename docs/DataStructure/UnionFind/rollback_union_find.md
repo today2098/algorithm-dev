@@ -1,6 +1,6 @@
 ---
 title: Rollback付きUnion-Find
-documentation_of: //lib/DataStructure/UnionFind/rollback_union_find.hpp
+documentation_of: //algorithm/DataStructure/UnionFind/rollback_union_find.hpp
 ---
 
 

@@ -241,13 +241,13 @@ struct S {
 };
 
 template <typename T>
-using acted_monoid = algebra::Monoid<S<T>, algebra::boperator::plus<S<T>>, algebra::element::zero<S<T>>>;
+using acted_monoid = algebra::Monoid<S<T>, algebra::binary_operator::plus<S<T>>, algebra::element::zero<S<T>>>;
 
 template <typename F>
 constexpr auto id = algebra::element::max<F>;
 
 template <typename F>
-constexpr auto compose = algebra::boperator::assign_if_not_id<F, id<F>>;
+constexpr auto compose = algebra::binary_operator::assign_if_not_id<F, id<F>>;
 
 template <typename F, typename T = F>
 constexpr auto mapping = [](const F &f, const S<T> &x) -> S<T> {
@@ -272,7 +272,7 @@ template <typename F>
 constexpr auto id = algebra::element::zero<F>;
 
 template <typename F>
-constexpr auto compose = algebra::boperator::plus<F>;
+constexpr auto compose = algebra::binary_operator::plus<F>;
 
 template <typename F, typename T = F>
 constexpr auto mapping = [](const F &f, const S<T> &x) -> S<T> { return {x.val + f * x.size, x.size}; };
@@ -306,7 +306,7 @@ template <typename U>
 constexpr auto id = []() -> F<U> { return {1, 0}; };
 
 template <typename U>
-constexpr auto compose = algebra::boperator::mul<F<U>>;
+constexpr auto compose = algebra::binary_operator::mul<F<U>>;
 
 template <typename U, typename T = U>
 constexpr auto mapping = [](const F<U> &f, const S<T> &x) -> S<T> { return {f.a * x.val + f.b * x.size, x.size}; };

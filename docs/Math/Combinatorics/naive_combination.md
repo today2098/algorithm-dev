@@ -1,6 +1,6 @@
 ---
 title: 順列，組合せ，重複組合せ
-documentation_of: //lib/Math/Combinatorics/naive_combination.hpp
+documentation_of: //algorithm/Math/Combinatorics/naive_combination.hpp
 ---
 
 

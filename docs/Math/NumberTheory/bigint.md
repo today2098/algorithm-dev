@@ -1,6 +1,6 @@
 ---
 title: 多倍長整数
-documentation_of: //lib/Math/NumberTheory/bigint.hpp
+documentation_of: //algorithm/Math/NumberTheory/bigint.hpp
 ---
 
 

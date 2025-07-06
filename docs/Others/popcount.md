@@ -1,6 +1,6 @@
 ---
 title: Population Count (popcount)
-documentation_of: //lib/Others/popcount.hpp
+documentation_of: //algorithm/Others/popcount.hpp
 ---
 
 

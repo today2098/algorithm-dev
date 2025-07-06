@@ -1,6 +1,6 @@
 ---
 title: 線形篩
-documentation_of: //lib/Math/NumberTheory/linear_sieve.hpp
+documentation_of: //algorithm/Math/NumberTheory/linear_sieve.hpp
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 title: 文字列分割
-documentation_of: //lib/Utils/split.hpp
+documentation_of: //algorithm/Utils/split.hpp
 ---
 
 

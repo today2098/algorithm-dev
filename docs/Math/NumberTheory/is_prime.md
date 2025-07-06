@@ -1,6 +1,6 @@
 ---
 title: 素数判定
-documentation_of: //lib/Math/NumberTheory/is_prime.hpp
+documentation_of: //algorithm/Math/NumberTheory/is_prime.hpp
 ---
 
 
