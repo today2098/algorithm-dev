@@ -39,8 +39,10 @@ data:
   verifiedWith: []
 documentation_of: algorithm/Utils/timer.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Utils/timer.hpp
-- /library/algorithm/Utils/timer.hpp.html
-title: algorithm/Utils/timer.hpp
+title: "\u51E6\u7406\u6642\u9593\u8A08\u6E2C\u30AF\u30E9\u30B9"
 ---
+
+
+## 参考文献
+
+1. "手を動かしてさくさく理解する C言語/C++ 処理時間計測 入門". <http://vivi.dyndns.org/tech/cpp/timeMeasurement.html>.

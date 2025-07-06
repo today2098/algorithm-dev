@@ -45,8 +45,23 @@ data:
   verifiedWith: []
 documentation_of: algorithm/Math/Combinatorics/pascal_triangle.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/Combinatorics/pascal_triangle.hpp
-- /library/algorithm/Math/Combinatorics/pascal_triangle.hpp.html
-title: algorithm/Math/Combinatorics/pascal_triangle.hpp
+title: "Pascal's Triangle\uFF08\u30D1\u30B9\u30AB\u30EB\u306E\u4E09\u89D2\u5F62\uFF09"
 ---
+
+
+## 概要
+
+パスカルの三角形とは，二項展開における係数を三角形状に並べたもの．
+
+次の公式を利用し，二項係数のテーブルを構築する．
+
+$$
+{}_n \mathrm{C}_k = {}_{n-1} \mathrm{C}_{k-1} + {}_{n-1} \mathrm{C}_{k}
+$$
+
+計算量は，時間と空間のともに $\mathcal{O}(N^2)$ を要する．
+
+
+## 参考文献
+
+1. "パスカルの三角形". Wikipedia. <https://ja.wikipedia.org/wiki/パスカルの三角形>.

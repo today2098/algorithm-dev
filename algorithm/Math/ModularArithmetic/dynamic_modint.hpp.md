@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/ModularArithmetic/modint_base.hpp
-    title: algorithm/Math/ModularArithmetic/modint_base.hpp
+    title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -120,8 +120,22 @@ data:
   verifiedWith: []
 documentation_of: algorithm/Math/ModularArithmetic/dynamic_modint.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/ModularArithmetic/dynamic_modint.hpp
-- /library/algorithm/Math/ModularArithmetic/dynamic_modint.hpp.html
-title: algorithm/Math/ModularArithmetic/dynamic_modint.hpp
+title: "\u52D5\u7684Modint\u69CB\u9020\u4F53"
 ---
+
+
+## 概要
+
+実行時に法が決まる Modint 構造体．
+
+インスタンスを生成する前に法とする自然数を設定する．
+
+```cpp
+DynamicModint<0>::set_modulus(17);
+DynamicModint<1>::set_modulus(23);
+
+DynamicModint<0> a = 28;
+DynamicModint<1> b = 28;
+
+cout << a << " " << b << endl;  // 11 5
+```

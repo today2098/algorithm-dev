@@ -27,8 +27,6 @@ data:
   verifiedWith: []
 documentation_of: algorithm/Utils/convert.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Utils/convert.hpp
-- /library/algorithm/Utils/convert.hpp.html
-title: algorithm/Utils/convert.hpp
+title: "\u5024\u306E\u5909\u63DB\u3092\u884C\u3046\u30E6\u30FC\u30C6\u30A3\u30EA\u30C6\
+  \u30A3\u30E9\u30A4\u30D6\u30E9\u30EA"
 ---

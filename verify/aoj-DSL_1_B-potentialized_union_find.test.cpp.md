@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algorithm/DataStructure/UnionFind/potentialized_union_find.hpp
-    title: algorithm/DataStructure/UnionFind/potentialized_union_find.hpp
+    title: "\u91CD\u307F\u4ED8\u304DUnion-Find"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

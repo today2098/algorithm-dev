@@ -45,8 +45,5 @@ data:
   verifiedWith: []
 documentation_of: algorithm/Utils/my_template.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Utils/my_template.hpp
-- /library/algorithm/Utils/my_template.hpp.html
-title: algorithm/Utils/my_template.hpp
+title: My Template
 ---

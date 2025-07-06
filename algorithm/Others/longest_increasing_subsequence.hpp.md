@@ -6,12 +6,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
     title: verify/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
     title: verify/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/Others/longest_increasing_subsequence.md
     document_title: "Longest Increasing Subsequence\uFF08\u6700\u9577\u5897\u52A0\u90E8\
@@ -82,7 +82,7 @@ data:
   path: algorithm/Others/longest_increasing_subsequence.hpp
   requiredBy: []
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-DPL_1_D-longest_increasing_subsequence.test.cpp
   - verify/yosupo-longest_increasing_subsequence-longest_increasing_subsequence.test.cpp

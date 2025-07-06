@@ -4,7 +4,7 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: algorithm/Math/Algebra/nth_root.hpp
-    title: algorithm/Math/Algebra/nth_root.hpp
+    title: "\u7D2F\u4E57\u6839\uFF08\u30CB\u30E5\u30FC\u30C8\u30F3\u6CD5\uFF09"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-ITP1_10_D-nth_root.test.cpp
@@ -41,8 +41,17 @@ data:
   - verify/aoj-ITP1_10_D-nth_root.test.cpp
 documentation_of: algorithm/Math/Algebra/power.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/Algebra/power.hpp
-- /library/algorithm/Math/Algebra/power.hpp.html
-title: algorithm/Math/Algebra/power.hpp
+title: "\u7E70\u308A\u8FD4\u3057\u4E8C\u4E57\u6CD5"
 ---
+
+
+## 概要
+
+$n$ を $k$ 乗した値 $n^k$ を求める（ただし，$k$ は非負整数）．
+
+本実装では「繰り返し二乗法」を用いており，計算量は $\mathcal{O}(\log k)$ となる．
+
+
+## 参考文献
+
+1. "冪乗". Wikipedia. <https://ja.wikipedia.org/wiki/冪乗>.

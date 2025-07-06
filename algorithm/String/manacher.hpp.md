@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-enumerate_palindromes-manacher.test.cpp
     title: verify/yosupo-enumerate_palindromes-manacher.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/String/manacher.md
     document_title: "Manacher's Algorithm\uFF08\u6700\u9577\u56DE\u6587\uFF09"
@@ -86,7 +86,7 @@ data:
   path: algorithm/String/manacher.hpp
   requiredBy: []
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-enumerate_palindromes-manacher.test.cpp
 documentation_of: algorithm/String/manacher.hpp

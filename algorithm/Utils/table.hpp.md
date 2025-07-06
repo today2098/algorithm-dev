@@ -74,8 +74,15 @@ data:
   verifiedWith: []
 documentation_of: algorithm/Utils/table.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Utils/table.hpp
-- /library/algorithm/Utils/table.hpp.html
-title: algorithm/Utils/table.hpp
+title: "\u591A\u6B21\u5143\u914D\u5217\u751F\u6210"
 ---
+
+
+## 概要
+
+`std::vector` による多次元配列を再帰的に生成する．
+
+
+## 参考文献
+
+1. "可変引数テンプレート [N2242]". cpprefjp. <https://cpprefjp.github.io/lang/cpp11/variadic_templates.html>.

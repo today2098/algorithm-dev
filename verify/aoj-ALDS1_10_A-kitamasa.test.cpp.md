@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algorithm/Math/Algebra/kitamasa.hpp
-    title: algorithm/Math/Algebra/kitamasa.hpp
+    title: "\u304D\u305F\u307E\u3055\u6CD5"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

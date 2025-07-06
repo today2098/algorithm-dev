@@ -67,8 +67,6 @@ data:
   verifiedWith: []
 documentation_of: algorithm/Utils/grid.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Utils/grid.hpp
-- /library/algorithm/Utils/grid.hpp.html
-title: algorithm/Utils/grid.hpp
+title: "\u30B0\u30EA\u30C3\u30C9\u554F\u984C\u306B\u95A2\u9023\u3059\u308B\u30E6\u30FC\
+  \u30C6\u30A3\u30EA\u30C6\u30A3\u30E9\u30A4\u30D6\u30E9\u30EA"
 ---

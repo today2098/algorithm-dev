@@ -2,31 +2,31 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/Convolution/number_theoretic_transform.hpp
     title: "Number Theoretic Transform\uFF08\u6570\u8AD6\u5909\u63DB\uFF09"
   - icon: ':warning:'
     path: algorithm/Math/ModularArithmetic/dynamic_modint.hpp
-    title: algorithm/Math/ModularArithmetic/dynamic_modint.hpp
-  - icon: ':x:'
+    title: "\u52D5\u7684Modint\u69CB\u9020\u4F53"
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/ModularArithmetic/modint.hpp
-    title: algorithm/Math/ModularArithmetic/modint.hpp
+    title: "Modint\u69CB\u9020\u4F53"
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
     title: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
     title: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
     title: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
     title: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: '#line 1 "algorithm/Math/ModularArithmetic/modint_base.hpp"
@@ -96,7 +96,7 @@ data:
   - algorithm/Math/ModularArithmetic/dynamic_modint.hpp
   - algorithm/Math/Convolution/number_theoretic_transform.hpp
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
@@ -104,8 +104,5 @@ data:
   - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
 documentation_of: algorithm/Math/ModularArithmetic/modint_base.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/ModularArithmetic/modint_base.hpp
-- /library/algorithm/Math/ModularArithmetic/modint_base.hpp.html
-title: algorithm/Math/ModularArithmetic/modint_base.hpp
+title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
 ---

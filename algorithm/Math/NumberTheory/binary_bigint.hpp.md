@@ -6,12 +6,12 @@ data:
     path: algorithm/Math/NumberTheory/bigint_utils.hpp
     title: algorithm/Math/NumberTheory/bigint_utils.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
     title: verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"algorithm/Math/NumberTheory/binary_bigint.hpp\"\n\n\n\n\
@@ -500,13 +500,21 @@ data:
   requiredBy:
   - algorithm/Math/NumberTheory/bigint_utils.hpp
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-addition_of_hex_big_integers-binary_bigint.test.cpp
 documentation_of: algorithm/Math/NumberTheory/binary_bigint.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/NumberTheory/binary_bigint.hpp
-- /library/algorithm/Math/NumberTheory/binary_bigint.hpp.html
-title: algorithm/Math/NumberTheory/binary_bigint.hpp
+title: "\u591A\u500D\u9577\u6574\u6570\uFF0816\u9032\u6570\uFF09"
 ---
+
+
+## 概要
+
+多倍長整数の演算をサポートする構造体．
+内部では整数値を2の補数表現で管理しており，ビット演算もサポートする．
+
+
+## 参考文献
+
+1. "2の補数". Wikipedia. <https://ja.wikipedia.org/wiki/2の補数>.

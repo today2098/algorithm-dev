@@ -51,8 +51,17 @@ data:
   - verify/aoj-ITP1_3_D-divisors.test.cpp
 documentation_of: algorithm/Math/NumberTheory/divisors.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/NumberTheory/divisors.hpp
-- /library/algorithm/Math/NumberTheory/divisors.hpp.html
-title: algorithm/Math/NumberTheory/divisors.hpp
+title: "\u7D04\u6570\u5217\u6319"
 ---
+
+
+## 概要
+
+自然数 $n$ の約数を列挙する．
+
+本実装では「試し割り法 (trial division)」を用いており，計算量は $\mathcal{O}(\sqrt n)$ となる．
+
+
+## 参考文献
+
+1. "試し割り法". Wikipedia. <https://ja.wikipedia.org/wiki/試し割り法>.

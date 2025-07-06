@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algorithm/Math/NumberTheory/divisors.hpp
-    title: algorithm/Math/NumberTheory/divisors.hpp
+    title: "\u7D04\u6570\u5217\u6319"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

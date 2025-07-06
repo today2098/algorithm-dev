@@ -15,18 +15,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_2_C-bigint.test.cpp
     title: verify/aoj-NTL_2_C-bigint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_2_D-bigint.test.cpp
     title: verify/aoj-NTL_2_D-bigint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_2_E-bigint.test.cpp
     title: verify/aoj-NTL_2_E-bigint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-addition_of_big_integers-bigint.test.cpp
     title: verify/yosupo-addition_of_big_integers-bigint.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"algorithm/Math/NumberTheory/bigint.hpp\"\n\n\n\n#include\
@@ -329,7 +329,7 @@ data:
   requiredBy:
   - algorithm/Math/NumberTheory/bigint_utils.hpp
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-NTL_2_E-bigint.test.cpp
   - verify/aoj-NTL_2_C-bigint.test.cpp
@@ -339,8 +339,16 @@ data:
   - verify/aoj-NTL_2_B-bigint.test.cpp
 documentation_of: algorithm/Math/NumberTheory/bigint.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/NumberTheory/bigint.hpp
-- /library/algorithm/Math/NumberTheory/bigint.hpp.html
-title: algorithm/Math/NumberTheory/bigint.hpp
+title: "\u591A\u500D\u9577\u6574\u6570"
 ---
+
+
+## 概要
+
+多倍長整数の演算をサポートする構造体．
+
+
+## 参考文献
+
+1. "任意精度演算". Wikipedia. <https://ja.wikipedia.org/wiki/任意精度演算>.
+1. square1001. "超高速！多倍長整数の計算手法【前編：大きな数の四則計算を圧倒的な速度で！】". Qiita. <https://qiita.com/square1001/items/1aa12e04934b6e749962>.

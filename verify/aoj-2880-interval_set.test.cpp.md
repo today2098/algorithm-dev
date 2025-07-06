@@ -3,7 +3,8 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algorithm/Others/interval_set.hpp
-    title: algorithm/Others/interval_set.hpp
+    title: "Interval Set\uFF08\u533A\u9593\u3092set\u3067\u7BA1\u7406\u3059\u308B\u30C7\
+      \u30FC\u30BF\u69CB\u9020\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

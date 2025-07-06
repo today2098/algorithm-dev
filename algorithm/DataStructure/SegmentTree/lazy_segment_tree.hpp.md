@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/Algebra/algebra.hpp
-    title: algorithm/Math/Algebra/algebra.hpp
+    title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -18,12 +18,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-DSL_2_I-lazy_segment_tree.test.cpp
     title: verify/aoj-DSL_2_I-lazy_segment_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
     title: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
@@ -36,67 +36,67 @@ data:
     \    value_type val;\n\npublic:\n    constexpr Set() : val() {}\n    constexpr\
     \ Set(const value_type &val) : val(val) {}\n    constexpr Set(value_type &&val)\
     \ : val(std::move(val)) {}\n\n    friend constexpr bool operator==(const Set &lhs,\
-    \ const Set &rhs) { return lhs.val == rhs.val; }\n    friend std::istream &operator>>(std::istream\
-    \ &is, Set &rhs) { return is >> rhs.val; }\n    friend std::ostream &operator<<(std::ostream\
-    \ &os, const Set &rhs) { return os << rhs.val; }\n\n    constexpr value_type value()\
-    \ const { return val; }\n};\n\ntemplate <typename S, auto op>\nclass Semigroup\
-    \ : public Set<S> {\n    static_assert(std::is_invocable_r<S, decltype(op), S,\
-    \ S>::value);\n\n    using base_type = Set<S>;\n\npublic:\n    using value_type\
-    \ = typename base_type::value_type;\n\n    constexpr Semigroup() : base_type()\
-    \ {}\n    constexpr Semigroup(const value_type &val) : base_type(val) {}\n   \
-    \ constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}\n\n   \
-    \ friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs)\
-    \ { return Semigroup(op(lhs.val, rhs.val)); }\n\n    static constexpr auto get_op()\
-    \ { return op; }\n};\n\ntemplate <typename S, auto op, auto e>\nclass Monoid :\
-    \ public Semigroup<S, op> {\n    static_assert(std::is_invocable_r<S, decltype(e)>::value);\n\
-    \n    using base_type = Semigroup<S, op>;\n\npublic:\n    using value_type = typename\
-    \ base_type::value_type;\n\n    constexpr Monoid() : base_type() {}\n    constexpr\
-    \ Monoid(const value_type &val) : base_type(val) {}\n    constexpr Monoid(value_type\
-    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr Monoid operator*(const\
-    \ Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.val, rhs.val)); }\n\n\
-    \    static constexpr auto get_e() { return e; }\n    static constexpr Monoid\
-    \ one() { return Monoid(e()); }  // return identity element.\n};\n\ntemplate <typename\
-    \ S, auto op, auto e, auto inverse>\nclass Group : public Monoid<S, op, e> {\n\
-    \    static_assert(std::is_invocable_r<S, decltype(inverse), S>::value);\n\n \
-    \   using base_type = Monoid<S, op, e>;\n\npublic:\n    using value_type = typename\
-    \ base_type::value_type;\n\n    constexpr Group() : base_type() {}\n    constexpr\
-    \ Group(const value_type &val) : base_type(val) {}\n    constexpr Group(value_type\
-    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr Group operator*(const\
-    \ Group &lhs, const Group &rhs) { return Group(op(lhs.val, rhs.val)); }\n\n  \
-    \  static constexpr auto get_inverse() { return inverse; }\n    static constexpr\
-    \ Group one() { return Group(e()); }                // return identity element.\n\
-    \    constexpr Group inv() const { return Group(inverse(this->val)); }  // return\
-    \ inverse element.\n};\n\ntemplate <typename F, auto compose, auto id, typename\
-    \ X, auto mapping>\nclass OperatorMonoid : public Monoid<F, compose, id> {\n \
-    \   static_assert(std::is_invocable_r<X, decltype(mapping), F, X>::value);\n\n\
-    \    using base_type = Monoid<F, compose, id>;\n\npublic:\n    using value_type\
-    \ = typename base_type::value_type;\n    using acted_value_type = X;\n\n    constexpr\
-    \ OperatorMonoid() : base_type() {}\n    constexpr OperatorMonoid(const value_type\
-    \ &val) : base_type(val) {}\n    constexpr OperatorMonoid(value_type &&val) :\
-    \ base_type(std::move(val)) {}\n\n    friend constexpr OperatorMonoid operator*(const\
-    \ OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val,\
-    \ rhs.val)); }\n\n    static constexpr auto get_mapping() { return mapping; }\n\
-    \    static constexpr OperatorMonoid one() { return OperatorMonoid(id()); }  //\
-    \ return identity mapping.\n    constexpr acted_value_type act(const acted_value_type\
-    \ &x) const { return mapping(this->val, x); }\n    template <class S>\n    constexpr\
-    \ S act(const S &x) const {\n        static_assert(std::is_base_of<Set<acted_value_type>,\
-    \ S>::value);\n        return S(mapping(this->val, x.value()));\n    }\n};\n\n\
-    namespace element {\n\ntemplate <typename S>\nconstexpr auto zero = []() -> S\
-    \ { return S(); };\n\ntemplate <typename S>\nconstexpr auto one = []() -> S {\
-    \ return 1; };\n\ntemplate <typename S>\nconstexpr auto min = []() -> S { return\
+    \ const Set &rhs) { return lhs.value() == rhs.value(); }\n    friend std::istream\
+    \ &operator>>(std::istream &is, Set &rhs) { return is >> rhs.val; }\n    friend\
+    \ std::ostream &operator<<(std::ostream &os, const Set &rhs) { return os << rhs.value();\
+    \ }\n\n    constexpr value_type value() const { return val; }\n};\n\ntemplate\
+    \ <typename S, auto op>\nclass Semigroup : public Set<S> {\n    static_assert(std::is_invocable_r<S,\
+    \ decltype(op), S, S>::value);\n\npublic:\n    using base_type = Set<S>;\n   \
+    \ using value_type = typename base_type::value_type;\n\n    constexpr Semigroup()\
+    \ : base_type() {}\n    constexpr Semigroup(const value_type &val) : base_type(val)\
+    \ {}\n    constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}\n\
+    \n    friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup\
+    \ &rhs) { return Semigroup(op(lhs.value(), rhs.value())); }\n\n    static constexpr\
+    \ auto get_op() { return op; }\n};\n\ntemplate <typename S, auto op, auto e>\n\
+    class Monoid : public Semigroup<S, op> {\n    static_assert(std::is_invocable_r<S,\
+    \ decltype(e)>::value);\n\npublic:\n    using base_type = Semigroup<S, op>;\n\
+    \    using value_type = typename base_type::value_type;\n\n    constexpr Monoid()\
+    \ : base_type() {}\n    constexpr Monoid(const value_type &val) : base_type(val)\
+    \ {}\n    constexpr Monoid(value_type &&val) : base_type(std::move(val)) {}\n\n\
+    \    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) {\
+    \ return Monoid(op(lhs.value(), rhs.value())); }\n\n    static constexpr auto\
+    \ get_e() { return e; }\n    static constexpr Monoid one() { return Monoid(e());\
+    \ }  // return identity element.\n};\n\ntemplate <typename S, auto op, auto e,\
+    \ auto inverse>\nclass Group : public Monoid<S, op, e> {\n    static_assert(std::is_invocable_r<S,\
+    \ decltype(inverse), S>::value);\n\npublic:\n    using base_type = Monoid<S, op,\
+    \ e>;\n    using value_type = typename base_type::value_type;\n\n    constexpr\
+    \ Group() : base_type() {}\n    constexpr Group(const value_type &val) : base_type(val)\
+    \ {}\n    constexpr Group(value_type &&val) : base_type(std::move(val)) {}\n\n\
+    \    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return\
+    \ Group(op(lhs.value(), rhs.value())); }\n\n    static constexpr auto get_inverse()\
+    \ { return inverse; }\n    static constexpr Group one() { return Group(e()); }\
+    \                    // return identity element.\n    constexpr Group inv() const\
+    \ { return Group(inverse(this->value())); }  // return inverse element.\n};\n\n\
+    template <typename F, auto compose, auto id, typename X, auto mapping>\nclass\
+    \ OperatorMonoid : public Monoid<F, compose, id> {\n    static_assert(std::is_invocable_r<X,\
+    \ decltype(mapping), F, X>::value);\n\npublic:\n    using base_type = Monoid<F,\
+    \ compose, id>;\n    using value_type = typename base_type::value_type;\n    using\
+    \ acted_type = X;\n\n    constexpr OperatorMonoid() : base_type() {}\n    constexpr\
+    \ OperatorMonoid(const value_type &val) : base_type(val) {}\n    constexpr OperatorMonoid(value_type\
+    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr OperatorMonoid\
+    \ operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.value(),\
+    \ rhs.value())); }\n\n    static constexpr auto get_mapping() { return mapping;\
+    \ }\n    static constexpr OperatorMonoid one() { return OperatorMonoid(id());\
+    \ }  // return identity mapping.\n    constexpr acted_type act(const acted_type\
+    \ &x) const { return mapping(this->value(), x); }\n    template <class S>\n  \
+    \  constexpr S act(const S &x) const {\n        static_assert(std::is_base_of<Set<acted_type>,\
+    \ S>::value);\n        return S(mapping(this->value(), x.value()));\n    }\n};\n\
+    \nnamespace element {\n\ntemplate <typename S>\nconstexpr auto zero = []() ->\
+    \ S { return S(); };\n\ntemplate <typename S>\nconstexpr auto one = []() -> S\
+    \ { return 1; };\n\ntemplate <typename S>\nconstexpr auto min = []() -> S { return\
     \ std::numeric_limits<S>::min(); };\n\ntemplate <typename S>\nconstexpr auto max\
     \ = []() -> S { return std::numeric_limits<S>::max(); };\n\ntemplate <typename\
     \ S>\nconstexpr auto one_below_max = []() -> S { return std::numeric_limits<S>::max()\
     \ - 1; };\n\ntemplate <typename S>\nconstexpr auto lowest = []() -> S { return\
     \ std::numeric_limits<S>::lowest(); };\n\ntemplate <typename S>\nconstexpr auto\
     \ one_above_lowest = []() -> S { return std::numeric_limits<S>::lowest() + 1;\
-    \ };\n\n}  // namespace element\n\nnamespace uoperator {\n\ntemplate <typename\
+    \ };\n\n}  // namespace element\n\nnamespace unary_operator {\n\ntemplate <typename\
     \ S>\nconstexpr auto identity = [](const S &val) -> S { return val; };\n\ntemplate\
     \ <typename S>\nconstexpr auto negate = [](const S &val) -> S { return -val; };\n\
-    \n}  // namespace uoperator\n\nnamespace boperator {\n\ntemplate <typename T,\
-    \ typename S = T>\nconstexpr auto plus = [](const T &lhs, const S &rhs) -> S {\
-    \ return lhs + rhs; };\n\ntemplate <typename T, typename S = T>\nconstexpr auto\
-    \ mul = [](const T &lhs, const S &rhs) -> S { return lhs * rhs; };\n\ntemplate\
+    \n}  // namespace unary_operator\n\nnamespace binary_operator {\n\ntemplate <typename\
+    \ T, typename S = T>\nconstexpr auto plus = [](const T &lhs, const S &rhs) ->\
+    \ S { return lhs + rhs; };\n\ntemplate <typename T, typename S = T>\nconstexpr\
+    \ auto mul = [](const T &lhs, const S &rhs) -> S { return lhs * rhs; };\n\ntemplate\
     \ <typename T, typename S = T>\nconstexpr auto bit_and = [](const T &lhs, const\
     \ S &rhs) -> S { return lhs & rhs; };\n\ntemplate <typename T, typename S = T>\n\
     constexpr auto bit_or = [](const T &lhs, const S &rhs) -> S { return lhs | rhs;\
@@ -111,27 +111,28 @@ data:
     \ };\n\ntemplate <typename F, auto id, typename X = F>\nconstexpr auto assign_if_not_id\
     \ = [](const F &lhs, const X &rhs) -> X {\n    static_assert(std::is_invocable_r<F,\
     \ decltype(id)>::value);\n    return (lhs == id() ? rhs : lhs);\n};\n\n}  // namespace\
-    \ boperator\n\nnamespace monoid {\n\ntemplate <typename S>\nusing minimum = Monoid<S,\
-    \ boperator::min<S>, element::max<S>>;\n\ntemplate <typename S>\nusing minimum_safe\
-    \ = Monoid<S, boperator::min<S>, element::one_below_max<S>>;\n\ntemplate <typename\
-    \ S>\nusing maximum = Monoid<S, boperator::max<S>, element::lowest<S>>;\n\ntemplate\
-    \ <typename S>\nusing maximum_safe = Monoid<S, boperator::max<S>, element::one_above_lowest<S>>;\n\
-    \ntemplate <typename S>\nusing addition = Monoid<S, boperator::plus<S>, element::zero<S>>;\n\
-    \ntemplate <typename S>\nusing multiplication = Monoid<S, boperator::mul<S>, element::one<S>>;\n\
-    \ntemplate <typename S>\nusing bit_xor = Monoid<S, boperator::bit_xor<S>, element::zero<S>>;\n\
+    \ binary_operator\n\nnamespace monoid {\n\ntemplate <typename S>\nusing minimum\
+    \ = Monoid<S, binary_operator::min<S>, element::max<S>>;\n\ntemplate <typename\
+    \ S>\nusing minimum_safe = Monoid<S, binary_operator::min<S>, element::one_below_max<S>>;\n\
+    \ntemplate <typename S>\nusing maximum = Monoid<S, binary_operator::max<S>, element::lowest<S>>;\n\
+    \ntemplate <typename S>\nusing maximum_safe = Monoid<S, binary_operator::max<S>,\
+    \ element::one_above_lowest<S>>;\n\ntemplate <typename S>\nusing addition = Monoid<S,\
+    \ binary_operator::plus<S>, element::zero<S>>;\n\ntemplate <typename S>\nusing\
+    \ multiplication = Monoid<S, binary_operator::mul<S>, element::one<S>>;\n\ntemplate\
+    \ <typename S>\nusing bit_xor = Monoid<S, binary_operator::bit_xor<S>, element::zero<S>>;\n\
     \n}  // namespace monoid\n\nnamespace group {\n\ntemplate <typename S>\nusing\
-    \ addition = Group<S, boperator::plus<S>, element::zero<S>, uoperator::negate<S>>;\n\
-    \ntemplate <typename S>\nusing bit_xor = Group<S, boperator::bit_xor<S>, element::zero<S>,\
-    \ uoperator::identity<S>>;\n\n}  // namespace group\n\nnamespace operator_monoid\
-    \ {\n\ntemplate <typename F, typename X = F>\nusing assign_for_minimum = OperatorMonoid<\n\
-    \    F, boperator::assign_if_not_id<F, element::max<F>>, element::max<F>,\n  \
-    \  X, boperator::assign_if_not_id<F, element::max<F>, X>>;\n\ntemplate <typename\
-    \ F, typename X = F>\nusing assign_for_maximum = OperatorMonoid<\n    F, boperator::assign_if_not_id<F,\
-    \ element::lowest<F>>, element::lowest<F>,\n    X, boperator::assign_if_not_id<F,\
-    \ element::lowest<F>, X>>;\n\ntemplate <typename F, typename X = F>\nusing addition\
-    \ = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F,\
-    \ X>>;\n\n}  // namespace operator_monoid\n\n}  // namespace algebra\n\n}  //\
-    \ namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
+    \ addition = Group<S, binary_operator::plus<S>, element::zero<S>, unary_operator::negate<S>>;\n\
+    \ntemplate <typename S>\nusing bit_xor = Group<S, binary_operator::bit_xor<S>,\
+    \ element::zero<S>, unary_operator::identity<S>>;\n\n}  // namespace group\n\n\
+    namespace operator_monoid {\n\ntemplate <typename F, typename X = F>\nusing assign_for_minimum\
+    \ = OperatorMonoid<\n    F, binary_operator::assign_if_not_id<F, element::max<F>>,\
+    \ element::max<F>,\n    X, binary_operator::assign_if_not_id<F, element::max<F>,\
+    \ X>>;\n\ntemplate <typename F, typename X = F>\nusing assign_for_maximum = OperatorMonoid<\n\
+    \    F, binary_operator::assign_if_not_id<F, element::lowest<F>>, element::lowest<F>,\n\
+    \    X, binary_operator::assign_if_not_id<F, element::lowest<F>, X>>;\n\ntemplate\
+    \ <typename F, typename X = F>\nusing addition = OperatorMonoid<\n    F, binary_operator::plus<F>,\
+    \ element::zero<F>,\n    X, binary_operator::plus<F, X>>;\n\n}  // namespace operator_monoid\n\
+    \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace lazy_segment_tree {\n\ntemplate <class\
     \ ActedMonoid, class OperatorMonoid>\nclass LazySegmentTree {\npublic:\n    using\
     \ acted_monoid_type = ActedMonoid;\n    using operator_monoid_type = OperatorMonoid;\n\
@@ -263,23 +264,23 @@ data:
     \ {lhs.val + rhs.val, lhs.size + rhs.size}; }\n    friend std::ostream &operator<<(std::ostream\
     \ &os, const S &rhs) { return os << \"{\" << rhs.val << \", \" << rhs.size <<\
     \ \"}\"; }\n};\n\ntemplate <typename T>\nusing acted_monoid = algebra::Monoid<S<T>,\
-    \ algebra::boperator::plus<S<T>>, algebra::element::zero<S<T>>>;\n\ntemplate <typename\
-    \ F>\nconstexpr auto id = algebra::element::max<F>;\n\ntemplate <typename F>\n\
-    constexpr auto compose = algebra::boperator::assign_if_not_id<F, id<F>>;\n\ntemplate\
-    \ <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f, const\
-    \ S<T> &x) -> S<T> {\n    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);\n\
+    \ algebra::binary_operator::plus<S<T>>, algebra::element::zero<S<T>>>;\n\ntemplate\
+    \ <typename F>\nconstexpr auto id = algebra::element::max<F>;\n\ntemplate <typename\
+    \ F>\nconstexpr auto compose = algebra::binary_operator::assign_if_not_id<F, id<F>>;\n\
+    \ntemplate <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f,\
+    \ const S<T> &x) -> S<T> {\n    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);\n\
     \    return {(f == id<F>() ? x.val : f * x.size), x.size};\n};\n\ntemplate <typename\
     \ F, typename T = F>\nusing operator_monoid = algebra::OperatorMonoid<F, compose<F>,\
     \ id<F>, S<T>, mapping<F, T>>;\n\n}  // namespace range_sum_range_update\n\nnamespace\
     \ range_sum_range_add {\n\ntemplate <typename T>\nusing S = range_sum_range_update::S<T>;\n\
     \ntemplate <typename T>\nusing acted_monoid = range_sum_range_update::acted_monoid<T>;\n\
     \ntemplate <typename F>\nconstexpr auto id = algebra::element::zero<F>;\n\ntemplate\
-    \ <typename F>\nconstexpr auto compose = algebra::boperator::plus<F>;\n\ntemplate\
-    \ <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f, const\
-    \ S<T> &x) -> S<T> { return {x.val + f * x.size, x.size}; };\n\ntemplate <typename\
-    \ F, typename T = F>\nusing operator_monoid = algebra::OperatorMonoid<F, compose<F>,\
-    \ id<F>, S<T>, mapping<F, T>>;\n\n}  // namespace range_sum_range_add\n\nnamespace\
-    \ range_sum_range_affine {\n\ntemplate <typename T>\nusing S = range_sum_range_update::S<T>;\n\
+    \ <typename F>\nconstexpr auto compose = algebra::binary_operator::plus<F>;\n\n\
+    template <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f,\
+    \ const S<T> &x) -> S<T> { return {x.val + f * x.size, x.size}; };\n\ntemplate\
+    \ <typename F, typename T = F>\nusing operator_monoid = algebra::OperatorMonoid<F,\
+    \ compose<F>, id<F>, S<T>, mapping<F, T>>;\n\n}  // namespace range_sum_range_add\n\
+    \nnamespace range_sum_range_affine {\n\ntemplate <typename T>\nusing S = range_sum_range_update::S<T>;\n\
     \ntemplate <typename T>\nusing acted_monoid = range_sum_range_update::acted_monoid<T>;\n\
     \ntemplate <typename U>\nstruct F {\n    U a;\n    U b;\n\n    constexpr F() :\
     \ F(U(), U()) {}\n    constexpr F(const U &a, const U &b) : a(a), b(b) {}\n\n\
@@ -287,7 +288,7 @@ data:
     \ * rhs.a, lhs.a * rhs.b + lhs.b}; }\n    friend std::ostream &operator<<(std::ostream\
     \ &os, const F &rhs) { return os << \"{\" << rhs.a << \", \" << rhs.b << \"}\"\
     ; }\n};\n\ntemplate <typename U>\nconstexpr auto id = []() -> F<U> { return {1,\
-    \ 0}; };\n\ntemplate <typename U>\nconstexpr auto compose = algebra::boperator::mul<F<U>>;\n\
+    \ 0}; };\n\ntemplate <typename U>\nconstexpr auto compose = algebra::binary_operator::mul<F<U>>;\n\
     \ntemplate <typename U, typename T = U>\nconstexpr auto mapping = [](const F<U>\
     \ &f, const S<T> &x) -> S<T> { return {f.a * x.val + f.b * x.size, x.size}; };\n\
     \ntemplate <typename U, typename T = U>\nusing operator_monoid = algebra::OperatorMonoid<F<U>,\
@@ -442,23 +443,23 @@ data:
     \ {lhs.val + rhs.val, lhs.size + rhs.size}; }\n    friend std::ostream &operator<<(std::ostream\
     \ &os, const S &rhs) { return os << \"{\" << rhs.val << \", \" << rhs.size <<\
     \ \"}\"; }\n};\n\ntemplate <typename T>\nusing acted_monoid = algebra::Monoid<S<T>,\
-    \ algebra::boperator::plus<S<T>>, algebra::element::zero<S<T>>>;\n\ntemplate <typename\
-    \ F>\nconstexpr auto id = algebra::element::max<F>;\n\ntemplate <typename F>\n\
-    constexpr auto compose = algebra::boperator::assign_if_not_id<F, id<F>>;\n\ntemplate\
-    \ <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f, const\
-    \ S<T> &x) -> S<T> {\n    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);\n\
+    \ algebra::binary_operator::plus<S<T>>, algebra::element::zero<S<T>>>;\n\ntemplate\
+    \ <typename F>\nconstexpr auto id = algebra::element::max<F>;\n\ntemplate <typename\
+    \ F>\nconstexpr auto compose = algebra::binary_operator::assign_if_not_id<F, id<F>>;\n\
+    \ntemplate <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f,\
+    \ const S<T> &x) -> S<T> {\n    static_assert(std::is_invocable_r<F, decltype(id<F>)>::value);\n\
     \    return {(f == id<F>() ? x.val : f * x.size), x.size};\n};\n\ntemplate <typename\
     \ F, typename T = F>\nusing operator_monoid = algebra::OperatorMonoid<F, compose<F>,\
     \ id<F>, S<T>, mapping<F, T>>;\n\n}  // namespace range_sum_range_update\n\nnamespace\
     \ range_sum_range_add {\n\ntemplate <typename T>\nusing S = range_sum_range_update::S<T>;\n\
     \ntemplate <typename T>\nusing acted_monoid = range_sum_range_update::acted_monoid<T>;\n\
     \ntemplate <typename F>\nconstexpr auto id = algebra::element::zero<F>;\n\ntemplate\
-    \ <typename F>\nconstexpr auto compose = algebra::boperator::plus<F>;\n\ntemplate\
-    \ <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f, const\
-    \ S<T> &x) -> S<T> { return {x.val + f * x.size, x.size}; };\n\ntemplate <typename\
-    \ F, typename T = F>\nusing operator_monoid = algebra::OperatorMonoid<F, compose<F>,\
-    \ id<F>, S<T>, mapping<F, T>>;\n\n}  // namespace range_sum_range_add\n\nnamespace\
-    \ range_sum_range_affine {\n\ntemplate <typename T>\nusing S = range_sum_range_update::S<T>;\n\
+    \ <typename F>\nconstexpr auto compose = algebra::binary_operator::plus<F>;\n\n\
+    template <typename F, typename T = F>\nconstexpr auto mapping = [](const F &f,\
+    \ const S<T> &x) -> S<T> { return {x.val + f * x.size, x.size}; };\n\ntemplate\
+    \ <typename F, typename T = F>\nusing operator_monoid = algebra::OperatorMonoid<F,\
+    \ compose<F>, id<F>, S<T>, mapping<F, T>>;\n\n}  // namespace range_sum_range_add\n\
+    \nnamespace range_sum_range_affine {\n\ntemplate <typename T>\nusing S = range_sum_range_update::S<T>;\n\
     \ntemplate <typename T>\nusing acted_monoid = range_sum_range_update::acted_monoid<T>;\n\
     \ntemplate <typename U>\nstruct F {\n    U a;\n    U b;\n\n    constexpr F() :\
     \ F(U(), U()) {}\n    constexpr F(const U &a, const U &b) : a(a), b(b) {}\n\n\
@@ -466,7 +467,7 @@ data:
     \ * rhs.a, lhs.a * rhs.b + lhs.b}; }\n    friend std::ostream &operator<<(std::ostream\
     \ &os, const F &rhs) { return os << \"{\" << rhs.a << \", \" << rhs.b << \"}\"\
     ; }\n};\n\ntemplate <typename U>\nconstexpr auto id = []() -> F<U> { return {1,\
-    \ 0}; };\n\ntemplate <typename U>\nconstexpr auto compose = algebra::boperator::mul<F<U>>;\n\
+    \ 0}; };\n\ntemplate <typename U>\nconstexpr auto compose = algebra::binary_operator::mul<F<U>>;\n\
     \ntemplate <typename U, typename T = U>\nconstexpr auto mapping = [](const F<U>\
     \ &f, const S<T> &x) -> S<T> { return {f.a * x.val + f.b * x.size, x.size}; };\n\
     \ntemplate <typename U, typename T = U>\nusing operator_monoid = algebra::OperatorMonoid<F<U>,\
@@ -491,8 +492,8 @@ data:
   isVerificationFile: false
   path: algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
   requiredBy: []
-  timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-07-06 12:46:03+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-DSL_2_I-lazy_segment_tree.test.cpp
   - verify/aoj-DSL_2_H-lazy_segment_tree.test.cpp
@@ -501,8 +502,74 @@ data:
   - verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp
 documentation_of: algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
 layout: document
-redirect_from:
-- /library/algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
-- /library/algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp.html
-title: algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
+title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\
+  \u6728\uFF09"
 ---
+
+
+##  概要
+
+単純な Segment tree が処理するクエリは一点更新・区間取得であるのに対し，「Lazy segment tree（遅延評価セグメント木）」は**区間更新**・区間取得のクエリを処理する．
+
+具体的には，あるモノイド $(S, \bullet: S \times S \rightarrow S, e \in S)$ と作用素モノイド $(F, \circ : F \times F \rightarrow F, id \in F, S, . : F \times S \rightarrow S)$ において，長さ $N$ の要素列 $\lbrace a_0, a_1, \ldots, a_{n-1} \rbrace$ に対する次のクエリ処理を $\mathcal{O}(\log N)$ で行う．
+
+- **区間更新**：区間 $[l, r)$ の要素 $a_l, a_{l+1}, \ldots, a_{r-1}$ を作用素 $f$ を用いて更新する ( $x=f.x$ )
+- **区間取得**：区間 $[l, r)$ の要素の総積 $a_l \bullet a_{l+1} \bullet \cdots \bullet a_{r-1}$ を取得する
+
+ここで「作用素モノイド」とは，次の性質を満たす組 $(F, \circ : F \times F \rightarrow F, id \in F, S, . : F \times S \rightarrow S)$ による代数的構造のことをいう．
+
+1. 組 $(F, \circ, id)$ がモノイドを成す
+1. $id.x = x \quad (\forall x \in S)$
+1. $f.(g.x) = (f \circ g).x \quad (\forall f, \forall g \in F, \forall x \in S)$
+
+Lazy segment tree にのせるモノイドと作用素モノイドは次の条件を満たす必要がある（準同型）．
+
+- 分配律：$f.(x \bullet y) = f.x \bullet f.y \quad (\forall f \in F, \forall x, \forall y \in S)$
+
+
+## 説明
+
+### algorithm::lazy_segment_tree::LazySegmentTree<Monoid,OperatorMonoid>
+
+|テンプレート引数|説明|
+|---|---|
+|`Monoid`|モノイドの型．`algorithm::algebra::Monoid` を想定している．|
+|`OperatorMonoid`|作用素モノイドの型．`algorithm::algebra::OperatorMonoid` を想定している．|
+
+|コンストラクタ|説明|計算量|
+|---|---|---|
+|`LazySegmentTree()`|デフォルトコンストラクタ．サイズゼロの `LazySegmentTree` オブジェクトを構築する．|-|
+|`LazySegmentTree(n)`|コンストラクタ．`n` 個の単位元 `Monoid::one()` で初期化された要素をもつ `LazySegmentTree` オブジェクトを構築する．|$\Theta(N)$|
+|`LazySegmentTree(n,a)`|コンストラクタ．`n` 個の `a` で初期化された要素をもつ `LazySegmentTree` オブジェクトを構築する．|$\Theta(N)$|
+|`LazySegmentTree(first,last)`|コンストラクタ．イテレータ範囲 `[first,last)` の要素を用いて `LazySegmentTree` オブジェクトを構築する．|$\Theta(N)$|
+|`LazySegmentTree(il)`|初期化子リスト `il` を受け取るコンストラクタ．`LazySegmentTree(il.begin(),il.end())` と等価．|$\Theta(N)$|
+
+|メンバ関数|説明|計算量|
+|---|---|---|
+|`x=size()`|要素数 `x` を取得する．|$\mathcal{O}(1)$|
+|`set(k,a)`|`k` 番目の要素を `a` に置き換える．|$\Theta(\log N)$|
+|`apply(k,f)`|`k` 番目の要素を作用素 `f` を用いて更新する．|$\Theta(\log N)$|
+|`apply(l,r,f)`|区間 `[l,r)` の要素を作用素 `f` を用いて更新する．|$\Theta(\log N)$|
+|`x=prod(k)`|`k` 番目の要素 `x` を取得する．|$\Theta(\log N)$|
+|`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\Theta(\log N)$|
+|`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\mathcal{O}(1)$|
+|`r=most_right(l,pred)`|`pred(prod(l,r))==true` となる区間の最右位置 `r` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\Theta(\log N)$|
+|`l=most_left(r,pred)`|`pred(prod(l,r))==true` となる区間の最左位置 `l` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\Theta(\log N)$|
+|`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(N)$|
+
+
+## 参考
+
+1. "Lazy Segtree". AC Library. AtCoder. <https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html>.
+1. "作用素". Wikipedia. <https://ja.wikipedia.org/wiki/作用素>.
+1. "モノイド作用と作用素モノイド". Wikipedia. <https://ja.wikipedia.org/wiki/モノイド#モノイド作用と作用素モノイド>.
+1. "準同型". Wikipedia. <https://ja.wikipedia.org/wiki/準同型>.
+1. betrue12. "Atcoder LibraryのLazy Segtreeの使い方". Hatena Blog. <https://betrue12.hateblo.jp/entry/2020/09/22/194541>.
+1. "Segment木の種類とその要件". うさぎ小屋. <https://kmyk.github.io/blog/blog/2017/01/17/segment-tree-requirements/>.
+1. "遅延評価セグメント木". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/segment_tree/lazy_segment_tree>.
+
+
+## 問題
+
+- "K - Range Affine Range Sum". AtCoder Library Practice Contest. AtCoder. <https://atcoder.jp/contests/practice2/tasks/practice2_k>.
+- "L - Lazy Segment Tree". AtCoder Library Practice Contest. AtCoder. <https://atcoder.jp/contests/practice2/tasks/practice2_l>.

@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/NumberTheory/bigint.hpp
-    title: algorithm/Math/NumberTheory/bigint.hpp
-  - icon: ':x:'
+    title: "\u591A\u500D\u9577\u6574\u6570"
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/NumberTheory/binary_bigint.hpp
-    title: algorithm/Math/NumberTheory/binary_bigint.hpp
+    title: "\u591A\u500D\u9577\u6574\u6570\uFF0816\u9032\u6570\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

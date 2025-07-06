@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algorithm/Graph/Tree/double_sweep.hpp
     title: "Double Sweep\uFF08\u6728\u306E\u76F4\u5F84\uFF09"
   _extendedRequiredBy: []

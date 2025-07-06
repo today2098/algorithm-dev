@@ -1,20 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
-    title: algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
-  - icon: ':x:'
+    title: Binary Indexed Tree
+  - icon: ':heavy_check_mark:'
     path: algorithm/Graph/Tree/heavy_light_decomposition.hpp
-    title: algorithm/Graph/Tree/heavy_light_decomposition.hpp
-  - icon: ':question:'
+    title: "Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\u91CD\u8EFD\u5206\u89E3\
+      \uFF09"
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/Algebra/algebra.hpp
-    title: algorithm/Math/Algebra/algebra.hpp
+    title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/vertex_add_subtree_sum
@@ -32,67 +33,67 @@ data:
     \npublic:\n    constexpr Set() : val() {}\n    constexpr Set(const value_type\
     \ &val) : val(val) {}\n    constexpr Set(value_type &&val) : val(std::move(val))\
     \ {}\n\n    friend constexpr bool operator==(const Set &lhs, const Set &rhs) {\
-    \ return lhs.val == rhs.val; }\n    friend std::istream &operator>>(std::istream\
+    \ return lhs.value() == rhs.value(); }\n    friend std::istream &operator>>(std::istream\
     \ &is, Set &rhs) { return is >> rhs.val; }\n    friend std::ostream &operator<<(std::ostream\
-    \ &os, const Set &rhs) { return os << rhs.val; }\n\n    constexpr value_type value()\
-    \ const { return val; }\n};\n\ntemplate <typename S, auto op>\nclass Semigroup\
+    \ &os, const Set &rhs) { return os << rhs.value(); }\n\n    constexpr value_type\
+    \ value() const { return val; }\n};\n\ntemplate <typename S, auto op>\nclass Semigroup\
     \ : public Set<S> {\n    static_assert(std::is_invocable_r<S, decltype(op), S,\
-    \ S>::value);\n\n    using base_type = Set<S>;\n\npublic:\n    using value_type\
+    \ S>::value);\n\npublic:\n    using base_type = Set<S>;\n    using value_type\
     \ = typename base_type::value_type;\n\n    constexpr Semigroup() : base_type()\
     \ {}\n    constexpr Semigroup(const value_type &val) : base_type(val) {}\n   \
     \ constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}\n\n   \
     \ friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs)\
-    \ { return Semigroup(op(lhs.val, rhs.val)); }\n\n    static constexpr auto get_op()\
-    \ { return op; }\n};\n\ntemplate <typename S, auto op, auto e>\nclass Monoid :\
-    \ public Semigroup<S, op> {\n    static_assert(std::is_invocable_r<S, decltype(e)>::value);\n\
-    \n    using base_type = Semigroup<S, op>;\n\npublic:\n    using value_type = typename\
-    \ base_type::value_type;\n\n    constexpr Monoid() : base_type() {}\n    constexpr\
-    \ Monoid(const value_type &val) : base_type(val) {}\n    constexpr Monoid(value_type\
-    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr Monoid operator*(const\
-    \ Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.val, rhs.val)); }\n\n\
-    \    static constexpr auto get_e() { return e; }\n    static constexpr Monoid\
-    \ one() { return Monoid(e()); }  // return identity element.\n};\n\ntemplate <typename\
-    \ S, auto op, auto e, auto inverse>\nclass Group : public Monoid<S, op, e> {\n\
-    \    static_assert(std::is_invocable_r<S, decltype(inverse), S>::value);\n\n \
-    \   using base_type = Monoid<S, op, e>;\n\npublic:\n    using value_type = typename\
-    \ base_type::value_type;\n\n    constexpr Group() : base_type() {}\n    constexpr\
-    \ Group(const value_type &val) : base_type(val) {}\n    constexpr Group(value_type\
-    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr Group operator*(const\
-    \ Group &lhs, const Group &rhs) { return Group(op(lhs.val, rhs.val)); }\n\n  \
-    \  static constexpr auto get_inverse() { return inverse; }\n    static constexpr\
-    \ Group one() { return Group(e()); }                // return identity element.\n\
-    \    constexpr Group inv() const { return Group(inverse(this->val)); }  // return\
-    \ inverse element.\n};\n\ntemplate <typename F, auto compose, auto id, typename\
-    \ X, auto mapping>\nclass OperatorMonoid : public Monoid<F, compose, id> {\n \
-    \   static_assert(std::is_invocable_r<X, decltype(mapping), F, X>::value);\n\n\
-    \    using base_type = Monoid<F, compose, id>;\n\npublic:\n    using value_type\
-    \ = typename base_type::value_type;\n    using acted_value_type = X;\n\n    constexpr\
-    \ OperatorMonoid() : base_type() {}\n    constexpr OperatorMonoid(const value_type\
-    \ &val) : base_type(val) {}\n    constexpr OperatorMonoid(value_type &&val) :\
-    \ base_type(std::move(val)) {}\n\n    friend constexpr OperatorMonoid operator*(const\
-    \ OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val,\
-    \ rhs.val)); }\n\n    static constexpr auto get_mapping() { return mapping; }\n\
-    \    static constexpr OperatorMonoid one() { return OperatorMonoid(id()); }  //\
-    \ return identity mapping.\n    constexpr acted_value_type act(const acted_value_type\
-    \ &x) const { return mapping(this->val, x); }\n    template <class S>\n    constexpr\
-    \ S act(const S &x) const {\n        static_assert(std::is_base_of<Set<acted_value_type>,\
-    \ S>::value);\n        return S(mapping(this->val, x.value()));\n    }\n};\n\n\
-    namespace element {\n\ntemplate <typename S>\nconstexpr auto zero = []() -> S\
-    \ { return S(); };\n\ntemplate <typename S>\nconstexpr auto one = []() -> S {\
-    \ return 1; };\n\ntemplate <typename S>\nconstexpr auto min = []() -> S { return\
+    \ { return Semigroup(op(lhs.value(), rhs.value())); }\n\n    static constexpr\
+    \ auto get_op() { return op; }\n};\n\ntemplate <typename S, auto op, auto e>\n\
+    class Monoid : public Semigroup<S, op> {\n    static_assert(std::is_invocable_r<S,\
+    \ decltype(e)>::value);\n\npublic:\n    using base_type = Semigroup<S, op>;\n\
+    \    using value_type = typename base_type::value_type;\n\n    constexpr Monoid()\
+    \ : base_type() {}\n    constexpr Monoid(const value_type &val) : base_type(val)\
+    \ {}\n    constexpr Monoid(value_type &&val) : base_type(std::move(val)) {}\n\n\
+    \    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) {\
+    \ return Monoid(op(lhs.value(), rhs.value())); }\n\n    static constexpr auto\
+    \ get_e() { return e; }\n    static constexpr Monoid one() { return Monoid(e());\
+    \ }  // return identity element.\n};\n\ntemplate <typename S, auto op, auto e,\
+    \ auto inverse>\nclass Group : public Monoid<S, op, e> {\n    static_assert(std::is_invocable_r<S,\
+    \ decltype(inverse), S>::value);\n\npublic:\n    using base_type = Monoid<S, op,\
+    \ e>;\n    using value_type = typename base_type::value_type;\n\n    constexpr\
+    \ Group() : base_type() {}\n    constexpr Group(const value_type &val) : base_type(val)\
+    \ {}\n    constexpr Group(value_type &&val) : base_type(std::move(val)) {}\n\n\
+    \    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return\
+    \ Group(op(lhs.value(), rhs.value())); }\n\n    static constexpr auto get_inverse()\
+    \ { return inverse; }\n    static constexpr Group one() { return Group(e()); }\
+    \                    // return identity element.\n    constexpr Group inv() const\
+    \ { return Group(inverse(this->value())); }  // return inverse element.\n};\n\n\
+    template <typename F, auto compose, auto id, typename X, auto mapping>\nclass\
+    \ OperatorMonoid : public Monoid<F, compose, id> {\n    static_assert(std::is_invocable_r<X,\
+    \ decltype(mapping), F, X>::value);\n\npublic:\n    using base_type = Monoid<F,\
+    \ compose, id>;\n    using value_type = typename base_type::value_type;\n    using\
+    \ acted_type = X;\n\n    constexpr OperatorMonoid() : base_type() {}\n    constexpr\
+    \ OperatorMonoid(const value_type &val) : base_type(val) {}\n    constexpr OperatorMonoid(value_type\
+    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr OperatorMonoid\
+    \ operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.value(),\
+    \ rhs.value())); }\n\n    static constexpr auto get_mapping() { return mapping;\
+    \ }\n    static constexpr OperatorMonoid one() { return OperatorMonoid(id());\
+    \ }  // return identity mapping.\n    constexpr acted_type act(const acted_type\
+    \ &x) const { return mapping(this->value(), x); }\n    template <class S>\n  \
+    \  constexpr S act(const S &x) const {\n        static_assert(std::is_base_of<Set<acted_type>,\
+    \ S>::value);\n        return S(mapping(this->value(), x.value()));\n    }\n};\n\
+    \nnamespace element {\n\ntemplate <typename S>\nconstexpr auto zero = []() ->\
+    \ S { return S(); };\n\ntemplate <typename S>\nconstexpr auto one = []() -> S\
+    \ { return 1; };\n\ntemplate <typename S>\nconstexpr auto min = []() -> S { return\
     \ std::numeric_limits<S>::min(); };\n\ntemplate <typename S>\nconstexpr auto max\
     \ = []() -> S { return std::numeric_limits<S>::max(); };\n\ntemplate <typename\
     \ S>\nconstexpr auto one_below_max = []() -> S { return std::numeric_limits<S>::max()\
     \ - 1; };\n\ntemplate <typename S>\nconstexpr auto lowest = []() -> S { return\
     \ std::numeric_limits<S>::lowest(); };\n\ntemplate <typename S>\nconstexpr auto\
     \ one_above_lowest = []() -> S { return std::numeric_limits<S>::lowest() + 1;\
-    \ };\n\n}  // namespace element\n\nnamespace uoperator {\n\ntemplate <typename\
+    \ };\n\n}  // namespace element\n\nnamespace unary_operator {\n\ntemplate <typename\
     \ S>\nconstexpr auto identity = [](const S &val) -> S { return val; };\n\ntemplate\
     \ <typename S>\nconstexpr auto negate = [](const S &val) -> S { return -val; };\n\
-    \n}  // namespace uoperator\n\nnamespace boperator {\n\ntemplate <typename T,\
-    \ typename S = T>\nconstexpr auto plus = [](const T &lhs, const S &rhs) -> S {\
-    \ return lhs + rhs; };\n\ntemplate <typename T, typename S = T>\nconstexpr auto\
-    \ mul = [](const T &lhs, const S &rhs) -> S { return lhs * rhs; };\n\ntemplate\
+    \n}  // namespace unary_operator\n\nnamespace binary_operator {\n\ntemplate <typename\
+    \ T, typename S = T>\nconstexpr auto plus = [](const T &lhs, const S &rhs) ->\
+    \ S { return lhs + rhs; };\n\ntemplate <typename T, typename S = T>\nconstexpr\
+    \ auto mul = [](const T &lhs, const S &rhs) -> S { return lhs * rhs; };\n\ntemplate\
     \ <typename T, typename S = T>\nconstexpr auto bit_and = [](const T &lhs, const\
     \ S &rhs) -> S { return lhs & rhs; };\n\ntemplate <typename T, typename S = T>\n\
     constexpr auto bit_or = [](const T &lhs, const S &rhs) -> S { return lhs | rhs;\
@@ -107,36 +108,36 @@ data:
     \ };\n\ntemplate <typename F, auto id, typename X = F>\nconstexpr auto assign_if_not_id\
     \ = [](const F &lhs, const X &rhs) -> X {\n    static_assert(std::is_invocable_r<F,\
     \ decltype(id)>::value);\n    return (lhs == id() ? rhs : lhs);\n};\n\n}  // namespace\
-    \ boperator\n\nnamespace monoid {\n\ntemplate <typename S>\nusing minimum = Monoid<S,\
-    \ boperator::min<S>, element::max<S>>;\n\ntemplate <typename S>\nusing minimum_safe\
-    \ = Monoid<S, boperator::min<S>, element::one_below_max<S>>;\n\ntemplate <typename\
-    \ S>\nusing maximum = Monoid<S, boperator::max<S>, element::lowest<S>>;\n\ntemplate\
-    \ <typename S>\nusing maximum_safe = Monoid<S, boperator::max<S>, element::one_above_lowest<S>>;\n\
-    \ntemplate <typename S>\nusing addition = Monoid<S, boperator::plus<S>, element::zero<S>>;\n\
-    \ntemplate <typename S>\nusing multiplication = Monoid<S, boperator::mul<S>, element::one<S>>;\n\
-    \ntemplate <typename S>\nusing bit_xor = Monoid<S, boperator::bit_xor<S>, element::zero<S>>;\n\
+    \ binary_operator\n\nnamespace monoid {\n\ntemplate <typename S>\nusing minimum\
+    \ = Monoid<S, binary_operator::min<S>, element::max<S>>;\n\ntemplate <typename\
+    \ S>\nusing minimum_safe = Monoid<S, binary_operator::min<S>, element::one_below_max<S>>;\n\
+    \ntemplate <typename S>\nusing maximum = Monoid<S, binary_operator::max<S>, element::lowest<S>>;\n\
+    \ntemplate <typename S>\nusing maximum_safe = Monoid<S, binary_operator::max<S>,\
+    \ element::one_above_lowest<S>>;\n\ntemplate <typename S>\nusing addition = Monoid<S,\
+    \ binary_operator::plus<S>, element::zero<S>>;\n\ntemplate <typename S>\nusing\
+    \ multiplication = Monoid<S, binary_operator::mul<S>, element::one<S>>;\n\ntemplate\
+    \ <typename S>\nusing bit_xor = Monoid<S, binary_operator::bit_xor<S>, element::zero<S>>;\n\
     \n}  // namespace monoid\n\nnamespace group {\n\ntemplate <typename S>\nusing\
-    \ addition = Group<S, boperator::plus<S>, element::zero<S>, uoperator::negate<S>>;\n\
-    \ntemplate <typename S>\nusing bit_xor = Group<S, boperator::bit_xor<S>, element::zero<S>,\
-    \ uoperator::identity<S>>;\n\n}  // namespace group\n\nnamespace operator_monoid\
-    \ {\n\ntemplate <typename F, typename X = F>\nusing assign_for_minimum = OperatorMonoid<\n\
-    \    F, boperator::assign_if_not_id<F, element::max<F>>, element::max<F>,\n  \
-    \  X, boperator::assign_if_not_id<F, element::max<F>, X>>;\n\ntemplate <typename\
-    \ F, typename X = F>\nusing assign_for_maximum = OperatorMonoid<\n    F, boperator::assign_if_not_id<F,\
-    \ element::lowest<F>>, element::lowest<F>,\n    X, boperator::assign_if_not_id<F,\
-    \ element::lowest<F>, X>>;\n\ntemplate <typename F, typename X = F>\nusing addition\
-    \ = OperatorMonoid<F, boperator::plus<F>, element::zero<F>, X, boperator::plus<F,\
-    \ X>>;\n\n}  // namespace operator_monoid\n\n}  // namespace algebra\n\n}  //\
-    \ namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
-    \n\nnamespace algorithm {\n\nnamespace binary_indexed_tree {\n\ntemplate <class\
-    \ AbelianGroup>\nclass BIT {\npublic:\n    using group_type = AbelianGroup;\n\
-    \    using value_type = group_type::value_type;\n\nprivate:\n    int m_sz;  //\
-    \ m_sz:=(\u8981\u7D20\u6570).\n    std::vector<group_type> m_tree;\n\n    static\
-    \ constexpr int lsb(int bit) { return bit & -bit; }\n    group_type sum_internal(int\
-    \ r) const {\n        group_type &&res = group_type::one();\n        for(; r >=\
-    \ 1; r -= lsb(r)) res = res * m_tree[r - 1];\n        return res;\n    }\n   \
-    \ void build() {\n        for(int i = 1; i < m_sz; ++i) {\n            int j =\
-    \ i + lsb(i);\n            if(j <= m_sz) m_tree[j - 1] = m_tree[j - 1] * m_tree[i\
+    \ addition = Group<S, binary_operator::plus<S>, element::zero<S>, unary_operator::negate<S>>;\n\
+    \ntemplate <typename S>\nusing bit_xor = Group<S, binary_operator::bit_xor<S>,\
+    \ element::zero<S>, unary_operator::identity<S>>;\n\n}  // namespace group\n\n\
+    namespace operator_monoid {\n\ntemplate <typename F, typename X = F>\nusing assign_for_minimum\
+    \ = OperatorMonoid<\n    F, binary_operator::assign_if_not_id<F, element::max<F>>,\
+    \ element::max<F>,\n    X, binary_operator::assign_if_not_id<F, element::max<F>,\
+    \ X>>;\n\ntemplate <typename F, typename X = F>\nusing assign_for_maximum = OperatorMonoid<\n\
+    \    F, binary_operator::assign_if_not_id<F, element::lowest<F>>, element::lowest<F>,\n\
+    \    X, binary_operator::assign_if_not_id<F, element::lowest<F>, X>>;\n\ntemplate\
+    \ <typename F, typename X = F>\nusing addition = OperatorMonoid<\n    F, binary_operator::plus<F>,\
+    \ element::zero<F>,\n    X, binary_operator::plus<F, X>>;\n\n}  // namespace operator_monoid\n\
+    \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 13 \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
+    \n\nnamespace algorithm {\n\ntemplate <class AbelianGroup>\nclass BIT {\npublic:\n\
+    \    using group_type = AbelianGroup;\n    using value_type = typename group_type::value_type;\n\
+    \nprivate:\n    int m_sz;\n    std::vector<group_type> m_tree;\n\n    static constexpr\
+    \ int lsb(int bit) { return bit & -bit; }\n    group_type sum_internal(int r)\
+    \ const {\n        group_type &&res = group_type::one();\n        for(; r >= 1;\
+    \ r -= lsb(r)) res = res * m_tree[r - 1];\n        return res;\n    }\n    void\
+    \ build() {\n        for(int i = 1; i < m_sz; ++i) {\n            int j = i +\
+    \ lsb(i);\n            if(j <= m_sz) m_tree[j - 1] = m_tree[j - 1] * m_tree[i\
     \ - 1];\n        }\n    }\n\npublic:\n    // constructor. O(N).\n    BIT() : m_sz(0)\
     \ {};\n    explicit BIT(int n) : m_sz(n), m_tree(n, group_type::one()) {\n   \
     \     assert(n >= 0);\n    }\n    explicit BIT(int n, const value_type &a) : BIT(n,\
@@ -178,29 +179,30 @@ data:
     \ * m_tree[r + len - 1]).value())) {\n                r += len;\n            \
     \    val = val * m_tree[r - 1];\n            }\n        }\n        return r;\n\
     \    }\n    void reset() { std::fill(m_tree.begin(), m_tree.end(), group_type::one());\
-    \ }\n};\n\ntemplate <typename S>\nusing range_sum_binary_indexed_tree = BIT<algebra::group::addition<S>>;\n\
-    \ntemplate <typename S>\nusing range_xor_binary_indexed_tree = BIT<algebra::group::bit_xor<S>>;\n\
-    \n}  // namespace binary_indexed_tree\n\n}  // namespace algorithm\n\n\n#line\
-    \ 1 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\n\n\n\n#line 8 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\
-    \n\nnamespace algorithm {\n\n// Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\
-    \u91CD\u8EFD\u5206\u89E3\uFF09.\nclass HLD {\n    int m_vn;                  \
-    \         // m_vn:=(\u30CE\u30FC\u30C9\u6570).\n    std::vector<std::vector<int>>\
-    \ m_g;  // m_g[v][]:=(\u30CE\u30FC\u30C9v\u306E\u96A3\u63A5\u30EA\u30B9\u30C8\
-    ). \u30B0\u30E9\u30D5\u306F\u68EE\u3067\u3042\u308B\u3053\u3068\uFF0E\n    std::vector<int>\
-    \ m_par, m_head;     // m_par[v]:=(\u30CE\u30FC\u30C9v\u306E\u89AA\u756A\u53F7\
-    ), m_head[v]:=(\u30CE\u30FC\u30C9v\u3092\u542B\u3080heavy path\u306E\u7AEF\u70B9\
-    ).\n    std::vector<int> m_sub;             // m_sub[v]:=(\u30CE\u30FC\u30C9v\u3092\
-    \u6839\u3068\u3059\u308B\u90E8\u5206\u6728\u306E\u30B5\u30A4\u30BA).\n    std::vector<int>\
-    \ m_ord;             // m_ord[v]:=(\u30CE\u30FC\u30C9v\u306E\u884C\u304D\u304B\
-    \u3051\u9806\u5E8F).\n    bool m_is_built;\n\n    bool is_built() const { return\
-    \ m_is_built; }\n\npublic:\n    // constructor. O(|V|).\n    HLD() : HLD(0) {}\n\
-    \    explicit HLD(int vn) : m_vn(vn), m_g(vn), m_par(vn, -1), m_head(vn, -1),\
-    \ m_sub(vn, 1), m_ord(vn, -1), m_is_built(false) {\n        assert(vn >= 0);\n\
-    \    }\n\n    // \u30CE\u30FC\u30C9\u6570\u3092\u53D6\u5F97\u3059\u308B\uFF0E\n\
-    \    int order() const { return m_vn; }\n    // \u7121\u5411\u8FBA\u3092\u5F35\
-    \u308B\uFF0E\n    void add_edge(int u, int v) {\n        assert(0 <= u and u <\
-    \ order());\n        assert(0 <= v and v < order());\n        m_g[u].push_back(v);\n\
-    \        m_g[v].push_back(u);\n    }\n    // \u6728\u3092HL\u5206\u89E3\u3059\u308B\
+    \ }\n};\n\nnamespace binary_indexed_tree {\n\ntemplate <typename S>\nusing range_sum_binary_indexed_tree\
+    \ = BIT<algebra::group::addition<S>>;\n\ntemplate <typename S>\nusing range_xor_binary_indexed_tree\
+    \ = BIT<algebra::group::bit_xor<S>>;\n\n}  // namespace binary_indexed_tree\n\n\
+    }  // namespace algorithm\n\n\n#line 1 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\
+    \n\n\n\n#line 8 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\n\nnamespace\
+    \ algorithm {\n\n// Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\u91CD\u8EFD\
+    \u5206\u89E3\uFF09.\nclass HLD {\n    int m_vn;                           // m_vn:=(\u30CE\
+    \u30FC\u30C9\u6570).\n    std::vector<std::vector<int>> m_g;  // m_g[v][]:=(\u30CE\
+    \u30FC\u30C9v\u306E\u96A3\u63A5\u30EA\u30B9\u30C8). \u30B0\u30E9\u30D5\u306F\u68EE\
+    \u3067\u3042\u308B\u3053\u3068\uFF0E\n    std::vector<int> m_par, m_head;    \
+    \ // m_par[v]:=(\u30CE\u30FC\u30C9v\u306E\u89AA\u756A\u53F7), m_head[v]:=(\u30CE\
+    \u30FC\u30C9v\u3092\u542B\u3080heavy path\u306E\u7AEF\u70B9).\n    std::vector<int>\
+    \ m_sub;             // m_sub[v]:=(\u30CE\u30FC\u30C9v\u3092\u6839\u3068\u3059\
+    \u308B\u90E8\u5206\u6728\u306E\u30B5\u30A4\u30BA).\n    std::vector<int> m_ord;\
+    \             // m_ord[v]:=(\u30CE\u30FC\u30C9v\u306E\u884C\u304D\u304B\u3051\u9806\
+    \u5E8F).\n    bool m_is_built;\n\n    bool is_built() const { return m_is_built;\
+    \ }\n\npublic:\n    // constructor. O(|V|).\n    HLD() : HLD(0) {}\n    explicit\
+    \ HLD(int vn) : m_vn(vn), m_g(vn), m_par(vn, -1), m_head(vn, -1), m_sub(vn, 1),\
+    \ m_ord(vn, -1), m_is_built(false) {\n        assert(vn >= 0);\n    }\n\n    //\
+    \ \u30CE\u30FC\u30C9\u6570\u3092\u53D6\u5F97\u3059\u308B\uFF0E\n    int order()\
+    \ const { return m_vn; }\n    // \u7121\u5411\u8FBA\u3092\u5F35\u308B\uFF0E\n\
+    \    void add_edge(int u, int v) {\n        assert(0 <= u and u < order());\n\
+    \        assert(0 <= v and v < order());\n        m_g[u].push_back(v);\n     \
+    \   m_g[v].push_back(u);\n    }\n    // \u6728\u3092HL\u5206\u89E3\u3059\u308B\
     \uFF0EO(|V|).\n    void build() {\n        auto dfs = [&](auto self, int u, int\
     \ p) -> int {\n            assert(m_par[u] == -1);  // \u30B0\u30E9\u30D5\u306B\
     \u9589\u8DEF\u306F\u306A\u3044\u3053\u3068\uFF0E\n            m_par[u] = p, m_sub[u]\
@@ -280,8 +282,8 @@ data:
   isVerificationFile: true
   path: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
   requiredBy: []
-  timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-07-06 12:46:03+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
 layout: document

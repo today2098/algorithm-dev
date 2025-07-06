@@ -6,12 +6,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-GRL_5_A-double_sweep.test.cpp
     title: verify/aoj-GRL_5_A-double_sweep.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-tree_diameter-double_sweep.test.cpp
     title: verify/yosupo-tree_diameter-double_sweep.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/Graph/Tree/double_sweep.md
     document_title: "Double Sweep\uFF08\u6728\u306E\u76F4\u5F84\uFF09"
@@ -91,7 +91,7 @@ data:
   path: algorithm/Graph/Tree/double_sweep.hpp
   requiredBy: []
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-GRL_5_A-double_sweep.test.cpp
   - verify/yosupo-tree_diameter-double_sweep.test.cpp

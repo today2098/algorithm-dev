@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/ModularArithmetic/modint_base.hpp
-    title: algorithm/Math/ModularArithmetic/modint_base.hpp
+    title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
     title: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/Math/Convolution/number_theoretic_transform.md
     document_title: "Number Theoretic Transform\uFF08\u6570\u8AD6\u5909\u63DB\uFF09"
@@ -177,7 +177,7 @@ data:
   path: algorithm/Math/Convolution/number_theoretic_transform.hpp
   requiredBy: []
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
 documentation_of: algorithm/Math/Convolution/number_theoretic_transform.hpp

@@ -35,8 +35,23 @@ data:
   - verify/aoj-NTL_1_B-mod_pow.test.cpp
 documentation_of: algorithm/Math/ModularArithmetic/mod_pow.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/ModularArithmetic/mod_pow.hpp
-- /library/algorithm/Math/ModularArithmetic/mod_pow.hpp.html
-title: algorithm/Math/ModularArithmetic/mod_pow.hpp
+title: "\u7E70\u308A\u8FD4\u3057\u4E8C\u4E57\u6CD5\uFF08mod\u4ED8\u304D\uFF09"
 ---
+
+
+## 概要
+
+自然数 $n, k, m$ に対して，
+
+$$
+n^k \bmod m
+$$
+
+を求める．
+
+本実装では「繰り返し二乗法」を用いており，計算量は $\mathcal{O}(\log k)$ である．
+
+
+## 問題
+
+- "B - n^p mod m". AtCoder Typical Contest 002. AtCoder. <https://atcoder.jp/contests/atc002/tasks/atc002_b>.

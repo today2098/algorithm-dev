@@ -139,8 +139,22 @@ data:
   - verify/aoj-GRL_1_B-bellman_ford.test.cpp
 documentation_of: algorithm/Graph/ShortestPath/bellman_ford.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Graph/ShortestPath/bellman_ford.hpp
-- /library/algorithm/Graph/ShortestPath/bellman_ford.hpp.html
-title: algorithm/Graph/ShortestPath/bellman_ford.hpp
+title: "Bellman-Ford Algorithm\uFF08\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\
+  \uFF09"
 ---
+
+
+## 概要
+
+重み付き有向グラフにおける単一始点最短経路問題を解くアルゴリズム．
+グラフの負閉路検出も行うことができる．
+1956年と1958年に，L. R. Ford Jr. と Richard E. Bellman がそれぞれ独立に考案した．
+
+計算量は，グラフの頂点集合を $V$，辺集合を $E$ とすると，$\mathcal{O}(\lvert V \rvert \lvert E \rvert)$ となる．
+
+
+## 参考
+
+1. 大槻兼資著. "14.5 単一始点最短路問題：ベルマン・フォード法". 問題解決力を鍛える！ アルゴリズムとデータ構造. 秋葉拓哉監修. 講談社, 2020, p.249-254.
+1. "22.1 Bellman-Fordのアルゴリズム". アルゴリズムイントロダクション 第4版 総合版. 近代科学社, 2024, pp.515-519.
+1. "ベルマン–フォード法". Wikipedia. <https://ja.wikipedia.org/wiki/ベルマン–フォード法>.

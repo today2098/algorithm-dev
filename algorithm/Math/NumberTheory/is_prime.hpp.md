@@ -35,8 +35,17 @@ data:
   - verify/aoj-ALDS1_1_C-is_prime.test.cpp
 documentation_of: algorithm/Math/NumberTheory/is_prime.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/NumberTheory/is_prime.hpp
-- /library/algorithm/Math/NumberTheory/is_prime.hpp.html
-title: algorithm/Math/NumberTheory/is_prime.hpp
+title: "\u7D20\u6570\u5224\u5B9A"
 ---
+
+
+## 概要
+
+自然数 $n$ が素数かどうか判定する．
+
+本実装では「試し割り法 (trial division)」を用いており，計算量は $\mathcal{O}(\sqrt n)$ となる．
+
+
+## 参考文献
+
+1. "試し割り法". Wikipedia. <https://ja.wikipedia.org/wiki/試し割り法>.

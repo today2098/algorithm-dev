@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algorithm/Others/binary_search.hpp
-    title: algorithm/Others/binary_search.hpp
+    title: "Binary Search\uFF08\u4E8C\u5206\u63A2\u7D22\uFF09"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

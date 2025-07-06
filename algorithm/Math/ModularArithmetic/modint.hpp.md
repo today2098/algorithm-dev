@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: algorithm/Math/ModularArithmetic/modint_base.hpp
-    title: algorithm/Math/ModularArithmetic/modint_base.hpp
+    title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
     title: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
     title: verify/yosupo-point_set_range_composite-segment_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
     title: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"algorithm/Math/ModularArithmetic/modint.hpp\"\n\n\n\n#include\
@@ -118,15 +118,41 @@ data:
   path: algorithm/Math/ModularArithmetic/modint.hpp
   requiredBy: []
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
   - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
 documentation_of: algorithm/Math/ModularArithmetic/modint.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Math/ModularArithmetic/modint.hpp
-- /library/algorithm/Math/ModularArithmetic/modint.hpp.html
-title: algorithm/Math/ModularArithmetic/modint.hpp
+title: "Modint\u69CB\u9020\u4F53"
 ---
+
+
+## 概要
+
+任意の自然数 $m \geq 1$ を法として，四則演算時に剰余をとる構造体．
+
+自然数 $m$ を法とする剰余類の代表元（$0$ 以上 $m$ 未満）を値として保存し，剰余類環 $\mathbb{Z}/m\mathbb{Z}$ における加法と乗法の演算をサポートする．
+
+$$
+\begin{align}
+&a + m \mathbb{Z}, \ b + m \mathbb{Z} \in \mathbb{Z} / m \mathbb{Z}, \notag\\
+&(a + m \mathbb{Z}) + (b + m \mathbb{Z}) = (a + b) + m \mathbb{Z}, \notag\\
+&(a + m \mathbb{Z})(b + m \mathbb{Z}) = a b + m \mathbb{Z} \notag\\
+\end{align}
+$$
+
+また，任意の素数 $p$ を法としたときは，剰余体 $\mathbb{Z}/p\mathbb{Z}$ において $0+p\mathbb{Z}$ 以外の剰余類  $a+p\mathbb{Z} \in \mathbb{Z}/p\mathbb{Z}$ は乗法逆元 $a^{-1}$ をもち，除法の演算もサポートする．
+
+$$
+\frac{b + m \mathbb{Z}}{a + m \mathbb{Z}} = b \cdot a^{-1} + m \mathbb{Z}
+$$
+
+
+## 参考文献
+
+1. "剰余類環". Wikipedia. <https://ja.wikipedia.org/wiki/剰余類環>.
+1. "モジュラ逆数". Wikipedia. <https://ja.wikipedia.org/wiki/モジュラ逆数>.
+1. drken. "「1000000007 で割ったあまり」の求め方を総特集！ 〜 逆元から離散対数まで 〜". Qiita. <https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a>.
+1. "群・環・体". HatenaBlog. <https://zellij.hatenablog.com/entry/20121211/p1>.

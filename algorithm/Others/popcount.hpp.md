@@ -41,8 +41,27 @@ data:
   - verify/aoj-ITP1_1_A-popcount.test.cpp
 documentation_of: algorithm/Others/popcount.hpp
 layout: document
-redirect_from:
-- /library/algorithm/Others/popcount.hpp
-- /library/algorithm/Others/popcount.hpp.html
-title: algorithm/Others/popcount.hpp
+title: Population Count (popcount)
 ---
+
+
+## 概要
+
+与えられた非負整数値を2進数表記した際に1となっているビットの数を高速に求める．
+"popcount" は "population count" の略．
+
+```cpp
+static_assert(algorithm::popcount32(5) == 2);
+static_assert(algorithm::popcount64((1LL << 60) - 1) == 60);
+```
+
+
+## 参考文献
+
+1. "Hamming weight". Wikipedia. <https://en.wikipedia.org/wiki/Hamming_weight>.
+1. zawawahoge. "ビットカウントする高速アルゴリズムをPythonで実装しながら詳しく解説してみる". Qiita. <https://qiita.com/zawawahoge/items/8bbd4c2319e7f7746266>.
+
+
+## 問題
+
+- "D - Popcount and XOR". AtCoder Beginner Contest 347. AtCoder. <https://atcoder.jp/contests/abc347/tasks/abc347_d>.

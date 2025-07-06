@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algorithm/Math/NumberTheory/linear_sieve.hpp
-    title: algorithm/Math/NumberTheory/linear_sieve.hpp
+    title: "\u7DDA\u5F62\u7BE9"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

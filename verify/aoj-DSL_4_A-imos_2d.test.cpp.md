@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algorithm/Others/compress.hpp
-    title: algorithm/Others/compress.hpp
+    title: "\u5EA7\u6A19\u5727\u7E2E"
   - icon: ':heavy_check_mark:'
     path: algorithm/Others/imos_2d.hpp
     title: "\u4E8C\u6B21\u5143\u3044\u3082\u3059\u6CD5"

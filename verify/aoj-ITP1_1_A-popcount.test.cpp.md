@@ -3,10 +3,10 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algorithm/Others/popcount.hpp
-    title: algorithm/Others/popcount.hpp
+    title: Population Count (popcount)
   - icon: ':heavy_check_mark:'
     path: algorithm/Utils/debug.hpp
-    title: algorithm/Utils/debug.hpp
+    title: "\u30C7\u30D0\u30C3\u30B0\u7528\u95A2\u6570\u5F62\u5F0F\u30DE\u30AF\u30ED"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

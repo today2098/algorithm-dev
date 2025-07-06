@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp
     title: verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"algorithm/DataStructure/UnionFind/rollback_union_find.hpp\"\
@@ -96,13 +96,23 @@ data:
   path: algorithm/DataStructure/UnionFind/rollback_union_find.hpp
   requiredBy: []
   timestamp: '2025-07-03 00:41:25+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-persistent_unionfind-rollback_union_find.test.cpp
 documentation_of: algorithm/DataStructure/UnionFind/rollback_union_find.hpp
 layout: document
-redirect_from:
-- /library/algorithm/DataStructure/UnionFind/rollback_union_find.hpp
-- /library/algorithm/DataStructure/UnionFind/rollback_union_find.hpp.html
-title: algorithm/DataStructure/UnionFind/rollback_union_find.hpp
+title: "Rollback\u4ED8\u304DUnion-Find"
 ---
+
+
+## 概要
+
+「Rollback 付き Union-Find」は，通常の Union-Find の機能に加え，グループ合併時に親についての情報を保存することにより直前の状態に戻せるようにしたもの．
+このロールバック操作は不可逆である．
+
+本実装では「union by size」のみによる工夫を行っており，各クエリの計算量は $\mathcal{O}(\log N)$ となる．
+
+
+## 参考
+
+1. "Union-Find木". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/union_find_tree>.
