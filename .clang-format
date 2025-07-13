@@ -8,4 +8,3 @@ ColumnLimit: 0
 ForEachMacros: ["REP", "FOR"]
 IndentWidth: 4
 SpaceBeforeParens: Never
-...
