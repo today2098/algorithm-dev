@@ -23,8 +23,10 @@
 				"ms-vscode.cpptools-extension-pack",
 				"ms-vscode.hexeditor",
 				"ms-azuretools.vscode-docker",
-				"redhat.vscode-yaml",
+				"docsmsft.docs-markdown",
+				"docsmsft.docs-yaml",
 				"foxundermoon.shell-format",
+				"DavidAnson.vscode-markdownlint",
 				"mhutchie.git-graph"
 			]
 		}
