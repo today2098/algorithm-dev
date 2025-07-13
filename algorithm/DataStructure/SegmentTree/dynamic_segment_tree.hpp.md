@@ -353,8 +353,8 @@ data:
   timestamp: '2025-07-06 15:04:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
   - verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
+  - verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
 documentation_of: algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
 layout: document
 title: "Dynamic Segment Tree\uFF08\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\
