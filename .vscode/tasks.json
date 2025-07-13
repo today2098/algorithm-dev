@@ -1,19 +1,18 @@
 {
-    "version": "2.0.0",
     "tasks": [
         {
             "label": "C/C++: g++ build active file",
-            "type": "cppbuild",
+            "type": "shell",
             "command": "/usr/bin/g++",
             "args": [
-                "-std=gnu++23",
-                "-D=DEBUG",
-                "-O2",
-                "-Wall",
-                "-Wextra",
-                "-fdiagnostics-color=always",
                 "-I",
                 "${workspaceFolder}/",
+                "-D=DEBUG",
+                "-Wall",
+                "-Wextra",
+                "-O2",
+                "-std=gnu++23",
+                "-fdiagnostics-color=always",
                 "-o",
                 "${workspaceFolder}/debug.out",
                 "${file}"
@@ -31,14 +30,14 @@
         },
         {
             "label": "C/C++: g++ build active file for debugger",
-            "type": "cppbuild",
+            "type": "shell",
             "command": "/usr/bin/g++",
             "args": [
-                "-std=gnu++23",
-                "-g",
-                "-fdiagnostics-color=always",
                 "-I",
                 "${workspaceFolder}/",
+                "-g",
+                "-std=gnu++23",
+                "-fdiagnostics-color=always",
                 "-o",
                 "${workspaceFolder}/debug.out",
                 "${file}"
@@ -51,5 +50,6 @@
             ],
             "group": "build"
         }
-    ]
+    ],
+    "version": "2.0.0"
 }

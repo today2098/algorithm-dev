@@ -1,0 +1,34 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/cpp
+{
+	"name": "algorithm-dev",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"runArgs": [
+		"--env-file",
+		"${localWorkspaceFolder}/.devcontainer/.env"
+	],
+	"forwardPorts": [
+		4000
+	],
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {}
+	},
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"ms-vscode.hexeditor",
+				"ms-azuretools.vscode-docker",
+				"docsmsft.docs-markdown",
+				"docsmsft.docs-yaml",
+				"foxundermoon.shell-format",
+				"DavidAnson.vscode-markdownlint",
+				"mhutchie.git-graph"
+			]
+		}
+	}
+}
