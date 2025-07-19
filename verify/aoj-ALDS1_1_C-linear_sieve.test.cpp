@@ -16,7 +16,7 @@ int main() {
         int a;
         std::cin >> a;
 
-        if(sieve.is_prime(a)) ans++;
+        if(sieve.is_prime(a)) ++ans;
     }
 
     std::cout << ans << std::endl;
