@@ -21,7 +21,7 @@ public:
     LinearSieve() : LinearSieve(0) {}
     explicit LinearSieve(int n) : m_sz(n), m_lpf(n / 2, -1) {
         assert(n >= 0);
-        if(size() <= 2) return;
+        if(m_sz <= 2) return;
         m_primes.push_back(2);
         int p = 3;
         for(int i = 1, end = m_lpf.size(); i < end; ++i) {
@@ -29,10 +29,8 @@ public:
                 m_lpf[i] = p;
                 m_primes.push_back(p);
             }
-            for(const auto &prime : m_primes | std::ranges::views::drop(1)) {
-                if(prime > m_lpf[i] or (long long) p * prime >= m_sz) break;
-                m_lpf[p * prime / 2] = prime;
-            }
+            int limit = (m_sz - 1) / p;
+            for(const auto &prime : m_primes | std::ranges::views::drop(1) | std::ranges::views::take_while([&](int prime) -> bool { return prime <= m_lpf[i] and prime <= limit; })) m_lpf[p * prime / 2] = prime;
             p += 2;
         }
         m_primes.shrink_to_fit();
@@ -53,7 +51,7 @@ public:
         if(n % 2 == 0) return 2;
         return m_lpf[n / 2];
     }
-    // 高速素因数分解．O(logN).
+    // 高速素因数分解．O(log N).
     std::map<int, int> prime_factorize(int n) const {
         assert(1 <= n and n < size());
         std::map<int, int> res;
