@@ -69,7 +69,86 @@
 		],
 		"isFileTemplate": true
 	},
+	"#include \"algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"DataStructure",
+			"SegmentTree",
+			"binary_indexed_tree_2d.hpp"
+		],
+		"body": [
+			"#include \"algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp\""
+		]
+	},
+	"#include \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"DataStructure",
+			"SegmentTree",
+			"binary_indexed_tree.hpp"
+		],
+		"body": [
+			"#include \"algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\""
+		]
+	},
+	"#include \"algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"DataStructure",
+			"SegmentTree",
+			"dynamic_segment_tree.hpp"
+		],
+		"body": [
+			"#include \"algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp\""
+		]
+	},
+	"#include \"algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"DataStructure",
+			"SegmentTree",
+			"lazy_segment_tree.hpp"
+		],
+		"body": [
+			"#include \"algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp\""
+		]
+	},
+	"#include \"algorithm/DataStructure/SegmentTree/segment_tree.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"DataStructure",
+			"SegmentTree",
+			"segment_tree.hpp"
+		],
+		"body": [
+			"#include \"algorithm/DataStructure/SegmentTree/segment_tree.hpp\""
+		]
+	},
+	"#include \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"DataStructure",
+			"SegmentTree",
+			"sparse_table.hpp"
+		],
+		"body": [
+			"#include \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\""
+		]
+	},
 	"#include \"algorithm/Utils/convert.hpp\"": {
+		"scope": "cpp",
 		"prefix": [
 			"include",
 			"algorithm",
@@ -81,6 +160,7 @@
 		]
 	},
 	"#include \"algorithm/Utils/debug.hpp\"": {
+		"scope": "cpp",
 		"prefix": [
 			"include",
 			"algorithm",
@@ -92,6 +172,7 @@
 		]
 	},
 	"#include \"algorithm/Utils/grid.hpp\"": {
+		"scope": "cpp",
 		"prefix": [
 			"include",
 			"algorithm",
@@ -103,6 +184,7 @@
 		]
 	},
 	"#include \"algorithm/Utils/my_template.hpp\"": {
+		"scope": "cpp",
 		"prefix": [
 			"include",
 			"algorithm",
@@ -114,6 +196,7 @@
 		]
 	},
 	"#include \"algorithm/Utils/split.hpp\"": {
+		"scope": "cpp",
 		"prefix": [
 			"include",
 			"algorithm",
@@ -125,6 +208,7 @@
 		]
 	},
 	"#include \"algorithm/Utils/table.hpp\"": {
+		"scope": "cpp",
 		"prefix": [
 			"include",
 			"algorithm",
@@ -136,6 +220,7 @@
 		]
 	},
 	"#include \"algorithm/Utils/timer.hpp\"": {
+		"scope": "cpp",
 		"prefix": [
 			"include",
 			"algorithm",
