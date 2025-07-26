@@ -29,8 +29,8 @@ public:
                 m_lpf[i] = p;
                 m_primes.push_back(p);
             }
-            int limit = (m_sz - 1) / p;
-            for(const auto &prime : m_primes | std::ranges::views::drop(1) | std::ranges::views::take_while([&](int prime) -> bool { return prime <= m_lpf[i] and prime <= limit; })) m_lpf[p * prime / 2] = prime;
+            int limit = std::min(m_lpf[i], (m_sz - 1) / p);
+            for(const auto &prime : m_primes | std::ranges::views::drop(1) | std::ranges::views::take_while([&](int prime) -> bool { return prime <= limit; })) m_lpf[p * prime / 2] = prime;
             p += 2;
         }
         m_primes.shrink_to_fit();
