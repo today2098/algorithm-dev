@@ -2,6 +2,7 @@
 #define ALGORITHM_DEBUG_HPP 1
 
 #include <chrono>
+#include <concepts>
 #include <iomanip>
 #include <iostream>
 #include <queue>
@@ -10,7 +11,6 @@
 #include <string>
 #include <string_view>
 #include <tuple>
-#include <type_traits>
 #include <utility>
 
 #ifdef DEBUG
@@ -28,13 +28,17 @@ constexpr std::ostream &os = std::clog;
 template <typename Type>
 void print(const Type &);
 
-template <std::ranges::forward_range R>
+template <std::ranges::input_range R>
+    requires(!std::convertible_to<R, const char *>)
 void print(const R &);
+
+void print(const char *);
 
 template <typename... Types>
 void print(const std::basic_string<Types...> &);
 
-void print(std::string_view);
+template <typename... Types>
+void print(std::basic_string_view<Types...>);
 
 template <typename... Types>
 void print(std::stack<Types...>);
@@ -51,8 +55,10 @@ void print(const std::pair<T, U> &);
 template <typename... Types>
 void print(const std::tuple<Types...> &);
 
-template <class Tuple, std::size_t... Idxes>
-void print_tuple(const Tuple &, std::index_sequence<Idxes...>);
+template <typename... Types, std::size_t... Idxes>
+void print_tuple(const std::tuple<Types...> &t, std::index_sequence<Idxes...>);
+
+// Implementation.
 
 auto elapsed() {
     static const auto start = std::chrono::system_clock::now();
@@ -73,14 +79,13 @@ void debug_internal(int line) {
     os << "(" << std::setw(8) << elapsed() << ") [L" << line << "] (empty)" << std::endl;
 }
 
-// Implementation.
-
 template <typename Type>
 void print(const Type &a) {
     os << a;
 }
 
-template <std::ranges::forward_range R>
+template <std::ranges::input_range R>
+    requires(!std::convertible_to<R, const char *>)
 void print(const R &r) {
     os << "[";
     auto iter = std::ranges::cbegin(r);
@@ -95,12 +100,17 @@ void print(const R &r) {
     os << "]";
 }
 
+void print(const char *s) {
+    os << s;
+}
+
 template <typename... Types>
 void print(const std::basic_string<Types...> &s) {
     os << s;
 }
 
-void print(std::string_view sv) {
+template <typename... Types>
+void print(std::basic_string_view<Types...> sv) {
     os << sv;
 }
 
@@ -160,8 +170,8 @@ void print(const std::tuple<Types...> &t) {
     print_tuple(t, std::make_index_sequence<sizeof...(Types)>());
 }
 
-template <class Tuple, std::size_t... Idxes>
-void print_tuple(const Tuple &t, std::index_sequence<Idxes...>) {
+template <typename... Types, std::size_t... Idxes>
+void print_tuple(const std::tuple<Types...> &t, std::index_sequence<Idxes...>) {
     os << "{";
     ((os << (Idxes == 0 ? "" : ", "), print(std::get<Idxes>(t))), ...);
     os << "}";
