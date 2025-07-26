@@ -27,11 +27,10 @@ std::vector<Type> divisors(Type n) {
 }
 
 // 高速約数列挙．
-template <std::integral Type>
+template <typename Type>
 std::vector<Type> divisors(const std::map<Type, int> &pf) {
     std::vector<Type> res({1});
     for(const auto &[p, cnt] : pf) {
-        assert(p >= 1 and cnt >= 0);
         const int sz = res.size();
         Type b = 1;
         for(int i = 0; i < cnt; ++i) {
