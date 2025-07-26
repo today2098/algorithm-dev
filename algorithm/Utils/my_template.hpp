@@ -18,15 +18,21 @@ constexpr double EPS = 1e-10;
 constexpr int MOD = 998'244'353;
 constexpr int MOD2 = 1e9 + 7;
 
-template <typename Type>
-inline std::istream &operator>>(std::istream &is, std::vector<Type> &v) {
-    for(auto &elem : v) is >> elem;
+template <typename C, typename Tr, typename R, typename T = std::ranges::range_value_t<R>>
+    requires std::ranges::output_range<R, T>
+inline auto &operator>>(std::basic_istream<C, Tr> &is, R &r) {
+    for(auto &elem : r) is >> elem;
     return is;
 }
 
-template <typename Type>
-inline std::ostream &operator<<(std::ostream &os, const std::vector<Type> &v) {
-    for(auto iter = v.cbegin(); iter != v.cend(); ++iter) os << (iter == v.cbegin() ? "" : " ") << *iter;
+template <typename C, typename Tr, std::ranges::input_range R>
+    requires(!std::convertible_to<R, const char *>)
+inline auto &operator<<(std::basic_ostream<C, Tr> &os, const R &r) {
+    if(std::ranges::empty(r)) return os;
+    auto iter = std::ranges::cbegin(r);
+    const auto end = std::ranges::cend(r);
+    os << *iter++;
+    while(iter != end) os << " " << *iter++;
     return os;
 }
 
