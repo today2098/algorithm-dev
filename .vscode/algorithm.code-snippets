@@ -15,6 +15,137 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
+	"My Template": {
+		"scope": "cpp",
+		"prefix": "main",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"#define REP(i, n)     for(int i = 0; i < (int)(n); ++i)",
+			"#define RREP(i, n)    for(int i = (int)(n); i-- > 0;)",
+			"#define FOR(i, l, r)  for(int i = (int)(l); i < (int)(r); ++i)",
+			"#define RFOR(i, l, r) for(int i = (int)(r); i-- > (int)(l);)",
+			"#define ALL(v)        std::begin(v), std::end(v)",
+			"using llong = long long;",
+			"using vi    = std::vector<int>;",
+			"using vvi   = std::vector<vi>;",
+			"using pii   = std::pair<int, int>;",
+			"using namespace std;",
+			"constexpr int       INF  = 1e9;",
+			"constexpr long long LINF = 1e18;",
+			"constexpr double    EPS  = 1e-10;",
+			"constexpr int       MOD  = 998'244'353;",
+			"constexpr int       MOD2 = 1e9 + 7;",
+			"",
+			"template <typename C, typename Tr, typename R, typename T = std::ranges::range_value_t<R>>",
+			"    requires std::ranges::output_range<R, T>",
+			"inline auto &operator>>(std::basic_istream<C, Tr> &is, R &r) {",
+			"    for(auto &elem : r) is >> elem;",
+			"    return is;",
+			"}",
+			"",
+			"template <typename C, typename Tr, std::ranges::input_range R>",
+			"    requires(!std::convertible_to<R, const char *>)",
+			"inline auto &operator<<(std::basic_ostream<C, Tr> &os, const R &r) {",
+			"    if(std::ranges::empty(r)) return os;",
+			"    auto iter = std::ranges::cbegin(r);",
+			"    const auto end = std::ranges::cend(r);",
+			"    os << *iter++;",
+			"    while(iter != end) os << \" \" << *iter++;",
+			"    return os;",
+			"}",
+			"",
+			"#ifdef DEBUG",
+			"",
+			"#include <debug>",
+			"",
+			"#else",
+			"",
+			"#define debug(...) static_cast<void>(0)",
+			"",
+			"#endif",
+			"",
+			"int main(){$0}",
+			""
+		],
+		"isFileTemplate": true
+	},
+	"#include \"algorithm/Utils/convert.hpp\"": {
+		"prefix": [
+			"include",
+			"algorithm",
+			"Utils",
+			"convert.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Utils/convert.hpp\""
+		]
+	},
+	"#include \"algorithm/Utils/debug.hpp\"": {
+		"prefix": [
+			"include",
+			"algorithm",
+			"Utils",
+			"debug.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Utils/debug.hpp\""
+		]
+	},
+	"#include \"algorithm/Utils/grid.hpp\"": {
+		"prefix": [
+			"include",
+			"algorithm",
+			"Utils",
+			"grid.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Utils/grid.hpp\""
+		]
+	},
+	"#include \"algorithm/Utils/my_template.hpp\"": {
+		"prefix": [
+			"include",
+			"algorithm",
+			"Utils",
+			"my_template.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Utils/my_template.hpp\""
+		]
+	},
+	"#include \"algorithm/Utils/split.hpp\"": {
+		"prefix": [
+			"include",
+			"algorithm",
+			"Utils",
+			"split.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Utils/split.hpp\""
+		]
+	},
+	"#include \"algorithm/Utils/table.hpp\"": {
+		"prefix": [
+			"include",
+			"algorithm",
+			"Utils",
+			"table.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Utils/table.hpp\""
+		]
+	},
+	"#include \"algorithm/Utils/timer.hpp\"": {
+		"prefix": [
+			"include",
+			"algorithm",
+			"Utils",
+			"timer.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Utils/timer.hpp\""
+		]
+	},
 	"Combination": {
 		"scope": "cpp",
 		"prefix": "Combination",
