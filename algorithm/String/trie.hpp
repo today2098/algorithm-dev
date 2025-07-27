@@ -10,7 +10,7 @@
 #include <ranges>
 #include <string>
 #include <string_view>
-#include <tuple>
+#include <utility>
 
 namespace algorithm {
 
@@ -68,14 +68,14 @@ protected:
         sub(p->next[*iter], std::next(iter), end, cnt);
     }
     template <std::forward_iterator Iter>
-    size_type erase_prefix(node_pointer &p, Iter iter, Iter end) {  // bottom up.
+    size_type erase_by_prefix(node_pointer &p, Iter iter, Iter end) {  // bottom up.
         if(!p) return 0;
         if(iter == end) {
             size_type res = p->total;
             p.reset();
             return res;
         }
-        size_type res = erase_prefix(p->next[*iter], std::next(iter), end);
+        size_type res = erase_by_prefix(p->next[*iter], std::next(iter), end);
         p->total -= res;
         if(p->total == 0) p.reset();
         return res;
@@ -109,6 +109,12 @@ protected:
         }
         return {buf, buf};
     }
+    template <std::forward_iterator Iter>
+    size_type total_prefix(Node *p, Iter iter, Iter end) const {
+        if(!p) return 0;
+        if(iter == end) return p->cnt;
+        return p->cnt + total_prefix(p->next[*iter].get(), std::next(iter), end);
+    }
 
 public:
     TrieBase() : m_root(nullptr) {}
@@ -126,10 +132,10 @@ public:
         return (p ? p->cnt : 0);
     }
     template <std::ranges::forward_range R>
-    bool exists_prefix(const R &r) const { return count_prefix(r) > 0; }
+    bool exists_by_prefix(const R &prefix) const { return count_by_prefix(prefix) > 0; }
     template <std::ranges::forward_range R>
-    size_type count_prefix(const R &r) const {
-        auto p = find(m_root.get(), std::ranges::cbegin(r), std::ranges::cend(r));
+    size_type count_by_prefix(const R &prefix) const {
+        auto p = find(m_root.get(), std::ranges::cbegin(prefix), std::ranges::cend(prefix));
         return (p ? p->total : 0);
     }
     template <std::ranges::forward_range R>
@@ -145,7 +151,7 @@ public:
         sub(m_root, std::ranges::cbegin(r), std::ranges::cend(r), cnt);
     }
     template <std::ranges::forward_range R>
-    void erase_prefix(const R &r) { erase_prefix(m_root, std::ranges::cbegin(r), std::ranges::cend(r)); }
+    void erase_by_prefix(const R &r) { erase_by_prefix(m_root, std::ranges::cbegin(r), std::ranges::cend(r)); }
     template <class Sequence>
     Sequence kth_element(size_type k) const {
         assert(k < size());
@@ -157,6 +163,8 @@ public:
     Sequence max_element() const { return kth_element<Sequence>(size() - 1); }
     template <std::ranges::forward_range R>
     std::pair<size_type, size_type> lower_and_upper_bound(const R &r) const { return lower_and_upper_bound(m_root, std::ranges::cbegin(r), std::ranges::cend(r)); }
+    template <std::ranges::forward_range R>
+    size_type total_prefix(const R &r) const { return total_prefix(m_root.get(), std::ranges::cbegin(r), std::ranges::cend(r)); }
     void clear() { m_root.reset(); }
 };
 
@@ -183,15 +191,17 @@ public:
 
     bool exists(std::string_view sv) const { return base_type::exists(sv); }
     size_type count(std::string_view sv) const { return base_type::count(sv); }
-    bool exists_prefix(std::string_view sv) const { return base_type::exists_prefix(sv); }
-    size_type count_prefix(std::string_view sv) const { return base_type::count_prefix(sv); }
+    bool exists_by_prefix(std::string_view sv) const { return base_type::exists_by_prefix(sv); }
+    size_type count_by_prefix(std::string_view sv) const { return base_type::count_by_prefix(sv); }
     void insert(std::string_view sv, size_type cnt = 1) { base_type::insert(sv, cnt); }
     void erase(std::string_view sv) { base_type::erase(sv); }
     void erase(std::string_view sv, size_type cnt) { base_type::erase(sv, cnt); }
-    void erase_prefix(std::string_view sv) { base_type::erase_prefix(sv); }
+    void erase_by_prefix(std::string_view sv) { base_type::erase_by_prefix(sv); }
     std::string kth_element(size_type k) const { return base_type::template kth_element<std::string>(k); }
     std::string min_element() const { return base_type::template min_element<std::string>(); }
     std::string max_element() const { return base_type::template max_element<std::string>(); }
+    std::pair<size_type, size_type> lower_and_upper_bound(std::string_view sv) const { return base_type::lower_and_upper_bound(sv); }
+    size_type total_prefix(std::string_view sv) const { return base_type::total_prefix(sv); }
 };
 
 }  // namespace algorithm
