@@ -1,9 +1,15 @@
+---
+title: 文字列分割
+documentation_of: //algorithm/String/trie.hpp
+---
+
+
 ## 概要
 
 文字列を要素とする多重集合を管理するデータ構造．
 
 
-## 参考文献
+## 参考
 
 1. "トライ (データ構造)". Wikipedia. <https://ja.wikipedia.org/wiki/トライ_(データ構造)>.
 1. "すごいTrie". Qiita. <https://qiita.com/minaminao/items/caf6d8147c7e70b6ae63>.

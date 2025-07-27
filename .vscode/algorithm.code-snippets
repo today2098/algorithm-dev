@@ -199,6 +199,18 @@
 			"#include \"algorithm/DataStructure/UnionFind/union_find.hpp\""
 		]
 	},
+	"#include \"algorithm/String/trie.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"String",
+			"trie.hpp"
+		],
+		"body": [
+			"#include \"algorithm/String/trie.hpp\""
+		]
+	},
 	"#include \"algorithm/Utils/convert.hpp\"": {
 		"scope": "cpp",
 		"prefix": [
