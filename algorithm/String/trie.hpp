@@ -51,7 +51,7 @@ protected:
             p->cnt += n;
             return;
         }
-        add(p->next[*iter], std::next(iter), end, cnt);
+        add(p->next[*iter], std::next(iter), end, n);
     }
     template <std::forward_iterator Iter>
     size_type sub(node_pointer &p, Iter iter, Iter end, size_type n) {  // top down.
@@ -124,6 +124,17 @@ protected:
         }
         return {offset, offset};
     }
+    template <std::forward_iterator Iter>
+    std::vector<std::pair<size_type, size_type>> get_nodes(const node_pointer &p, Iter iter, Iter end, size_type depth = 0) const {  // bottom up.
+        if(!p) {
+            while(iter++ != end) ++depth;
+            return std::vector<std::pair<size_type, size_type>>(depth + 1, {0, 0});  // return pairs of (total, cnt).
+        }
+        auto &&res = (iter == end ? std::vector<std::pair<size_type, size_type>>(depth + 1, {0, 0})
+                                  : get_nodes(p->next[*iter], std::next(iter), end, depth + 1));
+        res[depth] = {p->total, p->cnt};
+        return res;
+    }
 
 public:
     TrieBase() : m_root(nullptr) {}
@@ -156,7 +167,7 @@ public:
     size_type erase(const R &r) { return erase(m_root, std::ranges::cbegin(r), std::ranges::cend(r)); }
     template <std::ranges::forward_range R>
     size_type erase(const R &r, size_type n) {
-        if(n == 0) return;
+        if(n == 0) return 0;
         return sub(m_root, std::ranges::cbegin(r), std::ranges::cend(r), n);
     }
     template <std::ranges::forward_range R>
@@ -172,6 +183,8 @@ public:
     Sequence max_element() const { return kth_element<Sequence>(size() - 1); }
     template <std::ranges::forward_range R>
     std::pair<size_type, size_type> lower_and_upper_bound(const R &r) const { return lower_and_upper_bound(m_root, std::ranges::cbegin(r), std::ranges::cend(r)); }
+    template <std::ranges::forward_range R>
+    std::vector<std::pair<size_type, size_type>> get_nodes(const R &r) const { return get_nodes(m_root, std::ranges::cbegin(r), std::ranges::cend(r)); }
     void clear() { m_root.reset(); }
 };
 
@@ -219,6 +232,7 @@ public:
     // 多重集合内において，辞書順で最も大きい文字列を取得する．
     std::string max_element() const { return base_type::template max_element<std::string>(); }
     std::pair<size_type, size_type> lower_and_upper_bound(std::string_view sv) const { return base_type::lower_and_upper_bound(sv); }
+    std::vector<std::pair<size_type, size_type>> get_nodes(std::string_view sv) const { return base_type::get_nodes(sv); }
 };
 
 }  // namespace algorithm
