@@ -23,10 +23,10 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "presentation": {
+                "revealProblems": "onProblem"
+            },
+            "group": "build"
         },
         {
             "label": "C/C++: g++ build active file for debugger",
@@ -48,7 +48,35 @@
             "problemMatcher": [
                 "$gcc"
             ],
+            "presentation": {
+                "revealProblems": "onProblem"
+            },
             "group": "build"
+        },
+        {
+            "label": "bundle",
+            "type": "shell",
+            "command": "oj-bundle",
+            "args": [
+                "${file}",
+                ">",
+                "${workspaceFolder}/bundle.cpp"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "none"
+        },
+        {
+            "label": "build and bundle",
+            "dependsOn": [
+                "C/C++: g++ build active file",
+                "bundle"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ],
     "version": "2.0.0"
