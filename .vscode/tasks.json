@@ -23,9 +23,6 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "presentation": {
-                "revealProblems": "onProblem"
-            },
             "group": "build"
         },
         {
@@ -35,6 +32,7 @@
             "args": [
                 "-I",
                 "${workspaceFolder}/",
+                "-D=DEBUG",
                 "-g",
                 "-std=gnu++23",
                 "-fdiagnostics-color=always",
