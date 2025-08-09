@@ -25,9 +25,9 @@ public:
     constexpr Set(const value_type &val) : val(val) {}
     constexpr Set(value_type &&val) : val(std::move(val)) {}
 
-    friend constexpr bool operator==(const Set &lhs, const Set &rhs) { return lhs.value() == rhs.value(); }
+    friend constexpr bool operator==(const Set &lhs, const Set &rhs) { return lhs.val == rhs.val; }
     friend std::istream &operator>>(std::istream &is, Set &rhs) { return is >> rhs.val; }
-    friend std::ostream &operator<<(std::ostream &os, const Set &rhs) { return os << rhs.value(); }
+    friend std::ostream &operator<<(std::ostream &os, const Set &rhs) { return os << rhs.val; }
 
     constexpr value_type value() const { return val; }
 };
@@ -44,7 +44,7 @@ public:
     constexpr Semigroup(const value_type &val) : base_type(val) {}
     constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}
 
-    friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs) { return Semigroup(op(lhs.value(), rhs.value())); }
+    friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs) { return Semigroup(op(lhs.val, rhs.val)); }
 
     static constexpr auto get_op() { return op; }
 };
@@ -61,7 +61,7 @@ public:
     constexpr Monoid(const value_type &val) : base_type(val) {}
     constexpr Monoid(value_type &&val) : base_type(std::move(val)) {}
 
-    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.value(), rhs.value())); }
+    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.val, rhs.val)); }
 
     static constexpr auto get_e() { return e; }
     static constexpr Monoid one() { return Monoid(e()); }  // return identity element.
@@ -79,11 +79,11 @@ public:
     constexpr Group(const value_type &val) : base_type(val) {}
     constexpr Group(value_type &&val) : base_type(std::move(val)) {}
 
-    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return Group(op(lhs.value(), rhs.value())); }
+    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return Group(op(lhs.val, rhs.val)); }
 
     static constexpr auto get_inverse() { return inverse; }
-    static constexpr Group one() { return Group(e()); }                    // return identity element.
-    constexpr Group inv() const { return Group(inverse(this->value())); }  // return inverse element.
+    static constexpr Group one() { return Group(e()); }                     // return identity element.
+    constexpr Group inv() const { return Group(inverse(base_type::val)); }  // return inverse element.
 };
 
 template <typename F, auto compose, auto id, typename X, auto mapping>
@@ -99,15 +99,15 @@ public:
     constexpr OperatorMonoid(const value_type &val) : base_type(val) {}
     constexpr OperatorMonoid(value_type &&val) : base_type(std::move(val)) {}
 
-    friend constexpr OperatorMonoid operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.value(), rhs.value())); }
+    friend constexpr OperatorMonoid operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val, rhs.val)); }
 
     static constexpr auto get_mapping() { return mapping; }
     static constexpr OperatorMonoid one() { return OperatorMonoid(id()); }  // return identity mapping.
-    constexpr acted_type act(const acted_type &x) const { return mapping(this->value(), x); }
+    constexpr acted_type act(const acted_type &x) const { return mapping(base_type::val, x); }
     template <class S>
     constexpr S act(const S &x) const {
         static_assert(std::is_base_of<Set<acted_type>, S>::value);
-        return S(mapping(this->value(), x.value()));
+        return S(mapping(base_type::val, x.val));
     }
 };
 

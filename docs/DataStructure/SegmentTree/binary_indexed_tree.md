@@ -26,13 +26,13 @@ documentation_of: //algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
 
 必要なメモリ領域は対象の配列サイズと同じであり，Segment tree より軽い（Segment tree は2倍程度）．
 
-
 ## 説明
 
-### algorithm::BIT\<AbelianGroup\>
+### algorithm::BIT\<T, AbelianGroup\>
 
 |テンプレート引数|説明|
 |---|---|
+|`T`|要素の型|
 |`AbelianGroup`|アーベル群の型．`algorithm::algebra::Group` を想定している．|
 
 |コンストラクタ|説明|計算量|
@@ -53,7 +53,6 @@ documentation_of: //algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
 |`r=most_right(pred)`|`pred(sum(r))==true` となる区間の最右位置 `r` を二分探索する．ただし，区間 $[0,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\mathcal{O}(\log N)$|
 |`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(N)$|
 
-
 ## 参考
 
 1. "フェニック木". Wikipedia. <https://ja.wikipedia.org/wiki/フェニック木>.
@@ -61,7 +60,6 @@ documentation_of: //algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
 1. ngtkana. "データ構造 Fenwick tree (binary indexed tree, BIT) にどっぷりと入門し、その美しき構造に心を洗われたい方のための紹介記事です！". Qiita. <https://qiita.com/ngtkana/items/7d50ff180a4e5c294cb7>.
 1. sysdev. "AtCoder Library を読んでアルゴリズムを勉強：フェニック木（BIT）". Qiita. <https://qiita.com/sysdev/items/30aa7d5e9ac4ea871bd3>.
 1. "Binary Indexed Tree（Fenwick Tree）". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/binary_indexed_tree>.
-
 
 ## 問題
 

@@ -9,7 +9,7 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    algorithm::binary_indexed_tree::range_sum_binary_indexed_tree<int> bit(n);
+    algorithm::RangeSumBIT<int> bit(n);
 
     while(q--) {
         int com;
@@ -27,7 +27,7 @@ int main() {
             std::cin >> x >> y;
             --x;
 
-            auto &&ans = bit.sum(x, y);
+            auto ans = bit.sum(x, y);
             std::cout << ans << "\n";
         }
     }
