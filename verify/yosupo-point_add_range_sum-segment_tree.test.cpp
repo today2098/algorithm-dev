@@ -13,7 +13,7 @@ int main() {
     std::vector<long long> a(n);
     for(auto &elem : a) std::cin >> elem;
 
-    algorithm::segment_tree::range_sum_segment_tree<long long> segtree(a.cbegin(), a.cend());
+    algorithm::RangeSumSegmentTree<long long> segtree(a);
 
     while(q--) {
         int t;
@@ -24,13 +24,13 @@ int main() {
             long long x;
             std::cin >> p >> x;
 
-            auto &&now = segtree.prod(p);
+            auto now = segtree.prod(p);
             segtree.set(p, now + x);
         } else {
             int l, r;
             std::cin >> l >> r;
 
-            auto &&ans = segtree.prod(l, r);
+            auto ans = segtree.prod(l, r);
             std::cout << ans << "\n";
         }
     }

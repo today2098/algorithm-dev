@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <cassert>
-#include <initializer_list>
 #include <iterator>
 #include <ranges>
 #include <type_traits>
