@@ -9,7 +9,7 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    algorithm::dynamic_segment_tree::range_sum_dynamic_segment_tree<int> segtree(n);
+    algorithm::RangeSumDynamicSegmentTree<int> segtree(n);
 
     while(q--) {
         int com;
@@ -21,14 +21,14 @@ int main() {
             std::cin >> x >> y;
             --x;
 
-            auto &&now = segtree.prod(x);
+            auto now = segtree.prod(x);
             segtree.set(x, now + y);
         } else {
             int x, y;
             std::cin >> x >> y;
             --x;
 
-            auto &&ans = segtree.prod(x, y);
+            auto ans = segtree.prod(x, y);
             std::cout << ans << "\n";
         }
     }

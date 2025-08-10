@@ -16,13 +16,13 @@ documentation_of: //algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
 - 初期化時，すべての要素は単位元である必要がある
 - 一点取得の時間計算量が $\mathcal{O}(\log Q)$
 
-
 ## 説明
 
 ### algorithm::DynamicSegmentTree\<Monoid\>
 
 |テンプレート引数|説明|
 |---|---|
+|`S`|要素の型|
 |`Monoid`|モノイドの型．`algorithm::algebra::Monoid` を想定している．|
 
 |コンストラクタ|説明|計算量|
@@ -43,11 +43,9 @@ documentation_of: //algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
 |`reset(l,r)`|区間 `[l,r)` の要素を単位元 `Monoid::one()` で初期化する．|$\mathcal{O}(Q)$|
 |`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(Q)$|
 
-
 ## 参考
 
 1. "Dynamic Segment Tree の ACL 風実装". HatenaBlog. <https://lorent-kyopro.hatenablog.com/entry/2021/03/12/025644>.
-
 
 ## 問題
 
