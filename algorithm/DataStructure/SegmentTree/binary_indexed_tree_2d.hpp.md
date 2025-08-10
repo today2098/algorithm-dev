@@ -23,57 +23,56 @@ data:
     \    value_type val;\n\npublic:\n    constexpr Set() : val() {}\n    constexpr\
     \ Set(const value_type &val) : val(val) {}\n    constexpr Set(value_type &&val)\
     \ : val(std::move(val)) {}\n\n    friend constexpr bool operator==(const Set &lhs,\
-    \ const Set &rhs) { return lhs.value() == rhs.value(); }\n    friend std::istream\
-    \ &operator>>(std::istream &is, Set &rhs) { return is >> rhs.val; }\n    friend\
-    \ std::ostream &operator<<(std::ostream &os, const Set &rhs) { return os << rhs.value();\
-    \ }\n\n    constexpr value_type value() const { return val; }\n};\n\ntemplate\
-    \ <typename S, auto op>\nclass Semigroup : public Set<S> {\n    static_assert(std::is_invocable_r<S,\
-    \ decltype(op), S, S>::value);\n\npublic:\n    using base_type = Set<S>;\n   \
-    \ using value_type = typename base_type::value_type;\n\n    constexpr Semigroup()\
-    \ : base_type() {}\n    constexpr Semigroup(const value_type &val) : base_type(val)\
-    \ {}\n    constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}\n\
-    \n    friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup\
-    \ &rhs) { return Semigroup(op(lhs.value(), rhs.value())); }\n\n    static constexpr\
-    \ auto get_op() { return op; }\n};\n\ntemplate <typename S, auto op, auto e>\n\
-    class Monoid : public Semigroup<S, op> {\n    static_assert(std::is_invocable_r<S,\
-    \ decltype(e)>::value);\n\npublic:\n    using base_type = Semigroup<S, op>;\n\
-    \    using value_type = typename base_type::value_type;\n\n    constexpr Monoid()\
-    \ : base_type() {}\n    constexpr Monoid(const value_type &val) : base_type(val)\
-    \ {}\n    constexpr Monoid(value_type &&val) : base_type(std::move(val)) {}\n\n\
-    \    friend constexpr Monoid operator*(const Monoid &lhs, const Monoid &rhs) {\
-    \ return Monoid(op(lhs.value(), rhs.value())); }\n\n    static constexpr auto\
-    \ get_e() { return e; }\n    static constexpr Monoid one() { return Monoid(e());\
-    \ }  // return identity element.\n};\n\ntemplate <typename S, auto op, auto e,\
-    \ auto inverse>\nclass Group : public Monoid<S, op, e> {\n    static_assert(std::is_invocable_r<S,\
-    \ decltype(inverse), S>::value);\n\npublic:\n    using base_type = Monoid<S, op,\
-    \ e>;\n    using value_type = typename base_type::value_type;\n\n    constexpr\
-    \ Group() : base_type() {}\n    constexpr Group(const value_type &val) : base_type(val)\
-    \ {}\n    constexpr Group(value_type &&val) : base_type(std::move(val)) {}\n\n\
-    \    friend constexpr Group operator*(const Group &lhs, const Group &rhs) { return\
-    \ Group(op(lhs.value(), rhs.value())); }\n\n    static constexpr auto get_inverse()\
+    \ const Set &rhs) { return lhs.val == rhs.val; }\n    friend std::istream &operator>>(std::istream\
+    \ &is, Set &rhs) { return is >> rhs.val; }\n    friend std::ostream &operator<<(std::ostream\
+    \ &os, const Set &rhs) { return os << rhs.val; }\n\n    constexpr value_type value()\
+    \ const { return val; }\n};\n\ntemplate <typename S, auto op>\nclass Semigroup\
+    \ : public Set<S> {\n    static_assert(std::is_invocable_r<S, decltype(op), S,\
+    \ S>::value);\n\npublic:\n    using base_type = Set<S>;\n    using value_type\
+    \ = typename base_type::value_type;\n\n    constexpr Semigroup() : base_type()\
+    \ {}\n    constexpr Semigroup(const value_type &val) : base_type(val) {}\n   \
+    \ constexpr Semigroup(value_type &&val) : base_type(std::move(val)) {}\n\n   \
+    \ friend constexpr Semigroup operator*(const Semigroup &lhs, const Semigroup &rhs)\
+    \ { return Semigroup(op(lhs.val, rhs.val)); }\n\n    static constexpr auto get_op()\
+    \ { return op; }\n};\n\ntemplate <typename S, auto op, auto e>\nclass Monoid :\
+    \ public Semigroup<S, op> {\n    static_assert(std::is_invocable_r<S, decltype(e)>::value);\n\
+    \npublic:\n    using base_type = Semigroup<S, op>;\n    using value_type = typename\
+    \ base_type::value_type;\n\n    constexpr Monoid() : base_type() {}\n    constexpr\
+    \ Monoid(const value_type &val) : base_type(val) {}\n    constexpr Monoid(value_type\
+    \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr Monoid operator*(const\
+    \ Monoid &lhs, const Monoid &rhs) { return Monoid(op(lhs.val, rhs.val)); }\n\n\
+    \    static constexpr auto get_e() { return e; }\n    static constexpr Monoid\
+    \ one() { return Monoid(e()); }  // return identity element.\n};\n\ntemplate <typename\
+    \ S, auto op, auto e, auto inverse>\nclass Group : public Monoid<S, op, e> {\n\
+    \    static_assert(std::is_invocable_r<S, decltype(inverse), S>::value);\n\npublic:\n\
+    \    using base_type = Monoid<S, op, e>;\n    using value_type = typename base_type::value_type;\n\
+    \n    constexpr Group() : base_type() {}\n    constexpr Group(const value_type\
+    \ &val) : base_type(val) {}\n    constexpr Group(value_type &&val) : base_type(std::move(val))\
+    \ {}\n\n    friend constexpr Group operator*(const Group &lhs, const Group &rhs)\
+    \ { return Group(op(lhs.val, rhs.val)); }\n\n    static constexpr auto get_inverse()\
     \ { return inverse; }\n    static constexpr Group one() { return Group(e()); }\
-    \                    // return identity element.\n    constexpr Group inv() const\
-    \ { return Group(inverse(this->value())); }  // return inverse element.\n};\n\n\
-    template <typename F, auto compose, auto id, typename X, auto mapping>\nclass\
+    \                     // return identity element.\n    constexpr Group inv() const\
+    \ { return Group(inverse(base_type::val)); }  // return inverse element.\n};\n\
+    \ntemplate <typename F, auto compose, auto id, typename X, auto mapping>\nclass\
     \ OperatorMonoid : public Monoid<F, compose, id> {\n    static_assert(std::is_invocable_r<X,\
     \ decltype(mapping), F, X>::value);\n\npublic:\n    using base_type = Monoid<F,\
     \ compose, id>;\n    using value_type = typename base_type::value_type;\n    using\
     \ acted_type = X;\n\n    constexpr OperatorMonoid() : base_type() {}\n    constexpr\
     \ OperatorMonoid(const value_type &val) : base_type(val) {}\n    constexpr OperatorMonoid(value_type\
     \ &&val) : base_type(std::move(val)) {}\n\n    friend constexpr OperatorMonoid\
-    \ operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.value(),\
-    \ rhs.value())); }\n\n    static constexpr auto get_mapping() { return mapping;\
-    \ }\n    static constexpr OperatorMonoid one() { return OperatorMonoid(id());\
-    \ }  // return identity mapping.\n    constexpr acted_type act(const acted_type\
-    \ &x) const { return mapping(this->value(), x); }\n    template <class S>\n  \
-    \  constexpr S act(const S &x) const {\n        static_assert(std::is_base_of<Set<acted_type>,\
-    \ S>::value);\n        return S(mapping(this->value(), x.value()));\n    }\n};\n\
-    \nnamespace element {\n\ntemplate <typename S>\nconstexpr auto zero = []() ->\
-    \ S { return S(); };\n\ntemplate <typename S>\nconstexpr auto one = []() -> S\
-    \ { return 1; };\n\ntemplate <typename S>\nconstexpr auto min = []() -> S { return\
-    \ std::numeric_limits<S>::min(); };\n\ntemplate <typename S>\nconstexpr auto max\
-    \ = []() -> S { return std::numeric_limits<S>::max(); };\n\ntemplate <typename\
-    \ S>\nconstexpr auto one_below_max = []() -> S { return std::numeric_limits<S>::max()\
+    \ operator*(const OperatorMonoid &lhs, const OperatorMonoid &rhs) { return OperatorMonoid(compose(lhs.val,\
+    \ rhs.val)); }\n\n    static constexpr auto get_mapping() { return mapping; }\n\
+    \    static constexpr OperatorMonoid one() { return OperatorMonoid(id()); }  //\
+    \ return identity mapping.\n    constexpr acted_type act(const acted_type &x)\
+    \ const { return mapping(base_type::val, x); }\n    template <class S>\n    constexpr\
+    \ S act(const S &x) const {\n        static_assert(std::is_base_of<Set<acted_type>,\
+    \ S>::value);\n        return S(mapping(base_type::val, x.value()));\n    }\n\
+    };\n\nnamespace element {\n\ntemplate <typename S>\nconstexpr auto zero = []()\
+    \ -> S { return S(); };\n\ntemplate <typename S>\nconstexpr auto one = []() ->\
+    \ S { return 1; };\n\ntemplate <typename S>\nconstexpr auto min = []() -> S {\
+    \ return std::numeric_limits<S>::min(); };\n\ntemplate <typename S>\nconstexpr\
+    \ auto max = []() -> S { return std::numeric_limits<S>::max(); };\n\ntemplate\
+    \ <typename S>\nconstexpr auto one_below_max = []() -> S { return std::numeric_limits<S>::max()\
     \ - 1; };\n\ntemplate <typename S>\nconstexpr auto lowest = []() -> S { return\
     \ std::numeric_limits<S>::lowest(); };\n\ntemplate <typename S>\nconstexpr auto\
     \ one_above_lowest = []() -> S { return std::numeric_limits<S>::lowest() + 1;\
@@ -216,7 +215,7 @@ data:
   isVerificationFile: false
   path: algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
   requiredBy: []
-  timestamp: '2025-07-06 15:08:00+09:00'
+  timestamp: '2025-08-10 07:13:29+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-2842-binary_indexed_tree_2d.test.cpp

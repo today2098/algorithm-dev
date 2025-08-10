@@ -189,8 +189,8 @@ data:
   timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/aoj-DSL_2_B-binary_trie.test.cpp
   - verify/yosupo-set_xor_min-binary_trie.test.cpp
+  - verify/aoj-DSL_2_B-binary_trie.test.cpp
 documentation_of: algorithm/DataStructure/Others/binary_trie.hpp
 layout: document
 title: "Binary Trie\uFF08\u4E8C\u5206\u30C8\u30E9\u30A4\u6728\uFF09"

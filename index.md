@@ -238,7 +238,7 @@ data:
       title: "Manacher's Algorithm\uFF08\u6700\u9577\u56DE\u6587\uFF09"
     - icon: ':warning:'
       path: algorithm/String/trie.hpp
-      title: "Trie\u6728"
+      title: "\u6587\u5B57\u5217\u5206\u5272"
     - icon: ':heavy_check_mark:'
       path: algorithm/String/z_algorithm.hpp
       title: "Z algorithm\uFF08\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\uFF09"
