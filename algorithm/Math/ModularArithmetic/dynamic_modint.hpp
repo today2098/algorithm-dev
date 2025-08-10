@@ -2,6 +2,7 @@
 #define ALGORITHM_DYNAMIC_MODINT_HPP 1
 
 #include <cassert>
+#include <functional>
 #include <iostream>
 #include <utility>
 
@@ -99,10 +100,9 @@ public:
     DynamicModint pow(long long k) const {
         if(k < 0) return inv().pow(-k);
         DynamicModint res = 1, mul = *this;
-        while(k > 0) {
+        for(; k > 0; k >>= 1) {
             if(k & 1LL) res *= mul;
             mul *= mul;
-            k >>= 1;
         }
         return res;
     }
@@ -115,5 +115,10 @@ template <int id>
 int DynamicModint<id>::mod = 1'000'000'007;
 
 }  // namespace algorithm
+
+template <int id>
+struct std::hash<algorithm::DynamicModint<id>> {
+    std::size_t operator()(const algorithm::DynamicModint<id> &ob) const { return ob.value(); }
+};
 
 #endif

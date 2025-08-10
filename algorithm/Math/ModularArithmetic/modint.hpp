@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_MODINT_HPP
 #define ALGORITHM_MODINT_HPP 1
 
+#include <functional>
 #include <iostream>
 #include <utility>
 
@@ -94,10 +95,9 @@ public:
     constexpr Modint pow(long long k) const {
         if(k < 0) return inv().pow(-k);
         Modint res = 1, mul = *this;
-        while(k > 0) {
+        for(; k > 0; k >>= 1) {
             if(k & 1LL) res *= mul;
             mul *= mul;
-            k >>= 1;
         }
         return res;
     }
@@ -110,5 +110,10 @@ using mint998244353 = Modint<998'244'353>;
 using mint1000000007 = Modint<1'000'000'007>;
 
 }  // namespace algorithm
+
+template <int mod>
+struct std::hash<algorithm::Modint<mod>> {
+    std::size_t operator()(const algorithm::Modint<mod> &ob) const { return ob.value(); }
+};
 
 #endif
