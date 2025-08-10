@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <initializer_list>
 #include <iostream>
 #include <iterator>
 #include <ranges>
@@ -54,6 +55,8 @@ public:
     }
     template <std::ranges::input_range R>
     explicit SegmentTreeBase(R &&r) : SegmentTreeBase(std::ranges::begin(r), std::ranges::end(r)) {}
+    template <typename T>
+    explicit SegmentTreeBase(std::initializer_list<T> il) : SegmentTreeBase(il.begin(), il.end()) {}
 
     // 要素数を取得する．
     int size() const { return m_sz; }
@@ -83,8 +86,6 @@ public:
     monoid_type prod_all() const { return m_tree[1]; }
     // pred(prod(l,r))==true となる区間の最右位値rを二分探索する．
     // ただし，区間[l,n)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
-    template <bool (*pred)(monoid_type)>
-    int most_right(int l) const { return most_right(l, pred); }
     template <typename Pred>
     int most_right(int l, Pred pred) const {
         static_assert(std::is_invocable_r<bool, Pred, monoid_type>::value);
@@ -110,8 +111,6 @@ public:
     }
     // pred(prod(l,r))==true となる区間の最左位値lを二分探索する．
     // ただし，区間[0,r)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
-    template <bool (*pred)(monoid_type)>
-    int most_left(int r) const { return most_left(r, pred); }
     template <typename Pred>
     int most_left(int r, Pred pred) const {
         static_assert(std::is_invocable_r<bool, Pred, monoid_type>::value);
@@ -148,11 +147,11 @@ public:
     }
 };
 
-template <typename T, class Monoid>
+template <typename S, class Monoid>
 class SegmentTree : public SegmentTreeBase<Monoid> {
 public:
     using base_type = SegmentTreeBase<Monoid>;
-    using value_type = T;
+    using value_type = S;
     using typename base_type::monoid_type;
 
     // constructor. O(N).
@@ -163,6 +162,8 @@ public:
     explicit SegmentTree(InputIter first, InputIter last) : base_type(first, last) {}
     template <std::ranges::input_range R>
     explicit SegmentTree(R &&r) : base_type(std::forward<R>(r)) {}
+    template <typename T>
+    explicit SegmentTree(std::initializer_list<T> il) : SegmentTree(std::move(il)) {}
 
     // k番目の要素をaに置き換える．O(log N).
     void set(int k, const value_type &a) { base_type::set(k, a); }
@@ -174,8 +175,6 @@ public:
     value_type prod_all() const { return base_type::prod_all().value(); }
     // pred(prod(l,r))==true となる区間の最右位値rを二分探索する．
     // ただし，区間[l,n)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
-    template <bool (*pred)(value_type)>
-    int most_right(int l) const { return most_right(l, pred); }
     template <typename Pred>
     int most_right(int l, Pred pred) const {
         static_assert(std::is_invocable_r<bool, Pred, value_type>::value);
@@ -183,8 +182,6 @@ public:
     }
     // pred(prod(l,r))==true となる区間の最左位値lを二分探索する．
     // ただし，区間[0,r)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
-    template <bool (*pred)(value_type)>
-    int most_left(int r) const { return most_left(r, pred); }
     template <typename Pred>
     int most_left(int r, Pred pred) const {
         static_assert(std::is_invocable_r<bool, Pred, value_type>::value);

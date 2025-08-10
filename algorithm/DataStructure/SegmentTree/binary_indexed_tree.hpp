@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <initializer_list>
 #include <iterator>
 #include <ranges>
 #include <type_traits>
@@ -52,6 +53,8 @@ public:
     }
     template <std::ranges::input_range R>
     explicit BITBase(R &&r) : BITBase(std::ranges::begin(r), std::ranges::end(r)) {}
+    template <typename T>
+    explicit BITBase(std::initializer_list<T> il) : BITBase(il.begin(), il.end()) {}
     explicit BITBase(std::vector<group_type> &&v) : m_tree(std::move(v)) {
         m_sz = m_tree.size();
         build();
@@ -78,8 +81,6 @@ public:
     group_type sum_all() const { return sum_internal(m_sz); }
     // pred(sum(r))==true となる区間の最右位値rを二分探索する．
     // ただし，区間[0,n)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
-    template <bool (*pred)(group_type)>
-    int most_right() const { return most_right(pred); }
     template <typename Pred>
     int most_right(Pred pred) const {
         static_assert(std::is_invocable_r<bool, Pred, group_type>::value);
@@ -98,11 +99,11 @@ public:
     void reset() { std::fill(m_tree.begin(), m_tree.end(), group_type::one()); }
 };
 
-template <typename T, class AbelianGroup>
+template <typename S, class AbelianGroup>
 class BIT : public BITBase<AbelianGroup> {
 public:
     using base_type = BITBase<AbelianGroup>;
-    using value_type = T;
+    using value_type = S;
     using typename base_type::group_type;
 
     // constructor. O(N).
@@ -113,6 +114,8 @@ public:
     explicit BIT(InputIter first, InputIter last) : base_type(first, last) {}
     template <std::ranges::input_range R>
     explicit BIT(R &&r) : base_type(std::forward<R>(r)) {}
+    template <typename T>
+    explicit BIT(std::initializer_list<T> il) : base_type(std::move(il)) {}
     explicit BIT(std::vector<group_type> &&v) : base_type(std::move(v)) {}
 
     // k番目の要素をaとの積の結果に置き換える．O(log N).
@@ -125,8 +128,6 @@ public:
     value_type sum_all() const { return base_type::sum_all().value(); }
     // pred(sum(r))==true となる区間の最右位値rを二分探索する．
     // ただし，区間[0,n)の要素はpred(S)によって区分化されていること．また，pred(e)==true であること．O(log N).
-    template <bool (*pred)(value_type)>
-    int most_right() const { return most_right(pred); }
     template <typename Pred>
     int most_right(Pred pred) const {
         static_assert(std::is_invocable_r<bool, Pred, value_type>::value);

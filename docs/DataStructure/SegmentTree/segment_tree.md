@@ -22,7 +22,7 @@ documentation_of: //algorithm/DataStructure/SegmentTree/segment_tree.hpp
 
 ## 説明
 
-### algorithm::SegmentTree\<T, Monoid\>
+### algorithm::SegmentTree\<T,Monoid\>
 
 |テンプレート引数|説明|
 |---|---|

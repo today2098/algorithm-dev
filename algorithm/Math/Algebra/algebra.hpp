@@ -107,7 +107,7 @@ public:
     template <class S>
     constexpr S act(const S &x) const {
         static_assert(std::is_base_of<Set<acted_type>, S>::value);
-        return S(mapping(base_type::val, x.val));
+        return S(mapping(base_type::val, x.value()));
     }
 };
 

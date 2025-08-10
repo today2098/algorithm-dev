@@ -4,7 +4,7 @@ documentation_of: //algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
 ---
 
 
-##  概要
+## 概要
 
 単純な Segment tree が処理するクエリは一点更新・区間取得であるのに対し，「Lazy segment tree（遅延評価セグメント木）」は**区間更新**・区間取得のクエリを処理する．
 
@@ -23,13 +23,14 @@ Lazy segment tree にのせるモノイドと作用素モノイドは次の条�
 
 - 分配律：$\forall f \in F, \ \forall x, y \in S, \ f.(x \bullet y) = f.x \bullet f.y$
 
-
 ## 説明
 
-### algorithm::LazySegmentTree\<Monoid,OperatorMonoid\>
+### algorithm::LazySegmentTree\<S,F,Monoid,OperatorMonoid\>
 
 |テンプレート引数|説明|
 |---|---|
+|`S`|要素の型|
+|`F`|作用素の型|
 |`Monoid`|モノイドの型．`algorithm::algebra::Monoid` を想定している．|
 |`OperatorMonoid`|作用素モノイドの型．`algorithm::algebra::OperatorMonoid` を想定している．|
 
@@ -54,7 +55,6 @@ Lazy segment tree にのせるモノイドと作用素モノイドは次の条�
 |`l=most_left(r,pred)`|`pred(prod(l,r))==true` となる区間の最左位置 `l` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\Theta(\log N)$|
 |`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(N)$|
 
-
 ## 参考
 
 1. "Lazy Segtree". AC Library. AtCoder. <https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html>.
@@ -64,7 +64,6 @@ Lazy segment tree にのせるモノイドと作用素モノイドは次の条�
 1. betrue12. "Atcoder LibraryのLazy Segtreeの使い方". Hatena Blog. <https://betrue12.hateblo.jp/entry/2020/09/22/194541>.
 1. "Segment木の種類とその要件". うさぎ小屋. <https://kmyk.github.io/blog/blog/2017/01/17/segment-tree-requirements/>.
 1. "遅延評価セグメント木". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/segment_tree/lazy_segment_tree>.
-
 
 ## 問題
 

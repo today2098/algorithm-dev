@@ -9,7 +9,7 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    algorithm::lazy_segment_tree::range_minimum_range_update_lazy_segment_tree<unsigned> segtree(n, (1U << 31) - 1);
+    algorithm::RangeMinimumRangeUpdateLazySegmentTree<unsigned> segtree(n, (1U << 31) - 1);
 
     while(q--) {
         int type;
@@ -27,7 +27,7 @@ int main() {
             std::cin >> s >> t;
             ++t;
 
-            auto &&ans = segtree.prod(s, t);
+            auto ans = segtree.prod(s, t);
             std::cout << ans << "\n";
         }
     }

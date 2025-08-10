@@ -28,7 +28,7 @@ documentation_of: //algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
 
 ## 説明
 
-### algorithm::BIT\<T, AbelianGroup\>
+### algorithm::BIT\<T,AbelianGroup\>
 
 |テンプレート引数|説明|
 |---|---|

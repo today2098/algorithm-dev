@@ -11,10 +11,10 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    std::vector<algorithm::mint998244353> a(n);
+    std::vector<int> a(n);
     for(auto &elem : a) std::cin >> elem;
 
-    algorithm::lazy_segment_tree::range_sum_range_affine_lazy_segment_tree<algorithm::mint998244353> segtree(a.cbegin(), a.cend());
+    algorithm::RangeSumRangeAffineLazySegmentTree<algorithm::mint998244353> segtree(a);
 
     while(q--) {
         int type;
@@ -22,12 +22,12 @@ int main() {
         std::cin >> type >> l >> r;
 
         if(type == 0) {
-            algorithm::mint998244353 b, c;
+            int b, c;
             std::cin >> b >> c;
 
             segtree.apply(l, r, {b, c});
         } else {
-            auto &&ans = segtree.prod(l, r).val;
+            auto ans = segtree.prod(l, r);
             std::cout << ans << "\n";
         }
     }
