@@ -217,10 +217,10 @@ template <typename S, typename F, class ActedMonoid, class OperatorMonoid>
 class LazySegmentTree : public LazySegmentTreeBase<ActedMonoid, OperatorMonoid> {
 public:
     using base_type = LazySegmentTreeBase<ActedMonoid, OperatorMonoid>;
-    using acted_value_type = S;
-    using operator_value_type = F;
     using typename base_type::acted_monoid_type;
     using typename base_type::operator_monoid_type;
+    using acted_value_type = S;
+    using operator_value_type = F;
 
     // constructor. O(N).
     LazySegmentTree() : base_type() {}
@@ -280,11 +280,11 @@ template <typename T, typename S, typename F, class ActedMonoid, class OperatorM
 class LengthAwareLazySegmentTree : public LazySegmentTree<S, F, ActedMonoid, OperatorMonoid> {
 public:
     using base_type = LazySegmentTree<S, F, ActedMonoid, OperatorMonoid>;
-    using value_type = T;
     using typename base_type::acted_monoid_type;
     using typename base_type::acted_value_type;
     using typename base_type::operator_monoid_type;
     using typename base_type::operator_value_type;
+    using value_type = T;
 
     // constructor. O(N).
     LengthAwareLazySegmentTree() : base_type() {}

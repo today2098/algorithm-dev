@@ -5,6 +5,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <iterator>
+#include <ranges>
 #include <vector>
 
 #include "../../Math/Algebra/algebra.hpp"
@@ -12,7 +13,7 @@
 namespace algorithm {
 
 template <class IdempotentSemigroup>
-class SparseTable {
+class SparseTableBase {
 public:
     using semigroup_type = IdempotentSemigroup;
     using value_type = typename semigroup_type::value_type;
@@ -25,9 +26,9 @@ private:
 
 public:
     // constructor. O(N log N).
-    SparseTable() : m_sz(0), m_lg({0}), m_table({{}}) {}
+    SparseTableBase() : m_sz(0), m_lg({0}), m_table({{}}) {}
     template <std::input_iterator InputIter>
-    explicit SparseTable(InputIter first, InputIter last) : m_table(1, std::vector<semigroup_type>(first, last)) {
+    explicit SparseTableBase(InputIter first, InputIter last) : m_table(1, std::vector<semigroup_type>(first, last)) {
         m_sz = m_table[0].size();
         m_lg.assign(m_sz + 1, 0);
         for(size_type i = 2; i <= m_sz; ++i) m_lg[i] = m_lg[i >> 1] + 1;
@@ -38,29 +39,31 @@ public:
             for(size_type i = 0; i < n; ++i) m_table[k][i] = m_table[k - 1][i] * m_table[k - 1][i + (1U << (k - 1))];
         }
     }
+    template <std::ranges::input_range R>
+    explicit SparseTableBase(R &&r) : SparseTableBase(std::ranges::begin(r), std::ranges::end(r)) {}
     template <typename T>
-    explicit SparseTable(std::initializer_list<T> il) : SparseTable(il.begin(), il.end()) {}
+    explicit SparseTableBase(std::initializer_list<T> il) : SparseTableBase(il.begin(), il.end()) {}
 
     // 要素数を取得する．
     size_type size() const { return m_sz; }
     // k番目の要素を取得する．O(1).
-    value_type prod(size_type k) const {
+    semigroup_type prod(size_type k) const {
         assert(k < size());
-        return m_table[0][k].value();
+        return m_table[0][k];
     }
     // 区間[l,r)の要素の総積を求める．O(1).
-    value_type prod(size_type l, size_type r) const {
+    semigroup_type prod(size_type l, size_type r) const {
         assert(l < r and r <= size());
         size_type k = m_lg[r - l];
-        return (m_table[k][l] * m_table[k][r - (1U << k)]).value();
+        return m_table[k][l] * m_table[k][r - (1U << k)];
     }
     // 区間全体の要素の総積を求める．O(1).
-    value_type prod_all() const {
+    semigroup_type prod_all() const {
         assert(size() > 0);
-        return (m_table.back().front() * m_table.back().back()).value();
+        return m_table.back().front() * m_table.back().back();
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const SparseTable &rhs) {
+    friend std::ostream &operator<<(std::ostream &os, const SparseTableBase &rhs) {
         if(rhs.m_sz == 0) return os << "[\n]";
         os << "[\n";
         for(size_type k = 0; k <= rhs.m_lg.back(); ++k) {
@@ -71,21 +74,42 @@ public:
     }
 };
 
-namespace sparse_table {
+template <typename S, class IdempotentSemigroup>
+class SparseTable : public SparseTableBase<IdempotentSemigroup> {
+public:
+    using base_type = SparseTableBase<IdempotentSemigroup>;
+    using typename base_type::semigroup_type;
+    using typename base_type::size_type;
+    using value_type = S;
+
+    // constructor. O(N log N).
+    SparseTable() : base_type() {}
+    template <std::input_iterator InputIter>
+    explicit SparseTable(InputIter first, InputIter last) : base_type(first, last) {}
+    template <std::ranges::input_range R>
+    explicit SparseTable(R &&r) : base_type(std::forward<R>(r)) {}
+    template <typename T>
+    explicit SparseTable(std::initializer_list<T> il) : base_type(std::move(il)) {}
+
+    // k番目の要素を取得する．O(1).
+    value_type prod(size_type k) const { return base_type::prod(k).value(); }
+    // 区間[l,r)の要素の総積を求める．O(1).
+    value_type prod(size_type l, size_type r) const { return base_type::prod(l, r).value(); }
+    // 区間全体の要素の総積を求める．O(1).
+    value_type prod_all() const { return base_type::prod_all().value(); }
+};
 
 template <typename S>
-using range_minimum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::min<S>>>;
+using RangeMinimumSparseTable = SparseTable<S, algebra::Semigroup<S, algebra::binary_operator::min<S>>>;
 
 template <typename S>
-using range_maximum_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::max<S>>>;
+using RangeMaximumSparseTable = SparseTable<S, algebra::Semigroup<S, algebra::binary_operator::max<S>>>;
 
 template <typename S>
-using range_gcd_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::gcd<S>>>;
+using RangeGcdSparseTable = SparseTable<S, algebra::Semigroup<S, algebra::binary_operator::gcd<S>>>;
 
 template <typename S>
-using range_lcm_sparse_table = SparseTable<algebra::Semigroup<S, algebra::binary_operator::lcm<S>>>;
-
-}  // namespace sparse_table
+using RangeLcmSparseTable = SparseTable<S, algebra::Semigroup<S, algebra::binary_operator::lcm<S>>>;
 
 }  // namespace algorithm
 

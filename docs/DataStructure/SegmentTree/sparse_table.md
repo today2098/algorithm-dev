@@ -20,13 +20,13 @@ documentation_of: //algorithm/DataStructure/SegmentTree/sparse_table.hpp
 - Segment tree を用いた場合の計算量：$\mathcal{O}(N + Q \log N)$
 - Sparse table を用いた場合の計算量：$\mathcal{O}(N \log(N) + Q)$
 
-
 ## 説明
 
-### algorithm::SparseTable\<IdempotentSemigroup\>
+### algorithm::SparseTable\<S,IdempotentSemigroup\>
 
 |テンプレート引数|説明|
 |---|---|
+|`S`|要素の型|
 |`IdempotentSemigroup`|モノイドの型．`algorithm::algebra::Semigroup` を想定している．|
 
 |コンストラクタ|説明|計算量|
@@ -42,7 +42,6 @@ documentation_of: //algorithm/DataStructure/SegmentTree/sparse_table.hpp
 |`x=prod(l,r)`|区間 `[l,r)` の要素の総積 `x` を求める．|$\Theta(1)$|
 |`x=prod_all()`|区間全体の要素の総積 `x` を求める．|$\Theta(1)$|
 
-
 ## 参考
 
 1. "Band (algebra)". Wikipedia. <https://en.wikipedia.org/wiki/Band_(algebra)>.
@@ -51,7 +50,6 @@ documentation_of: //algorithm/DataStructure/SegmentTree/sparse_table.hpp
 1. tookunn. "Sparse Tableを知ったので、忘れないように。". Hatena Blog. <https://tookunn.hatenablog.com/entry/2016/07/13/211148>.
 1. "Sparse Table". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/sparse_table>.
 1. "特殊な半群". 数学好きのすずめ. <https://suzume-world.com/2021/05/02/特殊な半群/>.
-
 
 ## 問題
 

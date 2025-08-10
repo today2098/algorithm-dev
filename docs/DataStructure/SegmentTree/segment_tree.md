@@ -22,11 +22,11 @@ documentation_of: //algorithm/DataStructure/SegmentTree/segment_tree.hpp
 
 ## 説明
 
-### algorithm::SegmentTree\<T,Monoid\>
+### algorithm::SegmentTree\<S,Monoid\>
 
 |テンプレート引数|説明|
 |---|---|
-|`T`|要素の型|
+|`S`|要素の型|
 |`Monoid`|モノイドの型．`algorithm::algebra::Monoid` を想定している．|
 
 |コンストラクタ|説明|計算量|

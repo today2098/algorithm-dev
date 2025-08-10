@@ -28,11 +28,11 @@ documentation_of: //algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
 
 ## 説明
 
-### algorithm::BIT\<T,AbelianGroup\>
+### algorithm::BIT\<S,AbelianGroup\>
 
 |テンプレート引数|説明|
 |---|---|
-|`T`|要素の型|
+|`S`|要素の型|
 |`AbelianGroup`|アーベル群の型．`algorithm::algebra::Group` を想定している．|
 
 |コンストラクタ|説明|計算量|

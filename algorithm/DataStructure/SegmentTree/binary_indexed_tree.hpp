@@ -103,8 +103,8 @@ template <typename S, class AbelianGroup>
 class BIT : public BITBase<AbelianGroup> {
 public:
     using base_type = BITBase<AbelianGroup>;
-    using value_type = S;
     using typename base_type::group_type;
+    using value_type = S;
 
     // constructor. O(N).
     BIT() : base_type() {}
