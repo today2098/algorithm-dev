@@ -24,7 +24,7 @@ int main() {
     constexpr auto op = [](const S &lhs, const S &rhs) -> S { return {lhs.a * rhs.a, lhs.b * rhs.a + rhs.b}; };
     constexpr auto e = []() -> S { return {1, 0}; };
     using monoid_type = algorithm::algebra::Monoid<S, op, e>;
-    algorithm::SegmentTree<monoid_type> segtree(v.cbegin(), v.cend());
+    algorithm::SegmentTree<S, monoid_type> segtree(v);
 
     while(q--) {
         int t;
@@ -41,8 +41,8 @@ int main() {
             int x;
             std::cin >> l >> r >> x;
 
-            auto &&f = segtree.prod(l, r);
-            auto &&ans = mapping(f, x);
+            auto f = segtree.prod(l, r);
+            auto ans = mapping(f, x);
             std::cout << ans << "\n";
         }
     }

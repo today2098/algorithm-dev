@@ -199,6 +199,118 @@
 			"#include \"algorithm/DataStructure/UnionFind/union_find.hpp\""
 		]
 	},
+	"#include \"algorithm/Math/ModularArithmetic/dynamic_modint.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"ModularArithmetic",
+			"dynamic_modint.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/ModularArithmetic/dynamic_modint.hpp\""
+		]
+	},
+	"#include \"algorithm/Math/ModularArithmetic/mod_inv.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"ModularArithmetic",
+			"mod_inv.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/ModularArithmetic/mod_inv.hpp\""
+		]
+	},
+	"#include \"algorithm/Math/ModularArithmetic/mod_pow.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"ModularArithmetic",
+			"mod_pow.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/ModularArithmetic/mod_pow.hpp\""
+		]
+	},
+	"#include \"algorithm/Math/ModularArithmetic/modint.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"ModularArithmetic",
+			"modint.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/ModularArithmetic/modint.hpp\""
+		]
+	},
+	"#include \"algorithm/Others/binary_search.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Others",
+			"binary_search.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Others/binary_search.hpp\""
+		]
+	},
+	"#include \"algorithm/Others/compress.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Others",
+			"compress.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Others/compress.hpp\""
+		]
+	},
+	"#include \"algorithm/Others/longest_increasing_subsequence.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Others",
+			"longest_increasing_subsequence.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Others/longest_increasing_subsequence.hpp\""
+		]
+	},
+	"#include \"algorithm/Others/mo_algorithm.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Others",
+			"mo_algorithm.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Others/mo_algorithm.hpp\""
+		]
+	},
+	"#include \"algorithm/String/trie.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"String",
+			"trie.hpp"
+		],
+		"body": [
+			"#include \"algorithm/String/trie.hpp\""
+		]
+	},
 	"#include \"algorithm/Utils/convert.hpp\"": {
 		"scope": "cpp",
 		"prefix": [
@@ -2561,30 +2673,6 @@
 			"}"
 		],
 		"description": "累乗根（ニュートン法）"
-	},
-	"popcount": {
-		"prefix": "popcount",
-		"body": [
-			"constexpr int popcount32(uint32_t bit) {",
-			"    bit -= (bit >> 1) & 0x5555'5555U;",
-			"    bit = (bit & 0x3333'3333U) + ((bit >> 2) & 0x3333'3333U);",
-			"    bit = (bit + (bit >> 4)) & 0x0f0f'0f0fU;",
-			"    bit += bit >> 8;",
-			"    bit += bit >> 16;",
-			"    return bit & 0x0000'003fU;",
-			"}",
-			"",
-			"constexpr int popcount64(uint64_t bit) {",
-			"    bit -= (bit >> 1) & 0x5555'5555'5555'5555ULL;",
-			"    bit = (bit & 0x3333'3333'3333'3333ULL) + ((bit >> 2) & 0x3333'3333'3333'3333ULL);",
-			"    bit = (bit + (bit >> 4)) & 0x0f0f'0f0f'0f0f'0f0fULL;",
-			"    bit += bit >> 8;",
-			"    bit += bit >> 16;",
-			"    bit += bit >> 32;",
-			"    return bit & 0x0000'0000'0000'007fULL;",
-			"}"
-		],
-		"description": "Population Count (popcount)"
 	},
 	"prime_factorize": {
 		"scope": "cpp",

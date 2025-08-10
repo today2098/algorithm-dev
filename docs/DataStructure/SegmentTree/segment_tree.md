@@ -20,13 +20,13 @@ documentation_of: //algorithm/DataStructure/SegmentTree/segment_tree.hpp
 
 例えば，自然数全体 $\mathbb{N}$ は加法に関して $0$ を単位元にもつモノイドを成す．
 
-
 ## 説明
 
-### algorithm::SegmentTree\<Monoid\>
+### algorithm::SegmentTree\<T,Monoid\>
 
 |テンプレート引数|説明|
 |---|---|
+|`T`|要素の型|
 |`Monoid`|モノイドの型．`algorithm::algebra::Monoid` を想定している．|
 
 |コンストラクタ|説明|計算量|
@@ -48,10 +48,13 @@ documentation_of: //algorithm/DataStructure/SegmentTree/segment_tree.hpp
 |`l=most_left(r,pred)`|`pred(prod(l,r))==true` となる区間の最左位置 `l` を二分探索する．ただし，区間 $[l,n)$ の要素は1項述語 `pred` によって区分化されていること．また，`pred(Monoid::one())==true` であること．|$\mathcal{O}(\log N)$|
 |`reset()`|全要素を単位元 `Monoid::one()` で初期化する．|$\Theta(N)$|
 
-
 ## 参考
 
 1. "SegTree". AC Library. AtCoder. <https://atcoder.github.io/ac-library/production/document_ja/segtree.html>.
 1. "モノイド". Wikipedia. <https://ja.wikipedia.org/wiki/モノイド>.
 1. rsk0315. "セグ木のお勉強を敬遠している人へ". えびちゃんの日記. HatenaBlog. <https://rsk0315.hatenablog.com/entry/2020/07/05/184929>.
 1. "セグメント木". いかたこのたこつぼ. <https://ikatakos.com/pot/programming_algorithm/data_structure/segment_tree>.
+
+## 問題
+
+- "J - Segment Tree". AtCoder Library Practice Contest. <https://atcoder.jp/contests/practice2/tasks/practice2_j>.

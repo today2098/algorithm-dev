@@ -9,7 +9,7 @@ int main() {
     int q;
     std::cin >> n >> q;
 
-    algorithm::segment_tree::range_minimum_segment_tree<int> segtree(n);
+    algorithm::RangeMinimumSegmentTree<int> segtree(n);
 
     while(q--) {
         int com;
@@ -26,7 +26,7 @@ int main() {
             std::cin >> x >> y;
             ++y;
 
-            auto &&ans = segtree.prod(x, y);
+            auto ans = segtree.prod(x, y);
             std::cout << ans << "\n";
         }
     }

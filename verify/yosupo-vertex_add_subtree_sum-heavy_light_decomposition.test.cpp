@@ -24,13 +24,13 @@ int main() {
     }
     hld.build();
 
-    using binary_indexed_tree = algorithm::binary_indexed_tree::range_sum_binary_indexed_tree<long long>;
-    using group = binary_indexed_tree::group_type;
+    using bit_type = algorithm::RangeSumBIT<long long>;
+    using group_type = typename bit_type::group_type;
 
-    std::vector<group> b(n);
+    std::vector<group_type> b(n);
     for(int i = 0; i < n; ++i) b[hld.vertex_index()[i]] = a[i];
 
-    binary_indexed_tree bit(std::move(b));
+    bit_type bit(std::move(b));
 
     while(q--) {
         int t;
