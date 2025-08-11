@@ -359,6 +359,18 @@
 			"#include \"algorithm/Utils/my_template.hpp\""
 		]
 	},
+	"#include \"algorithm/Utils/random.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Utils",
+			"random.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Utils/random.hpp\""
+		]
+	},
 	"#include \"algorithm/Utils/split.hpp\"": {
 		"scope": "cpp",
 		"prefix": [
