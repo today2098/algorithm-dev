@@ -1,3 +1,9 @@
+---
+title: Least Common Multiple（最小公倍数）
+documentation_of: //algorithm/Math/NumberTheory/least_common_multiple.hpp
+---
+
+
 ## 概要
 
 2つの整数 $a, b$ の最小公倍数 (LCM: Least Common Multiple) を求める．
@@ -13,7 +19,6 @@ $$
 
 アルゴリズムの計算量は，最大公約数を求めるところがボトルネックとなり，$\mathcal{O}(\log(\min(a,b)))$ となる．
 
-
-## 参考文献
+## 参考
 
 1. "最小公倍数". Wikipedia. <https://ja.wikipedia.org/wiki/最小公倍数>.

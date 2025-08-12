@@ -251,6 +251,84 @@
 			"#include \"algorithm/Math/ModularArithmetic/modint.hpp\""
 		]
 	},
+	"#include \"algorithm/Math/NumberTheory/divisors.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"NumberTheory",
+			"divisors.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/NumberTheory/divisors.hpp\""
+		]
+	},
+	"#include \"algorithm/Math/NumberTheory/extgcd.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"NumberTheory",
+			"extgcd.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/NumberTheory/extgcd.hpp\""
+		]
+	},
+	"#include \"algorithm/Math/NumberTheory/greatest_common_divisor.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"NumberTheory",
+			"greatest_common_divisor.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/NumberTheory/greatest_common_divisor.hpp\""
+		]
+	},
+	"#include \"algorithm/Math/NumberTheory/is_prime.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"NumberTheory",
+			"is_prime.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/NumberTheory/is_prime.hpp\""
+		]
+	},
+	"#include \"algorithm/Math/NumberTheory/least_common_multiple.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"NumberTheory",
+			"least_common_multiple.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/NumberTheory/least_common_multiple.hpp\""
+		]
+	},
+	"#include \"algorithm/Math/NumberTheory/prime_factorize.hpp\"": {
+		"scope": "cpp",
+		"prefix": [
+			"include",
+			"algorithm",
+			"Math",
+			"NumberTheory",
+			"prime_factorize.hpp"
+		],
+		"body": [
+			"#include \"algorithm/Math/NumberTheory/prime_factorize.hpp\""
+		]
+	},
 	"#include \"algorithm/Others/binary_search.hpp\"": {
 		"scope": "cpp",
 		"prefix": [
