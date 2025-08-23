@@ -13,9 +13,12 @@
                 "-O2",
                 "-std=gnu++23",
                 "-fdiagnostics-color=always",
+                "${file}",
+                "-lgtest",
+                "-lgtest_main",
+                "-lpthread",
                 "-o",
-                "${workspaceFolder}/debug.out",
-                "${file}"
+                "${workspaceFolder}/debug.out"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

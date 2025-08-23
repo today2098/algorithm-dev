@@ -32,6 +32,7 @@
 *.app
 
 # Others
+build/
 main.cpp
 bundle.cpp
 input.txt

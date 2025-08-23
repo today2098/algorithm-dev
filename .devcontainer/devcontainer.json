@@ -21,6 +21,7 @@
 		"vscode": {
 			"extensions": [
 				"ms-vscode.cpptools-extension-pack",
+				"ms-vscode.makefile-tools",
 				"ms-vscode.hexeditor",
 				"ms-azuretools.vscode-docker",
 				"docsmsft.docs-markdown",
