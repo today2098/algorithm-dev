@@ -4,7 +4,7 @@
 #include <concepts>
 #include <type_traits>
 
-#include "../../internal/abs.hpp"
+#include "../../internal/absolute.hpp"
 #include "greatest_common_divisor.hpp"
 
 namespace algorithm {
@@ -19,15 +19,17 @@ constexpr Type lcm(Type a, Type b) {
 
 }  // namespace internal
 
+// Returns the least common multiple (LCM) of |a| and |b|.
 template <std::integral T, std::integral U>
 constexpr std::common_type_t<T, U> lcm(T a, U b) {
-    a = ::algorithm::internal::abs(a);
-    b = ::algorithm::internal::abs(b);
     using ct = std::common_type_t<T, U>;
     using ut = std::make_unsigned_t<ct>;
-    return internal::lcm<ut>(a, b);
+    ut ua = ::algorithm::internal::abs<ut>(a);
+    ut ub = ::algorithm::internal::abs<ut>(b);
+    return internal::lcm(ua, ub);
 }
 
+// Returns the least common multiple (LCM) of all arguments.
 template <std::integral Type, std::integral... Args>
 constexpr auto lcm(Type first, Args... args) { return lcm(first, lcm(args...)); }
 

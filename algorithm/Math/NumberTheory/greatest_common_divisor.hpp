@@ -4,7 +4,7 @@
 #include <concepts>
 #include <type_traits>
 
-#include "../../internal/abs.hpp"
+#include "../../internal/absolute.hpp"
 
 namespace algorithm {
 
@@ -18,15 +18,17 @@ constexpr Type gcd(Type a, Type b) {
 
 }  // namespace internal
 
+// Returns the greatest common divisor (GCD) of |a| and |b|.
 template <std::integral T, std::integral U>
 constexpr std::common_type_t<T, U> gcd(T a, U b) {
-    a = ::algorithm::internal::abs(a);
-    b = ::algorithm::internal::abs(b);
     using ct = std::common_type_t<T, U>;
     using ut = std::make_unsigned_t<ct>;
-    return internal::gcd<ut>(a, b);
+    ut ua = ::algorithm::internal::abs<ut>(a);
+    ut ub = ::algorithm::internal::abs<ut>(b);
+    return internal::gcd(ua, ub);
 }
 
+// Returns the greatest common divisor (GCD) of all arguments.
 template <std::integral Type, std::integral... Args>
 constexpr auto gcd(Type first, Args... args) { return gcd(first, gcd(args...)); }
 
