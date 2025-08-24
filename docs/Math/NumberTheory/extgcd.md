@@ -30,7 +30,7 @@ r_0 x_0 + r_1 y_0 &= \gcd(r_0, r_1) \notag \\
 (q r_1 + r_2) x_0 + r_1 y_0 &= \gcd(r_0, r_1) \quad (\because \ r_0=q r_1 + r_2) \notag \\
 r_1 (q x_0 + y_0) + r_2 x_0 &= \gcd(r_0, r_1) \notag \\
 r_1 x_1 + r_2 y_1 &= \gcd(r_0, r_1) \quad (x_1 = q x_0 + y_0, \ y_1 = x_0) \notag \\
-r_1 x_1 + r_2 y_1 &= \gcd(r_1, r_2) \quad (\because \ \gcd(r_0, r_1) = \gcd(r_1, r_2)) \notag
+r_1 x_1 + r_2 y_1 &= \gcd(r_1, r_2) \quad (\because \ \gcd(r_0, r_1) = \gcd(r_1, r_2)) \notag \\
 \end{align}
 $$
 
