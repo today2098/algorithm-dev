@@ -200,15 +200,15 @@ data:
     \ l; i < r; ++i) os << (i == l ? \"  [\" : \" \") << rhs.m_tree[i];\n        \
     \    os << \"]\\n\";\n        }\n        return os << \"]\";\n    }\n};\n\ntemplate\
     \ <typename S, class Monoid>\nclass SegmentTree : public SegmentTreeBase<Monoid>\
-    \ {\npublic:\n    using base_type = SegmentTreeBase<Monoid>;\n    using value_type\
-    \ = S;\n    using typename base_type::monoid_type;\n\n    // constructor. O(N).\n\
+    \ {\npublic:\n    using base_type = SegmentTreeBase<Monoid>;\n    using typename\
+    \ base_type::monoid_type;\n    using value_type = S;\n\n    // constructor. O(N).\n\
     \    SegmentTree() : base_type() {};\n    explicit SegmentTree(int n) : base_type(n)\
     \ {}\n    explicit SegmentTree(int n, const value_type &a) : base_type(n, a) {}\n\
     \    template <std::input_iterator InputIter>\n    explicit SegmentTree(InputIter\
     \ first, InputIter last) : base_type(first, last) {}\n    template <std::ranges::input_range\
     \ R>\n    explicit SegmentTree(R &&r) : base_type(std::forward<R>(r)) {}\n   \
     \ template <typename T>\n    explicit SegmentTree(std::initializer_list<T> il)\
-    \ : SegmentTree(std::move(il)) {}\n\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092\
+    \ : base_type(std::move(il)) {}\n\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092\
     a\u306B\u7F6E\u304D\u63DB\u3048\u308B\uFF0EO(log N).\n    void set(int k, const\
     \ value_type &a) { base_type::set(k, a); }\n    // k\u756A\u76EE\u306E\u8981\u7D20\
     \u3092\u53D6\u5F97\u3059\u308B\uFF0EO(1).\n    value_type prod(int k) const {\
@@ -260,7 +260,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-DSL_2_B-segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-08-10 07:13:29+00:00'
+  timestamp: '2025-08-10 17:13:26+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_2_B-segment_tree.test.cpp

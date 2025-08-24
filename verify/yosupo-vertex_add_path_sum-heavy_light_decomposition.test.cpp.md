@@ -175,54 +175,54 @@ data:
     \ - 1];\n            }\n        }\n        return r;\n    }\n    void reset()\
     \ { std::fill(m_tree.begin(), m_tree.end(), group_type::one()); }\n};\n\ntemplate\
     \ <typename S, class AbelianGroup>\nclass BIT : public BITBase<AbelianGroup> {\n\
-    public:\n    using base_type = BITBase<AbelianGroup>;\n    using value_type =\
-    \ S;\n    using typename base_type::group_type;\n\n    // constructor. O(N).\n\
-    \    BIT() : base_type() {}\n    explicit BIT(int n) : base_type(n) {}\n    explicit\
-    \ BIT(int n, const value_type &a) : base_type(n, a) {}\n    template <std::input_iterator\
-    \ InputIter>\n    explicit BIT(InputIter first, InputIter last) : base_type(first,\
-    \ last) {}\n    template <std::ranges::input_range R>\n    explicit BIT(R &&r)\
-    \ : base_type(std::forward<R>(r)) {}\n    template <typename T>\n    explicit\
-    \ BIT(std::initializer_list<T> il) : base_type(std::move(il)) {}\n    explicit\
-    \ BIT(std::vector<group_type> &&v) : base_type(std::move(v)) {}\n\n    // k\u756A\
-    \u76EE\u306E\u8981\u7D20\u3092a\u3068\u306E\u7A4D\u306E\u7D50\u679C\u306B\u7F6E\
-    \u304D\u63DB\u3048\u308B\uFF0EO(log N).\n    void add(int k, const value_type\
-    \ &a) { base_type::add(k, a); }\n    // \u533A\u9593[0,r)\u306E\u8981\u7D20\u306E\
-    \u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(log N).\n    value_type sum(int r)\
-    \ const { return base_type::sum(r).value(); }\n    // \u533A\u9593[l,r)\u306E\u8981\
-    \u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(log N).\n    value_type\
-    \ sum(int l, int r) const { return base_type::sum(l, r).value(); }\n    // \u5168\
-    \u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(log N).\n    value_type\
-    \ sum_all() const { return base_type::sum_all().value(); }\n    // pred(sum(r))==true\
-    \ \u3068\u306A\u308B\u533A\u9593\u306E\u6700\u53F3\u4F4D\u5024r\u3092\u4E8C\u5206\
-    \u63A2\u7D22\u3059\u308B\uFF0E\n    // \u305F\u3060\u3057\uFF0C\u533A\u9593[0,n)\u306E\
-    \u8981\u7D20\u306Fpred(S)\u306B\u3088\u3063\u3066\u533A\u5206\u5316\u3055\u308C\
-    \u3066\u3044\u308B\u3053\u3068\uFF0E\u307E\u305F\uFF0Cpred(e)==true \u3067\u3042\
-    \u308B\u3053\u3068\uFF0EO(log N).\n    template <typename Pred>\n    int most_right(Pred\
-    \ pred) const {\n        static_assert(std::is_invocable_r<bool, Pred, value_type>::value);\n\
-    \        return base_type::most_right([&](const group_type &x) -> bool { return\
-    \ pred(x.value()); });\n    }\n};\n\ntemplate <typename S>\nusing RangeSumBIT\
-    \ = BIT<S, algebra::group::addition<S>>;\n\ntemplate <typename S>\nusing RangeXorBIT\
-    \ = BIT<S, algebra::group::bit_xor<S>>;\n\n}  // namespace algorithm\n\n\n#line\
-    \ 1 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\n\n\n\n#line 8 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\
-    \n\nnamespace algorithm {\n\n// Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\
-    \u91CD\u8EFD\u5206\u89E3\uFF09.\nclass HLD {\n    int m_vn;                  \
-    \         // m_vn:=(\u30CE\u30FC\u30C9\u6570).\n    std::vector<std::vector<int>>\
-    \ m_g;  // m_g[v][]:=(\u30CE\u30FC\u30C9v\u306E\u96A3\u63A5\u30EA\u30B9\u30C8\
-    ). \u30B0\u30E9\u30D5\u306F\u68EE\u3067\u3042\u308B\u3053\u3068\uFF0E\n    std::vector<int>\
-    \ m_par, m_head;     // m_par[v]:=(\u30CE\u30FC\u30C9v\u306E\u89AA\u756A\u53F7\
-    ), m_head[v]:=(\u30CE\u30FC\u30C9v\u3092\u542B\u3080heavy path\u306E\u7AEF\u70B9\
-    ).\n    std::vector<int> m_sub;             // m_sub[v]:=(\u30CE\u30FC\u30C9v\u3092\
-    \u6839\u3068\u3059\u308B\u90E8\u5206\u6728\u306E\u30B5\u30A4\u30BA).\n    std::vector<int>\
-    \ m_ord;             // m_ord[v]:=(\u30CE\u30FC\u30C9v\u306E\u884C\u304D\u304B\
-    \u3051\u9806\u5E8F).\n    bool m_is_built;\n\n    bool is_built() const { return\
-    \ m_is_built; }\n\npublic:\n    // constructor. O(|V|).\n    HLD() : HLD(0) {}\n\
-    \    explicit HLD(int vn) : m_vn(vn), m_g(vn), m_par(vn, -1), m_head(vn, -1),\
-    \ m_sub(vn, 1), m_ord(vn, -1), m_is_built(false) {\n        assert(vn >= 0);\n\
-    \    }\n\n    // \u30CE\u30FC\u30C9\u6570\u3092\u53D6\u5F97\u3059\u308B\uFF0E\n\
-    \    int order() const { return m_vn; }\n    // \u7121\u5411\u8FBA\u3092\u5F35\
-    \u308B\uFF0E\n    void add_edge(int u, int v) {\n        assert(0 <= u and u <\
-    \ order());\n        assert(0 <= v and v < order());\n        m_g[u].push_back(v);\n\
-    \        m_g[v].push_back(u);\n    }\n    // \u6728\u3092HL\u5206\u89E3\u3059\u308B\
+    public:\n    using base_type = BITBase<AbelianGroup>;\n    using typename base_type::group_type;\n\
+    \    using value_type = S;\n\n    // constructor. O(N).\n    BIT() : base_type()\
+    \ {}\n    explicit BIT(int n) : base_type(n) {}\n    explicit BIT(int n, const\
+    \ value_type &a) : base_type(n, a) {}\n    template <std::input_iterator InputIter>\n\
+    \    explicit BIT(InputIter first, InputIter last) : base_type(first, last) {}\n\
+    \    template <std::ranges::input_range R>\n    explicit BIT(R &&r) : base_type(std::forward<R>(r))\
+    \ {}\n    template <typename T>\n    explicit BIT(std::initializer_list<T> il)\
+    \ : base_type(std::move(il)) {}\n    explicit BIT(std::vector<group_type> &&v)\
+    \ : base_type(std::move(v)) {}\n\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092\
+    a\u3068\u306E\u7A4D\u306E\u7D50\u679C\u306B\u7F6E\u304D\u63DB\u3048\u308B\uFF0E\
+    O(log N).\n    void add(int k, const value_type &a) { base_type::add(k, a); }\n\
+    \    // \u533A\u9593[0,r)\u306E\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\
+    \u308B\uFF0EO(log N).\n    value_type sum(int r) const { return base_type::sum(r).value();\
+    \ }\n    // \u533A\u9593[l,r)\u306E\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\
+    \u308B\uFF0EO(log N).\n    value_type sum(int l, int r) const { return base_type::sum(l,\
+    \ r).value(); }\n    // \u5168\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\
+    \u308B\uFF0EO(log N).\n    value_type sum_all() const { return base_type::sum_all().value();\
+    \ }\n    // pred(sum(r))==true \u3068\u306A\u308B\u533A\u9593\u306E\u6700\u53F3\
+    \u4F4D\u5024r\u3092\u4E8C\u5206\u63A2\u7D22\u3059\u308B\uFF0E\n    // \u305F\u3060\
+    \u3057\uFF0C\u533A\u9593[0,n)\u306E\u8981\u7D20\u306Fpred(S)\u306B\u3088\u3063\
+    \u3066\u533A\u5206\u5316\u3055\u308C\u3066\u3044\u308B\u3053\u3068\uFF0E\u307E\
+    \u305F\uFF0Cpred(e)==true \u3067\u3042\u308B\u3053\u3068\uFF0EO(log N).\n    template\
+    \ <typename Pred>\n    int most_right(Pred pred) const {\n        static_assert(std::is_invocable_r<bool,\
+    \ Pred, value_type>::value);\n        return base_type::most_right([&](const group_type\
+    \ &x) -> bool { return pred(x.value()); });\n    }\n};\n\ntemplate <typename S>\n\
+    using RangeSumBIT = BIT<S, algebra::group::addition<S>>;\n\ntemplate <typename\
+    \ S>\nusing RangeXorBIT = BIT<S, algebra::group::bit_xor<S>>;\n\n}  // namespace\
+    \ algorithm\n\n\n#line 1 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\
+    \n\n\n\n#line 8 \"algorithm/Graph/Tree/heavy_light_decomposition.hpp\"\n\nnamespace\
+    \ algorithm {\n\n// Heavy-Light Decomposition\uFF08HL\u5206\u89E3\uFF0C\u91CD\u8EFD\
+    \u5206\u89E3\uFF09.\nclass HLD {\n    int m_vn;                           // m_vn:=(\u30CE\
+    \u30FC\u30C9\u6570).\n    std::vector<std::vector<int>> m_g;  // m_g[v][]:=(\u30CE\
+    \u30FC\u30C9v\u306E\u96A3\u63A5\u30EA\u30B9\u30C8). \u30B0\u30E9\u30D5\u306F\u68EE\
+    \u3067\u3042\u308B\u3053\u3068\uFF0E\n    std::vector<int> m_par, m_head;    \
+    \ // m_par[v]:=(\u30CE\u30FC\u30C9v\u306E\u89AA\u756A\u53F7), m_head[v]:=(\u30CE\
+    \u30FC\u30C9v\u3092\u542B\u3080heavy path\u306E\u7AEF\u70B9).\n    std::vector<int>\
+    \ m_sub;             // m_sub[v]:=(\u30CE\u30FC\u30C9v\u3092\u6839\u3068\u3059\
+    \u308B\u90E8\u5206\u6728\u306E\u30B5\u30A4\u30BA).\n    std::vector<int> m_ord;\
+    \             // m_ord[v]:=(\u30CE\u30FC\u30C9v\u306E\u884C\u304D\u304B\u3051\u9806\
+    \u5E8F).\n    bool m_is_built;\n\n    bool is_built() const { return m_is_built;\
+    \ }\n\npublic:\n    // constructor. O(|V|).\n    HLD() : HLD(0) {}\n    explicit\
+    \ HLD(int vn) : m_vn(vn), m_g(vn), m_par(vn, -1), m_head(vn, -1), m_sub(vn, 1),\
+    \ m_ord(vn, -1), m_is_built(false) {\n        assert(vn >= 0);\n    }\n\n    //\
+    \ \u30CE\u30FC\u30C9\u6570\u3092\u53D6\u5F97\u3059\u308B\uFF0E\n    int order()\
+    \ const { return m_vn; }\n    // \u7121\u5411\u8FBA\u3092\u5F35\u308B\uFF0E\n\
+    \    void add_edge(int u, int v) {\n        assert(0 <= u and u < order());\n\
+    \        assert(0 <= v and v < order());\n        m_g[u].push_back(v);\n     \
+    \   m_g[v].push_back(u);\n    }\n    // \u6728\u3092HL\u5206\u89E3\u3059\u308B\
     \uFF0EO(|V|).\n    void build() {\n        auto dfs = [&](auto self, int u, int\
     \ p) -> int {\n            assert(m_par[u] == -1);  // \u30B0\u30E9\u30D5\u306B\
     \u9589\u8DEF\u306F\u306A\u3044\u3053\u3068\uFF0E\n            m_par[u] = p, m_sub[u]\
@@ -303,7 +303,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
   requiredBy: []
-  timestamp: '2025-08-10 07:13:29+00:00'
+  timestamp: '2025-08-10 17:13:26+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp

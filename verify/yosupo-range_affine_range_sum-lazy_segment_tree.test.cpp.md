@@ -251,17 +251,17 @@ data:
     \   }\n};\n\ntemplate <typename S, typename F, class ActedMonoid, class OperatorMonoid>\n\
     class LazySegmentTree : public LazySegmentTreeBase<ActedMonoid, OperatorMonoid>\
     \ {\npublic:\n    using base_type = LazySegmentTreeBase<ActedMonoid, OperatorMonoid>;\n\
-    \    using acted_value_type = S;\n    using operator_value_type = F;\n    using\
-    \ typename base_type::acted_monoid_type;\n    using typename base_type::operator_monoid_type;\n\
-    \n    // constructor. O(N).\n    LazySegmentTree() : base_type() {}\n    explicit\
-    \ LazySegmentTree(int n) : base_type(n) {}\n    explicit LazySegmentTree(int n,\
-    \ const acted_value_type &a) : base_type(n, a) {}\n    template <std::input_iterator\
-    \ InputIter>\n    explicit LazySegmentTree(InputIter first, InputIter last) :\
-    \ base_type(first, last) {}\n    template <std::ranges::input_range R>\n    explicit\
-    \ LazySegmentTree(R &&r) : base_type(std::forward<R>(r)) {}\n    template <typename\
-    \ T>\n    explicit LazySegmentTree(std::initializer_list<T> il) : base_type(std::move(il))\
-    \ {}\n\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092a\u306B\u7F6E\u304D\u63DB\u3048\
-    \u308B\uFF0EO(log N).\n    void set(int k, const acted_value_type &a) { base_type::set(k,\
+    \    using typename base_type::acted_monoid_type;\n    using typename base_type::operator_monoid_type;\n\
+    \    using acted_value_type = S;\n    using operator_value_type = F;\n\n    //\
+    \ constructor. O(N).\n    LazySegmentTree() : base_type() {}\n    explicit LazySegmentTree(int\
+    \ n) : base_type(n) {}\n    explicit LazySegmentTree(int n, const acted_value_type\
+    \ &a) : base_type(n, a) {}\n    template <std::input_iterator InputIter>\n   \
+    \ explicit LazySegmentTree(InputIter first, InputIter last) : base_type(first,\
+    \ last) {}\n    template <std::ranges::input_range R>\n    explicit LazySegmentTree(R\
+    \ &&r) : base_type(std::forward<R>(r)) {}\n    template <typename T>\n    explicit\
+    \ LazySegmentTree(std::initializer_list<T> il) : base_type(std::move(il)) {}\n\
+    \n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092a\u306B\u7F6E\u304D\u63DB\u3048\u308B\
+    \uFF0EO(log N).\n    void set(int k, const acted_value_type &a) { base_type::set(k,\
     \ a); }\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092\u4F5C\u7528\u7D20f\u3092\
     \u7528\u3044\u3066\u66F4\u65B0\u3059\u308B\uFF0EO(log N).\n    void apply(int\
     \ k, const operator_value_type &f) { base_type::apply(k, f); }\n    // \u533A\u9593\
@@ -301,15 +301,14 @@ data:
     \ntemplate <typename T, typename S, typename F, class ActedMonoid, class OperatorMonoid>\n\
     class LengthAwareLazySegmentTree : public LazySegmentTree<S, F, ActedMonoid, OperatorMonoid>\
     \ {\npublic:\n    using base_type = LazySegmentTree<S, F, ActedMonoid, OperatorMonoid>;\n\
-    \    using value_type = T;\n    using typename base_type::acted_monoid_type;\n\
-    \    using typename base_type::acted_value_type;\n    using typename base_type::operator_monoid_type;\n\
-    \    using typename base_type::operator_value_type;\n\n    // constructor. O(N).\n\
-    \    LengthAwareLazySegmentTree() : base_type() {}\n    explicit LengthAwareLazySegmentTree(int\
-    \ n) : base_type(n, value_type()) {}\n    explicit LengthAwareLazySegmentTree(int\
-    \ n, const value_type &a) : base_type(n, a) {}\n    template <std::input_iterator\
-    \ InputIter>\n    explicit LengthAwareLazySegmentTree(InputIter first, InputIter\
-    \ last) : LengthAwareLazySegmentTree(std::ranges::subrange(first, last)) {}\n\
-    \    template <std::ranges::input_range R>\n    explicit LengthAwareLazySegmentTree(R\
+    \    using typename base_type::acted_monoid_type;\n    using typename base_type::acted_value_type;\n\
+    \    using typename base_type::operator_monoid_type;\n    using typename base_type::operator_value_type;\n\
+    \    using value_type = T;\n\n    // constructor. O(N).\n    LengthAwareLazySegmentTree()\
+    \ : base_type() {}\n    explicit LengthAwareLazySegmentTree(int n) : base_type(n,\
+    \ value_type()) {}\n    explicit LengthAwareLazySegmentTree(int n, const value_type\
+    \ &a) : base_type(n, a) {}\n    template <std::input_iterator InputIter>\n   \
+    \ explicit LengthAwareLazySegmentTree(InputIter first, InputIter last) : LengthAwareLazySegmentTree(std::ranges::subrange(first,\
+    \ last)) {}\n    template <std::ranges::input_range R>\n    explicit LengthAwareLazySegmentTree(R\
     \ &&r) : base_type(std::ranges::transform_view(r, [](const auto &x) -> acted_value_type\
     \ { return static_cast<acted_value_type>(x); })) {}\n    template <typename U>\n\
     \    explicit LengthAwareLazySegmentTree(std::initializer_list<U> il) : LengthAwareLazySegmentTree(il.begin(),\
@@ -392,54 +391,57 @@ data:
     \ detail::range_sum_range_affine::S<T>, detail::range_sum_range_affine::F<U>,\
     \ detail::range_sum_range_affine::acted_monoid<T>, detail::range_sum_range_affine::operator_monoid<U,\
     \ T>>;\n\n}  // namespace algorithm\n\n\n#line 1 \"algorithm/Math/ModularArithmetic/modint.hpp\"\
-    \n\n\n\n#line 6 \"algorithm/Math/ModularArithmetic/modint.hpp\"\n\n#line 1 \"\
-    algorithm/Math/ModularArithmetic/modint_base.hpp\"\n\n\n\n#line 5 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\
-    \n\nnamespace algorithm {\n\nclass ModintBase {};\n\ntemplate <class T>\nusing\
-    \ is_modint = std::is_base_of<ModintBase, T>;\n\ntemplate <class T>\ninline constexpr\
-    \ bool is_modint_v = is_modint<T>::value;\n\n}  // namespace algorithm\n\n\n#line\
-    \ 8 \"algorithm/Math/ModularArithmetic/modint.hpp\"\n\nnamespace algorithm {\n\
-    \ntemplate <int mod>\nclass Modint : ModintBase {\n    static_assert(mod >= 1);\n\
-    \n    long long val;\n\n    constexpr void normalize() {\n        if(val < -mod\
-    \ or mod <= val) val %= mod;\n        if(val < 0) val += mod;\n    }\n\npublic:\n\
-    \    constexpr Modint() : val(0) {}\n    constexpr Modint(long long val) : val(val)\
-    \ {\n        normalize();\n    }\n\n    constexpr Modint operator+() const { return\
-    \ Modint(*this); }\n    constexpr Modint operator-() const {\n        if(val ==\
-    \ 0) Modint();\n        Modint res = *this;\n        res.val = mod - res.val;\n\
-    \        return res;\n    }\n    constexpr Modint &operator++() {\n        val++;\n\
-    \        if(val == mod) val = 0;\n        return *this;\n    }\n    constexpr\
-    \ Modint &operator--() {\n        if(val == 0) val = mod;\n        val--;\n  \
-    \      return *this;\n    }\n    constexpr Modint operator++(int) {\n        Modint\
-    \ res = *this;\n        ++(*this);\n        return res;\n    }\n    constexpr\
-    \ Modint operator--(int) {\n        Modint res = *this;\n        --(*this);\n\
-    \        return res;\n    }\n    constexpr Modint &operator+=(const Modint &rhs)\
-    \ {\n        val += rhs.val;\n        if(val >= mod) val -= mod;\n        return\
-    \ *this;\n    }\n    constexpr Modint &operator-=(const Modint &rhs) {\n     \
-    \   val -= rhs.val;\n        if(val < 0) val += mod;\n        return *this;\n\
-    \    }\n    constexpr Modint &operator*=(const Modint &rhs) {\n        val = val\
-    \ * rhs.val % mod;\n        return *this;\n    }\n    constexpr Modint &operator/=(const\
-    \ Modint &rhs) { return *this *= rhs.inv(); }\n\n    friend constexpr bool operator==(const\
-    \ Modint &lhs, const Modint &rhs) { return lhs.val == rhs.val; }\n    friend constexpr\
-    \ Modint operator+(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
-    \ += rhs; }\n    friend constexpr Modint operator-(const Modint &lhs, const Modint\
-    \ &rhs) { return Modint(lhs) -= rhs; }\n    friend constexpr Modint operator*(const\
-    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) *= rhs; }\n    friend constexpr\
-    \ Modint operator/(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
-    \ /= rhs; }\n    friend std::istream &operator>>(std::istream &is, Modint &rhs)\
-    \ {\n        is >> rhs.val;\n        rhs.normalize();\n        return is;\n  \
-    \  }\n    friend std::ostream &operator<<(std::ostream &os, const Modint &rhs)\
-    \ { return os << rhs.val; }\n\n    static constexpr int modulus() { return mod;\
-    \ }\n    constexpr long long value() const { return val; }\n    constexpr Modint\
-    \ inv() const {\n        long long a = mod, b = val, u = 0, v = 1;\n        while(b\
-    \ != 0) {\n            long long t = a / b;\n            a -= b * t, u -= v *\
-    \ t;\n            std::swap(a, b), std::swap(u, v);\n        }\n        return\
-    \ Modint(u);\n    }\n    constexpr Modint pow(long long k) const {\n        if(k\
-    \ < 0) return inv().pow(-k);\n        Modint res = 1, mul = *this;\n        while(k\
-    \ > 0) {\n            if(k & 1LL) res *= mul;\n            mul *= mul;\n     \
-    \       k >>= 1;\n        }\n        return res;\n    }\n\n    friend constexpr\
-    \ Modint mod_inv(const Modint &a) { return a.inv(); }\n    friend constexpr Modint\
-    \ mod_pow(const Modint &a, long long k) { return a.pow(k); }\n};\n\nusing mint998244353\
-    \ = Modint<998'244'353>;\nusing mint1000000007 = Modint<1'000'000'007>;\n\n} \
-    \ // namespace algorithm\n\n\n#line 8 \"verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp\"\
+    \n\n\n\n#include <functional>\n#line 7 \"algorithm/Math/ModularArithmetic/modint.hpp\"\
+    \n\n#line 1 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\n\n\n\n#line\
+    \ 5 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\n\nnamespace algorithm\
+    \ {\n\nclass ModintBase {};\n\ntemplate <typename T>\nstruct is_modint : std::is_base_of<ModintBase,\
+    \ std::remove_cv_t<std::remove_reference_t<T>>> {};\n\ntemplate <typename T>\n\
+    inline constexpr bool is_modint_v = is_modint<T>::value;\n\n}  // namespace algorithm\n\
+    \n\n#line 9 \"algorithm/Math/ModularArithmetic/modint.hpp\"\n\nnamespace algorithm\
+    \ {\n\ntemplate <int mod>\nclass Modint : ModintBase {\n    static_assert(mod\
+    \ >= 1);\n\n    long long val;\n\n    constexpr void normalize() {\n        if(val\
+    \ < -mod or mod <= val) val %= mod;\n        if(val < 0) val += mod;\n    }\n\n\
+    public:\n    constexpr Modint() : val(0) {}\n    constexpr Modint(long long val)\
+    \ : val(val) {\n        normalize();\n    }\n\n    constexpr Modint operator+()\
+    \ const { return Modint(*this); }\n    constexpr Modint operator-() const {\n\
+    \        if(val == 0) Modint();\n        Modint res = *this;\n        res.val\
+    \ = mod - res.val;\n        return res;\n    }\n    constexpr Modint &operator++()\
+    \ {\n        val++;\n        if(val == mod) val = 0;\n        return *this;\n\
+    \    }\n    constexpr Modint &operator--() {\n        if(val == 0) val = mod;\n\
+    \        val--;\n        return *this;\n    }\n    constexpr Modint operator++(int)\
+    \ {\n        Modint res = *this;\n        ++(*this);\n        return res;\n  \
+    \  }\n    constexpr Modint operator--(int) {\n        Modint res = *this;\n  \
+    \      --(*this);\n        return res;\n    }\n    constexpr Modint &operator+=(const\
+    \ Modint &rhs) {\n        val += rhs.val;\n        if(val >= mod) val -= mod;\n\
+    \        return *this;\n    }\n    constexpr Modint &operator-=(const Modint &rhs)\
+    \ {\n        val -= rhs.val;\n        if(val < 0) val += mod;\n        return\
+    \ *this;\n    }\n    constexpr Modint &operator*=(const Modint &rhs) {\n     \
+    \   val = val * rhs.val % mod;\n        return *this;\n    }\n    constexpr Modint\
+    \ &operator/=(const Modint &rhs) { return *this *= rhs.inv(); }\n\n    friend\
+    \ constexpr bool operator==(const Modint &lhs, const Modint &rhs) { return lhs.val\
+    \ == rhs.val; }\n    friend constexpr Modint operator+(const Modint &lhs, const\
+    \ Modint &rhs) { return Modint(lhs) += rhs; }\n    friend constexpr Modint operator-(const\
+    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) -= rhs; }\n    friend constexpr\
+    \ Modint operator*(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
+    \ *= rhs; }\n    friend constexpr Modint operator/(const Modint &lhs, const Modint\
+    \ &rhs) { return Modint(lhs) /= rhs; }\n    friend std::istream &operator>>(std::istream\
+    \ &is, Modint &rhs) {\n        is >> rhs.val;\n        rhs.normalize();\n    \
+    \    return is;\n    }\n    friend std::ostream &operator<<(std::ostream &os,\
+    \ const Modint &rhs) { return os << rhs.val; }\n\n    static constexpr int modulus()\
+    \ { return mod; }\n    constexpr long long value() const { return val; }\n   \
+    \ constexpr Modint inv() const {\n        long long a = mod, b = val, u = 0, v\
+    \ = 1;\n        while(b != 0) {\n            long long t = a / b;\n          \
+    \  a -= b * t, u -= v * t;\n            std::swap(a, b), std::swap(u, v);\n  \
+    \      }\n        return Modint(u);\n    }\n    constexpr Modint pow(long long\
+    \ k) const {\n        if(k < 0) return inv().pow(-k);\n        Modint res = 1,\
+    \ mul = *this;\n        for(; k > 0; k >>= 1) {\n            if(k & 1LL) res *=\
+    \ mul;\n            mul *= mul;\n        }\n        return res;\n    }\n\n   \
+    \ friend constexpr Modint mod_inv(const Modint &a) { return a.inv(); }\n    friend\
+    \ constexpr Modint mod_pow(const Modint &a, long long k) { return a.pow(k); }\n\
+    };\n\nusing mint998244353 = Modint<998'244'353>;\nusing mint1000000007 = Modint<1'000'000'007>;\n\
+    \n}  // namespace algorithm\n\ntemplate <int mod>\nstruct std::hash<algorithm::Modint<mod>>\
+    \ {\n    std::size_t operator()(const algorithm::Modint<mod> &ob) const { return\
+    \ ob.value(); }\n};\n\n\n#line 8 \"verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    std::vector<int>\
     \ a(n);\n    for(auto &elem : a) std::cin >> elem;\n\n    algorithm::RangeSumRangeAffineLazySegmentTree<algorithm::mint998244353>\
     \ segtree(a);\n\n    while(q--) {\n        int type;\n        int l, r;\n    \
@@ -465,7 +467,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-08-10 07:13:29+00:00'
+  timestamp: '2025-08-10 17:13:26+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp

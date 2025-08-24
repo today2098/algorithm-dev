@@ -21,7 +21,7 @@ data:
     \ PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n\n#include <iostream>\n\
     #include <vector>\n\n#line 1 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
     \n\n\n\n#include <cassert>\n#include <initializer_list>\n#line 7 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
-    \n#include <iterator>\n#line 9 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
+    \n#include <iterator>\n#include <ranges>\n#line 10 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
     \n\n#line 1 \"algorithm/Math/Algebra/algebra.hpp\"\n\n\n\n#include <algorithm>\n\
     #line 6 \"algorithm/Math/Algebra/algebra.hpp\"\n#include <limits>\n#include <numeric>\n\
     #include <type_traits>\n#include <utility>\n\nnamespace algorithm {\n\nnamespace\
@@ -125,66 +125,83 @@ data:
     \    X, binary_operator::assign_if_not_id<F, element::lowest<F>, X>>;\n\ntemplate\
     \ <typename F, typename X = F>\nusing addition = OperatorMonoid<\n    F, binary_operator::plus<F>,\
     \ element::zero<F>,\n    X, binary_operator::plus<F, X>>;\n\n}  // namespace operator_monoid\n\
-    \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 11 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
-    \n\nnamespace algorithm {\n\ntemplate <class IdempotentSemigroup>\nclass SparseTable\
+    \n}  // namespace algebra\n\n}  // namespace algorithm\n\n\n#line 12 \"algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
+    \n\nnamespace algorithm {\n\ntemplate <class IdempotentSemigroup>\nclass SparseTableBase\
     \ {\npublic:\n    using semigroup_type = IdempotentSemigroup;\n    using value_type\
     \ = typename semigroup_type::value_type;\n    using size_type = std::size_t;\n\
     \nprivate:\n    size_type m_sz;                                    // m_sz:=(\u8981\
     \u7D20\u6570).\n    std::vector<size_type> m_lg;                       // m_lg[x]:=floor(log2(x)).\n\
     \    std::vector<std::vector<semigroup_type>> m_table;  // m_table[k][l]:=(\u533A\
     \u9593[l,l+2^k)\u306E\u7DCF\u7A4D).\n\npublic:\n    // constructor. O(N log N).\n\
-    \    SparseTable() : m_sz(0), m_lg({0}), m_table({{}}) {}\n    template <std::input_iterator\
-    \ InputIter>\n    explicit SparseTable(InputIter first, InputIter last) : m_table(1,\
-    \ std::vector<semigroup_type>(first, last)) {\n        m_sz = m_table[0].size();\n\
+    \    SparseTableBase() : m_sz(0), m_lg({0}), m_table({{}}) {}\n    template <std::input_iterator\
+    \ InputIter>\n    explicit SparseTableBase(InputIter first, InputIter last) :\
+    \ m_table(1, std::vector<semigroup_type>(first, last)) {\n        m_sz = m_table[0].size();\n\
     \        m_lg.assign(m_sz + 1, 0);\n        for(size_type i = 2; i <= m_sz; ++i)\
     \ m_lg[i] = m_lg[i >> 1] + 1;\n        m_table.resize(m_lg[m_sz] + 1);\n     \
     \   for(size_type k = 1; k <= m_lg[m_sz]; ++k) {\n            size_type n = m_sz\
     \ - (1U << k) + 1;\n            m_table[k].resize(n);\n            for(size_type\
     \ i = 0; i < n; ++i) m_table[k][i] = m_table[k - 1][i] * m_table[k - 1][i + (1U\
-    \ << (k - 1))];\n        }\n    }\n    template <typename T>\n    explicit SparseTable(std::initializer_list<T>\
-    \ il) : SparseTable(il.begin(), il.end()) {}\n\n    // \u8981\u7D20\u6570\u3092\
+    \ << (k - 1))];\n        }\n    }\n    template <std::ranges::input_range R>\n\
+    \    explicit SparseTableBase(R &&r) : SparseTableBase(std::ranges::begin(r),\
+    \ std::ranges::end(r)) {}\n    template <typename T>\n    explicit SparseTableBase(std::initializer_list<T>\
+    \ il) : SparseTableBase(il.begin(), il.end()) {}\n\n    // \u8981\u7D20\u6570\u3092\
     \u53D6\u5F97\u3059\u308B\uFF0E\n    size_type size() const { return m_sz; }\n\
     \    // k\u756A\u76EE\u306E\u8981\u7D20\u3092\u53D6\u5F97\u3059\u308B\uFF0EO(1).\n\
-    \    value_type prod(size_type k) const {\n        assert(k < size());\n     \
-    \   return m_table[0][k].value();\n    }\n    // \u533A\u9593[l,r)\u306E\u8981\
-    \u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(1).\n    value_type prod(size_type\
+    \    semigroup_type prod(size_type k) const {\n        assert(k < size());\n \
+    \       return m_table[0][k];\n    }\n    // \u533A\u9593[l,r)\u306E\u8981\u7D20\
+    \u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(1).\n    semigroup_type prod(size_type\
     \ l, size_type r) const {\n        assert(l < r and r <= size());\n        size_type\
-    \ k = m_lg[r - l];\n        return (m_table[k][l] * m_table[k][r - (1U << k)]).value();\n\
+    \ k = m_lg[r - l];\n        return m_table[k][l] * m_table[k][r - (1U << k)];\n\
     \    }\n    // \u533A\u9593\u5168\u4F53\u306E\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\
-    \u6C42\u3081\u308B\uFF0EO(1).\n    value_type prod_all() const {\n        assert(size()\
-    \ > 0);\n        return (m_table.back().front() * m_table.back().back()).value();\n\
-    \    }\n\n    friend std::ostream &operator<<(std::ostream &os, const SparseTable\
+    \u6C42\u3081\u308B\uFF0EO(1).\n    semigroup_type prod_all() const {\n       \
+    \ assert(size() > 0);\n        return m_table.back().front() * m_table.back().back();\n\
+    \    }\n\n    friend std::ostream &operator<<(std::ostream &os, const SparseTableBase\
     \ &rhs) {\n        if(rhs.m_sz == 0) return os << \"[\\n]\";\n        os << \"\
     [\\n\";\n        for(size_type k = 0; k <= rhs.m_lg.back(); ++k) {\n         \
     \   for(int i = 0, end = rhs.m_table[k].size(); i < end; ++i) os << (i == 0 ?\
     \ \"  [\" : \" \") << rhs.m_table[k][i];\n            os << \"]\\n\";\n      \
-    \  }\n        return os << \"]\";\n    }\n};\n\nnamespace sparse_table {\n\ntemplate\
-    \ <typename S>\nusing range_minimum_sparse_table = SparseTable<algebra::Semigroup<S,\
-    \ algebra::binary_operator::min<S>>>;\n\ntemplate <typename S>\nusing range_maximum_sparse_table\
-    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::max<S>>>;\n\n\
-    template <typename S>\nusing range_gcd_sparse_table = SparseTable<algebra::Semigroup<S,\
-    \ algebra::binary_operator::gcd<S>>>;\n\ntemplate <typename S>\nusing range_lcm_sparse_table\
-    \ = SparseTable<algebra::Semigroup<S, algebra::binary_operator::lcm<S>>>;\n\n\
-    }  // namespace sparse_table\n\n}  // namespace algorithm\n\n\n#line 7 \"verify/yosupo-staticrmp-sparse_table.test.cpp\"\
+    \  }\n        return os << \"]\";\n    }\n};\n\ntemplate <typename S, class IdempotentSemigroup>\n\
+    class SparseTable : public SparseTableBase<IdempotentSemigroup> {\npublic:\n \
+    \   using base_type = SparseTableBase<IdempotentSemigroup>;\n    using typename\
+    \ base_type::semigroup_type;\n    using typename base_type::size_type;\n    using\
+    \ value_type = S;\n\n    // constructor. O(N log N).\n    SparseTable() : base_type()\
+    \ {}\n    template <std::input_iterator InputIter>\n    explicit SparseTable(InputIter\
+    \ first, InputIter last) : base_type(first, last) {}\n    template <std::ranges::input_range\
+    \ R>\n    explicit SparseTable(R &&r) : base_type(std::forward<R>(r)) {}\n   \
+    \ template <typename T>\n    explicit SparseTable(std::initializer_list<T> il)\
+    \ : base_type(std::move(il)) {}\n\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092\
+    \u53D6\u5F97\u3059\u308B\uFF0EO(1).\n    value_type prod(size_type k) const {\
+    \ return base_type::prod(k).value(); }\n    // \u533A\u9593[l,r)\u306E\u8981\u7D20\
+    \u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(1).\n    value_type prod(size_type\
+    \ l, size_type r) const { return base_type::prod(l, r).value(); }\n    // \u533A\
+    \u9593\u5168\u4F53\u306E\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\
+    \uFF0EO(1).\n    value_type prod_all() const { return base_type::prod_all().value();\
+    \ }\n};\n\ntemplate <typename S>\nusing RangeMinimumSparseTable = SparseTable<S,\
+    \ algebra::Semigroup<S, algebra::binary_operator::min<S>>>;\n\ntemplate <typename\
+    \ S>\nusing RangeMaximumSparseTable = SparseTable<S, algebra::Semigroup<S, algebra::binary_operator::max<S>>>;\n\
+    \ntemplate <typename S>\nusing RangeGcdSparseTable = SparseTable<S, algebra::Semigroup<S,\
+    \ algebra::binary_operator::gcd<S>>>;\n\ntemplate <typename S>\nusing RangeLcmSparseTable\
+    \ = SparseTable<S, algebra::Semigroup<S, algebra::binary_operator::lcm<S>>>;\n\
+    \n}  // namespace algorithm\n\n\n#line 7 \"verify/yosupo-staticrmp-sparse_table.test.cpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    std::vector<int>\
-    \ a(n);\n    for(auto &elem : a) std::cin >> elem;\n\n    algorithm::sparse_table::range_minimum_sparse_table<int>\
-    \ table(a.cbegin(), a.cend());\n\n    while(q--) {\n        int l, r;\n      \
-    \  std::cin >> l >> r;\n\n        auto &&ans = table.prod(l, r);\n        std::cout\
-    \ << ans << \"\\n\";\n    }\n}\n"
+    \ a(n);\n    for(auto &elem : a) std::cin >> elem;\n\n    algorithm::RangeMinimumSparseTable<int>\
+    \ table(a);\n\n    while(q--) {\n        int l, r;\n        std::cin >> l >> r;\n\
+    \n        auto ans = table.prod(l, r);\n        std::cout << ans << \"\\n\";\n\
+    \    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n\n#include\
     \ <iostream>\n#include <vector>\n\n#include \"../algorithm/DataStructure/SegmentTree/sparse_table.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    std::vector<int>\
-    \ a(n);\n    for(auto &elem : a) std::cin >> elem;\n\n    algorithm::sparse_table::range_minimum_sparse_table<int>\
-    \ table(a.cbegin(), a.cend());\n\n    while(q--) {\n        int l, r;\n      \
-    \  std::cin >> l >> r;\n\n        auto &&ans = table.prod(l, r);\n        std::cout\
-    \ << ans << \"\\n\";\n    }\n}\n"
+    \ a(n);\n    for(auto &elem : a) std::cin >> elem;\n\n    algorithm::RangeMinimumSparseTable<int>\
+    \ table(a);\n\n    while(q--) {\n        int l, r;\n        std::cin >> l >> r;\n\
+    \n        auto ans = table.prod(l, r);\n        std::cout << ans << \"\\n\";\n\
+    \    }\n}\n"
   dependsOn:
   - algorithm/DataStructure/SegmentTree/sparse_table.hpp
   - algorithm/Math/Algebra/algebra.hpp
   isVerificationFile: true
   path: verify/yosupo-staticrmp-sparse_table.test.cpp
   requiredBy: []
-  timestamp: '2025-08-10 07:13:29+00:00'
+  timestamp: '2025-08-10 17:13:26+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-staticrmp-sparse_table.test.cpp

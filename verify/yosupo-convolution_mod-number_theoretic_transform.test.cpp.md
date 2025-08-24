@@ -32,12 +32,13 @@ data:
     #include <utility>\n#line 15 \"algorithm/Math/Convolution/number_theoretic_transform.hpp\"\
     \n\n#line 1 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\n\n\n\n#line\
     \ 5 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\n\nnamespace algorithm\
-    \ {\n\nclass ModintBase {};\n\ntemplate <class T>\nusing is_modint = std::is_base_of<ModintBase,\
-    \ T>;\n\ntemplate <class T>\ninline constexpr bool is_modint_v = is_modint<T>::value;\n\
-    \n}  // namespace algorithm\n\n\n#line 17 \"algorithm/Math/Convolution/number_theoretic_transform.hpp\"\
-    \n\nnamespace algorithm {\n\nnamespace ntt {\n\nconstexpr int MOD = 998'244'353;\
-    \     // 998'244'353 = 2^23 * 7 * 17 + 1.\nconstexpr int MOD2 = 167'772'161; \
-    \   // 167'772'161 = 2^25 * 5 + 1.\nconstexpr int MOD3 = 469'762'049;    // 469'762'049\
+    \ {\n\nclass ModintBase {};\n\ntemplate <typename T>\nstruct is_modint : std::is_base_of<ModintBase,\
+    \ std::remove_cv_t<std::remove_reference_t<T>>> {};\n\ntemplate <typename T>\n\
+    inline constexpr bool is_modint_v = is_modint<T>::value;\n\n}  // namespace algorithm\n\
+    \n\n#line 17 \"algorithm/Math/Convolution/number_theoretic_transform.hpp\"\n\n\
+    namespace algorithm {\n\nnamespace ntt {\n\nconstexpr int MOD = 998'244'353; \
+    \    // 998'244'353 = 2^23 * 7 * 17 + 1.\nconstexpr int MOD2 = 167'772'161;  \
+    \  // 167'772'161 = 2^25 * 5 + 1.\nconstexpr int MOD3 = 469'762'049;    // 469'762'049\
     \ = 2^26 * 7 + 1.\nconstexpr int MOD4 = 754'974'721;    // 754'974'721 = 2^24\
     \ * 3^2 * 5 + 1.\nconstexpr int MOD5 = 1'107'296'257;  // 1'107'296'257 = 2^25\
     \ * 3 * 11 + 1.\nconstexpr int MOD6 = 1'224'736'769;  // 1'224'736'769 = 2^24\
@@ -105,50 +106,52 @@ data:
     \ 0), b.resize(m, 0);\n    transform(a), transform(b);\n    for(int i = 0; i <\
     \ m; ++i) a[i] *= b[i];\n    transform(a, true);\n    a.resize(n);\n    return\
     \ a;\n}\n\n}  // namespace ntt\n\n}  // namespace algorithm\n\n\n#line 1 \"algorithm/Math/ModularArithmetic/modint.hpp\"\
-    \n\n\n\n#line 6 \"algorithm/Math/ModularArithmetic/modint.hpp\"\n\n#line 8 \"\
-    algorithm/Math/ModularArithmetic/modint.hpp\"\n\nnamespace algorithm {\n\ntemplate\
-    \ <int mod>\nclass Modint : ModintBase {\n    static_assert(mod >= 1);\n\n   \
-    \ long long val;\n\n    constexpr void normalize() {\n        if(val < -mod or\
-    \ mod <= val) val %= mod;\n        if(val < 0) val += mod;\n    }\n\npublic:\n\
-    \    constexpr Modint() : val(0) {}\n    constexpr Modint(long long val) : val(val)\
-    \ {\n        normalize();\n    }\n\n    constexpr Modint operator+() const { return\
-    \ Modint(*this); }\n    constexpr Modint operator-() const {\n        if(val ==\
-    \ 0) Modint();\n        Modint res = *this;\n        res.val = mod - res.val;\n\
-    \        return res;\n    }\n    constexpr Modint &operator++() {\n        val++;\n\
-    \        if(val == mod) val = 0;\n        return *this;\n    }\n    constexpr\
-    \ Modint &operator--() {\n        if(val == 0) val = mod;\n        val--;\n  \
-    \      return *this;\n    }\n    constexpr Modint operator++(int) {\n        Modint\
-    \ res = *this;\n        ++(*this);\n        return res;\n    }\n    constexpr\
-    \ Modint operator--(int) {\n        Modint res = *this;\n        --(*this);\n\
-    \        return res;\n    }\n    constexpr Modint &operator+=(const Modint &rhs)\
-    \ {\n        val += rhs.val;\n        if(val >= mod) val -= mod;\n        return\
-    \ *this;\n    }\n    constexpr Modint &operator-=(const Modint &rhs) {\n     \
-    \   val -= rhs.val;\n        if(val < 0) val += mod;\n        return *this;\n\
-    \    }\n    constexpr Modint &operator*=(const Modint &rhs) {\n        val = val\
-    \ * rhs.val % mod;\n        return *this;\n    }\n    constexpr Modint &operator/=(const\
-    \ Modint &rhs) { return *this *= rhs.inv(); }\n\n    friend constexpr bool operator==(const\
-    \ Modint &lhs, const Modint &rhs) { return lhs.val == rhs.val; }\n    friend constexpr\
-    \ Modint operator+(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
-    \ += rhs; }\n    friend constexpr Modint operator-(const Modint &lhs, const Modint\
-    \ &rhs) { return Modint(lhs) -= rhs; }\n    friend constexpr Modint operator*(const\
-    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) *= rhs; }\n    friend constexpr\
-    \ Modint operator/(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
-    \ /= rhs; }\n    friend std::istream &operator>>(std::istream &is, Modint &rhs)\
-    \ {\n        is >> rhs.val;\n        rhs.normalize();\n        return is;\n  \
-    \  }\n    friend std::ostream &operator<<(std::ostream &os, const Modint &rhs)\
-    \ { return os << rhs.val; }\n\n    static constexpr int modulus() { return mod;\
-    \ }\n    constexpr long long value() const { return val; }\n    constexpr Modint\
-    \ inv() const {\n        long long a = mod, b = val, u = 0, v = 1;\n        while(b\
-    \ != 0) {\n            long long t = a / b;\n            a -= b * t, u -= v *\
-    \ t;\n            std::swap(a, b), std::swap(u, v);\n        }\n        return\
-    \ Modint(u);\n    }\n    constexpr Modint pow(long long k) const {\n        if(k\
-    \ < 0) return inv().pow(-k);\n        Modint res = 1, mul = *this;\n        while(k\
-    \ > 0) {\n            if(k & 1LL) res *= mul;\n            mul *= mul;\n     \
-    \       k >>= 1;\n        }\n        return res;\n    }\n\n    friend constexpr\
-    \ Modint mod_inv(const Modint &a) { return a.inv(); }\n    friend constexpr Modint\
-    \ mod_pow(const Modint &a, long long k) { return a.pow(k); }\n};\n\nusing mint998244353\
-    \ = Modint<998'244'353>;\nusing mint1000000007 = Modint<1'000'000'007>;\n\n} \
-    \ // namespace algorithm\n\n\n#line 8 \"verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp\"\
+    \n\n\n\n#include <functional>\n#line 7 \"algorithm/Math/ModularArithmetic/modint.hpp\"\
+    \n\n#line 9 \"algorithm/Math/ModularArithmetic/modint.hpp\"\n\nnamespace algorithm\
+    \ {\n\ntemplate <int mod>\nclass Modint : ModintBase {\n    static_assert(mod\
+    \ >= 1);\n\n    long long val;\n\n    constexpr void normalize() {\n        if(val\
+    \ < -mod or mod <= val) val %= mod;\n        if(val < 0) val += mod;\n    }\n\n\
+    public:\n    constexpr Modint() : val(0) {}\n    constexpr Modint(long long val)\
+    \ : val(val) {\n        normalize();\n    }\n\n    constexpr Modint operator+()\
+    \ const { return Modint(*this); }\n    constexpr Modint operator-() const {\n\
+    \        if(val == 0) Modint();\n        Modint res = *this;\n        res.val\
+    \ = mod - res.val;\n        return res;\n    }\n    constexpr Modint &operator++()\
+    \ {\n        val++;\n        if(val == mod) val = 0;\n        return *this;\n\
+    \    }\n    constexpr Modint &operator--() {\n        if(val == 0) val = mod;\n\
+    \        val--;\n        return *this;\n    }\n    constexpr Modint operator++(int)\
+    \ {\n        Modint res = *this;\n        ++(*this);\n        return res;\n  \
+    \  }\n    constexpr Modint operator--(int) {\n        Modint res = *this;\n  \
+    \      --(*this);\n        return res;\n    }\n    constexpr Modint &operator+=(const\
+    \ Modint &rhs) {\n        val += rhs.val;\n        if(val >= mod) val -= mod;\n\
+    \        return *this;\n    }\n    constexpr Modint &operator-=(const Modint &rhs)\
+    \ {\n        val -= rhs.val;\n        if(val < 0) val += mod;\n        return\
+    \ *this;\n    }\n    constexpr Modint &operator*=(const Modint &rhs) {\n     \
+    \   val = val * rhs.val % mod;\n        return *this;\n    }\n    constexpr Modint\
+    \ &operator/=(const Modint &rhs) { return *this *= rhs.inv(); }\n\n    friend\
+    \ constexpr bool operator==(const Modint &lhs, const Modint &rhs) { return lhs.val\
+    \ == rhs.val; }\n    friend constexpr Modint operator+(const Modint &lhs, const\
+    \ Modint &rhs) { return Modint(lhs) += rhs; }\n    friend constexpr Modint operator-(const\
+    \ Modint &lhs, const Modint &rhs) { return Modint(lhs) -= rhs; }\n    friend constexpr\
+    \ Modint operator*(const Modint &lhs, const Modint &rhs) { return Modint(lhs)\
+    \ *= rhs; }\n    friend constexpr Modint operator/(const Modint &lhs, const Modint\
+    \ &rhs) { return Modint(lhs) /= rhs; }\n    friend std::istream &operator>>(std::istream\
+    \ &is, Modint &rhs) {\n        is >> rhs.val;\n        rhs.normalize();\n    \
+    \    return is;\n    }\n    friend std::ostream &operator<<(std::ostream &os,\
+    \ const Modint &rhs) { return os << rhs.val; }\n\n    static constexpr int modulus()\
+    \ { return mod; }\n    constexpr long long value() const { return val; }\n   \
+    \ constexpr Modint inv() const {\n        long long a = mod, b = val, u = 0, v\
+    \ = 1;\n        while(b != 0) {\n            long long t = a / b;\n          \
+    \  a -= b * t, u -= v * t;\n            std::swap(a, b), std::swap(u, v);\n  \
+    \      }\n        return Modint(u);\n    }\n    constexpr Modint pow(long long\
+    \ k) const {\n        if(k < 0) return inv().pow(-k);\n        Modint res = 1,\
+    \ mul = *this;\n        for(; k > 0; k >>= 1) {\n            if(k & 1LL) res *=\
+    \ mul;\n            mul *= mul;\n        }\n        return res;\n    }\n\n   \
+    \ friend constexpr Modint mod_inv(const Modint &a) { return a.inv(); }\n    friend\
+    \ constexpr Modint mod_pow(const Modint &a, long long k) { return a.pow(k); }\n\
+    };\n\nusing mint998244353 = Modint<998'244'353>;\nusing mint1000000007 = Modint<1'000'000'007>;\n\
+    \n}  // namespace algorithm\n\ntemplate <int mod>\nstruct std::hash<algorithm::Modint<mod>>\
+    \ {\n    std::size_t operator()(const algorithm::Modint<mod> &ob) const { return\
+    \ ob.value(); }\n};\n\n\n#line 8 \"verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp\"\
     \n\nint main() {\n    int n, m;\n    std::cin >> n >> m;\n\n    std::vector<algorithm::mint998244353>\
     \ a(n), b(m);\n    for(auto &elem : a) std::cin >> elem;\n    for(auto &elem :\
     \ b) std::cin >> elem;\n\n    auto &&c = algorithm::ntt::convolve(a, b);\n   \
@@ -170,7 +173,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp
   requiredBy: []
-  timestamp: '2025-07-03 00:41:25+09:00'
+  timestamp: '2025-08-10 09:02:12+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp

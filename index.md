@@ -145,7 +145,7 @@ data:
     - icon: ':warning:'
       path: algorithm/Math/ModularArithmetic/dynamic_modint.hpp
       title: "\u52D5\u7684Modint\u69CB\u9020\u4F53"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: algorithm/Math/ModularArithmetic/mod_inv.hpp
       title: "\u30E2\u30B8\u30E5\u30E9\u9006\u6570\uFF08\u4E57\u6CD5\u9006\u5143\uFF09"
     - icon: ':heavy_check_mark:'
@@ -173,7 +173,8 @@ data:
       title: "\u7D04\u6570\u5217\u6319"
     - icon: ':heavy_check_mark:'
       path: algorithm/Math/NumberTheory/extgcd.hpp
-      title: "\u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5"
+      title: "Extended Euclidean Algorithm\uFF08\u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\
+        \u30C3\u30C9\u306E\u4E92\u9664\u6CD5\uFF09"
     - icon: ':heavy_check_mark:'
       path: algorithm/Math/NumberTheory/greatest_common_divisor.hpp
       title: "Greatest Common Divisor\uFF08\u6700\u5927\u516C\u7D04\u6570\uFF09"
@@ -259,6 +260,9 @@ data:
       path: algorithm/Utils/my_template.hpp
       title: My Template
     - icon: ':warning:'
+      path: algorithm/Utils/random.hpp
+      title: algorithm/Utils/random.hpp
+    - icon: ':warning:'
       path: algorithm/Utils/split.hpp
       title: "\u6587\u5B57\u5217\u5206\u5272"
     - icon: ':warning:'
@@ -267,6 +271,27 @@ data:
     - icon: ':warning:'
       path: algorithm/Utils/timer.hpp
       title: "\u51E6\u7406\u6642\u9593\u8A08\u6E2C\u30AF\u30E9\u30B9"
+  - name: algorithm/internal
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: algorithm/internal/absolute.hpp
+      title: algorithm/internal/absolute.hpp
+  - name: test/Math/NumberTheory
+    pages:
+    - icon: ':warning:'
+      path: test/Math/NumberTheory/extgcd_test.cpp
+      title: test/Math/NumberTheory/extgcd_test.cpp
+    - icon: ':warning:'
+      path: test/Math/NumberTheory/greatest_common_divisor_test.cpp
+      title: test/Math/NumberTheory/greatest_common_divisor_test.cpp
+    - icon: ':warning:'
+      path: test/Math/NumberTheory/least_common_multiple_test.cpp
+      title: test/Math/NumberTheory/least_common_multiple_test.cpp
+  - name: test/internal
+    pages:
+    - icon: ':warning:'
+      path: test/internal/absolute_test.cpp
+      title: test/internal/absolute_test.cpp
   verificationCategories:
   - name: verify
     pages:

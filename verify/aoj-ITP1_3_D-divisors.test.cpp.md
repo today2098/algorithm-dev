@@ -18,13 +18,13 @@ data:
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/3/ITP1_3_D\"\n\n#include\
     \ <algorithm>\n#include <iostream>\n\n#line 1 \"algorithm/Math/NumberTheory/divisors.hpp\"\
     \n\n\n\n#line 5 \"algorithm/Math/NumberTheory/divisors.hpp\"\n#include <cassert>\n\
-    #include <concepts>\n#include <map>\n#include <vector>\n\nnamespace algorithm\
-    \ {\n\n// \u7D04\u6570\u5217\u6319\uFF0EO(\u221AN).\ntemplate <std::integral Type>\n\
-    std::vector<Type> divisors(Type n) {\n    assert(n >= 1);\n    std::vector<Type>\
-    \ res;  // res[]:=(\u81EA\u7136\u6570n\u306E\u7D04\u6570\u306E\u30EA\u30B9\u30C8\
-    ).\n    for(unsigned long long p = 1, m = n; p * p <= m; ++p) {\n        if(m\
-    \ % p == 0) {\n            res.push_back(p);\n            auto q = m / p;\n  \
-    \          if(q != p) res.push_back(q);\n        }\n    }\n    res.shrink_to_fit();\n\
+    #include <concepts>\n#include <cstdint>\n#include <map>\n#include <vector>\n\n\
+    namespace algorithm {\n\n// \u7D04\u6570\u5217\u6319\uFF0EO(\u221An).\ntemplate\
+    \ <std::integral Type>\nstd::vector<Type> divisors(Type n) {\n    assert(n > 0);\n\
+    \    std::vector<Type> res;  // res[]:=(\u81EA\u7136\u6570n\u306E\u7D04\u6570\u306E\
+    \u30EA\u30B9\u30C8).\n    for(std::uint64_t p = 1, m = n; p * p <= m; ++p) {\n\
+    \        if(m % p != 0) continue;\n        res.push_back(p);\n        auto q =\
+    \ m / p;\n        if(q != p) res.push_back(q);\n    }\n    res.shrink_to_fit();\n\
     \    std::sort(res.begin(), res.end());\n    return res;\n}\n\n// \u9AD8\u901F\
     \u7D04\u6570\u5217\u6319\uFF0E\ntemplate <typename Type>\nstd::vector<Type> divisors(const\
     \ std::map<Type, int> &pf) {\n    std::vector<Type> res({1});\n    for(const auto\
@@ -48,7 +48,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-ITP1_3_D-divisors.test.cpp
   requiredBy: []
-  timestamp: '2025-07-26 00:33:23+00:00'
+  timestamp: '2025-08-12 15:28:11+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-ITP1_3_D-divisors.test.cpp

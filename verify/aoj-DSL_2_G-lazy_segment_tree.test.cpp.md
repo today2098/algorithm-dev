@@ -245,17 +245,17 @@ data:
     \   }\n};\n\ntemplate <typename S, typename F, class ActedMonoid, class OperatorMonoid>\n\
     class LazySegmentTree : public LazySegmentTreeBase<ActedMonoid, OperatorMonoid>\
     \ {\npublic:\n    using base_type = LazySegmentTreeBase<ActedMonoid, OperatorMonoid>;\n\
-    \    using acted_value_type = S;\n    using operator_value_type = F;\n    using\
-    \ typename base_type::acted_monoid_type;\n    using typename base_type::operator_monoid_type;\n\
-    \n    // constructor. O(N).\n    LazySegmentTree() : base_type() {}\n    explicit\
-    \ LazySegmentTree(int n) : base_type(n) {}\n    explicit LazySegmentTree(int n,\
-    \ const acted_value_type &a) : base_type(n, a) {}\n    template <std::input_iterator\
-    \ InputIter>\n    explicit LazySegmentTree(InputIter first, InputIter last) :\
-    \ base_type(first, last) {}\n    template <std::ranges::input_range R>\n    explicit\
-    \ LazySegmentTree(R &&r) : base_type(std::forward<R>(r)) {}\n    template <typename\
-    \ T>\n    explicit LazySegmentTree(std::initializer_list<T> il) : base_type(std::move(il))\
-    \ {}\n\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092a\u306B\u7F6E\u304D\u63DB\u3048\
-    \u308B\uFF0EO(log N).\n    void set(int k, const acted_value_type &a) { base_type::set(k,\
+    \    using typename base_type::acted_monoid_type;\n    using typename base_type::operator_monoid_type;\n\
+    \    using acted_value_type = S;\n    using operator_value_type = F;\n\n    //\
+    \ constructor. O(N).\n    LazySegmentTree() : base_type() {}\n    explicit LazySegmentTree(int\
+    \ n) : base_type(n) {}\n    explicit LazySegmentTree(int n, const acted_value_type\
+    \ &a) : base_type(n, a) {}\n    template <std::input_iterator InputIter>\n   \
+    \ explicit LazySegmentTree(InputIter first, InputIter last) : base_type(first,\
+    \ last) {}\n    template <std::ranges::input_range R>\n    explicit LazySegmentTree(R\
+    \ &&r) : base_type(std::forward<R>(r)) {}\n    template <typename T>\n    explicit\
+    \ LazySegmentTree(std::initializer_list<T> il) : base_type(std::move(il)) {}\n\
+    \n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092a\u306B\u7F6E\u304D\u63DB\u3048\u308B\
+    \uFF0EO(log N).\n    void set(int k, const acted_value_type &a) { base_type::set(k,\
     \ a); }\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092\u4F5C\u7528\u7D20f\u3092\
     \u7528\u3044\u3066\u66F4\u65B0\u3059\u308B\uFF0EO(log N).\n    void apply(int\
     \ k, const operator_value_type &f) { base_type::apply(k, f); }\n    // \u533A\u9593\
@@ -295,15 +295,14 @@ data:
     \ntemplate <typename T, typename S, typename F, class ActedMonoid, class OperatorMonoid>\n\
     class LengthAwareLazySegmentTree : public LazySegmentTree<S, F, ActedMonoid, OperatorMonoid>\
     \ {\npublic:\n    using base_type = LazySegmentTree<S, F, ActedMonoid, OperatorMonoid>;\n\
-    \    using value_type = T;\n    using typename base_type::acted_monoid_type;\n\
-    \    using typename base_type::acted_value_type;\n    using typename base_type::operator_monoid_type;\n\
-    \    using typename base_type::operator_value_type;\n\n    // constructor. O(N).\n\
-    \    LengthAwareLazySegmentTree() : base_type() {}\n    explicit LengthAwareLazySegmentTree(int\
-    \ n) : base_type(n, value_type()) {}\n    explicit LengthAwareLazySegmentTree(int\
-    \ n, const value_type &a) : base_type(n, a) {}\n    template <std::input_iterator\
-    \ InputIter>\n    explicit LengthAwareLazySegmentTree(InputIter first, InputIter\
-    \ last) : LengthAwareLazySegmentTree(std::ranges::subrange(first, last)) {}\n\
-    \    template <std::ranges::input_range R>\n    explicit LengthAwareLazySegmentTree(R\
+    \    using typename base_type::acted_monoid_type;\n    using typename base_type::acted_value_type;\n\
+    \    using typename base_type::operator_monoid_type;\n    using typename base_type::operator_value_type;\n\
+    \    using value_type = T;\n\n    // constructor. O(N).\n    LengthAwareLazySegmentTree()\
+    \ : base_type() {}\n    explicit LengthAwareLazySegmentTree(int n) : base_type(n,\
+    \ value_type()) {}\n    explicit LengthAwareLazySegmentTree(int n, const value_type\
+    \ &a) : base_type(n, a) {}\n    template <std::input_iterator InputIter>\n   \
+    \ explicit LengthAwareLazySegmentTree(InputIter first, InputIter last) : LengthAwareLazySegmentTree(std::ranges::subrange(first,\
+    \ last)) {}\n    template <std::ranges::input_range R>\n    explicit LengthAwareLazySegmentTree(R\
     \ &&r) : base_type(std::ranges::transform_view(r, [](const auto &x) -> acted_value_type\
     \ { return static_cast<acted_value_type>(x); })) {}\n    template <typename U>\n\
     \    explicit LengthAwareLazySegmentTree(std::initializer_list<U> il) : LengthAwareLazySegmentTree(il.begin(),\
@@ -408,7 +407,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-08-10 07:13:29+00:00'
+  timestamp: '2025-08-10 17:13:26+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp

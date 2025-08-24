@@ -172,42 +172,41 @@ data:
     \ - 1];\n            }\n        }\n        return r;\n    }\n    void reset()\
     \ { std::fill(m_tree.begin(), m_tree.end(), group_type::one()); }\n};\n\ntemplate\
     \ <typename S, class AbelianGroup>\nclass BIT : public BITBase<AbelianGroup> {\n\
-    public:\n    using base_type = BITBase<AbelianGroup>;\n    using value_type =\
-    \ S;\n    using typename base_type::group_type;\n\n    // constructor. O(N).\n\
-    \    BIT() : base_type() {}\n    explicit BIT(int n) : base_type(n) {}\n    explicit\
-    \ BIT(int n, const value_type &a) : base_type(n, a) {}\n    template <std::input_iterator\
-    \ InputIter>\n    explicit BIT(InputIter first, InputIter last) : base_type(first,\
-    \ last) {}\n    template <std::ranges::input_range R>\n    explicit BIT(R &&r)\
-    \ : base_type(std::forward<R>(r)) {}\n    template <typename T>\n    explicit\
-    \ BIT(std::initializer_list<T> il) : base_type(std::move(il)) {}\n    explicit\
-    \ BIT(std::vector<group_type> &&v) : base_type(std::move(v)) {}\n\n    // k\u756A\
-    \u76EE\u306E\u8981\u7D20\u3092a\u3068\u306E\u7A4D\u306E\u7D50\u679C\u306B\u7F6E\
-    \u304D\u63DB\u3048\u308B\uFF0EO(log N).\n    void add(int k, const value_type\
-    \ &a) { base_type::add(k, a); }\n    // \u533A\u9593[0,r)\u306E\u8981\u7D20\u306E\
-    \u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(log N).\n    value_type sum(int r)\
-    \ const { return base_type::sum(r).value(); }\n    // \u533A\u9593[l,r)\u306E\u8981\
-    \u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(log N).\n    value_type\
-    \ sum(int l, int r) const { return base_type::sum(l, r).value(); }\n    // \u5168\
-    \u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\u308B\uFF0EO(log N).\n    value_type\
-    \ sum_all() const { return base_type::sum_all().value(); }\n    // pred(sum(r))==true\
-    \ \u3068\u306A\u308B\u533A\u9593\u306E\u6700\u53F3\u4F4D\u5024r\u3092\u4E8C\u5206\
-    \u63A2\u7D22\u3059\u308B\uFF0E\n    // \u305F\u3060\u3057\uFF0C\u533A\u9593[0,n)\u306E\
-    \u8981\u7D20\u306Fpred(S)\u306B\u3088\u3063\u3066\u533A\u5206\u5316\u3055\u308C\
-    \u3066\u3044\u308B\u3053\u3068\uFF0E\u307E\u305F\uFF0Cpred(e)==true \u3067\u3042\
-    \u308B\u3053\u3068\uFF0EO(log N).\n    template <typename Pred>\n    int most_right(Pred\
-    \ pred) const {\n        static_assert(std::is_invocable_r<bool, Pred, value_type>::value);\n\
-    \        return base_type::most_right([&](const group_type &x) -> bool { return\
-    \ pred(x.value()); });\n    }\n};\n\ntemplate <typename S>\nusing RangeSumBIT\
-    \ = BIT<S, algebra::group::addition<S>>;\n\ntemplate <typename S>\nusing RangeXorBIT\
-    \ = BIT<S, algebra::group::bit_xor<S>>;\n\n}  // namespace algorithm\n\n\n#line\
-    \ 6 \"verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp\"\n\nint main() {\n    int\
-    \ n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::RangeSumBIT<int> bit(n);\n\
-    \n    while(q--) {\n        int com;\n        std::cin >> com;\n\n        if(com\
-    \ == 0) {\n            int x;\n            int y;\n            std::cin >> x >>\
-    \ y;\n            --x;\n\n            bit.add(x, y);\n        } else {\n     \
-    \       int x, y;\n            std::cin >> x >> y;\n            --x;\n\n     \
-    \       auto ans = bit.sum(x, y);\n            std::cout << ans << \"\\n\";\n\
-    \        }\n    }\n}\n"
+    public:\n    using base_type = BITBase<AbelianGroup>;\n    using typename base_type::group_type;\n\
+    \    using value_type = S;\n\n    // constructor. O(N).\n    BIT() : base_type()\
+    \ {}\n    explicit BIT(int n) : base_type(n) {}\n    explicit BIT(int n, const\
+    \ value_type &a) : base_type(n, a) {}\n    template <std::input_iterator InputIter>\n\
+    \    explicit BIT(InputIter first, InputIter last) : base_type(first, last) {}\n\
+    \    template <std::ranges::input_range R>\n    explicit BIT(R &&r) : base_type(std::forward<R>(r))\
+    \ {}\n    template <typename T>\n    explicit BIT(std::initializer_list<T> il)\
+    \ : base_type(std::move(il)) {}\n    explicit BIT(std::vector<group_type> &&v)\
+    \ : base_type(std::move(v)) {}\n\n    // k\u756A\u76EE\u306E\u8981\u7D20\u3092\
+    a\u3068\u306E\u7A4D\u306E\u7D50\u679C\u306B\u7F6E\u304D\u63DB\u3048\u308B\uFF0E\
+    O(log N).\n    void add(int k, const value_type &a) { base_type::add(k, a); }\n\
+    \    // \u533A\u9593[0,r)\u306E\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\
+    \u308B\uFF0EO(log N).\n    value_type sum(int r) const { return base_type::sum(r).value();\
+    \ }\n    // \u533A\u9593[l,r)\u306E\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\
+    \u308B\uFF0EO(log N).\n    value_type sum(int l, int r) const { return base_type::sum(l,\
+    \ r).value(); }\n    // \u5168\u8981\u7D20\u306E\u7DCF\u7A4D\u3092\u6C42\u3081\
+    \u308B\uFF0EO(log N).\n    value_type sum_all() const { return base_type::sum_all().value();\
+    \ }\n    // pred(sum(r))==true \u3068\u306A\u308B\u533A\u9593\u306E\u6700\u53F3\
+    \u4F4D\u5024r\u3092\u4E8C\u5206\u63A2\u7D22\u3059\u308B\uFF0E\n    // \u305F\u3060\
+    \u3057\uFF0C\u533A\u9593[0,n)\u306E\u8981\u7D20\u306Fpred(S)\u306B\u3088\u3063\
+    \u3066\u533A\u5206\u5316\u3055\u308C\u3066\u3044\u308B\u3053\u3068\uFF0E\u307E\
+    \u305F\uFF0Cpred(e)==true \u3067\u3042\u308B\u3053\u3068\uFF0EO(log N).\n    template\
+    \ <typename Pred>\n    int most_right(Pred pred) const {\n        static_assert(std::is_invocable_r<bool,\
+    \ Pred, value_type>::value);\n        return base_type::most_right([&](const group_type\
+    \ &x) -> bool { return pred(x.value()); });\n    }\n};\n\ntemplate <typename S>\n\
+    using RangeSumBIT = BIT<S, algebra::group::addition<S>>;\n\ntemplate <typename\
+    \ S>\nusing RangeXorBIT = BIT<S, algebra::group::bit_xor<S>>;\n\n}  // namespace\
+    \ algorithm\n\n\n#line 6 \"verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp\"\n\
+    \nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::RangeSumBIT<int>\
+    \ bit(n);\n\n    while(q--) {\n        int com;\n        std::cin >> com;\n\n\
+    \        if(com == 0) {\n            int x;\n            int y;\n            std::cin\
+    \ >> x >> y;\n            --x;\n\n            bit.add(x, y);\n        } else {\n\
+    \            int x, y;\n            std::cin >> x >> y;\n            --x;\n\n\
+    \            auto ans = bit.sum(x, y);\n            std::cout << ans << \"\\n\"\
+    ;\n        }\n    }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B\"\
     \n\n#include <iostream>\n\n#include \"../algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp\"\
     \n\nint main() {\n    int n;\n    int q;\n    std::cin >> n >> q;\n\n    algorithm::RangeSumBIT<int>\
@@ -223,7 +222,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-08-10 07:13:29+00:00'
+  timestamp: '2025-08-10 17:13:26+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp

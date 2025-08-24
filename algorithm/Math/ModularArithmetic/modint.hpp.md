@@ -21,11 +21,11 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"algorithm/Math/ModularArithmetic/modint.hpp\"\n\n\n\n#include\
-    \ <iostream>\n#include <utility>\n\n#line 1 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\
+    \ <functional>\n#include <iostream>\n#include <utility>\n\n#line 1 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\
     \n\n\n\n#include <type_traits>\n\nnamespace algorithm {\n\nclass ModintBase {};\n\
-    \ntemplate <class T>\nusing is_modint = std::is_base_of<ModintBase, T>;\n\ntemplate\
-    \ <class T>\ninline constexpr bool is_modint_v = is_modint<T>::value;\n\n}  //\
-    \ namespace algorithm\n\n\n#line 8 \"algorithm/Math/ModularArithmetic/modint.hpp\"\
+    \ntemplate <typename T>\nstruct is_modint : std::is_base_of<ModintBase, std::remove_cv_t<std::remove_reference_t<T>>>\
+    \ {};\n\ntemplate <typename T>\ninline constexpr bool is_modint_v = is_modint<T>::value;\n\
+    \n}  // namespace algorithm\n\n\n#line 9 \"algorithm/Math/ModularArithmetic/modint.hpp\"\
     \n\nnamespace algorithm {\n\ntemplate <int mod>\nclass Modint : ModintBase {\n\
     \    static_assert(mod >= 1);\n\n    long long val;\n\n    constexpr void normalize()\
     \ {\n        if(val < -mod or mod <= val) val %= mod;\n        if(val < 0) val\
@@ -62,25 +62,27 @@ data:
     \  a -= b * t, u -= v * t;\n            std::swap(a, b), std::swap(u, v);\n  \
     \      }\n        return Modint(u);\n    }\n    constexpr Modint pow(long long\
     \ k) const {\n        if(k < 0) return inv().pow(-k);\n        Modint res = 1,\
-    \ mul = *this;\n        while(k > 0) {\n            if(k & 1LL) res *= mul;\n\
-    \            mul *= mul;\n            k >>= 1;\n        }\n        return res;\n\
-    \    }\n\n    friend constexpr Modint mod_inv(const Modint &a) { return a.inv();\
-    \ }\n    friend constexpr Modint mod_pow(const Modint &a, long long k) { return\
-    \ a.pow(k); }\n};\n\nusing mint998244353 = Modint<998'244'353>;\nusing mint1000000007\
-    \ = Modint<1'000'000'007>;\n\n}  // namespace algorithm\n\n\n"
+    \ mul = *this;\n        for(; k > 0; k >>= 1) {\n            if(k & 1LL) res *=\
+    \ mul;\n            mul *= mul;\n        }\n        return res;\n    }\n\n   \
+    \ friend constexpr Modint mod_inv(const Modint &a) { return a.inv(); }\n    friend\
+    \ constexpr Modint mod_pow(const Modint &a, long long k) { return a.pow(k); }\n\
+    };\n\nusing mint998244353 = Modint<998'244'353>;\nusing mint1000000007 = Modint<1'000'000'007>;\n\
+    \n}  // namespace algorithm\n\ntemplate <int mod>\nstruct std::hash<algorithm::Modint<mod>>\
+    \ {\n    std::size_t operator()(const algorithm::Modint<mod> &ob) const { return\
+    \ ob.value(); }\n};\n\n\n"
   code: "#ifndef ALGORITHM_MODINT_HPP\n#define ALGORITHM_MODINT_HPP 1\n\n#include\
-    \ <iostream>\n#include <utility>\n\n#include \"modint_base.hpp\"\n\nnamespace\
-    \ algorithm {\n\ntemplate <int mod>\nclass Modint : ModintBase {\n    static_assert(mod\
-    \ >= 1);\n\n    long long val;\n\n    constexpr void normalize() {\n        if(val\
-    \ < -mod or mod <= val) val %= mod;\n        if(val < 0) val += mod;\n    }\n\n\
-    public:\n    constexpr Modint() : val(0) {}\n    constexpr Modint(long long val)\
-    \ : val(val) {\n        normalize();\n    }\n\n    constexpr Modint operator+()\
-    \ const { return Modint(*this); }\n    constexpr Modint operator-() const {\n\
-    \        if(val == 0) Modint();\n        Modint res = *this;\n        res.val\
-    \ = mod - res.val;\n        return res;\n    }\n    constexpr Modint &operator++()\
-    \ {\n        val++;\n        if(val == mod) val = 0;\n        return *this;\n\
-    \    }\n    constexpr Modint &operator--() {\n        if(val == 0) val = mod;\n\
-    \        val--;\n        return *this;\n    }\n    constexpr Modint operator++(int)\
+    \ <functional>\n#include <iostream>\n#include <utility>\n\n#include \"modint_base.hpp\"\
+    \n\nnamespace algorithm {\n\ntemplate <int mod>\nclass Modint : ModintBase {\n\
+    \    static_assert(mod >= 1);\n\n    long long val;\n\n    constexpr void normalize()\
+    \ {\n        if(val < -mod or mod <= val) val %= mod;\n        if(val < 0) val\
+    \ += mod;\n    }\n\npublic:\n    constexpr Modint() : val(0) {}\n    constexpr\
+    \ Modint(long long val) : val(val) {\n        normalize();\n    }\n\n    constexpr\
+    \ Modint operator+() const { return Modint(*this); }\n    constexpr Modint operator-()\
+    \ const {\n        if(val == 0) Modint();\n        Modint res = *this;\n     \
+    \   res.val = mod - res.val;\n        return res;\n    }\n    constexpr Modint\
+    \ &operator++() {\n        val++;\n        if(val == mod) val = 0;\n        return\
+    \ *this;\n    }\n    constexpr Modint &operator--() {\n        if(val == 0) val\
+    \ = mod;\n        val--;\n        return *this;\n    }\n    constexpr Modint operator++(int)\
     \ {\n        Modint res = *this;\n        ++(*this);\n        return res;\n  \
     \  }\n    constexpr Modint operator--(int) {\n        Modint res = *this;\n  \
     \      --(*this);\n        return res;\n    }\n    constexpr Modint &operator+=(const\
@@ -106,18 +108,20 @@ data:
     \  a -= b * t, u -= v * t;\n            std::swap(a, b), std::swap(u, v);\n  \
     \      }\n        return Modint(u);\n    }\n    constexpr Modint pow(long long\
     \ k) const {\n        if(k < 0) return inv().pow(-k);\n        Modint res = 1,\
-    \ mul = *this;\n        while(k > 0) {\n            if(k & 1LL) res *= mul;\n\
-    \            mul *= mul;\n            k >>= 1;\n        }\n        return res;\n\
-    \    }\n\n    friend constexpr Modint mod_inv(const Modint &a) { return a.inv();\
-    \ }\n    friend constexpr Modint mod_pow(const Modint &a, long long k) { return\
-    \ a.pow(k); }\n};\n\nusing mint998244353 = Modint<998'244'353>;\nusing mint1000000007\
-    \ = Modint<1'000'000'007>;\n\n}  // namespace algorithm\n\n#endif\n"
+    \ mul = *this;\n        for(; k > 0; k >>= 1) {\n            if(k & 1LL) res *=\
+    \ mul;\n            mul *= mul;\n        }\n        return res;\n    }\n\n   \
+    \ friend constexpr Modint mod_inv(const Modint &a) { return a.inv(); }\n    friend\
+    \ constexpr Modint mod_pow(const Modint &a, long long k) { return a.pow(k); }\n\
+    };\n\nusing mint998244353 = Modint<998'244'353>;\nusing mint1000000007 = Modint<1'000'000'007>;\n\
+    \n}  // namespace algorithm\n\ntemplate <int mod>\nstruct std::hash<algorithm::Modint<mod>>\
+    \ {\n    std::size_t operator()(const algorithm::Modint<mod> &ob) const { return\
+    \ ob.value(); }\n};\n\n#endif\n"
   dependsOn:
   - algorithm/Math/ModularArithmetic/modint_base.hpp
   isVerificationFile: false
   path: algorithm/Math/ModularArithmetic/modint.hpp
   requiredBy: []
-  timestamp: '2025-07-03 00:41:25+09:00'
+  timestamp: '2025-08-10 09:02:12+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
