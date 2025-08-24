@@ -34,12 +34,11 @@
 			"constexpr long long LINF = 1e18;",
 			"constexpr double    EPS  = 1e-10;",
 			"constexpr int       MOD  = 998'244'353;",
-			"constexpr int       MOD2 = 1e9 + 7;",
+			"constexpr int       MOD2 = 1'000'000'007;",
 			"",
-			"template <typename C, typename Tr, typename R, typename T = std::ranges::range_value_t<R>>",
-			"    requires std::ranges::output_range<R, T>",
+			"template <typename C, typename Tr, std::ranges::range R>",
 			"inline auto &operator>>(std::basic_istream<C, Tr> &is, R &r) {",
-			"    for(auto &elem : r) is >> elem;",
+			"    for(auto &e : r) is >> e;",
 			"    return is;",
 			"}",
 			"",
@@ -64,7 +63,7 @@
 			"",
 			"#endif",
 			"",
-			"int main(){$0}",
+			"int main() {$0}",
 			""
 		],
 		"isFileTemplate": true
@@ -2632,46 +2631,6 @@
 			"}"
 		],
 		"description": "Longest Increasing Subsequence（最長増加部分列）"
-	},
-	"mod_inv": {
-		"scope": "cpp",
-		"prefix": "mod_inv",
-		"body": [
-			"// モジュラ逆数（乗法逆元）．",
-			"// a^-1 mod m を求める．解が存在する必要十分条件は，aとmが互いに素であること．O(log a).",
-			"constexpr long long mod_inv(long long a, int mod) {",
-			"    assert(mod >= 1);",
-			"    long long b = mod, u = 1, v = 0;",
-			"    while(b != 0) {",
-			"        long long t = a / b;",
-			"        a -= b * t, u -= v * t;",
-			"        std::swap(a, b), std::swap(u, v);",
-			"    }",
-			"    if(u < 0) u += mod;",
-			"    return u;",
-			"}"
-		],
-		"description": "モジュラ逆数（乗法逆元）"
-	},
-	"mod_pow": {
-		"scope": "cpp",
-		"prefix": "mod_pow",
-		"body": [
-			"// 繰り返し二乗法（mod付き）．O(logK).",
-			"constexpr long long mod_pow(long long n, long long k, int mod) {",
-			"    assert(k >= 0);",
-			"    assert(mod >= 1);",
-			"    long long res = 1;",
-			"    n %= mod;",
-			"    while(k > 0) {",
-			"        if(k & 1LL) res = res * n % mod;",
-			"        n = n * n % mod;",
-			"        k >>= 1;",
-			"    }",
-			"    return res;",
-			"}"
-		],
-		"description": "繰り返し二乗法（mod付き）"
 	},
 	"nPk, nCk, nHk": {
 		"scope": "cpp",

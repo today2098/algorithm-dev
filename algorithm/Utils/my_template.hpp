@@ -16,12 +16,11 @@ constexpr int INF = 1e9;
 constexpr long long LINF = 1e18;
 constexpr double EPS = 1e-10;
 constexpr int MOD = 998'244'353;
-constexpr int MOD2 = 1e9 + 7;
+constexpr int MOD2 = 1'000'000'007;
 
-template <typename C, typename Tr, typename R, typename T = std::ranges::range_value_t<R>>
-    requires std::ranges::output_range<R, T>
+template <typename C, typename Tr, std::ranges::range R>
 inline auto &operator>>(std::basic_istream<C, Tr> &is, R &r) {
-    for(auto &elem : r) is >> elem;
+    for(auto &e : r) is >> e;
     return is;
 }
 
