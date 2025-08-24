@@ -7,10 +7,10 @@ namespace algorithm {
 
 class ModintBase {};
 
-template <class T>
-using is_modint = std::is_base_of<ModintBase, T>;
+template <typename T>
+struct is_modint : std::is_base_of<ModintBase, std::remove_cv_t<std::remove_reference_t<T>>> {};
 
-template <class T>
+template <typename T>
 inline constexpr bool is_modint_v = is_modint<T>::value;
 
 }  // namespace algorithm

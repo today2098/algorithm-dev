@@ -4,22 +4,22 @@
 #include <algorithm>
 #include <cassert>
 #include <concepts>
+#include <cstdint>
 #include <map>
 #include <vector>
 
 namespace algorithm {
 
-// 約数列挙．O(√N).
+// 約数列挙．O(√n).
 template <std::integral Type>
 std::vector<Type> divisors(Type n) {
-    assert(n >= 1);
+    assert(n > 0);
     std::vector<Type> res;  // res[]:=(自然数nの約数のリスト).
-    for(unsigned long long p = 1, m = n; p * p <= m; ++p) {
-        if(m % p == 0) {
-            res.push_back(p);
-            auto q = m / p;
-            if(q != p) res.push_back(q);
-        }
+    for(std::uint64_t p = 1, m = n; p * p <= m; ++p) {
+        if(m % p != 0) continue;
+        res.push_back(p);
+        auto q = m / p;
+        if(q != p) res.push_back(q);
     }
     res.shrink_to_fit();
     std::sort(res.begin(), res.end());

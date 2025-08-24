@@ -13,13 +13,13 @@ int main() {
     std::vector<int> a(n);
     for(auto &elem : a) std::cin >> elem;
 
-    algorithm::sparse_table::range_minimum_sparse_table<int> table(a.cbegin(), a.cend());
+    algorithm::RangeMinimumSparseTable<int> table(a);
 
     while(q--) {
         int l, r;
         std::cin >> l >> r;
 
-        auto &&ans = table.prod(l, r);
+        auto ans = table.prod(l, r);
         std::cout << ans << "\n";
     }
 }

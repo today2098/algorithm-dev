@@ -151,8 +151,8 @@ template <typename S, class Monoid>
 class SegmentTree : public SegmentTreeBase<Monoid> {
 public:
     using base_type = SegmentTreeBase<Monoid>;
-    using value_type = S;
     using typename base_type::monoid_type;
+    using value_type = S;
 
     // constructor. O(N).
     SegmentTree() : base_type() {};
@@ -163,7 +163,7 @@ public:
     template <std::ranges::input_range R>
     explicit SegmentTree(R &&r) : base_type(std::forward<R>(r)) {}
     template <typename T>
-    explicit SegmentTree(std::initializer_list<T> il) : SegmentTree(std::move(il)) {}
+    explicit SegmentTree(std::initializer_list<T> il) : base_type(std::move(il)) {}
 
     // k番目の要素をaに置き換える．O(log N).
     void set(int k, const value_type &a) { base_type::set(k, a); }

@@ -1,24 +1,34 @@
 #ifndef ALGORITHM_EXTGCD_HPP
 #define ALGORITHM_EXTGCD_HPP 1
 
-/**
- * @brief 拡張ユークリッドの互除法
- * @docs docs/Math/NumberTheory/extgcd.md
- */
+#include <concepts>
+#include <tuple>
 
 namespace algorithm {
 
-// 拡張ユークリッドの互除法．
-// ax+by=gcd(a,b) を満たす整数の組(x,y)を求め，gcd(a,b)を返す．O(log(min(a,b))).
-template <typename Type>
-Type extgcd(Type a, Type b, Type &x, Type &y) {
+namespace internal {
+
+template <std::signed_integral Type>
+constexpr Type extgcd(Type a, Type b, Type &x, Type &y) {
     if(b == 0) {
         x = 1, y = 0;
         return a;
     }
-    Type &&d = extgcd(b, a % b, y, x);
+    Type g = extgcd(b, a % b, y, x);
     y -= a / b * x;
-    return d;
+    return g;
+}
+
+}  // namespace internal
+
+// 拡張ユークリッドの互除法．O(log(min(a,b))).
+template <std::signed_integral T, std::signed_integral U>
+constexpr auto extgcd(T a, U b) {
+    using ct = std::common_type_t<T, U>;
+    ct x, y;
+    ct g = internal::extgcd<ct>(a, b, x, y);
+    if(g < 0) x = -x, y = -y, g = -g;
+    return std::tuple<ct, ct, ct>(x, y, g);  // returns the tuple of (x, y, g) s.t. g=gcd(a,b), ax+by=g, |x|<|b|/g, |y|<|a|/g.
 }
 
 }  // namespace algorithm

@@ -10,8 +10,13 @@ RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then \
     fi \
     && rm -f /tmp/reinstall-cmake.sh
 
-# Install the online-judge-verify-helper
 RUN apt update \
     && apt -y install python3 python3-pip ruby-bundler ruby-dev \
-    && python3 -m pip install --no-cache-dir --break-system-packages online-judge-verify-helper \
     && apt -y upgrade
+
+# Install the online-judge-verify-helper
+RUN python3 -m pip install --no-cache-dir --break-system-packages online-judge-verify-helper 
+
+# Install the googletest
+RUN git clone https://github.com/google/googletest.git \
+    && cd googletest && mkdir build && cd build && cmake .. -DBUILD_GMOCK=OFF && make && sudo make install

@@ -9,12 +9,12 @@ int main() {
     int n;
     std::cin >> n;
 
-    uint32_t ans = 1;
+    std::uint32_t ans = 1;
     for(int i = 0; i < n; ++i) {
-        uint32_t a;
+        std::uint32_t a;
         std::cin >> a;
 
-        ans = algorithm::ilcm(ans, a);
+        ans = algorithm::lcm(ans, a);
     }
 
     std::cout << ans << std::endl;
