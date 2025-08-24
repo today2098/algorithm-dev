@@ -8,8 +8,6 @@ int main() {
     int a, b;
     std::cin >> a >> b;
 
-    int x, y;
-    algorithm::extgcd(a, b, x, y);
-
+    auto [x, y, g] = algorithm::extgcd(a, b);
     std::cout << x << " " << y << std::endl;
 }
