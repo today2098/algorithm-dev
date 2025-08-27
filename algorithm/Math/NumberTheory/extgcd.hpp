@@ -28,7 +28,7 @@ constexpr auto extgcd(T a, U b) {
     ct x, y;
     ct g = internal::extgcd<ct>(a, b, x, y);
     if(g < 0) x = -x, y = -y, g = -g;
-    return std::tuple<ct, ct, ct>(x, y, g);  // returns the tuple of (x, y, g) s.t. g=gcd(a,b), ax+by=g, |x|<|b|/g, |y|<|a|/g.
+    return std::tuple<ct, ct, ct>(x, y, g);  // returns the tuple of (x, y, g) s.t. g=gcd(a,b), ax+by=g, |x|<=|b|/g, |y|<=|a|/g.
 }
 
 }  // namespace algorithm

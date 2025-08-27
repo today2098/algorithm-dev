@@ -21,7 +21,7 @@ $a, b \in \mathbb{Z}, \ a \geq b > 0$ に対して，$a$ を $b$ で割ったと
 ここで $d \in \mathbb{N}$ を $d \mid a, \ d \mid b$ を満たす数とする．
 このとき，$d \mid a-qb$ となるから，$d \mid r$ が成り立つ．
 
-逆に，$d' \in \mathbb{N}$ を $d' \mid b, \ d' \mid r$ を満たす数とすると，$d' \mid qb+r$ だから，$d' \mid a$ が成り立つ．
+逆に，$d' \in \mathbb{N}$ を $d' \mid b, \ d' \mid r$ を満たす数とすると，$d' \mid qb+r$ であるから，$d' \mid a$ が成り立つ．
 
 よって，$a$ と $b$ の公約数全体の集合は $b$ と $r$ の公約数全体の集合に等しく，特に $\gcd(a,b)$ は $\gcd(b,r)$ に等しい．
 
