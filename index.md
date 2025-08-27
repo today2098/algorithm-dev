@@ -276,22 +276,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: algorithm/internal/absolute.hpp
       title: algorithm/internal/absolute.hpp
-  - name: test/Math/NumberTheory
-    pages:
-    - icon: ':warning:'
-      path: test/Math/NumberTheory/extgcd_test.cpp
-      title: test/Math/NumberTheory/extgcd_test.cpp
-    - icon: ':warning:'
-      path: test/Math/NumberTheory/greatest_common_divisor_test.cpp
-      title: test/Math/NumberTheory/greatest_common_divisor_test.cpp
-    - icon: ':warning:'
-      path: test/Math/NumberTheory/least_common_multiple_test.cpp
-      title: test/Math/NumberTheory/least_common_multiple_test.cpp
-  - name: test/internal
-    pages:
-    - icon: ':warning:'
-      path: test/internal/absolute_test.cpp
-      title: test/internal/absolute_test.cpp
   verificationCategories:
   - name: verify
     pages:

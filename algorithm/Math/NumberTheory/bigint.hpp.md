@@ -332,11 +332,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aoj-NTL_2_A-bigint.test.cpp
-  - verify/aoj-NTL_2_B-bigint.test.cpp
-  - verify/yosupo-addition_of_big_integers-bigint.test.cpp
-  - verify/aoj-NTL_2_E-bigint.test.cpp
   - verify/aoj-NTL_2_D-bigint.test.cpp
+  - verify/aoj-NTL_2_E-bigint.test.cpp
+  - verify/aoj-NTL_2_B-bigint.test.cpp
   - verify/aoj-NTL_2_C-bigint.test.cpp
+  - verify/yosupo-addition_of_big_integers-bigint.test.cpp
 documentation_of: algorithm/Math/NumberTheory/bigint.hpp
 layout: document
 title: "\u591A\u500D\u9577\u6574\u6570"

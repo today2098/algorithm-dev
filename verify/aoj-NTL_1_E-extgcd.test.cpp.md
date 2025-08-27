@@ -28,7 +28,7 @@ data:
     \ = std::common_type_t<T, U>;\n    ct x, y;\n    ct g = internal::extgcd<ct>(a,\
     \ b, x, y);\n    if(g < 0) x = -x, y = -y, g = -g;\n    return std::tuple<ct,\
     \ ct, ct>(x, y, g);  // returns the tuple of (x, y, g) s.t. g=gcd(a,b), ax+by=g,\
-    \ |x|<|b|/g, |y|<|a|/g.\n}\n\n}  // namespace algorithm\n\n\n#line 6 \"verify/aoj-NTL_1_E-extgcd.test.cpp\"\
+    \ |x|<=|b|/g, |y|<=|a|/g.\n}\n\n}  // namespace algorithm\n\n\n#line 6 \"verify/aoj-NTL_1_E-extgcd.test.cpp\"\
     \n\nint main() {\n    int a, b;\n    std::cin >> a >> b;\n\n    auto [x, y, g]\
     \ = algorithm::extgcd(a, b);\n    std::cout << x << \" \" << y << std::endl;\n\
     }\n"
@@ -42,7 +42,7 @@ data:
   isVerificationFile: true
   path: verify/aoj-NTL_1_E-extgcd.test.cpp
   requiredBy: []
-  timestamp: '2025-08-24 09:11:22+00:00'
+  timestamp: '2025-08-27 15:27:12+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aoj-NTL_1_E-extgcd.test.cpp

@@ -7,10 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: algorithm/internal/absolute.hpp
     title: algorithm/internal/absolute.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: test/Math/NumberTheory/least_common_multiple_test.cpp
-    title: test/Math/NumberTheory/least_common_multiple_test.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_1_C-least_common_multiple.test.cpp
@@ -74,8 +71,7 @@ data:
   - algorithm/Math/NumberTheory/greatest_common_divisor.hpp
   isVerificationFile: false
   path: algorithm/Math/NumberTheory/least_common_multiple.hpp
-  requiredBy:
-  - test/Math/NumberTheory/least_common_multiple_test.cpp
+  requiredBy: []
   timestamp: '2025-08-23 10:05:58+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

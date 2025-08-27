@@ -290,32 +290,32 @@ data:
   isVerificationFile: false
   path: algorithm/Math/Algebra/algebra.hpp
   requiredBy:
-  - algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
-  - algorithm/DataStructure/SegmentTree/sparse_table.hpp
-  - algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
   - algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
   - algorithm/DataStructure/SegmentTree/segment_tree.hpp
+  - algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
+  - algorithm/DataStructure/SegmentTree/dynamic_segment_tree.hpp
   - algorithm/DataStructure/SegmentTree/binary_indexed_tree_2d.hpp
+  - algorithm/DataStructure/SegmentTree/sparse_table.hpp
   timestamp: '2025-08-10 07:13:29+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/aoj-DSL_2_A-segment_tree.test.cpp
-  - verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
-  - verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
   - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
+  - verify/aoj-DSL_2_A-dynamic_segment_tree.test.cpp
   - verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp
-  - verify/aoj-DSL_2_H-lazy_segment_tree.test.cpp
   - verify/yosupo-point_set_range_composite-segment_tree.test.cpp
-  - verify/yosupo-staticrmp-sparse_table.test.cpp
-  - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
-  - verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp
-  - verify/aoj-DSL_2_B-segment_tree.test.cpp
   - verify/aoj-DSL_2_B-dynamic_segment_tree.test.cpp
+  - verify/aoj-DSL_2_A-segment_tree.test.cpp
+  - verify/yosupo-staticrmp-sparse_table.test.cpp
+  - verify/yosupo-point_add_range_sum-segment_tree.test.cpp
   - verify/aoj-2842-binary_indexed_tree_2d.test.cpp
   - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
-  - verify/yosupo-point_add_range_sum-segment_tree.test.cpp
   - verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
   - verify/aoj-DSL_2_I-lazy_segment_tree.test.cpp
+  - verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp
+  - verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
+  - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
+  - verify/aoj-DSL_2_H-lazy_segment_tree.test.cpp
+  - verify/aoj-DSL_2_B-segment_tree.test.cpp
 documentation_of: algorithm/Math/Algebra/algebra.hpp
 layout: document
 title: "Algebraic Structure\uFF08\u4EE3\u6570\u7684\u69CB\u9020\uFF09"

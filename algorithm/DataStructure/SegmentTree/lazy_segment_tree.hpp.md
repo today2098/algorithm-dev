@@ -661,9 +661,9 @@ data:
   verifiedWith:
   - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
   - verify/aoj-DSL_2_F-lazy_segment_tree.test.cpp
-  - verify/aoj-DSL_2_H-lazy_segment_tree.test.cpp
-  - verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp
   - verify/aoj-DSL_2_I-lazy_segment_tree.test.cpp
+  - verify/aoj-DSL_2_G-lazy_segment_tree.test.cpp
+  - verify/aoj-DSL_2_H-lazy_segment_tree.test.cpp
 documentation_of: algorithm/DataStructure/SegmentTree/lazy_segment_tree.hpp
 layout: document
 title: "Lazy Segment Tree\uFF08\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\

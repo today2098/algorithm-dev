@@ -290,10 +290,10 @@ data:
   timestamp: '2025-08-10 17:13:26+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
-  - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
   - verify/yosupo-vertex_add_path_sum-heavy_light_decomposition.test.cpp
   - verify/aoj-DSL_2_B-binary_indexed_tree.test.cpp
+  - verify/yosupo-point_add_range_sum-binary_indexed_tree.test.cpp
+  - verify/yosupo-vertex_add_subtree_sum-heavy_light_decomposition.test.cpp
 documentation_of: algorithm/DataStructure/SegmentTree/binary_indexed_tree.hpp
 layout: document
 title: Binary Indexed Tree

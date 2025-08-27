@@ -93,8 +93,8 @@ data:
   timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/aoj-GRL_5_A-double_sweep.test.cpp
   - verify/yosupo-tree_diameter-double_sweep.test.cpp
+  - verify/aoj-GRL_5_A-double_sweep.test.cpp
 documentation_of: algorithm/Graph/Tree/double_sweep.hpp
 layout: document
 redirect_from:

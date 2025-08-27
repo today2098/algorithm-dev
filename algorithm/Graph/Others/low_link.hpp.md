@@ -119,8 +119,8 @@ data:
   timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/aoj-GRL_3_B-low_link.test.cpp
   - verify/aoj-GRL_3_A-low_link.test.cpp
+  - verify/aoj-GRL_3_B-low_link.test.cpp
 documentation_of: algorithm/Graph/Others/low_link.hpp
 layout: document
 redirect_from:

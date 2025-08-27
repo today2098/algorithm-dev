@@ -142,8 +142,8 @@ data:
   timestamp: '2025-07-03 00:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/yosupo-scc-strongly_connected_components.test.cpp
   - verify/aoj-GRL_3_C-strongly_connected_components.test.cpp
+  - verify/yosupo-scc-strongly_connected_components.test.cpp
 documentation_of: algorithm/Graph/Others/strongly_connected_components.hpp
 layout: document
 redirect_from:

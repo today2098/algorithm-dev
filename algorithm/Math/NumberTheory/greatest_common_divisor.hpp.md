@@ -8,12 +8,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: algorithm/Math/NumberTheory/least_common_multiple.hpp
     title: "Least Common Multiple\uFF08\u6700\u5C0F\u516C\u500D\u6570\uFF09"
-  - icon: ':warning:'
-    path: test/Math/NumberTheory/greatest_common_divisor_test.cpp
-    title: test/Math/NumberTheory/greatest_common_divisor_test.cpp
-  - icon: ':warning:'
-    path: test/Math/NumberTheory/least_common_multiple_test.cpp
-    title: test/Math/NumberTheory/least_common_multiple_test.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aoj-NTL_1_C-least_common_multiple.test.cpp
@@ -64,8 +58,6 @@ data:
   path: algorithm/Math/NumberTheory/greatest_common_divisor.hpp
   requiredBy:
   - algorithm/Math/NumberTheory/least_common_multiple.hpp
-  - test/Math/NumberTheory/greatest_common_divisor_test.cpp
-  - test/Math/NumberTheory/least_common_multiple_test.cpp
   timestamp: '2025-08-23 10:05:58+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -93,7 +85,7 @@ $a, b \in \mathbb{Z}, \ a \geq b > 0$ に対して，$a$ を $b$ で割ったと
 ここで $d \in \mathbb{N}$ を $d \mid a, \ d \mid b$ を満たす数とする．
 このとき，$d \mid a-qb$ となるから，$d \mid r$ が成り立つ．
 
-逆に，$d' \in \mathbb{N}$ を $d' \mid b, \ d' \mid r$ を満たす数とすると，$d' \mid qb+r$ だから，$d' \mid a$ が成り立つ．
+逆に，$d' \in \mathbb{N}$ を $d' \mid b, \ d' \mid r$ を満たす数とすると，$d' \mid qb+r$ であるから，$d' \mid a$ が成り立つ．
 
 よって，$a$ と $b$ の公約数全体の集合は $b$ と $r$ の公約数全体の集合に等しく，特に $\gcd(a,b)$ は $\gcd(b,r)$ に等しい．
 
