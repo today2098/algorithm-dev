@@ -97,7 +97,7 @@ $$
 
 #### 計算量について
 
-$r_i = \lfloor r_i / r_{i+1} \rfloor \cdot r_{i+1} + r_{i+2}$ なので，$r_{i+2} < r_i / 2$ である．
+$r_i = \lfloor r_i / r_{i+1} \rfloor \cdot r_{i+1} + r_{i+2}$ なので，$r_{i+2} \leq r_i / 2$ である．
 
 したがって，式変形の繰り返しは高々 $2 \log r_1$ 回であり，計算量は $\mathcal{O}(\log r_1)$ となる．
 
