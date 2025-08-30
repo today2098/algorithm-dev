@@ -5,42 +5,33 @@
 #include <cassert>
 #include <concepts>
 #include <cstdint>
-#include <map>
 #include <vector>
 
 namespace algorithm {
 
-// 約数列挙．O(√n).
-template <std::integral Type>
-std::vector<Type> divisors(Type n) {
-    assert(n > 0);
-    std::vector<Type> res;  // res[]:=(自然数nの約数のリスト).
-    for(std::uint64_t p = 1, m = n; p * p <= m; ++p) {
-        if(m % p != 0) continue;
-        res.push_back(p);
-        auto q = m / p;
-        if(q != p) res.push_back(q);
+namespace internal {
+
+template <std::integral Res>
+constexpr std::vector<Res> divisors(std::uint64_t n) {
+    std::vector<Res> divs;  // divs[]:=(自然数nの約数のリスト).
+    for(std::uint64_t p = 1; p < 1ULL << 32 and p * p <= n; ++p) {
+        if(n % p != 0) continue;
+        divs.push_back(p);
+        auto q = n / p;
+        if(q != p) divs.push_back(q);
     }
-    res.shrink_to_fit();
-    std::sort(res.begin(), res.end());
-    return res;
+    divs.shrink_to_fit();
+    std::sort(divs.begin(), divs.end());
+    return divs;
 }
 
-// 高速約数列挙．
-template <typename Type>
-std::vector<Type> divisors(const std::map<Type, int> &pf) {
-    std::vector<Type> res({1});
-    for(const auto &[p, cnt] : pf) {
-        const int sz = res.size();
-        Type b = 1;
-        for(int i = 0; i < cnt; ++i) {
-            b *= p;
-            for(int j = 0; j < sz; ++j) res.push_back(res[j] * b);
-        }
-    }
-    res.shrink_to_fit();
-    std::sort(res.begin(), res.end());
-    return res;
+}  // namespace internal
+
+// 約数列挙．O(√n).
+template <std::integral Type>
+constexpr std::vector<Type> divisors(Type n) {
+    assert(n > 0);
+    return internal::divisors<Type>(n);
 }
 
 }  // namespace algorithm
