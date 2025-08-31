@@ -18,7 +18,7 @@ $$
 
 ### アルゴリズムの説明
 
-#### 解の存在性の証明と導出
+#### 解の存在性の証明と構成
 
 $r_0, r_1 \in \mathbb{Z}, \ \lvert r_0 \rvert \geq \lvert r_1 \rvert$ について，$r_0 x_0 + r_1 y_0 = \gcd(r_0,r_1)$ を満たす整数の組 $(x_0,y_0)$ が存在すると仮定する．
 
@@ -64,7 +64,7 @@ $r_{i+2} < r_{i+1} \leq r_i$ であるから，必ず $r_{n+1} = 0$ となる $n
 
 また，$(x_{i-1},y_{i-1}) = (y_i, \ x_i - \lfloor r_{i-1} / r_i \rfloor \cdot y_i)$ から，求めたい解 $(x_0,y_0)$ も導ける．
 
-#### 解の範囲について
+#### 解の範囲
 
 $r_1 = 0$ の場合，$\gcd(r_0,r_1) = \gcd(r_0,0) = r_0$ であるから，解として $(x_0,y_0)=(1,0)$ が得られる．
 
@@ -77,9 +77,9 @@ $r_0 > r_1 > 0$ の場合を考える．
 $r_0 > r_1 > 0$ において，$r_i x_i + r_{i+1} y_i = g, \ \lvert x_i \rvert < r_{i+1} / g, \ \lvert y_i \rvert < r_i / g$ を満たす組 $(x_i, y_i)$ が存在すると仮定する．
 このとき $\lvert x_{i-1} \rvert < r_i / g, \ \lvert y_{i-1} \rvert < r_{i-1} / g$ であることを示す．
 
-はじめに $x_{i-1}$ について，$x_{i-1} = y_i$ であるから，$\lvert x_{i-1} \rvert < r_i / g$ が成り立つ．
+はじめに $x_{i-1}$ について，$x_{i-1} = y_i$ より，$\lvert x_{i-1} \rvert < r_i / g$ が成り立つ．
 
-次に $y_{i-1}$ について，$y_{i-1} = x_i - \lfloor r_{i-1} / r_i \rfloor \cdot y_i$ であるから，
+次に $y_{i-1}$ について，$y_{i-1} = x_i - \lfloor r_{i-1} / r_i \rfloor \cdot y_i$ より，
 
 $$
 \begin{align}
@@ -93,11 +93,23 @@ $$
 
 よって，帰納法より，$r_0 > r_1 > 0$ の場合，$(x_n,y_n)=(1,0)$ としたときに $\lvert x_i \rvert < r_{i+1} / g$ かつ $\lvert y_i \rvert < r_i / g$ が成り立つことが示された．
 
-これらより，プログラムを実装する際にオーバーフローを心配しなくてよい．
+#### 計算過程における値の範囲
 
-#### 計算量について
+不等式  $\lvert x_i \rvert < r_{i+1} / g$ より，
 
-$r_i = \lfloor r_i / r_{i+1} \rfloor \cdot r_{i+1} + r_{i+2}$ なので，$r_{i+2} \leq r_i / 2$ である．
+$$
+\begin{align}
+\left\lvert \left\lfloor \frac{r_{i-1}}{r_i} \right\rfloor \cdot x_{i-1} \right\rvert &= \left\lfloor \frac{r_{i-1}}{r_i} \right\rfloor \cdot \lvert x_{i-1} \rvert \notag \\
+&< \left\lfloor \frac{r_{i-1}}{r_i} \right\rfloor \cdot \frac{r_i}{g} \notag \\
+&\leq \frac{r_{i-1}}{g} \notag \\
+\end{align}
+$$
+
+であるから，計算過程において値が $r_0$ を超えることなく，オーバーフローしないことがわかる．
+
+#### 計算量の解析
+
+$r_i = \lfloor r_i / r_{i+1} \rfloor \cdot r_{i+1} + r_{i+2}$ なので，$r_{i+2} < r_i / 2$ である．
 
 したがって，式変形の繰り返しは高々 $2 \log r_1$ 回であり，計算量は $\mathcal{O}(\log r_1)$ となる．
 

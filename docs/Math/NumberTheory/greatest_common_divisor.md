@@ -46,7 +46,7 @@ $r_{i+2} < r_{i+1} \leq r_i$ であるから，必ず $r_{n+1} = 0$ となる $n
 
 #### 計算量の導出
 
-先の式 $r_i - \lfloor r_i / r_{i+1} \rfloor \cdot r_{i+1} = r_{i+2}$ において，$r_{i+2} \leq r_i / 2$ である．
+先の式 $r_i - \lfloor r_i / r_{i+1} \rfloor \cdot r_{i+1} = r_{i+2}$ において，$r_{i+2} < r_i / 2$ である．
 
 したがって，繰り返しは高々 $2 \log b$ 回であり，計算量は $\mathcal{O}(\log b)$ となる．
 
