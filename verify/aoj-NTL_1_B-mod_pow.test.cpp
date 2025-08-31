@@ -5,7 +5,7 @@
 #include "../algorithm/Math/ModularArithmetic/mod_pow.hpp"
 
 int main() {
-    constexpr int MOD = 1e9 + 7;
+    constexpr int MOD = 1'000'000'007;
 
     int m, n;
     std::cin >> m >> n;
