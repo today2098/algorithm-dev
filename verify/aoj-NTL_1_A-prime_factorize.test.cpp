@@ -8,10 +8,8 @@ int main() {
     int n;
     std::cin >> n;
 
-    const auto &&pf = algorithm::prime_factorize(n);
-
     std::cout << n << ":";
-    for(const auto &[p, cnt] : pf) {
+    for(const auto &[p, cnt] : algorithm::prime_factorize(n)) {
         for(int i = 0; i < cnt; ++i) std::cout << " " << p;
     }
     std::cout << std::endl;
