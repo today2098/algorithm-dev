@@ -22,10 +22,10 @@ data:
     #include <algorithm>\n#include <array>\n#include <cassert>\n#include <type_traits>\n\
     #include <utility>\n#include <vector>\n\n#line 1 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\
     \n\n\n\n#line 5 \"algorithm/Math/ModularArithmetic/modint_base.hpp\"\n\nnamespace\
-    \ algorithm {\n\nclass ModintBase {};\n\ntemplate <typename T>\nstruct is_modint\
-    \ : std::is_base_of<ModintBase, std::remove_cv_t<std::remove_reference_t<T>>>\
-    \ {};\n\ntemplate <typename T>\ninline constexpr bool is_modint_v = is_modint<T>::value;\n\
-    \n}  // namespace algorithm\n\n\n#line 17 \"algorithm/Math/Convolution/number_theoretic_transform.hpp\"\
+    \ algorithm {\n\nclass ModintBase {};\n\ntemplate <typename T>\nusing is_modint\
+    \ = std::is_base_of<ModintBase, T>;\n\ntemplate <typename T>\ninline constexpr\
+    \ bool is_modint_v = is_modint<T>::value;\n\ntemplate <typename T>\nconcept modint\
+    \ = is_modint_v<T>;\n\n}  // namespace algorithm\n\n\n#line 17 \"algorithm/Math/Convolution/number_theoretic_transform.hpp\"\
     \n\nnamespace algorithm {\n\nnamespace ntt {\n\nconstexpr int MOD = 998'244'353;\
     \     // 998'244'353 = 2^23 * 7 * 17 + 1.\nconstexpr int MOD2 = 167'772'161; \
     \   // 167'772'161 = 2^25 * 5 + 1.\nconstexpr int MOD3 = 469'762'049;    // 469'762'049\
@@ -176,7 +176,7 @@ data:
   isVerificationFile: false
   path: algorithm/Math/Convolution/number_theoretic_transform.hpp
   requiredBy: []
-  timestamp: '2025-08-10 09:02:12+00:00'
+  timestamp: '2025-08-31 12:36:13+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-convolution_mod-number_theoretic_transform.test.cpp

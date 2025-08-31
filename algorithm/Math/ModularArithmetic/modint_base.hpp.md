@@ -45,13 +45,17 @@ data:
 
     template <typename T>
 
-    struct is_modint : std::is_base_of<ModintBase, std::remove_cv_t<std::remove_reference_t<T>>>
-    {};
+    using is_modint = std::is_base_of<ModintBase, T>;
 
 
     template <typename T>
 
     inline constexpr bool is_modint_v = is_modint<T>::value;
+
+
+    template <typename T>
+
+    concept modint = is_modint_v<T>;
 
 
     }  // namespace algorithm
@@ -75,13 +79,17 @@ data:
 
     template <typename T>
 
-    struct is_modint : std::is_base_of<ModintBase, std::remove_cv_t<std::remove_reference_t<T>>>
-    {};
+    using is_modint = std::is_base_of<ModintBase, T>;
 
 
     template <typename T>
 
     inline constexpr bool is_modint_v = is_modint<T>::value;
+
+
+    template <typename T>
+
+    concept modint = is_modint_v<T>;
 
 
     }  // namespace algorithm
@@ -97,7 +105,7 @@ data:
   - algorithm/Math/Convolution/number_theoretic_transform.hpp
   - algorithm/Math/ModularArithmetic/dynamic_modint.hpp
   - algorithm/Math/ModularArithmetic/modint.hpp
-  timestamp: '2025-08-10 09:02:12+00:00'
+  timestamp: '2025-08-31 12:36:13+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-range_affine_range_sum-lazy_segment_tree.test.cpp
