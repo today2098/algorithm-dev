@@ -157,6 +157,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: algorithm/Math/ModularArithmetic/modint_base.hpp
       title: "Modint\u69CB\u9020\u4F53\u306E\u57FA\u5E95\u30AF\u30E9\u30B9"
+    - icon: ':heavy_check_mark:'
+      path: algorithm/Math/ModularArithmetic/modulo.hpp
+      title: algorithm/Math/ModularArithmetic/modulo.hpp
   - name: algorithm/Math/NumberTheory
     pages:
     - icon: ':heavy_check_mark:'
@@ -197,6 +200,10 @@ data:
       path: algorithm/Math/NumberTheory/sieve.hpp
       title: "Sieve of Eratosthenes\uFF08\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\
         \u306E\u7BE9\uFF09"
+    - icon: ':warning:'
+      path: algorithm/Math/NumberTheory/totient.hpp
+      title: "Euler's Totient Function\uFF08\u30AA\u30A4\u30E9\u30FC\u306E\u30C8\u30FC\
+        \u30B7\u30A7\u30F3\u30C8\u95A2\u6570\uFF09"
   - name: algorithm/Others
     pages:
     - icon: ':heavy_check_mark:'
