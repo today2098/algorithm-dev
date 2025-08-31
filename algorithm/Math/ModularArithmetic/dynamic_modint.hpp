@@ -2,45 +2,41 @@
 #define ALGORITHM_DYNAMIC_MODINT_HPP 1
 
 #include <cassert>
+#include <cstdint>
 #include <functional>
 #include <iostream>
 #include <utility>
 
+#include "mod_inv.hpp"
+#include "mod_pow.hpp"
 #include "modint_base.hpp"
+#include "modulo.hpp"
 
 namespace algorithm {
 
 template <int id>
-class DynamicModint : ModintBase {
-    static int mod;
-    long long val;
-
-    void normalize() {
-        if(val < -mod or mod <= val) val %= mod;
-        if(val < 0) val += mod;
-    }
+class DynamicModint : public ModintBase {
+    static std::uint32_t mod;
+    std::uint32_t val;
 
 public:
     DynamicModint() : val(0) {}
-    DynamicModint(long long val) : val(val) {
-        normalize();
-    }
+    template <std::integral Type>
+    DynamicModint(Type val) : val(::algorithm::internal::modulo(val, mod)) {}
 
     DynamicModint operator+() const { return DynamicModint(*this); }
     DynamicModint operator-() const {
         if(val == 0) DynamicModint();
-        DynamicModint res = *this;
-        res.val = mod - res.val;
-        return res;
+        return raw(mod - val);
     }
     DynamicModint &operator++() {
-        val++;
+        ++val;
         if(val == mod) val = 0;
         return *this;
     }
     DynamicModint &operator--() {
         if(val == 0) val = mod;
-        val--;
+        --val;
         return *this;
     }
     DynamicModint operator++(int) {
@@ -54,17 +50,17 @@ public:
         return res;
     }
     DynamicModint &operator+=(const DynamicModint &rhs) {
+        if(rhs.val >= mod - val) val -= mod;
         val += rhs.val;
-        if(val >= mod) val -= mod;
         return *this;
     }
     DynamicModint &operator-=(const DynamicModint &rhs) {
+        if(rhs.val > val) val += mod;
         val -= rhs.val;
-        if(val < 0) val += mod;
         return *this;
     }
     DynamicModint &operator*=(const DynamicModint &rhs) {
-        val = val * rhs.val % mod;
+        val = static_cast<std::uint64_t>(val) * rhs.val % mod;
         return *this;
     }
     DynamicModint &operator/=(const DynamicModint &rhs) { return *this *= rhs.inv(); }
@@ -75,36 +71,34 @@ public:
     friend DynamicModint operator*(const DynamicModint &lhs, const DynamicModint &rhs) { return DynamicModint(lhs) *= rhs; }
     friend DynamicModint operator/(const DynamicModint &lhs, const DynamicModint &rhs) { return DynamicModint(lhs) /= rhs; }
     friend std::istream &operator>>(std::istream &is, DynamicModint &rhs) {
-        is >> rhs.val;
-        rhs.normalize();
+        std::int64_t val;
+        is >> val;
+        rhs.val = ::algorithm::internal::modulo(val, mod);
         return is;
     }
     friend std::ostream &operator<<(std::ostream &os, const DynamicModint &rhs) { return os << rhs.val; }
 
     static constexpr int get_id() { return id; }
-    static int modulus() { return mod; }
-    static void set_modulus(int mod) {
+    static std::int32_t modulus() { return mod; }
+    static void set_modulus(std::int32_t mod) {
         assert(mod >= 1);
         DynamicModint::mod = mod;
     }
-    long long value() const { return val; }
+    static DynamicModint raw(std::uint32_t val) {
+        DynamicModint res;
+        res.val = val;
+        return res;
+    }
+
+    std::int64_t value() const { return val; }
     DynamicModint inv() const {
-        long long a = mod, b = val, u = 0, v = 1;
-        while(b != 0) {
-            long long t = a / b;
-            a -= b * t, u -= v * t;
-            std::swap(a, b), std::swap(u, v);
-        }
-        return DynamicModint(u);
+        auto [x, g] = ::algorithm::internal::mod_inv(val, mod);
+        assert(g == 1);
+        return raw(x);
     }
     DynamicModint pow(long long k) const {
-        if(k < 0) return inv().pow(-k);
-        DynamicModint res = 1, mul = *this;
-        for(; k > 0; k >>= 1) {
-            if(k & 1LL) res *= mul;
-            mul *= mul;
-        }
-        return res;
+        if(k < 0) return raw(::algorithm::internal::mod_pow(val, -k, mod)).inv();
+        return raw(::algorithm::internal::mod_pow(val, k, mod));
     }
 
     friend DynamicModint mod_inv(const DynamicModint &a) { return a.inv(); }
@@ -112,7 +106,7 @@ public:
 };
 
 template <int id>
-int DynamicModint<id>::mod = 1'000'000'007;
+std::uint32_t DynamicModint<id>::mod = 1'000'000'007;
 
 }  // namespace algorithm
 
